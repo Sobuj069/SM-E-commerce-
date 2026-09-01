@@ -72,81 +72,50 @@
     class="flex flex-col min-h-screen bg-app text-content-primary font-sans antialiased selection:bg-brand-primary selection:text-white transition-colors duration-200"
 >
 
-    <!-- Clean Modern Nano Announcement Banner -->
-    <div id="nano-banner" class="relative z-50 bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700 text-white shadow-xs overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 relative flex flex-wrap items-center justify-between gap-3 text-xs">
-            
-            <!-- Left: Nano Promo Info -->
-            <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 text-white font-bold text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
-                    ⚡ 2026 Deal
-                </span>
-                <p class="font-medium text-white/90 hidden sm:inline">
-                    Extra <strong class="text-amber-200 font-bold">20% OFF</strong> with code: 
-                    <span class="bg-white/15 px-2 py-0.5 rounded border border-white/20 font-mono text-amber-200 font-bold">SM20</span>
-                </p>
-            </div>
-
-            <!-- Center: Live Dynamic Countdown Timer -->
-            <div class="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
-                <span class="text-white/80 text-[11px]"><i class="fa-regular fa-clock mr-1 text-amber-300"></i> Flash Ends:</span>
-                <span id="nano-banner-timer" class="font-mono font-bold text-amber-200 text-xs tracking-wider">05:42:19</span>
-            </div>
-
-            <!-- Right: Action CTA & Close -->
-            <div class="flex items-center gap-3">
-                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="hidden md:inline-flex items-center gap-1 text-xs font-bold text-indigo-900 bg-white hover:bg-slate-100 px-3 py-1 rounded-lg transition duration-200 shadow-sm">
-                    Claim Deal <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </a>
-                <button onclick="document.getElementById('nano-banner').remove()" class="text-white/70 hover:text-white transition p-1" title="Close Banner">
-                    <i class="fa-solid fa-xmark text-xs"></i>
-                </button>
-            </div>
-
-        </div>
+    <!-- Gymshark Style Announcement Ticker Bar -->
+    <div id="nano-banner" class="bg-black text-white py-2.5 px-4 text-center text-[11px] font-black uppercase tracking-widest relative z-50 flex items-center justify-center gap-4">
+        <span>FREE STANDARD SHIPPING OVER $75 | 30-DAY EASY RETURNS | EXTRA 20% OFF CODE: <span class="text-amber-300">SM20</span></span>
     </div>
 
-    <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-40 bg-surface/90 backdrop-blur-xl border-b border-line-subtle shadow-xs transition duration-300">
+    <!-- Gymshark Pure White Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 shadow-none transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-4">
                 
-                <!-- Logo with 3D Effect -->
+                <!-- Gymshark Bold Brand Logo -->
                 <div class="flex items-center gap-8">
-                    <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                        <div class="w-12 h-12 bg-gradient-to-tr from-indigo-600 via-violet-600 to-indigo-400 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 group-hover:scale-110 group-hover:rotate-6 transition duration-300 transform-style-3d">
-                            <i class="fa-solid fa-cube text-xl translate-z-10"></i>
+                    <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
+                        <div class="w-9 h-9 bg-black rounded-lg flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition duration-200">
+                            <i class="fa-solid fa-cube text-lg"></i>
                         </div>
                         <div>
-                            <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">SM</span>
-                            <span class="text-2xl font-bold text-content-primary">Shop</span>
-                            <span class="block text-[10px] font-bold uppercase tracking-widest text-indigo-500 -mt-1">3D E-Commerce</span>
+                            <span class="text-2xl font-black tracking-tighter text-black uppercase">SM SHOP</span>
                         </div>
                     </a>
 
-                    <!-- Desktop Nav Links -->
-                    <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold text-content-secondary">
-                        <a href="{{ route('home') }}" class="hover:text-brand-primary transition {{ request()->routeIs('home') ? 'text-brand-primary font-bold' : '' }}">Home</a>
-                        <a href="{{ route('shop.index') }}" class="hover:text-brand-primary transition {{ request()->routeIs('shop.*') ? 'text-brand-primary font-bold' : '' }}">3D Catalog</a>
-                        <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-brand-primary transition">Tech & Gadgets</a>
-                        <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-brand-primary transition">Wearables</a>
-                        <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-brand-primary transition">Audio</a>
+                    <!-- Gymshark Desktop Nav Links -->
+                    <nav class="hidden lg:flex items-center gap-7 text-xs font-black uppercase tracking-widest text-black">
+                        <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 transition {{ request()->routeIs('shop.index') && !request('category') ? 'underline underline-offset-8 decoration-2' : '' }}">All Products</a>
+                        <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 transition {{ request('category') === 'electronics-gadgets' ? 'underline underline-offset-8 decoration-2' : '' }}">Tech & Gadgets</a>
+                        <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 transition {{ request('category') === 'fashion-apparel' ? 'underline underline-offset-8 decoration-2' : '' }}">Apparel</a>
+                        <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 transition {{ request('category') === 'smart-watches-wearables' ? 'underline underline-offset-8 decoration-2' : '' }}">Wearables</a>
+                        <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 transition {{ request('category') === 'audio-headphones' ? 'underline underline-offset-8 decoration-2' : '' }}">Audio</a>
+                        <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 transition">Sale 🔥</a>
                     </nav>
                 </div>
 
                 <!-- Search Bar -->
-                <div class="hidden md:flex flex-1 max-w-md mx-4">
+                <div class="hidden md:flex flex-1 max-w-sm mx-4">
                     <form action="{{ route('shop.index') }}" method="GET" class="w-full relative group">
                         <input 
                             type="text" 
                             name="q" 
                             value="{{ request('q') }}"
-                            placeholder="Search next-gen 3D tech, gadgets, styles..." 
-                            class="w-full pl-11 pr-4 py-2.5 bg-surface-elevated border border-line-subtle rounded-2xl text-xs font-bold text-content-primary focus:outline-none focus:ring-2 focus:ring-brand-primary focus:bg-surface transition duration-200 shadow-inner"
+                            placeholder="SEARCH PRODUCTS..." 
+                            class="w-full pl-10 pr-4 py-2 bg-zinc-100 border border-transparent rounded-full text-xs font-bold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black transition duration-200 uppercase"
                         >
-                        <button type="submit" class="absolute left-4 top-1/2 -translate-y-1/2 text-content-muted group-hover:text-brand-primary transition">
-                            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                        <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-black transition">
+                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
                         </button>
                     </form>
                 </div>
@@ -324,80 +293,67 @@
         @yield('content')
     </main>
 
-    <!-- Modern Light Clean Footer -->
-    <footer class="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 mt-20 border-t border-slate-200/80 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-                
-                <!-- About Column -->
-                <div class="lg:col-span-2 space-y-4">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
-                            <i class="fa-solid fa-cube text-lg"></i>
-                        </div>
-                        <span class="text-2xl font-bold text-slate-900 dark:text-white">SM Shop 3D</span>
-                    </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
-                        Your trusted next-gen 2026 e-commerce platform for cutting-edge electronics, fashion, smart wearables, and spatial audio gear.
-                    </p>
-                    <div class="flex items-center gap-3 pt-2 text-slate-500">
-                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-xs"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-twitter text-xs"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-instagram text-xs"></i></a>
-                        <a href="https://github.com/Sobuj069/SM-E-commerce-" target="_blank" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-github text-xs"></i></a>
-                    </div>
-                </div>
+    <!-- Gymshark Newsletter Bar -->
+    <div class="bg-zinc-100 border-t border-zinc-200 py-12 mt-20">
+        <div class="max-w-3xl mx-auto px-4 text-center space-y-4">
+            <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-black">BE THE FIRST TO KNOW</h3>
+            <p class="text-xs text-zinc-600 uppercase tracking-wider font-semibold">Sign up for exclusive 3D drops, early sale access, and 20% off your first order.</p>
+            <form action="#" onsubmit="event.preventDefault(); alert('Subscribed! Use code SM20 for 20% off.');" class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-2">
+                <input type="email" placeholder="ENTER YOUR EMAIL..." class="flex-1 px-5 py-3.5 bg-white border border-zinc-300 rounded-full text-xs font-bold uppercase placeholder-zinc-400 focus:outline-none focus:border-black" required>
+                <button type="submit" class="bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-widest px-8 py-3.5 rounded-full transition cursor-pointer">SIGN UP</button>
+            </form>
+        </div>
+    </div>
 
-                <!-- Quick Links -->
+    <!-- Gymshark Clean Structured Footer -->
+    <footer class="bg-white text-zinc-900 border-t border-zinc-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Quick Links</h4>
-                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
-                        <li><a href="{{ route('home') }}" class="hover:text-indigo-600 dark:hover:text-white transition">Home</a></li>
-                        <li><a href="{{ route('shop.index') }}" class="hover:text-indigo-600 dark:hover:text-white transition">3D Catalog</a></li>
-                        <li><a href="{{ route('cart.index') }}" class="hover:text-indigo-600 dark:hover:text-white transition">Shopping Cart</a></li>
-                        <li><a href="{{ route('checkout.index') }}" class="hover:text-indigo-600 dark:hover:text-white transition">Secure Checkout</a></li>
-                        <li><a href="{{ route('admin.dashboard') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline transition font-bold">Admin Panel</a></li>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-black mb-4">HELP & SUPPORT</h4>
+                    <ul class="space-y-2 text-xs font-bold text-zinc-600 uppercase">
+                        <li><a href="#" class="hover:text-black transition">FAQ & Orders</a></li>
+                        <li><a href="#" class="hover:text-black transition">Delivery Info</a></li>
+                        <li><a href="#" class="hover:text-black transition">Returns Policy</a></li>
+                        <li><a href="#" class="hover:text-black transition">Contact Us</a></li>
                     </ul>
                 </div>
-
-                <!-- Categories -->
                 <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Collections</h4>
-                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
-                        <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Electronics</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Fashion</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Smart Watches</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Audio Gear</a></li>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-black mb-4">PAGES</h4>
+                    <ul class="space-y-2 text-xs font-bold text-zinc-600 uppercase">
+                        <li><a href="{{ route('home') }}" class="hover:text-black transition">Home</a></li>
+                        <li><a href="{{ route('shop.index') }}" class="hover:text-black transition">3D Catalog</a></li>
+                        <li><a href="{{ route('cart.index') }}" class="hover:text-black transition">Shopping Bag</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}" class="hover:text-black transition">Admin Portal</a></li>
                     </ul>
                 </div>
-
-                <!-- Contact & Support -->
                 <div>
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Contact Info</h4>
-                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
-                        <li class="flex items-start gap-2.5">
-                            <i class="fa-solid fa-location-dot mt-1 text-indigo-600"></i>
-                            <span>Dhaka, Bangladesh</span>
-                        </li>
-                        <li class="flex items-center gap-2.5">
-                            <i class="fa-solid fa-envelope text-indigo-600"></i>
-                            <span>support&#64;smcloudit.top</span>
-                        </li>
-                        <li class="flex items-center gap-2.5">
-                            <i class="fa-solid fa-phone text-indigo-600"></i>
-                            <span>+880 1700-000000</span>
-                        </li>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-black mb-4">COLLECTIONS</h4>
+                    <ul class="space-y-2 text-xs font-bold text-zinc-600 uppercase">
+                        <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-black transition">Tech & Gadgets</a></li>
+                        <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-black transition">Apparel</a></li>
+                        <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-black transition">Smart Wearables</a></li>
+                        <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-black transition">Audio Gear</a></li>
                     </ul>
                 </div>
-
+                <div>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-black mb-4">MORE ABOUT US</h4>
+                    <ul class="space-y-2 text-xs font-bold text-zinc-600 uppercase">
+                        <li><a href="#" class="hover:text-black transition">3D Tech Innovation</a></li>
+                        <li><a href="#" class="hover:text-black transition">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-black transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-black transition">About SM Group</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-                <p>&copy; 2026 SM Shop 3D E-Commerce. Powered by Laravel 12 & Tailwind CSS v4.</p>
-                <div class="flex items-center gap-6">
-                    <span class="hover:text-slate-600">Privacy Policy</span>
-                    <span class="hover:text-slate-600">Terms of Service</span>
-                    <span class="hover:text-slate-600">256-Bit SSL Security</span>
+            <div class="mt-12 pt-6 border-t border-zinc-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-bold uppercase text-zinc-500">
+                <p>&copy; 2026 SM SHOP 3D. ALL RIGHTS RESERVED.</p>
+                <div class="flex items-center gap-4 text-sm text-black">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
         </div>

@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
-@section('title', ($selectedCategory ? $selectedCategory->name . ' - ' : '') . '3D Catalog & Shop - SM Shop')
+@section('title', ($selectedCategory ? $selectedCategory->name . ' - ' : '') . 'Catalog - SM Shop')
 
 @section('content')
 <!-- Catalog Header Strip -->
-<div class="bg-surface border-b border-line-subtle py-8 transition-colors duration-200">
+<div class="bg-zinc-100 border-b border-zinc-200 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <nav class="flex text-xs font-semibold text-content-muted gap-2 mb-2">
-                    <a href="{{ route('home') }}" class="hover:text-brand-primary">Home</a>
+                <nav class="flex text-[11px] font-bold text-zinc-500 uppercase tracking-wider gap-2 mb-2">
+                    <a href="{{ route('home') }}" class="hover:text-black">HOME</a>
                     <span>/</span>
-                    <a href="{{ route('shop.index') }}" class="hover:text-brand-primary">Shop</a>
+                    <a href="{{ route('shop.index') }}" class="hover:text-black">SHOP</a>
                     @if($selectedCategory)
                         <span>/</span>
-                        <span class="text-content-primary font-bold">{{ $selectedCategory->name }}</span>
+                        <span class="text-black">{{ $selectedCategory->name }}</span>
                     @endif
                 </nav>
-                <h1 class="text-2xl sm:text-3xl font-black text-content-primary">
-                    {{ $selectedCategory ? $selectedCategory->name : (request('q') ? 'Search Results for "' . request('q') . '"' : 'Explore 3D Collection') }}
+                <h1 class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">
+                    {{ $selectedCategory ? $selectedCategory->name : (request('q') ? 'SEARCH: "' . request('q') . '"' : 'ALL PRODUCTS') }}
                 </h1>
-                <p class="text-xs sm:text-sm text-content-muted mt-1">
-                    Showing {{ $products->firstItem() ?? 0 }}-{{ $products->lastItem() ?? 0 }} of {{ $products->total() }} items
+                <p class="text-xs text-zinc-500 uppercase tracking-wider font-semibold mt-1">
+                    {{ $products->total() }} PRODUCTS AVAILABLE
                 </p>
             </div>
 
@@ -34,18 +34,18 @@
                 @if(request('min_rating')) <input type="hidden" name="min_rating" value="{{ request('min_rating') }}"> @endif
                 @if(request('in_stock')) <input type="hidden" name="in_stock" value="1"> @endif
 
-                <label for="sort" class="text-xs font-bold text-content-secondary whitespace-nowrap">Sort By:</label>
+                <label for="sort" class="text-xs font-black uppercase tracking-wider text-black whitespace-nowrap">SORT BY:</label>
                 <select 
                     name="sort" 
                     id="sort" 
                     onchange="this.form.submit()" 
-                    class="bg-surface-elevated border border-line-subtle text-xs font-bold rounded-2xl px-4 py-2.5 text-content-primary focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                    class="bg-white border border-zinc-300 text-xs font-bold uppercase rounded-full px-4 py-2 text-black focus:outline-none focus:border-black"
                 >
-                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Newest Drops</option>
-                    <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price: Low to High</option>
-                    <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price: High to Low</option>
-                    <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>Highest Rated (5★)</option>
-                    <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Most Popular</option>
+                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>NEWEST</option>
+                    <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>PRICE: LOW TO HIGH</option>
+                    <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>PRICE: HIGH TO LOW</option>
+                    <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>TOP RATED</option>
+                    <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>MOST POPULAR</option>
                 </select>
             </form>
         </div>
@@ -59,18 +59,18 @@
         <div class="space-y-6">
             
             <!-- Category Filter Box -->
-            <div class="bg-surface rounded-3xl border border-line-subtle p-6 shadow-xs transition-colors duration-200">
-                <h3 class="font-black text-content-primary text-xs uppercase tracking-wider mb-4 pb-2 border-b border-line-subtle flex items-center justify-between">
-                    <span>Category</span>
-                    <i class="fa-solid fa-list-ul text-content-muted text-xs"></i>
+            <div class="bg-white rounded-2xl border border-zinc-200 p-6 shadow-xs">
+                <h3 class="font-black text-black text-xs uppercase tracking-widest mb-4 pb-2 border-b border-zinc-200 flex items-center justify-between">
+                    <span>COLLECTION</span>
+                    <i class="fa-solid fa-list-ul text-zinc-400 text-xs"></i>
                 </h3>
                 <ul class="space-y-1.5">
                     <li>
                         <a 
                             href="{{ route('shop.index', request()->except('category', 'page')) }}" 
-                            class="flex items-center justify-between px-3.5 py-2 rounded-2xl text-xs font-bold transition {{ !request('category') ? 'bg-brand-primary text-white shadow-md' : 'text-content-secondary hover:bg-surface-elevated hover:text-content-primary' }}"
+                            class="flex items-center justify-between px-3.5 py-2 rounded-full text-xs font-bold uppercase transition {{ !request('category') ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100 hover:text-black' }}"
                         >
-                            <span>All Categories</span>
+                            <span>ALL PRODUCTS</span>
                             <span class="text-[11px] opacity-80">{{ $categories->sum('products_count') }}</span>
                         </a>
                     </li>
@@ -78,7 +78,7 @@
                         <li>
                             <a 
                                 href="{{ route('shop.index', array_merge(request()->except('page'), ['category' => $cat->slug])) }}" 
-                                class="flex items-center justify-between px-3.5 py-2 rounded-2xl text-xs font-bold transition {{ request('category') == $cat->slug ? 'bg-brand-primary text-white shadow-md' : 'text-content-secondary hover:bg-surface-elevated hover:text-content-primary' }}"
+                                class="flex items-center justify-between px-3.5 py-2 rounded-full text-xs font-bold uppercase transition {{ request('category') == $cat->slug ? 'bg-black text-white' : 'text-zinc-700 hover:bg-zinc-100 hover:text-black' }}"
                             >
                                 <span>{{ $cat->name }}</span>
                                 <span class="text-[11px] opacity-80">{{ $cat->products_count }}</span>
@@ -89,10 +89,10 @@
             </div>
 
             <!-- Multi-Attribute Filters Form -->
-            <div class="bg-surface rounded-3xl border border-line-subtle p-6 shadow-xs space-y-6 transition-colors duration-200">
-                <h3 class="font-black text-content-primary text-xs uppercase tracking-wider pb-2 border-b border-line-subtle flex items-center justify-between">
-                    <span>Filters</span>
-                    <i class="fa-solid fa-sliders text-content-muted text-xs"></i>
+            <div class="bg-white rounded-2xl border border-zinc-200 p-6 shadow-xs space-y-6">
+                <h3 class="font-black text-black text-xs uppercase tracking-widest pb-2 border-b border-zinc-200 flex items-center justify-between">
+                    <span>FILTERS</span>
+                    <i class="fa-solid fa-sliders text-zinc-400 text-xs"></i>
                 </h3>
 
                 <form action="{{ route('shop.index') }}" method="GET" class="space-y-6">
@@ -102,78 +102,47 @@
 
                     <!-- Price Range -->
                     <div>
-                        <label class="text-xs font-black text-content-primary uppercase tracking-wider block mb-2">
-                            Price Range ($)
+                        <label class="text-xs font-black text-black uppercase tracking-wider block mb-2">
+                            PRICE RANGE ($)
                         </label>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <input 
                                     type="number" 
                                     name="min_price" 
-                                    placeholder="Min" 
+                                    placeholder="MIN" 
                                     value="{{ request('min_price') }}"
-                                    class="w-full px-3 py-2 rounded-xl border border-line-subtle bg-surface-elevated text-xs font-bold text-content-primary focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                                    class="w-full px-3 py-2 rounded-xl border border-zinc-300 bg-white text-xs font-bold text-black uppercase focus:outline-none focus:border-black"
                                 >
                             </div>
                             <div>
                                 <input 
                                     type="number" 
                                     name="max_price" 
-                                    placeholder="Max" 
+                                    placeholder="MAX" 
                                     value="{{ request('max_price') }}"
-                                    class="w-full px-3 py-2 rounded-xl border border-line-subtle bg-surface-elevated text-xs font-bold text-content-primary focus:outline-none focus:ring-2 focus:ring-brand-primary"
+                                    class="w-full px-3 py-2 rounded-xl border border-zinc-300 bg-white text-xs font-bold text-black uppercase focus:outline-none focus:border-black"
                                 >
                             </div>
                         </div>
                     </div>
 
-                    <!-- Minimum Star Rating -->
-                    <div>
-                        <label class="text-xs font-black text-content-primary uppercase tracking-wider block mb-2">
-                            Minimum Rating
-                        </label>
-                        <div class="space-y-1.5">
-                            <label class="flex items-center gap-2 text-xs font-bold text-content-secondary cursor-pointer">
-                                <input type="radio" name="min_rating" value="" {{ !request('min_rating') ? 'checked' : '' }} class="text-brand-primary focus:ring-0">
-                                <span>All Ratings</span>
-                            </label>
-                            <label class="flex items-center gap-2 text-xs font-bold text-content-secondary cursor-pointer">
-                                <input type="radio" name="min_rating" value="4.5" {{ request('min_rating') == '4.5' ? 'checked' : '' }} class="text-brand-primary focus:ring-0">
-                                <span class="text-amber-400">★★★★★</span>
-                                <span>4.5 & Up</span>
-                            </label>
-                            <label class="flex items-center gap-2 text-xs font-bold text-content-secondary cursor-pointer">
-                                <input type="radio" name="min_rating" value="4.0" {{ request('min_rating') == '4.0' ? 'checked' : '' }} class="text-brand-primary focus:ring-0">
-                                <span class="text-amber-400">★★★★☆</span>
-                                <span>4.0 & Up</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Stock Availability Toggle -->
-                    <div class="pt-2 border-t border-line-subtle">
-                        <label class="flex items-center gap-2.5 text-xs font-bold text-content-primary cursor-pointer">
-                            <input type="checkbox" name="in_stock" value="1" {{ request('in_stock') ? 'checked' : '' }} class="rounded text-brand-primary focus:ring-0">
-                            <span>In Stock Items Only</span>
-                        </label>
-                    </div>
-
                     <div class="pt-2 flex gap-2">
-                        <x-button variant="primary" size="sm" type="submit" :fullWidth="true">
-                            Apply Filters
-                        </x-button>
-                        <a href="{{ route('shop.index') }}" class="px-3 py-2 rounded-xl border border-line-subtle text-xs font-bold text-content-secondary hover:text-content-primary hover:bg-surface-elevated transition flex items-center justify-center">
-                            Reset
+                        <button type="submit" class="flex-1 bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-widest py-2.5 rounded-full transition cursor-pointer">
+                            APPLY
+                        </button>
+                        <a href="{{ route('shop.index') }}" class="px-4 py-2.5 rounded-full border border-zinc-300 text-xs font-black uppercase text-black hover:bg-zinc-100 transition flex items-center justify-center">
+                            RESET
                         </a>
                     </div>
                 </form>
             </div>
 
-            <!-- Nano Voucher Callout -->
-            <div class="p-6 rounded-3xl bg-gradient-to-br from-indigo-950 via-slate-900 to-violet-950 text-white border border-white/10 space-y-3">
-                <x-badge variant="featured" size="sm">⚡ 20% Instant Code</x-badge>
-                <h4 class="text-base font-black">Use Coupon "SM20"</h4>
-                <p class="text-xs text-slate-300">Apply at checkout to claim instant 20% savings on orders over $50.</p>
+            <!-- Gymshark Voucher Callout -->
+            <div class="p-6 rounded-2xl bg-black text-white space-y-2">
+                <span class="text-[10px] font-black uppercase tracking-widest text-amber-300">⚡ MEMBER VOUCHER</span>
+                <h4 class="text-base font-black uppercase tracking-tight">USE CODE: SM20</h4>
+                <p class="text-xs text-zinc-400 leading-relaxed uppercase font-semibold">GET 20% OFF AT CHECKOUT ON ORDERS OVER $50.</p>
             </div>
 
         </div>
@@ -181,54 +150,41 @@
         <!-- Product Grid Area -->
         <div class="lg:col-span-3">
             @if($products->count() > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                     @foreach($products as $product)
-                        <x-card variant="product" :hover3d="true" :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)">
+                        <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
                             <x-slot:badges>
                                 @if($product->has_discount)
                                     <x-badge variant="discount">-{{ $product->discount_percent }}% OFF</x-badge>
                                 @endif
                                 @if($product->is_featured)
-                                    <x-badge variant="featured">⚡ 3D Ready</x-badge>
+                                    <x-badge variant="featured">NEW</x-badge>
                                 @endif
                             </x-slot:badges>
 
                             <div>
-                                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">
-                                    {{ $product->category->name ?? 'General' }}
-                                </span>
-                                <h3 class="font-bold text-slate-900 dark:text-white text-base mt-0.5 line-clamp-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                <div class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider">
+                                    {{ $product->category->name ?? 'GEAR' }}
+                                </div>
+                                <h3 class="font-bold text-black text-xs sm:text-sm uppercase tracking-tight mt-0.5 line-clamp-1 group-hover:underline">
                                     <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                 </h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1 leading-relaxed">
+                                <p class="text-[11px] text-zinc-500 line-clamp-1 mt-0.5">
                                     {{ $product->short_description }}
                                 </p>
                             </div>
 
                             <x-slot:footer>
                                 <div class="flex items-center justify-between">
-                                    <x-rating :value="$product->rating" :count="$product->reviews_count" size="xs" />
-                                    <div class="text-right">
+                                    <div>
                                         @if($product->has_discount)
-                                            <span class="text-xs text-slate-400 line-through mr-1 font-semibold">${{ number_format($product->price, 2) }}</span>
-                                            <span class="text-lg font-extrabold text-rose-600 dark:text-rose-400">${{ number_format($product->sale_price, 2) }}</span>
+                                            <span class="text-xs text-zinc-400 line-through mr-1 font-semibold">${{ number_format($product->price, 2) }}</span>
+                                            <span class="text-sm sm:text-base font-black text-red-600">${{ number_format($product->sale_price, 2) }}</span>
                                         @else
-                                            <span class="text-lg font-extrabold text-slate-900 dark:text-white">${{ number_format($product->price, 2) }}</span>
+                                            <span class="text-sm sm:text-base font-black text-black">${{ number_format($product->price, 2) }}</span>
                                         @endif
                                     </div>
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-2">
-                                    <x-button variant="outline" size="sm" href="{{ route('product.show', $product->slug) }}" icon="fa-solid fa-cube">
-                                        3D View
-                                    </x-button>
-                                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="quantity" value="1">
-                                        <x-button variant="primary" size="sm" type="submit" :fullWidth="true" icon="fa-solid fa-cart-plus">
-                                            Cart
-                                        </x-button>
-                                    </form>
+                                    <x-rating :value="$product->rating" size="xs" />
                                 </div>
                             </x-slot:footer>
                         </x-card>
@@ -240,14 +196,14 @@
                     {{ $products->links() }}
                 </div>
             @else
-                <div class="text-center py-20 bg-surface rounded-3xl border border-line-subtle p-8 space-y-4">
-                    <div class="w-16 h-16 rounded-full bg-surface-elevated text-content-muted flex items-center justify-center text-2xl mx-auto">
+                <div class="text-center py-20 bg-white rounded-2xl border border-zinc-200 p-8 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center text-2xl mx-auto">
                         <i class="fa-solid fa-box-open"></i>
                     </div>
-                    <h3 class="text-xl font-black text-content-primary">No Products Found</h3>
-                    <p class="text-xs text-content-secondary max-w-sm mx-auto">We couldn't find any products matching your current filters. Try changing or clearing your filter selections.</p>
+                    <h3 class="text-xl font-black text-black uppercase">NO PRODUCTS FOUND</h3>
+                    <p class="text-xs text-zinc-500 uppercase font-semibold max-w-sm mx-auto">Try clearing your filters to explore our full range.</p>
                     <x-button variant="primary" size="md" href="{{ route('shop.index') }}">
-                        Reset All Filters
+                        RESET FILTERS
                     </x-button>
                 </div>
             @endif
