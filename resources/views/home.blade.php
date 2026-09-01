@@ -4,92 +4,57 @@
 
 @section('content')
 <!-- =========================================================================
-     1. GYMSHARK HIGH-IMPACT HERO BANNER
+     1. GYMSHARK HIGH-IMPACT FULL-WIDTH HERO BANNER (USING GENERATED HERO IMAGE)
      ========================================================================= -->
-<section class="relative bg-zinc-100 overflow-hidden py-20 lg:py-32 border-b border-zinc-200">
-    <!-- WebGL Particle Canvas (Soft Ambient) -->
-    <div id="hero-3d-canvas" class="absolute inset-0 z-0 pointer-events-none opacity-30"></div>
+<section class="relative min-h-[550px] lg:min-h-[720px] flex items-center bg-zinc-950 overflow-hidden text-white">
+    <img 
+        src="{{ asset('images/gymshark_hero_banner.jpg') }}" 
+        alt="Gymshark Hero" 
+        class="absolute inset-0 w-full h-full object-cover object-center opacity-85"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent lg:bg-gradient-to-r lg:from-black/85 lg:via-black/40 lg:to-transparent"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 w-full">
+        <div class="max-w-xl space-y-6 text-left">
             
-            <!-- Left: High-Impact Typography & Dual CTA Pills -->
-            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                
-                <div class="inline-flex items-center gap-2">
-                    <x-badge variant="featured" size="sm">
-                        NEW COLLECTION 2026
-                    </x-badge>
-                </div>
-                
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05] text-black uppercase">
-                    ENGINEERED <br class="hidden sm:inline">
-                    FOR TECH & STYLE
-                </h1>
-                
-                <p class="text-sm sm:text-base text-zinc-600 max-w-lg mx-auto lg:mx-0 uppercase tracking-wider font-semibold leading-relaxed">
-                    Interactive 3D product previews. Next-generation electronics, spatial audio, and high-performance lifestyle essentials.
-                </p>
+            <div class="inline-flex items-center gap-2">
+                <span class="inline-flex items-center px-3 py-1 bg-white text-black text-[10px] font-black uppercase tracking-widest">
+                    NEW 2026 COLLECTION
+                </span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-white uppercase">
+                ENGINEERED <br>
+                FOR PROGRESS
+            </h1>
+            
+            <p class="text-xs sm:text-sm text-zinc-300 uppercase tracking-widest font-semibold leading-relaxed">
+                Next-Gen 3D Tech, Spatial Audio, & High-Performance Activewear. Interactive 3D modeling and instant express checkout.
+            </p>
 
-                <!-- Dual Gymshark CTA Buttons -->
-                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-4">
-                    <x-button variant="primary" size="lg" href="{{ route('shop.index') }}">
-                        SHOP ALL PRODUCTS
-                    </x-button>
-                    <x-button variant="outline" size="lg" href="{{ route('shop.index', ['sort' => 'popular']) }}">
-                        EXPLORE 3D DEALS
-                    </x-button>
-                </div>
-
-                <!-- Minimalist Perks Strip -->
-                <div class="grid grid-cols-3 gap-6 pt-10 border-t border-zinc-300 max-w-lg mx-auto lg:mx-0 text-left">
-                    <div>
-                        <div class="text-2xl font-black text-black uppercase">100%</div>
-                        <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-0.5">AUTHENTIC GEAR</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-black text-black uppercase">FREE</div>
-                        <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-0.5">SHIPPING OVER $75</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-black text-black uppercase">30-DAY</div>
-                        <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-0.5">EASY RETURNS</div>
-                    </div>
-                </div>
-
+            <!-- Dual Gymshark CTA Pill Buttons -->
+            <div class="flex flex-wrap gap-4 pt-2">
+                <a href="{{ route('shop.index') }}" class="bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition shadow-lg cursor-pointer">
+                    SHOP ALL TECH
+                </a>
+                <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="bg-black/60 hover:bg-black text-white border-2 border-white text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition backdrop-blur-md cursor-pointer">
+                    SHOP APPAREL
+                </a>
             </div>
 
-            <!-- Right: High-Impact Featured 3D Showcase -->
-            <div class="lg:col-span-5 relative">
-                <div class="relative mx-auto max-w-md rounded-2xl overflow-hidden bg-white shadow-xl border border-zinc-200 group">
-                    <div class="aspect-[3/4] w-full overflow-hidden bg-[#f4f4f5] relative">
-                        <img 
-                            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" 
-                            alt="Pro Studio Audio ANC" 
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        >
-                        <div class="absolute top-3 left-3">
-                            <x-badge variant="discount" size="sm">-20% OFF</x-badge>
-                        </div>
-                        <div class="absolute top-3 right-3 bg-black text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest">
-                            <i class="fa-solid fa-cube mr-1"></i> 3D READY
-                        </div>
-                    </div>
-
-                    <div class="p-6 space-y-3 bg-white border-t border-zinc-100">
-                        <div class="text-[11px] font-bold uppercase tracking-wider text-zinc-500">STUDIO AUDIO | TITANIUM SERIES</div>
-                        <h3 class="text-lg font-black text-black uppercase tracking-tight">PRO WIRELESS STUDIO ANC</h3>
-                        
-                        <div class="flex items-center justify-between pt-2">
-                            <div>
-                                <span class="text-xs text-zinc-400 line-through mr-1 font-semibold">$299.99</span>
-                                <span class="text-xl font-black text-black">$249.99</span>
-                            </div>
-                            <x-button variant="primary" size="sm" href="{{ route('product.show', 'pro-wireless-noise-cancelling-headphones') }}">
-                                VIEW IN 3D
-                            </x-button>
-                        </div>
-                    </div>
+            <!-- Minimalist Perks Strip -->
+            <div class="grid grid-cols-3 gap-6 pt-10 border-t border-white/20 max-w-lg text-left">
+                <div>
+                    <div class="text-2xl font-black text-white uppercase">100%</div>
+                    <div class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">AUTHENTIC GEAR</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-black text-white uppercase">FREE</div>
+                    <div class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">SHIPPING OVER $75</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-black text-white uppercase">30-DAY</div>
+                    <div class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mt-0.5">EASY RETURNS</div>
                 </div>
             </div>
 
@@ -374,7 +339,34 @@
 </section>
 
 <!-- =========================================================================
-     5. GYMSHARK COMMUNITY & TESTIMONIALS
+     5. GYMSHARK CAMPAIGN SPOTLIGHT BANNER (USING GENERATED CAMPAIGN BANNER IMAGE)
+     ========================================================================= -->
+<section class="relative min-h-[480px] lg:min-h-[550px] flex items-center bg-zinc-950 text-white overflow-hidden my-12">
+    <img 
+        src="{{ asset('images/gymshark_campaign_banner.jpg') }}" 
+        alt="Gymshark Campaign" 
+        class="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+    >
+    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent lg:bg-gradient-to-r lg:from-black/85 lg:via-black/50 lg:to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 w-full">
+        <div class="max-w-xl space-y-4 text-left">
+            <span class="text-[10px] font-black uppercase tracking-widest text-amber-300">SEAMLESS FIT & PRECISION TECH</span>
+            <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">ACTIVE TECHWEAR & WEARABLES</h2>
+            <p class="text-xs sm:text-sm text-zinc-300 uppercase tracking-wider font-semibold leading-relaxed">
+                Engineered with breathable thermal fabrics, biometric performance tracking, and lightweight ergonomic form.
+            </p>
+            <div class="pt-4">
+                <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="inline-block bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition shadow-xl cursor-pointer">
+                    EXPLORE COLLECTION
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================================
+     6. GYMSHARK COMMUNITY & TESTIMONIALS
      ========================================================================= -->
 <section class="py-16 bg-white border-t border-zinc-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -418,7 +410,7 @@
 </section>
 
 <!-- =========================================================================
-     6. GYMSHARK HIGH-CONTRAST VIP MEMBER BANNER
+     7. GYMSHARK HIGH-CONTRAST VIP MEMBER BANNER
      ========================================================================= -->
 <section class="py-16 bg-black text-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
