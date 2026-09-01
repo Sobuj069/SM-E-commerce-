@@ -46,8 +46,8 @@
             @endif
 
             <!-- Top Right: Wishlist Heart -->
-            <button type="button" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-zinc-800 hover:text-red-600 hover:scale-110 transition shadow-xs z-10" title="Add to Wishlist">
-                <i class="fa-regular fa-heart text-xs"></i>
+            <button type="button" aria-label="Add {{ $imageAlt ?? 'Product' }} to Wishlist" title="Add to Wishlist" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-zinc-800 hover:text-red-600 hover:scale-110 transition shadow-xs z-10 cursor-pointer">
+                <i class="fa-regular fa-heart text-xs" aria-hidden="true"></i>
             </button>
 
             <!-- Gymshark Size Selector Quick-Add Slide-up on Hover -->

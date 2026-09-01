@@ -71,22 +71,22 @@
     class="flex flex-col min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white transition-colors duration-200"
 >
 
-    <!-- Top Announcement Ticker Bar (Readable 12px Baseline) -->
+    <!-- Top Announcement Ticker Bar (Accessible 12px Baseline) -->
     <div id="nano-banner" class="bg-black text-white py-2.5 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
         <span>Free standard shipping over $75 | 30-day easy returns | Code: <span class="text-amber-300 font-black">SM20</span></span>
     </div>
 
-    <!-- Gymshark Navigation Header -->
+    <!-- Navigation Header -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-4">
                 
                 <!-- Modern Brand Logo -->
                 <div class="flex items-center gap-8">
-                    <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                    <a href="{{ route('home') }}" class="flex items-center gap-3 group" aria-label="SM Shop 3D Home">
                         <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300">
                             <!-- Geometric 3D Polygon Logo -->
-                            <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                             </svg>
                         </div>
@@ -117,18 +117,26 @@
                     </nav>
                 </div>
 
-                <!-- Expanded Search Bar -->
+                <!-- Expanded Search Bar (WCAG 2.2 Accessible Button & 24px+ Touch Target) -->
                 <div class="hidden md:flex flex-1 max-w-xs lg:max-w-sm mx-2">
-                    <form action="{{ route('shop.index') }}" method="GET" class="w-full relative group">
+                    <form action="{{ route('shop.index') }}" method="GET" class="w-full relative group" role="search">
+                        <label for="header-search-input" class="sr-only">Search products</label>
                         <input 
+                            id="header-search-input"
                             type="text" 
                             name="q" 
                             value="{{ request('q') }}"
                             placeholder="Search products..." 
-                            class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-semibold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200"
+                            class="w-full pl-11 pr-4 py-2.5 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-semibold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200"
                         >
-                        <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-black transition">
-                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                        <button 
+                            type="submit" 
+                            aria-label="Submit search" 
+                            title="Search" 
+                            class="absolute left-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-black transition cursor-pointer"
+                        >
+                            <i class="fa-solid fa-magnifying-glass text-xs" aria-hidden="true"></i>
+                            <span class="sr-only">Search</span>
                         </button>
                     </form>
                 </div>
@@ -141,8 +149,8 @@
                 <div class="flex items-center gap-2 sm:gap-4">
                     
                     <!-- Wishlist Icon -->
-                    <a href="{{ route('shop.index') }}" class="p-2 text-black hover:text-zinc-500 transition" title="Wishlist">
-                        <i class="fa-regular fa-heart text-lg"></i>
+                    <a href="{{ route('shop.index') }}" class="p-2 text-black hover:text-zinc-500 transition" title="Wishlist" aria-label="View Wishlist">
+                        <i class="fa-regular fa-heart text-lg" aria-hidden="true"></i>
                     </a>
 
                     <!-- Cart Bag Trigger -->
@@ -151,8 +159,9 @@
                         x-on:click="drawerOpen = true"
                         class="relative p-2 text-black hover:text-zinc-500 transition flex items-center gap-1.5 cursor-pointer"
                         title="Shopping Bag"
+                        aria-label="Open Shopping Bag ({{ $cartCount }} items)"
                     >
-                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <i class="fa-solid fa-bag-shopping text-xl" aria-hidden="true"></i>
                         @if($cartCount > 0)
                             <span id="nav-cart-badge" class="bg-black text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                                 {{ $cartCount }}
@@ -170,8 +179,9 @@
                         type="button" 
                         x-on:click="mobileMenuOpen = !mobileMenuOpen"
                         class="xl:hidden p-2 text-black hover:text-zinc-500 transition"
+                        aria-label="Toggle mobile menu"
                     >
-                        <i class="fa-solid fa-bars text-xl"></i>
+                        <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
                     </button>
                 </div>
 
@@ -180,16 +190,24 @@
 
         <!-- Mobile Navigation Dropdown -->
         <div x-show="mobileMenuOpen" class="xl:hidden bg-white border-t border-zinc-200 px-4 py-6 space-y-4 shadow-xl" style="display: none;">
-            <form action="{{ route('shop.index') }}" method="GET" class="w-full relative mb-4">
+            <form action="{{ route('shop.index') }}" method="GET" class="w-full relative mb-4" role="search">
+                <label for="mobile-search-input" class="sr-only">Search products</label>
                 <input 
+                    id="mobile-search-input"
                     type="text" 
                     name="q" 
                     value="{{ request('q') }}"
                     placeholder="Search products..." 
-                    class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-semibold text-black"
+                    class="w-full pl-11 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-semibold text-black"
                 >
-                <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500">
-                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                <button 
+                    type="submit" 
+                    aria-label="Submit search" 
+                    title="Search" 
+                    class="absolute left-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-zinc-500 cursor-pointer"
+                >
+                    <i class="fa-solid fa-magnifying-glass text-xs" aria-hidden="true"></i>
+                    <span class="sr-only">Search</span>
                 </button>
             </form>
 
@@ -245,11 +263,11 @@
                 <!-- Drawer Header -->
                 <div class="p-6 border-b border-zinc-200 flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <i class="fa-solid fa-bag-shopping text-black"></i>
+                        <i class="fa-solid fa-bag-shopping text-black" aria-hidden="true"></i>
                         <h3 class="font-bold text-black text-sm">Your Bag ({{ $cartCount }})</h3>
                     </div>
-                    <button x-on:click="drawerOpen = false" class="p-1 rounded-lg text-zinc-400 hover:text-black">
-                        <i class="fa-solid fa-xmark text-lg"></i>
+                    <button x-on:click="drawerOpen = false" class="p-1 rounded-lg text-zinc-400 hover:text-black" aria-label="Close bag drawer">
+                        <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
                     </button>
                 </div>
 
@@ -303,25 +321,25 @@
     <!-- Flash Notifications -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
         @if(session('success'))
-            <div class="bg-zinc-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-semibold">
+            <div class="bg-zinc-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-semibold" role="alert">
                 <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-base" aria-hidden="true"></i>
                     <p>{{ session('success') }}</p>
                 </div>
-                <button onclick="this.parentElement.remove()" class="text-zinc-400 hover:text-white text-sm">
-                    <i class="fa-solid fa-xmark"></i>
+                <button onclick="this.parentElement.remove()" class="text-zinc-400 hover:text-white text-sm" aria-label="Dismiss notification">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                 </button>
             </div>
         @endif
 
         @if(session('error'))
-            <div class="bg-red-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-semibold">
+            <div class="bg-red-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-semibold" role="alert">
                 <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-circle-exclamation text-base"></i>
+                    <i class="fa-solid fa-circle-exclamation text-base" aria-hidden="true"></i>
                     <p>{{ session('error') }}</p>
                 </div>
-                <button onclick="this.parentElement.remove()" class="text-zinc-400 hover:text-white text-sm">
-                    <i class="fa-solid fa-xmark"></i>
+                <button onclick="this.parentElement.remove()" class="text-zinc-400 hover:text-white text-sm" aria-label="Dismiss notification">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                 </button>
             </div>
         @endif
@@ -332,14 +350,14 @@
         @yield('content')
     </main>
 
-    <!-- 4-Column Structured Footer (Accessible & Public-Facing) -->
+    <!-- 4-Column Structured Footer (WCAG 2.2 Valid Heading Hierarchy: H3) -->
     <footer class="bg-white border-t border-zinc-200 text-black py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
                 
                 <!-- Col 1: Help -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">Help & Support</h4>
+                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">Help & Support</h3>
                     <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="#" class="hover:text-black">FAQ</a></li>
                         <li><a href="#" class="hover:text-black">Delivery Information</a></li>
@@ -349,9 +367,9 @@
                     </ul>
                 </div>
 
-                <!-- Col 2: My Account (Removed Internal Admin Link) -->
+                <!-- Col 2: My Account -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">My Account</h4>
+                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">My Account</h3>
                     <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="{{ route('cart.index') }}" class="hover:text-black">View Bag</a></li>
                         <li><a href="{{ route('checkout.index') }}" class="hover:text-black">Checkout</a></li>
@@ -362,7 +380,7 @@
 
                 <!-- Col 3: Dynamic Collections -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">Collections</h4>
+                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">Collections</h3>
                     <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         @if(isset($navCategories) && $navCategories->count() > 0)
                             @foreach($navCategories as $navCat)
@@ -379,7 +397,7 @@
 
                 <!-- Col 4: More About SM Shop -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">About SM Shop</h4>
+                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">About SM Shop</h3>
                     <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="#" class="hover:text-black">About Us</a></li>
                         <li><a href="#" class="hover:text-black">Sustainability</a></li>

@@ -164,29 +164,35 @@
                 <h2 class="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1">Trending Now</h2>
             </div>
 
-            <!-- Tab Pills -->
-            <div class="inline-flex p-1 rounded-full bg-zinc-200">
+            <!-- Tab Pills (WCAG 2.2 Tablist & Accessible Contrast) -->
+            <div role="tablist" aria-label="Product categories" class="inline-flex p-1 rounded-full bg-zinc-200">
                 <button 
                     type="button"
+                    role="tab"
+                    :aria-selected="activeTab === 'featured'"
                     x-on:click="activeTab = 'featured'"
-                    :class="activeTab === 'featured' ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:text-black'"
-                    class="px-5 py-2.5 rounded-full text-xs font-bold transition cursor-pointer"
+                    :class="activeTab === 'featured' ? 'bg-black text-white shadow-sm' : 'text-zinc-800 hover:text-black'"
+                    class="px-5 py-2.5 rounded-full text-xs font-bold transition cursor-pointer focus-visible:ring-2 focus-visible:ring-black"
                 >
                     Featured
                 </button>
                 <button 
                     type="button"
+                    role="tab"
+                    :aria-selected="activeTab === 'bestsellers'"
                     x-on:click="activeTab = 'bestsellers'"
-                    :class="activeTab === 'bestsellers' ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:text-black'"
-                    class="px-5 py-2.5 rounded-full text-xs font-bold transition cursor-pointer"
+                    :class="activeTab === 'bestsellers' ? 'bg-black text-white shadow-sm' : 'text-zinc-800 hover:text-black'"
+                    class="px-5 py-2.5 rounded-full text-xs font-bold transition cursor-pointer focus-visible:ring-2 focus-visible:ring-black"
                 >
                     Best Sellers
                 </button>
                 <button 
                     type="button"
+                    role="tab"
+                    :aria-selected="activeTab === 'latest'"
                     x-on:click="activeTab = 'latest'"
-                    :class="activeTab === 'latest' ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:text-black'"
-                    class="px-5 py-2.5 rounded-full text-xs font-bold transition cursor-pointer"
+                    :class="activeTab === 'latest' ? 'bg-black text-white shadow-sm' : 'text-zinc-800 hover:text-black'"
+                    class="px-5 py-2.5 rounded-full text-xs font-bold transition cursor-pointer focus-visible:ring-2 focus-visible:ring-black"
                 >
                     New Releases
                 </button>
