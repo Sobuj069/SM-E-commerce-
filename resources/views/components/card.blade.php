@@ -8,16 +8,16 @@
 ])
 
 @php
-    $baseClasses = 'rounded-2xl transition-all duration-300 flex flex-col overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1';
+    $baseClasses = 'rounded-2xl transition-all duration-300 flex flex-col overflow-hidden bg-white border border-slate-200/90 shadow-xs hover:shadow-xl hover:border-indigo-200 hover:-translate-y-1';
     
     $tiltClass = $hover3d ? 'card-3d' : '';
 
     $variantClasses = [
-        'product' => '',
-        'glass' => 'glass-card border border-white/60 dark:border-white/10 shadow-md',
-        'elevated' => 'bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-sm',
-        'default' => '',
-    ][$variant] ?? '';
+        'product' => 'bg-white',
+        'glass' => 'bg-white/95 backdrop-blur-md border border-slate-200 shadow-md',
+        'elevated' => 'bg-slate-50 border border-slate-200 shadow-sm',
+        'default' => 'bg-white',
+    ][$variant] ?? 'bg-white';
 
     $aspectClasses = [
         'square' => 'aspect-square',
@@ -31,7 +31,7 @@
 
 <div {{ $attributes->merge(['class' => $classes]) }}>
     @if($image)
-        <div class="relative {{ $aspectClasses }} bg-slate-50 dark:bg-slate-800/50 overflow-hidden group">
+        <div class="relative {{ $aspectClasses }} bg-slate-50 overflow-hidden group">
             @if($imageHref)
                 <a href="{{ $imageHref }}" class="block w-full h-full">
                     <img 
@@ -56,11 +56,11 @@
         </div>
     @endif
 
-    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+    <div class="p-5 flex-1 flex flex-col justify-between space-y-4 bg-white text-slate-900">
         {{ $slot }}
 
         @if(isset($footer))
-            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-3">
+            <div class="pt-3 border-t border-slate-100 flex flex-col gap-3">
                 {{ $footer }}
             </div>
         @endif

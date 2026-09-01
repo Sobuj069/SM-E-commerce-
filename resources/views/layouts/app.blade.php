@@ -60,11 +60,10 @@
     @endif
 
     <script>
-        // Default to clean light mode unless dark mode explicitly chosen
+        // Set clean pure light mode as standard
+        document.documentElement.classList.remove('dark');
         if (localStorage.theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
+            localStorage.removeItem('theme');
         }
     </script>
 </head>
