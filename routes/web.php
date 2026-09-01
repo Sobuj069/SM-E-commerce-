@@ -13,6 +13,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/product/{product}/review', [ProductController::class, 'storeReview'])->name('product.review');
+Route::post('/newsletter/subscribe', function(\Illuminate\Http\Request $request) {
+    $request->validate(['email' => 'required|email']);
+    return back()->with('success', 'Thanks for subscribing! Use code SM20 at checkout for 20% off.');
+})->name('newsletter.subscribe');
 
 // Shopping Cart & Coupons
 Route::prefix('cart')->name('cart.')->group(function () {
