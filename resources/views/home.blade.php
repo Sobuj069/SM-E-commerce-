@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- =========================================================================
-     1. GYMSHARK HIGH-IMPACT FULL-WIDTH HERO BANNER (USING GENERATED HERO IMAGE)
+     1. GYMSHARK HIGH-IMPACT FULL-WIDTH HERO BANNER
      ========================================================================= -->
 <section class="relative min-h-[550px] lg:min-h-[720px] flex items-center bg-zinc-950 overflow-hidden text-white">
     <img 
@@ -18,7 +18,7 @@
         <div class="max-w-xl space-y-6 text-left">
             
             <div class="inline-flex items-center gap-2">
-                <span class="inline-flex items-center px-3 py-1 bg-white text-black text-[10px] font-black uppercase tracking-widest">
+                <span class="inline-flex items-center px-3.5 py-1 bg-white text-black text-[10px] font-black uppercase tracking-widest">
                     NEW 2026 COLLECTION
                 </span>
             </div>
@@ -98,91 +98,106 @@
 </section>
 
 <!-- =========================================================================
-     3. GYMSHARK SHOP BY CATEGORY COLLECTION
+     3. GYMSHARK SHOP BY CATEGORY COLLECTION SLIDER (WITH NANO GENERATED IMAGES)
      ========================================================================= -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-8">
             <div>
-                <h2 class="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">SHOP BY COLLECTION</h2>
+                <span class="text-[11px] font-black text-zinc-500 uppercase tracking-widest">DISCOVER DROPS</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight mt-1">SHOP BY COLLECTION</h2>
             </div>
-            <a href="{{ route('shop.index') }}" class="text-xs font-black text-black uppercase tracking-widest hover:underline flex items-center gap-1.5">
-                <span>VIEW ALL</span> 
-                <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </a>
+            <div class="flex items-center gap-3">
+                <button type="button" class="collection-prev w-10 h-10 rounded-full border border-zinc-300 flex items-center justify-center text-black hover:bg-black hover:text-white transition cursor-pointer" title="Previous Slide">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                </button>
+                <button type="button" class="collection-next w-10 h-10 rounded-full border border-zinc-300 flex items-center justify-center text-black hover:bg-black hover:text-white transition cursor-pointer" title="Next Slide">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- 4-Column Category Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <!-- Category 1: Tech & Gadgets -->
-            <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="group relative rounded-xl overflow-hidden bg-[#f4f4f5] aspect-[3/4] flex flex-col justify-end p-6">
-                <img 
-                    src="https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=800&q=80" 
-                    alt="Electronics & Gadgets" 
-                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                >
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">FLAGSHIP TECH</span>
-                    <h3 class="text-xl font-black text-white uppercase tracking-tight">TECH & GADGETS</h3>
-                    <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                        SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
+        <!-- Swiper Collection Slider -->
+        <div class="swiper collection-swiper">
+            <div class="swiper-wrapper">
+                
+                <!-- Slide 1: Tech & Gadgets -->
+                <div class="swiper-slide h-auto">
+                    <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
+                        <img 
+                            src="{{ asset('images/cat_tech_gadgets.jpg') }}" 
+                            alt="Electronics & Gadgets" 
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+                        <div class="relative z-10 space-y-1">
+                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">FLAGSHIP TECH</span>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tight">TECH & GADGETS</h3>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
+                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </span>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
-            <!-- Category 2: Smartwatches & Wearables -->
-            <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="group relative rounded-xl overflow-hidden bg-[#f4f4f5] aspect-[3/4] flex flex-col justify-end p-6">
-                <img 
-                    src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" 
-                    alt="Smartwatches & Wearables" 
-                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                >
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">BIOMETRICS</span>
-                    <h3 class="text-xl font-black text-white uppercase tracking-tight">SMART WEARABLES</h3>
-                    <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                        SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
+                <!-- Slide 2: Smartwatches & Wearables -->
+                <div class="swiper-slide h-auto">
+                    <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
+                        <img 
+                            src="{{ asset('images/cat_smart_wearables.jpg') }}" 
+                            alt="Smartwatches & Wearables" 
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+                        <div class="relative z-10 space-y-1">
+                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">BIOMETRICS</span>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tight">SMART WEARABLES</h3>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
+                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </span>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
-            <!-- Category 3: Audio & Headphones -->
-            <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="group relative rounded-xl overflow-hidden bg-[#f4f4f5] aspect-[3/4] flex flex-col justify-end p-6">
-                <img 
-                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" 
-                    alt="Audio & Headphones" 
-                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                >
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">SPATIAL ANC</span>
-                    <h3 class="text-xl font-black text-white uppercase tracking-tight">AUDIO & STUDIO</h3>
-                    <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                        SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
+                <!-- Slide 3: Audio & Headphones -->
+                <div class="swiper-slide h-auto">
+                    <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
+                        <img 
+                            src="{{ asset('images/cat_audio_studio.jpg') }}" 
+                            alt="Audio & Headphones" 
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+                        <div class="relative z-10 space-y-1">
+                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">SPATIAL ANC</span>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tight">AUDIO & STUDIO</h3>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
+                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </span>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
-            <!-- Category 4: Fashion & Apparel -->
-            <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="group relative rounded-xl overflow-hidden bg-[#f4f4f5] aspect-[3/4] flex flex-col justify-end p-6">
-                <img 
-                    src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=800&q=80" 
-                    alt="Fashion & Apparel" 
-                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                >
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">ACTIVE LUXURY</span>
-                    <h3 class="text-xl font-black text-white uppercase tracking-tight">TECHWEAR & APPAREL</h3>
-                    <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                        SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
+                <!-- Slide 4: Fashion & Apparel -->
+                <div class="swiper-slide h-auto">
+                    <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
+                        <img 
+                            src="{{ asset('images/cat_techwear_apparel.jpg') }}" 
+                            alt="Fashion & Apparel" 
+                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+                        <div class="relative z-10 space-y-1">
+                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">ACTIVE LUXURY</span>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tight">TECHWEAR & APPAREL</h3>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
+                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </span>
+                        </div>
+                    </a>
                 </div>
-            </a>
 
+            </div>
         </div>
     </div>
 </section>
@@ -196,7 +211,8 @@
         <!-- Header & Category Tab Filters -->
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
-                <h2 class="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight">TRENDING NOW</h2>
+                <span class="text-[11px] font-black text-zinc-500 uppercase tracking-widest">COMMUNITY PICKS</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight mt-1">TRENDING NOW</h2>
             </div>
 
             <!-- Tab Pills -->
@@ -205,7 +221,7 @@
                     type="button"
                     x-on:click="activeTab = 'featured'"
                     :class="activeTab === 'featured' ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:text-black'"
-                    class="px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                    class="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer"
                 >
                     FEATURED
                 </button>
@@ -213,7 +229,7 @@
                     type="button"
                     x-on:click="activeTab = 'bestsellers'"
                     :class="activeTab === 'bestsellers' ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:text-black'"
-                    class="px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                    class="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer"
                 >
                     BEST SELLERS
                 </button>
@@ -221,7 +237,7 @@
                     type="button"
                     x-on:click="activeTab = 'latest'"
                     :class="activeTab === 'latest' ? 'bg-black text-white shadow-sm' : 'text-zinc-700 hover:text-black'"
-                    class="px-5 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                    class="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer"
                 >
                     NEW RELEASES
                 </button>
@@ -339,7 +355,7 @@
 </section>
 
 <!-- =========================================================================
-     5. GYMSHARK CAMPAIGN SPOTLIGHT BANNER (USING GENERATED CAMPAIGN BANNER IMAGE)
+     5. GYMSHARK CAMPAIGN SPOTLIGHT BANNER
      ========================================================================= -->
 <section class="relative min-h-[480px] lg:min-h-[550px] flex items-center bg-zinc-950 text-white overflow-hidden my-12">
     <img 
@@ -425,7 +441,7 @@
                 Unlock exclusive early 3D drops, automatic 1-year product warranty, and free express nationwide shipping.
             </p>
             <div class="pt-4">
-                <a href="{{ route('shop.index') }}" class="inline-flex items-center justify-center bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-10 rounded-full transition">
+                <a href="{{ route('shop.index') }}" class="inline-flex items-center justify-center bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-10 rounded-full transition cursor-pointer">
                     USE CODE: SM20 AT CHECKOUT
                 </a>
             </div>

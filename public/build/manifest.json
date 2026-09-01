@@ -56,7 +56,7 @@
     "src": "node_modules/three/examples/jsm/libs/draco/gltf/draco_wasm_wrapper.js"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BJdX2jcP.css",
+    "file": "assets/app-NEX6Vjtc.css",
     "name": "app",
     "names": [
       "app.css"
@@ -65,7 +65,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-9JqUCb1y.js",
+    "file": "assets/app--Qrw3ZNg.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
