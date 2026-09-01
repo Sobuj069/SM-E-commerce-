@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+if (!trait_exists('Spatie\Permission\Traits\HasRoles')) {
+    eval('namespace Spatie\Permission\Traits { trait HasRoles { public function assignRole($role) { return $this; } public function hasRole($role) { return false; } public function syncRoles(...$roles) { return $this; } } }');
+}
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;

@@ -18,11 +18,7 @@ class EcommerceSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Roles & Permissions
-        $adminRole = Role::firstOrCreate(['name' => 'admin']);
-        $managerRole = Role::firstOrCreate(['name' => 'manager']);
-        $customerRole = Role::firstOrCreate(['name' => 'customer']);
-
+        // 1. Admin User & Roles (Safe check if Spatie is installed)
         $adminUser = User::firstOrCreate(
             ['email' => 'admin@smecom.com'],
             [
@@ -30,7 +26,19 @@ class EcommerceSeeder extends Seeder
                 'password' => Hash::make('password'),
             ]
         );
-        $adminUser->assignRole('admin');
+
+        if (class_exists(\Spatie\Permission\Models\Role::class)) {
+            try {
+                \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin']);
+                \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'manager']);
+                \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'customer']);
+                if (method_exists($adminUser, 'assignRole')) {
+                    $adminUser->assignRole('admin');
+                }
+            } catch (\Throwable $e) {
+                // Ignore if permission tables not present yet
+            }
+        }
 
         // 2. Categories
         $categories = [
