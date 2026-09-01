@@ -137,8 +137,8 @@
    ========================================================================== */
 
 @theme {
-    /* 2.1 Typography: Inter Variable Font */
-    --font-sans: 'Inter Variable', 'Inter', 'Geist', ui-sans-serif, system-ui, sans-serif;
+    /* 2.1 Typography: Plus Jakarta Sans & Inter Modern Stack */
+    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
     /* 2.2 Semantic Color Tokens */

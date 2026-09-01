@@ -8,16 +8,16 @@
 ])
 
 @php
-    $baseClasses = 'rounded-3xl transition-all duration-300 flex flex-col overflow-hidden';
+    $baseClasses = 'rounded-2xl transition-all duration-300 flex flex-col overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1';
     
     $tiltClass = $hover3d ? 'card-3d' : '';
 
     $variantClasses = [
-        'product' => 'bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 shadow-xs hover:shadow-2xl hover:border-indigo-400/60 dark:hover:border-indigo-500/50',
-        'glass' => 'glass-card border border-white/60 dark:border-white/10 shadow-lg hover:shadow-2xl',
-        'elevated' => 'bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl',
-        'default' => 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs',
-    ][$variant] ?? $variantClasses['product'];
+        'product' => '',
+        'glass' => 'glass-card border border-white/60 dark:border-white/10 shadow-md',
+        'elevated' => 'bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-sm',
+        'default' => '',
+    ][$variant] ?? '';
 
     $aspectClasses = [
         'square' => 'aspect-square',
@@ -31,25 +31,25 @@
 
 <div {{ $attributes->merge(['class' => $classes]) }}>
     @if($image)
-        <div class="relative {{ $aspectClasses }} bg-slate-100 dark:bg-slate-800 overflow-hidden group">
+        <div class="relative {{ $aspectClasses }} bg-slate-50 dark:bg-slate-800/50 overflow-hidden group">
             @if($imageHref)
                 <a href="{{ $imageHref }}" class="block w-full h-full">
                     <img 
                         src="{{ $image }}" 
                         alt="{{ $imageAlt }}" 
-                        class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     >
                 </a>
             @else
                 <img 
                     src="{{ $image }}" 
                     alt="{{ $imageAlt }}" 
-                    class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 >
             @endif
 
             @if(isset($badges))
-                <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+                <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
                     {{ $badges }}
                 </div>
             @endif

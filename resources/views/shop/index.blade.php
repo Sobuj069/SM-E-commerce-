@@ -194,13 +194,13 @@
                             </x-slot:badges>
 
                             <div>
-                                <span class="text-[11px] font-black text-brand-primary uppercase tracking-widest">
+                                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">
                                     {{ $product->category->name ?? 'General' }}
                                 </span>
-                                <h3 class="font-extrabold text-content-primary text-base mt-1 line-clamp-1 hover:text-brand-primary transition">
+                                <h3 class="font-bold text-slate-900 dark:text-white text-base mt-0.5 line-clamp-1 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                                     <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                 </h3>
-                                <p class="text-xs text-content-muted line-clamp-2 mt-1 leading-relaxed">
+                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1 leading-relaxed">
                                     {{ $product->short_description }}
                                 </p>
                             </div>
@@ -210,10 +210,10 @@
                                     <x-rating :value="$product->rating" :count="$product->reviews_count" size="xs" />
                                     <div class="text-right">
                                         @if($product->has_discount)
-                                            <span class="text-xs text-content-muted line-through mr-1 font-semibold">${{ number_format($product->price, 2) }}</span>
-                                            <span class="text-lg font-black text-status-danger">${{ number_format($product->sale_price, 2) }}</span>
+                                            <span class="text-xs text-slate-400 line-through mr-1 font-semibold">${{ number_format($product->price, 2) }}</span>
+                                            <span class="text-lg font-extrabold text-rose-600 dark:text-rose-400">${{ number_format($product->sale_price, 2) }}</span>
                                         @else
-                                            <span class="text-lg font-black text-content-primary">${{ number_format($product->price, 2) }}</span>
+                                            <span class="text-lg font-extrabold text-slate-900 dark:text-white">${{ number_format($product->price, 2) }}</span>
                                         @endif
                                     </div>
                                 </div>
