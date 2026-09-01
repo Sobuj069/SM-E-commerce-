@@ -18,7 +18,7 @@ class HomeController extends Controller
         $bestSellers = Product::active()->orderByDesc('rating')->orderByDesc('reviews_count')->with(['category', 'variants'])->take(8)->get();
         $deals = Product::active()->whereNotNull('sale_price')->with(['category', 'variants'])->take(4)->get();
         $banners = Banner::where('is_active', true)->get();
-        $testimonials = Review::where('is_approved', true)->with('product')->take(6)->get();
+        $testimonials = Review::where('is_approved', true)->with('product')->get()->unique('title')->take(6);
 
         return view('home', compact(
             'categories', 

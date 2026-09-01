@@ -71,9 +71,9 @@
     class="flex flex-col min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white transition-colors duration-200"
 >
 
-    <!-- Gymshark Style Top Announcement Ticker -->
-    <div id="nano-banner" class="bg-black text-white py-2.5 px-4 text-center text-[11px] font-black uppercase tracking-widest relative z-50 flex items-center justify-center gap-4">
-        <span>FREE STANDARD SHIPPING OVER $75 | 30-DAY EASY RETURNS | EXTRA 20% OFF CODE: <span class="text-amber-300">SM20</span></span>
+    <!-- Top Announcement Ticker Bar (Readable 12px Baseline) -->
+    <div id="nano-banner" class="bg-black text-white py-2.5 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
+        <span>Free standard shipping over $75 | 30-day easy returns | Code: <span class="text-amber-300 font-black">SM20</span></span>
     </div>
 
     <!-- Gymshark Navigation Header -->
@@ -81,7 +81,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-4">
                 
-                <!-- Modern Gymshark Tech Logo -->
+                <!-- Modern Brand Logo -->
                 <div class="flex items-center gap-8">
                     <a href="{{ route('home') }}" class="flex items-center gap-3 group">
                         <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300">
@@ -92,27 +92,27 @@
                         </div>
                         <div class="flex flex-col">
                             <span class="text-2xl font-black tracking-tighter text-black uppercase leading-none font-sans">SM SHOP</span>
-                            <span class="text-[8px] font-black tracking-widest text-zinc-400 uppercase mt-0.5">3D PERFORMANCE GEAR</span>
+                            <span class="text-xs font-semibold text-zinc-400 mt-0.5">3D Performance Gear</span>
                         </div>
                     </a>
 
-                    <!-- Desktop Nav Links -->
-                    <nav class="hidden xl:flex items-center gap-7 text-xs font-black uppercase tracking-widest text-black">
-                        <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1 transition relative {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black' : '' }}">ALL PRODUCTS</a>
+                    <!-- Desktop Nav Links (Title Case & Clear Font Scale) -->
+                    <nav class="hidden xl:flex items-center gap-7 text-sm font-semibold text-black">
+                        <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1 transition relative {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black font-bold' : '' }}">All Products</a>
                         @if(isset($navCategories) && $navCategories->count() > 0)
                             @foreach($navCategories as $navCat)
-                                <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === $navCat->slug ? 'border-b-2 border-black' : '' }}">
+                                <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === $navCat->slug ? 'border-b-2 border-black font-bold' : '' }}">
                                     {{ $navCat->name }}
                                 </a>
                             @endforeach
                         @else
-                            <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1 transition relative">TECH & GADGETS</a>
-                            <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1 transition relative">APPAREL</a>
-                            <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1 transition relative">WEARABLES</a>
-                            <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1 transition relative">AUDIO</a>
+                            <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1 transition relative">Tech & Gadgets</a>
+                            <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1 transition relative">Apparel</a>
+                            <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1 transition relative">Wearables</a>
+                            <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1 transition relative">Audio</a>
                         @endif
-                        <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 py-1 transition font-black flex items-center gap-1.5">
-                            SALE <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
+                        <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 py-1 transition font-bold flex items-center gap-1.5">
+                            Sale <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
                         </a>
                     </nav>
                 </div>
@@ -124,8 +124,8 @@
                             type="text" 
                             name="q" 
                             value="{{ request('q') }}"
-                            placeholder="SEARCH PRODUCTS..." 
-                            class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-bold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200 uppercase"
+                            placeholder="Search products..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-semibold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200"
                         >
                         <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-black transition">
                             <i class="fa-solid fa-magnifying-glass text-xs"></i>
@@ -145,11 +145,6 @@
                         <i class="fa-regular fa-heart text-lg"></i>
                     </a>
 
-                    <!-- Admin Portal Analytics -->
-                    <a href="{{ route('admin.dashboard') }}" class="p-2 text-black hover:text-zinc-500 transition" title="Admin Analytics">
-                        <i class="fa-solid fa-chart-simple text-lg"></i>
-                    </a>
-
                     <!-- Cart Bag Trigger -->
                     <button 
                         type="button"
@@ -159,15 +154,15 @@
                     >
                         <i class="fa-solid fa-bag-shopping text-xl"></i>
                         @if($cartCount > 0)
-                            <span id="nav-cart-badge" class="bg-black text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center">
+                            <span id="nav-cart-badge" class="bg-black text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
                                 {{ $cartCount }}
                             </span>
                         @endif
                     </button>
 
-                    <!-- Black Pill CTA -->
-                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-xs font-black text-white bg-black hover:bg-zinc-800 rounded-full uppercase tracking-widest transition shadow-sm cursor-pointer">
-                        EXPLORE 3D
+                    <!-- Standard Action Button -->
+                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-xs font-bold text-white bg-black hover:bg-zinc-800 rounded-full transition shadow-sm cursor-pointer">
+                        Explore 3D
                     </a>
 
                     <!-- Mobile Menu Toggle Button -->
@@ -190,15 +185,15 @@
                     type="text" 
                     name="q" 
                     value="{{ request('q') }}"
-                    placeholder="SEARCH PRODUCTS..." 
-                    class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-bold text-black uppercase"
+                    placeholder="Search products..." 
+                    class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-semibold text-black"
                 >
                 <button type="submit" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500">
                     <i class="fa-solid fa-magnifying-glass text-xs"></i>
                 </button>
             </form>
 
-            <nav class="flex flex-col space-y-3 text-xs font-black uppercase tracking-widest text-black">
+            <nav class="flex flex-col space-y-3 text-sm font-semibold text-black">
                 <a href="{{ route('shop.index') }}" class="py-2 hover:text-zinc-500">All Products</a>
                 @if(isset($navCategories) && $navCategories->count() > 0)
                     @foreach($navCategories as $navCat)
@@ -210,7 +205,7 @@
                     <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="py-2 hover:text-zinc-500">Wearables</a>
                     <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="py-2 hover:text-zinc-500">Audio</a>
                 @endif
-                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600">Sale 🔥</a>
+                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-bold">Sale 🔥</a>
             </nav>
         </div>
     </header>
@@ -251,7 +246,7 @@
                 <div class="p-6 border-b border-zinc-200 flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <i class="fa-solid fa-bag-shopping text-black"></i>
-                        <h3 class="font-black text-black text-sm uppercase tracking-widest">YOUR BAG ({{ $cartCount }})</h3>
+                        <h3 class="font-bold text-black text-sm">Your Bag ({{ $cartCount }})</h3>
                     </div>
                     <button x-on:click="drawerOpen = false" class="p-1 rounded-lg text-zinc-400 hover:text-black">
                         <i class="fa-solid fa-xmark text-lg"></i>
@@ -264,14 +259,14 @@
                         <div class="pt-4 first:pt-0 flex items-center gap-3">
                             <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" class="w-14 h-16 rounded-xl object-cover bg-[#f4f4f5] border border-zinc-200 shrink-0">
                             <div class="flex-1 min-w-0">
-                                <h4 class="font-bold text-xs text-black uppercase truncate">{{ $item['name'] }}</h4>
-                                <div class="text-[11px] text-zinc-500 font-bold">Qty: {{ $item['quantity'] }} &times; ${{ number_format($item['price'], 2) }}</div>
+                                <h4 class="font-bold text-xs text-black truncate">{{ $item['name'] }}</h4>
+                                <div class="text-xs text-zinc-500 font-medium">Qty: {{ $item['quantity'] }} &times; ${{ number_format($item['price'], 2) }}</div>
                             </div>
-                            <span class="font-black text-xs text-black">${{ number_format($item['price'] * $item['quantity'], 2) }}</span>
+                            <span class="font-bold text-xs text-black">${{ number_format($item['price'] * $item['quantity'], 2) }}</span>
                         </div>
                     @empty
-                        <div class="py-12 text-center text-zinc-400 text-xs font-bold uppercase">
-                            YOUR BAG IS CURRENTLY EMPTY.
+                        <div class="py-12 text-center text-zinc-400 text-xs font-semibold">
+                            Your bag is currently empty.
                         </div>
                     @endforelse
                 </div>
@@ -286,17 +281,17 @@
                     }
                 @endphp
                 <div class="p-6 border-t border-zinc-200 space-y-4 bg-zinc-50">
-                    <div class="flex items-center justify-between text-xs font-black uppercase text-black">
-                        <span>SUBTOTAL</span>
-                        <span class="text-base text-black">${{ number_format($drawerSubtotal, 2) }}</span>
+                    <div class="flex items-center justify-between text-xs font-bold text-black">
+                        <span>Subtotal</span>
+                        <span class="text-base font-bold text-black">${{ number_format($drawerSubtotal, 2) }}</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
-                        <a href="{{ route('cart.index') }}" class="px-4 py-3 rounded-full border border-zinc-300 text-xs font-black uppercase tracking-wider text-black text-center hover:bg-white transition">
-                            VIEW BAG
+                        <a href="{{ route('cart.index') }}" class="px-4 py-3 rounded-full border border-zinc-300 text-xs font-bold text-black text-center hover:bg-white transition">
+                            View Bag
                         </a>
-                        <a href="{{ route('checkout.index') }}" class="px-4 py-3 rounded-full bg-black text-white text-xs font-black uppercase tracking-widest text-center hover:bg-zinc-800 transition shadow-md">
-                            CHECKOUT
+                        <a href="{{ route('checkout.index') }}" class="px-4 py-3 rounded-full bg-black text-white text-xs font-bold text-center hover:bg-zinc-800 transition shadow-md">
+                            Checkout
                         </a>
                     </div>
                 </div>
@@ -308,7 +303,7 @@
     <!-- Flash Notifications -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 w-full">
         @if(session('success'))
-            <div class="bg-zinc-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-bold uppercase">
+            <div class="bg-zinc-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-semibold">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
                     <p>{{ session('success') }}</p>
@@ -320,7 +315,7 @@
         @endif
 
         @if(session('error'))
-            <div class="bg-red-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-bold uppercase">
+            <div class="bg-red-900 text-white px-4 py-3 rounded-2xl flex items-center justify-between shadow-xs mb-4 text-xs font-semibold">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-circle-exclamation text-base"></i>
                     <p>{{ session('error') }}</p>
@@ -337,36 +332,15 @@
         @yield('content')
     </main>
 
-    <!-- Gymshark Newsletter Bar -->
-    <div class="bg-zinc-100 border-t border-zinc-200 py-12 mt-20">
-        <div class="max-w-3xl mx-auto px-4 text-center space-y-4">
-            <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight text-black">BE THE FIRST TO KNOW</h3>
-            <p class="text-xs text-zinc-600 uppercase tracking-wider font-semibold">Sign up for exclusive 3D drops, early sale access, and 20% off your first order.</p>
-            <form action="{{ route('newsletter.subscribe') }}" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2">
-                @csrf
-                <input 
-                    type="email" 
-                    name="email" 
-                    placeholder="ENTER YOUR EMAIL..." 
-                    class="flex-1 px-5 py-3.5 rounded-full border border-zinc-300 bg-white text-black text-xs font-bold uppercase tracking-wider focus:outline-none focus:border-black" 
-                    required
-                >
-                <button type="submit" class="bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-widest px-8 py-3.5 rounded-full transition cursor-pointer">
-                    SIGN UP
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Gymshark 4-Column Structured Footer -->
+    <!-- 4-Column Structured Footer (Accessible & Public-Facing) -->
     <footer class="bg-white border-t border-zinc-200 text-black py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
                 
                 <!-- Col 1: Help -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-black">HELP & SUPPORT</h4>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-semibold uppercase">
+                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">Help & Support</h4>
+                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="#" class="hover:text-black">FAQ</a></li>
                         <li><a href="#" class="hover:text-black">Delivery Information</a></li>
                         <li><a href="#" class="hover:text-black">Returns Policy</a></li>
@@ -375,21 +349,21 @@
                     </ul>
                 </div>
 
-                <!-- Col 2: My Account -->
+                <!-- Col 2: My Account (Removed Internal Admin Link) -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-black">MY ACCOUNT</h4>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-semibold uppercase">
-                        <li><a href="{{ route('admin.dashboard') }}" class="hover:text-black">Admin Panel</a></li>
+                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">My Account</h4>
+                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="{{ route('cart.index') }}" class="hover:text-black">View Bag</a></li>
                         <li><a href="{{ route('checkout.index') }}" class="hover:text-black">Checkout</a></li>
-                        <li><a href="#" class="hover:text-black">Wishlist</a></li>
+                        <li><a href="{{ route('shop.index') }}" class="hover:text-black">Track Order</a></li>
+                        <li><a href="{{ route('shop.index') }}" class="hover:text-black">Wishlist</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 3: Dynamic Collections -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-black">COLLECTIONS</h4>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-semibold uppercase">
+                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">Collections</h4>
+                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         @if(isset($navCategories) && $navCategories->count() > 0)
                             @foreach($navCategories as $navCat)
                                 <li><a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-black">{{ $navCat->name }}</a></li>
@@ -405,23 +379,23 @@
 
                 <!-- Col 4: More About SM Shop -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-black">MORE ABOUT SM SHOP</h4>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-semibold uppercase">
+                    <h4 class="text-xs font-bold text-black uppercase tracking-wider">About SM Shop</h4>
+                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="#" class="hover:text-black">About Us</a></li>
-                        <li><a href="#" class="hover:text-black">Careers</a></li>
                         <li><a href="#" class="hover:text-black">Sustainability</a></li>
                         <li><a href="#" class="hover:text-black">3D Modeling Hub</a></li>
+                        <li><a href="#" class="hover:text-black">Privacy Notice</a></li>
                     </ul>
                 </div>
 
             </div>
 
-            <div class="mt-12 pt-8 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-400 font-bold uppercase gap-4">
-                <p>&copy; {{ date('Y') }} SM SHOP. ALL RIGHTS RESERVED.</p>
+            <div class="mt-12 pt-8 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-400 font-medium gap-4">
+                <p>&copy; {{ date('Y') }} SM SHOP. All rights reserved.</p>
                 <div class="flex items-center gap-6">
-                    <a href="#" class="hover:text-black">PRIVACY NOTICE</a>
-                    <a href="#" class="hover:text-black">TERMS & CONDITIONS</a>
-                    <a href="#" class="hover:text-black">COOKIE POLICY</a>
+                    <a href="#" class="hover:text-black">Privacy Notice</a>
+                    <a href="#" class="hover:text-black">Terms & Conditions</a>
+                    <a href="#" class="hover:text-black">Cookie Policy</a>
                 </div>
             </div>
         </div>
