@@ -3,13 +3,18 @@
 @section('title', 'SM Shop 3D - Engineered for Performance & Tech')
 
 @section('content')
+@php
+    $heroBanner = $banners->first();
+    $campaignBanner = $banners->skip(1)->first();
+@endphp
+
 <!-- =========================================================================
-     1. GYMSHARK HIGH-IMPACT FULL-WIDTH HERO BANNER
+     1. DYNAMIC HIGH-IMPACT FULL-WIDTH HERO BANNER
      ========================================================================= -->
 <section class="relative min-h-[550px] lg:min-h-[720px] flex items-center bg-zinc-950 overflow-hidden text-white">
     <img 
-        src="{{ asset('images/gymshark_hero_banner.jpg') }}" 
-        alt="Gymshark Hero" 
+        src="{{ $heroBanner->image ?? asset('images/gymshark_hero_banner.jpg') }}" 
+        alt="Hero Banner" 
         class="absolute inset-0 w-full h-full object-cover object-center opacity-85"
     >
     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent lg:bg-gradient-to-r lg:from-black/85 lg:via-black/40 lg:to-transparent"></div>
@@ -19,23 +24,22 @@
             
             <div class="inline-flex items-center gap-2">
                 <span class="inline-flex items-center px-3.5 py-1 bg-white text-black text-[10px] font-black uppercase tracking-widest">
-                    NEW 2026 COLLECTION
+                    {{ $heroBanner->badge ?? 'NEW 2026 COLLECTION' }}
                 </span>
             </div>
             
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-white uppercase">
-                ENGINEERED <br>
-                FOR PROGRESS
+                {!! nl2br(e($heroBanner->title ?? "ENGINEERED\nFOR PROGRESS")) !!}
             </h1>
             
             <p class="text-xs sm:text-sm text-zinc-300 uppercase tracking-widest font-semibold leading-relaxed">
-                Next-Gen 3D Tech, Spatial Audio, & High-Performance Activewear. Interactive 3D modeling and instant express checkout.
+                {{ $heroBanner->subtitle ?? 'Next-Gen 3D Tech, Spatial Audio, & High-Performance Activewear. Interactive 3D modeling and instant express checkout.' }}
             </p>
 
             <!-- Dual Gymshark CTA Pill Buttons -->
             <div class="flex flex-wrap gap-4 pt-2">
-                <a href="{{ route('shop.index') }}" class="bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition shadow-lg cursor-pointer">
-                    SHOP ALL TECH
+                <a href="{{ $heroBanner->link ?? route('shop.index') }}" class="bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition shadow-lg cursor-pointer">
+                    {{ $heroBanner->button_text ?? 'SHOP ALL TECH' }}
                 </a>
                 <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="bg-black/60 hover:bg-black text-white border-2 border-white text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition backdrop-blur-md cursor-pointer">
                     SHOP APPAREL
@@ -63,7 +67,7 @@
 </section>
 
 <!-- =========================================================================
-     2. GYMSHARK VALUE PERKS STRIP
+     2. VALUE PERKS STRIP
      ========================================================================= -->
 <section class="py-6 bg-white border-b border-zinc-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,7 +102,7 @@
 </section>
 
 <!-- =========================================================================
-     3. GYMSHARK SHOP BY CATEGORY COLLECTION SLIDER (WITH NANO GENERATED IMAGES)
+     3. 100% DYNAMIC SHOP BY COLLECTION SLIDER
      ========================================================================= -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,93 +121,35 @@
             </div>
         </div>
 
-        <!-- Swiper Collection Slider -->
+        <!-- Dynamic Swiper Collection Slider -->
         <div class="swiper collection-swiper">
             <div class="swiper-wrapper">
-                
-                <!-- Slide 1: Tech & Gadgets -->
-                <div class="swiper-slide h-auto">
-                    <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
-                        <img 
-                            src="{{ asset('images/cat_tech_gadgets.jpg') }}" 
-                            alt="Electronics & Gadgets" 
-                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                        <div class="relative z-10 space-y-1">
-                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">FLAGSHIP TECH</span>
-                            <h3 class="text-xl font-black text-white uppercase tracking-tight">TECH & GADGETS</h3>
-                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Slide 2: Smartwatches & Wearables -->
-                <div class="swiper-slide h-auto">
-                    <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
-                        <img 
-                            src="{{ asset('images/cat_smart_wearables.jpg') }}" 
-                            alt="Smartwatches & Wearables" 
-                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                        <div class="relative z-10 space-y-1">
-                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">BIOMETRICS</span>
-                            <h3 class="text-xl font-black text-white uppercase tracking-tight">SMART WEARABLES</h3>
-                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Slide 3: Audio & Headphones -->
-                <div class="swiper-slide h-auto">
-                    <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
-                        <img 
-                            src="{{ asset('images/cat_audio_studio.jpg') }}" 
-                            alt="Audio & Headphones" 
-                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                        <div class="relative z-10 space-y-1">
-                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">SPATIAL ANC</span>
-                            <h3 class="text-xl font-black text-white uppercase tracking-tight">AUDIO & STUDIO</h3>
-                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Slide 4: Fashion & Apparel -->
-                <div class="swiper-slide h-auto">
-                    <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
-                        <img 
-                            src="{{ asset('images/cat_techwear_apparel.jpg') }}" 
-                            alt="Fashion & Apparel" 
-                            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                        <div class="relative z-10 space-y-1">
-                            <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">ACTIVE LUXURY</span>
-                            <h3 class="text-xl font-black text-white uppercase tracking-tight">TECHWEAR & APPAREL</h3>
-                            <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
-                                SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                            </span>
-                        </div>
-                    </a>
-                </div>
-
+                @foreach($categories as $category)
+                    <div class="swiper-slide h-auto">
+                        <a href="{{ route('shop.index', ['category' => $category->slug]) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
+                            <img 
+                                src="{{ $category->image }}" 
+                                alt="{{ $category->name }}" 
+                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+                            <div class="relative z-10 space-y-1">
+                                <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">{{ Str::limit($category->description, 28) }}</span>
+                                <h3 class="text-xl font-black text-white uppercase tracking-tight">{{ $category->name }}</h3>
+                                <span class="inline-flex items-center gap-1 text-xs font-bold text-white uppercase tracking-wider pt-2 group-hover:translate-x-1 transition-transform">
+                                    SHOP NOW <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
 </section>
 
 <!-- =========================================================================
-     4. GYMSHARK PRODUCT GRID & TABS ("TRENDING NOW")
+     4. DYNAMIC PRODUCT GRID & TABS ("TRENDING NOW")
      ========================================================================= -->
 <section x-data="{ activeTab: 'featured' }" class="py-16 bg-zinc-50 border-t border-zinc-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -244,7 +190,7 @@
             </div>
         </div>
 
-        <!-- Tab 1: Featured Deals -->
+        <!-- Tab 1: Dynamic Featured Deals -->
         <div x-show="activeTab === 'featured'" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             @foreach($featuredProducts as $product)
                 <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
@@ -286,7 +232,7 @@
             @endforeach
         </div>
 
-        <!-- Tab 2: Best Sellers -->
+        <!-- Tab 2: Dynamic Best Sellers -->
         <div x-show="activeTab === 'bestsellers'" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6" style="display: none;">
             @foreach($bestSellers as $product)
                 <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
@@ -316,7 +262,7 @@
             @endforeach
         </div>
 
-        <!-- Tab 3: New Arrivals -->
+        <!-- Tab 3: Dynamic New Arrivals -->
         <div x-show="activeTab === 'latest'" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6" style="display: none;">
             @foreach($latestProducts as $product)
                 <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
@@ -355,26 +301,26 @@
 </section>
 
 <!-- =========================================================================
-     5. GYMSHARK CAMPAIGN SPOTLIGHT BANNER
+     5. DYNAMIC CAMPAIGN SPOTLIGHT BANNER
      ========================================================================= -->
 <section class="relative min-h-[480px] lg:min-h-[550px] flex items-center bg-zinc-950 text-white overflow-hidden my-12">
     <img 
-        src="{{ asset('images/gymshark_campaign_banner.jpg') }}" 
-        alt="Gymshark Campaign" 
+        src="{{ $campaignBanner->image ?? asset('images/gymshark_campaign_banner.jpg') }}" 
+        alt="Campaign Banner" 
         class="absolute inset-0 w-full h-full object-cover object-center opacity-80"
     >
     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent lg:bg-gradient-to-r lg:from-black/85 lg:via-black/50 lg:to-transparent"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 w-full">
         <div class="max-w-xl space-y-4 text-left">
-            <span class="text-[10px] font-black uppercase tracking-widest text-amber-300">SEAMLESS FIT & PRECISION TECH</span>
-            <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">ACTIVE TECHWEAR & WEARABLES</h2>
+            <span class="text-[10px] font-black uppercase tracking-widest text-amber-300">{{ $campaignBanner->badge ?? 'SEAMLESS FIT & PRECISION TECH' }}</span>
+            <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">{{ $campaignBanner->title ?? 'ACTIVE TECHWEAR & WEARABLES' }}</h2>
             <p class="text-xs sm:text-sm text-zinc-300 uppercase tracking-wider font-semibold leading-relaxed">
-                Engineered with breathable thermal fabrics, biometric performance tracking, and lightweight ergonomic form.
+                {{ $campaignBanner->subtitle ?? 'Engineered with breathable thermal fabrics, biometric performance tracking, and lightweight ergonomic form.' }}
             </p>
             <div class="pt-4">
-                <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="inline-block bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition shadow-xl cursor-pointer">
-                    EXPLORE COLLECTION
+                <a href="{{ $campaignBanner->link ?? route('shop.index', ['category' => 'fashion-apparel']) }}" class="inline-block bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-widest py-4 px-9 rounded-full transition shadow-xl cursor-pointer">
+                    {{ $campaignBanner->button_text ?? 'EXPLORE COLLECTION' }}
                 </a>
             </div>
         </div>
@@ -382,7 +328,7 @@
 </section>
 
 <!-- =========================================================================
-     6. GYMSHARK COMMUNITY & TESTIMONIALS
+     6. DYNAMIC COMMUNITY & VERIFIED REVIEWS
      ========================================================================= -->
 <section class="py-16 bg-white border-t border-zinc-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -426,7 +372,7 @@
 </section>
 
 <!-- =========================================================================
-     7. GYMSHARK HIGH-CONTRAST VIP MEMBER BANNER
+     7. HIGH-CONTRAST VIP MEMBER BANNER
      ========================================================================= -->
 <section class="py-16 bg-black text-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

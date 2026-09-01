@@ -97,12 +97,20 @@
                     </a>
 
                     <!-- Desktop Nav Links -->
-                    <nav class="hidden xl:flex items-center gap-8 text-xs font-black uppercase tracking-widest text-black">
+                    <nav class="hidden xl:flex items-center gap-7 text-xs font-black uppercase tracking-widest text-black">
                         <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1 transition relative {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black' : '' }}">ALL PRODUCTS</a>
-                        <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === 'electronics-gadgets' ? 'border-b-2 border-black' : '' }}">TECH & GADGETS</a>
-                        <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === 'fashion-apparel' ? 'border-b-2 border-black' : '' }}">APPAREL</a>
-                        <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === 'smart-watches-wearables' ? 'border-b-2 border-black' : '' }}">WEARABLES</a>
-                        <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === 'audio-headphones' ? 'border-b-2 border-black' : '' }}">AUDIO</a>
+                        @if(isset($navCategories) && $navCategories->count() > 0)
+                            @foreach($navCategories as $navCat)
+                                <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === $navCat->slug ? 'border-b-2 border-black' : '' }}">
+                                    {{ $navCat->name }}
+                                </a>
+                            @endforeach
+                        @else
+                            <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1 transition relative">TECH & GADGETS</a>
+                            <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1 transition relative">APPAREL</a>
+                            <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1 transition relative">WEARABLES</a>
+                            <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1 transition relative">AUDIO</a>
+                        @endif
                         <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 py-1 transition font-black flex items-center gap-1.5">
                             SALE <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
                         </a>
@@ -192,10 +200,16 @@
 
             <nav class="flex flex-col space-y-3 text-xs font-black uppercase tracking-widest text-black">
                 <a href="{{ route('shop.index') }}" class="py-2 hover:text-zinc-500">All Products</a>
-                <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="py-2 hover:text-zinc-500">Tech & Gadgets</a>
-                <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="py-2 hover:text-zinc-500">Apparel</a>
-                <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="py-2 hover:text-zinc-500">Wearables</a>
-                <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="py-2 hover:text-zinc-500">Audio</a>
+                @if(isset($navCategories) && $navCategories->count() > 0)
+                    @foreach($navCategories as $navCat)
+                        <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="py-2 hover:text-zinc-500">{{ $navCat->name }}</a>
+                    @endforeach
+                @else
+                    <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="py-2 hover:text-zinc-500">Tech & Gadgets</a>
+                    <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="py-2 hover:text-zinc-500">Apparel</a>
+                    <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="py-2 hover:text-zinc-500">Wearables</a>
+                    <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="py-2 hover:text-zinc-500">Audio</a>
+                @endif
                 <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600">Sale 🔥</a>
             </nav>
         </div>
@@ -372,14 +386,20 @@
                     </ul>
                 </div>
 
-                <!-- Col 3: Pages -->
+                <!-- Col 3: Dynamic Collections -->
                 <div class="space-y-3">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-black">PAGES</h4>
+                    <h4 class="text-xs font-black uppercase tracking-widest text-black">COLLECTIONS</h4>
                     <ul class="space-y-2 text-xs text-zinc-500 font-semibold uppercase">
-                        <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-black">Tech & Gadgets</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-black">Smart Wearables</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-black">Audio & Studio</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-black">Techwear & Apparel</a></li>
+                        @if(isset($navCategories) && $navCategories->count() > 0)
+                            @foreach($navCategories as $navCat)
+                                <li><a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-black">{{ $navCat->name }}</a></li>
+                            @endforeach
+                        @else
+                            <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-black">Tech & Gadgets</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-black">Smart Wearables</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-black">Audio & Studio</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-black">Techwear & Apparel</a></li>
+                        @endif
                     </ul>
                 </div>
 

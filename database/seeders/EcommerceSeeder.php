@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\Coupon;
+use App\Models\Banner;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -51,7 +53,55 @@ class EcommerceSeeder extends Seeder
             $customer->assignRole($customerRole);
         }
 
-        // 2. High-Impact Categories
+        // 2. Dynamic Coupons Engine
+        Coupon::updateOrCreate(
+            ['code' => 'SM20'],
+            [
+                'type' => 'percentage',
+                'value' => 20.00,
+                'min_spend' => 0.00,
+                'max_discount' => 1000.00,
+                'is_active' => true,
+            ]
+        );
+
+        Coupon::updateOrCreate(
+            ['code' => 'WELCOME10'],
+            [
+                'type' => 'percentage',
+                'value' => 10.00,
+                'min_spend' => 0.00,
+                'max_discount' => 500.00,
+                'is_active' => true,
+            ]
+        );
+
+        // 3. Dynamic High-Impact Banners
+        Banner::updateOrCreate(
+            ['title' => 'ENGINEERED FOR PROGRESS'],
+            [
+                'subtitle' => 'Next-Gen 3D Tech, Spatial Audio, & High-Performance Activewear. Interactive 3D modeling and instant express checkout.',
+                'badge' => 'NEW 2026 COLLECTION',
+                'button_text' => 'SHOP ALL TECH',
+                'link' => '/shop',
+                'image' => '/images/gymshark_hero_banner.jpg',
+                'is_active' => true,
+            ]
+        );
+
+        Banner::updateOrCreate(
+            ['title' => 'ACTIVE TECHWEAR & WEARABLES'],
+            [
+                'subtitle' => 'Engineered with breathable thermal fabrics, biometric performance tracking, and lightweight ergonomic form.',
+                'badge' => 'SEAMLESS FIT & PRECISION TECH',
+                'button_text' => 'EXPLORE COLLECTION',
+                'link' => '/shop?category=fashion-apparel',
+                'image' => '/images/gymshark_campaign_banner.jpg',
+                'is_active' => true,
+            ]
+        );
+
+        // 4. High-Impact Categories
         $categories = [
             [
                 'name' => 'Electronics & Gadgets',
@@ -59,6 +109,7 @@ class EcommerceSeeder extends Seeder
                 'description' => 'Next-generation computing, creative displays, and smart gadgets.',
                 'image' => '/images/cat_tech_gadgets.jpg',
                 'icon' => 'laptop',
+                'is_active' => true,
             ],
             [
                 'name' => 'Fashion & Apparel',
@@ -66,6 +117,7 @@ class EcommerceSeeder extends Seeder
                 'description' => 'Minimalist urban techwear, sportswear, and luxury essentials.',
                 'image' => '/images/cat_techwear_apparel.jpg',
                 'icon' => 'shirt',
+                'is_active' => true,
             ],
             [
                 'name' => 'Smart Watches & Wearables',
@@ -73,6 +125,7 @@ class EcommerceSeeder extends Seeder
                 'description' => 'Fitness trackers, luxury smartwatches, and smart biometric gear.',
                 'image' => '/images/cat_smart_wearables.jpg',
                 'icon' => 'watch',
+                'is_active' => true,
             ],
             [
                 'name' => 'Audio & Headphones',
@@ -80,6 +133,7 @@ class EcommerceSeeder extends Seeder
                 'description' => 'Studio quality headphones, spatial noise cancelling earbuds, and speakers.',
                 'image' => '/images/cat_audio_studio.jpg',
                 'icon' => 'headphones',
+                'is_active' => true,
             ],
             [
                 'name' => 'Home & Living',
@@ -87,6 +141,7 @@ class EcommerceSeeder extends Seeder
                 'description' => 'Modern ergonomic furniture and minimalist decor.',
                 'image' => '/images/cat_tech_gadgets.jpg',
                 'icon' => 'home',
+                'is_active' => true,
             ],
         ];
 
@@ -105,7 +160,7 @@ class EcommerceSeeder extends Seeder
         Product::truncate();
         \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
-        // 3. Products with High-End Studio Photography
+        // 5. Products with High-End Studio Photography
         $products = [
             [
                 'category_slug' => 'audio-headphones',
