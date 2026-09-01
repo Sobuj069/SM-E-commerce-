@@ -254,15 +254,15 @@
                         @endif
                         <div class="flex items-center justify-between text-zinc-600">
                             <span>DELIVERY</span>
-                            <span>{{ $shipping == 0 ? 'FREE' : '$' . number_format($shipping, 2) }}</span>
+                            <span>{{ ($shipping ?? 0) == 0 ? 'FREE' : '$' . number_format($shipping, 2) }}</span>
                         </div>
                         <div class="flex items-center justify-between text-zinc-600">
                             <span>ESTIMATED TAX</span>
-                            <span class="text-black">${{ number_format($tax, 2) }}</span>
+                            <span class="text-black">${{ number_format($tax ?? 0, 2) }}</span>
                         </div>
                         <div class="border-t border-zinc-200 pt-3 flex items-center justify-between text-base font-black text-black">
                             <span>TOTAL</span>
-                            <span>${{ number_format($total, 2) }}</span>
+                            <span>${{ number_format($total ?? 0, 2) }}</span>
                         </div>
                     </div>
                 </div>

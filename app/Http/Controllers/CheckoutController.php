@@ -37,10 +37,11 @@ class CheckoutController extends Controller
             }
         }
 
-        $shipping = $subtotal > 100 ? 0.00 : 15.00;
-        $total = max(0, $subtotal - $discount + $shipping);
+        $shipping = $subtotal >= 75 ? 0.00 : 15.00;
+        $tax = 0.00;
+        $total = max(0, $subtotal - $discount + $shipping + $tax);
 
-        return view('checkout.index', compact('cart', 'subtotal', 'shipping', 'discount', 'couponData', 'total'));
+        return view('checkout.index', compact('cart', 'subtotal', 'shipping', 'tax', 'discount', 'couponData', 'total'));
     }
 
     public function store(Request $request)

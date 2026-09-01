@@ -31,10 +31,11 @@ class CartController extends Controller
             }
         }
 
-        $shipping = $subtotal > 100 || $subtotal == 0 ? 0.00 : 15.00;
-        $total = max(0, $subtotal - $discount + $shipping);
+        $shipping = ($subtotal >= 75 || $subtotal == 0) ? 0.00 : 15.00;
+        $tax = 0.00;
+        $total = max(0, $subtotal - $discount + $shipping + $tax);
 
-        return view('cart.index', compact('cart', 'subtotal', 'shipping', 'discount', 'couponData', 'total'));
+        return view('cart.index', compact('cart', 'subtotal', 'shipping', 'tax', 'discount', 'couponData', 'total'));
     }
 
     public function add(Request $request, Product $product)
