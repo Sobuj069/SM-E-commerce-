@@ -71,117 +71,117 @@
     class="flex flex-col min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white transition-colors duration-200"
 >
 
-    <!-- Top Announcement Ticker Bar (Accessible 12px Baseline) -->
+    <!-- Top Announcement Ticker Bar -->
     <div id="nano-banner" class="bg-black text-white py-2.5 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
         <span>Free standard shipping over $75 | 30-day easy returns | Code: <span class="text-amber-300 font-black">SM20</span></span>
     </div>
 
-    <!-- Navigation Header -->
+    <!-- Sleek Gymshark Header Bar (Single Line, Perfectly Aligned) -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 gap-4">
+            <div class="flex items-center justify-between h-20 gap-3 lg:gap-6">
                 
-                <!-- Modern Brand Logo -->
-                <div class="flex items-center gap-8">
-                    <a href="{{ route('home') }}" class="flex items-center gap-3 group" aria-label="SM Shop 3D Home">
-                        <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300">
-                            <!-- Geometric 3D Polygon Logo -->
-                            <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                            </svg>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-2xl font-black tracking-tighter text-black uppercase leading-none font-sans">SM SHOP</span>
-                            <span class="text-xs font-semibold text-zinc-400 mt-0.5">3D Performance Gear</span>
-                        </div>
+                <!-- 1. Left: Brand Logo (Compact & Aligned) -->
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shop 3D Home">
+                    <div class="w-9 h-9 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300 shrink-0">
+                        <!-- Geometric 3D Polygon Logo -->
+                        <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col justify-center leading-none">
+                        <span class="text-xl font-black tracking-tight text-black font-sans uppercase">SM SHOP</span>
+                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mt-1">3D GEAR</span>
+                    </div>
+                </a>
+
+                <!-- 2. Center: Desktop Nav Links (Never Wrap, Clean Whitespace-nowrap) -->
+                <nav class="hidden xl:flex items-center gap-4 2xl:gap-6 text-xs font-bold uppercase tracking-wider text-black shrink-0">
+                    <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black' : '' }}">
+                        ALL
                     </a>
+                    @if(isset($navCategories) && $navCategories->count() > 0)
+                        @foreach($navCategories as $navCat)
+                            <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap {{ request('category') === $navCat->slug ? 'border-b-2 border-black' : '' }}">
+                                {{ $navCat->name }}
+                            </a>
+                        @endforeach
+                    @else
+                        <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">TECH & GADGETS</a>
+                        <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">APPAREL</a>
+                        <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">WEARABLES</a>
+                        <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">AUDIO</a>
+                    @endif
+                    <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 py-1.5 transition whitespace-nowrap flex items-center gap-1 font-black">
+                        SALE <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
+                    </a>
+                </nav>
 
-                    <!-- Desktop Nav Links (Title Case & Clear Font Scale) -->
-                    <nav class="hidden xl:flex items-center gap-7 text-sm font-semibold text-black">
-                        <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1 transition relative {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black font-bold' : '' }}">All Products</a>
-                        @if(isset($navCategories) && $navCategories->count() > 0)
-                            @foreach($navCategories as $navCat)
-                                <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1 transition relative {{ request('category') === $navCat->slug ? 'border-b-2 border-black font-bold' : '' }}">
-                                    {{ $navCat->name }}
-                                </a>
-                            @endforeach
-                        @else
-                            <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1 transition relative">Tech & Gadgets</a>
-                            <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1 transition relative">Apparel</a>
-                            <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1 transition relative">Wearables</a>
-                            <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1 transition relative">Audio</a>
-                        @endif
-                        <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 py-1 transition font-bold flex items-center gap-1.5">
-                            Sale <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
-                        </a>
-                    </nav>
-                </div>
-
-                <!-- Expanded Search Bar (WCAG 2.2 Accessible Button & 24px+ Touch Target) -->
-                <div class="hidden md:flex flex-1 max-w-xs lg:max-w-sm mx-2">
-                    <form action="{{ route('shop.index') }}" method="GET" class="w-full relative group" role="search">
-                        <label for="header-search-input" class="sr-only">Search products</label>
-                        <input 
-                            id="header-search-input"
-                            type="text" 
-                            name="q" 
-                            value="{{ request('q') }}"
-                            placeholder="Search products..." 
-                            class="w-full pl-11 pr-4 py-2.5 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-semibold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200"
-                        >
-                        <button 
-                            type="submit" 
-                            aria-label="Submit search" 
-                            title="Search" 
-                            class="absolute left-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-black transition cursor-pointer"
-                        >
-                            <i class="fa-solid fa-magnifying-glass text-xs" aria-hidden="true"></i>
-                            <span class="sr-only">Search</span>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Right Actions -->
-                @php
-                    $cart = session()->get('cart', []);
-                    $cartCount = array_sum(array_column($cart, 'quantity'));
-                @endphp
-                <div class="flex items-center gap-2 sm:gap-4">
+                <!-- 3. Right: Search Pill & Action Icons (Fixed Width, Sleek Alignment) -->
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                     
+                    <!-- Clean Search Pill (Never Squashed) -->
+                    <div class="hidden md:flex items-center shrink-0">
+                        <form action="{{ route('shop.index') }}" method="GET" class="relative w-36 lg:w-44 xl:w-52" role="search">
+                            <label for="header-search-input" class="sr-only">Search products</label>
+                            <input 
+                                id="header-search-input"
+                                type="text" 
+                                name="q" 
+                                value="{{ request('q') }}"
+                                placeholder="SEARCH..." 
+                                class="w-full pl-9 pr-3 py-2 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-bold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200 uppercase"
+                            >
+                            <button 
+                                type="submit" 
+                                aria-label="Submit search" 
+                                title="Search" 
+                                class="absolute left-1.5 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-zinc-500 hover:text-black transition cursor-pointer"
+                            >
+                                <i class="fa-solid fa-magnifying-glass text-xs" aria-hidden="true"></i>
+                                <span class="sr-only">Search</span>
+                            </button>
+                        </form>
+                    </div>
+
                     <!-- Wishlist Icon -->
-                    <a href="{{ route('shop.index') }}" class="p-2 text-black hover:text-zinc-500 transition" title="Wishlist" aria-label="View Wishlist">
-                        <i class="fa-regular fa-heart text-lg" aria-hidden="true"></i>
+                    <a href="{{ route('shop.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Wishlist" aria-label="View Wishlist">
+                        <i class="fa-regular fa-heart text-base" aria-hidden="true"></i>
                     </a>
 
                     <!-- Cart Bag Trigger -->
+                    @php
+                        $cart = session()->get('cart', []);
+                        $cartCount = array_sum(array_column($cart, 'quantity'));
+                    @endphp
                     <button 
                         type="button"
                         x-on:click="drawerOpen = true"
-                        class="relative p-2 text-black hover:text-zinc-500 transition flex items-center gap-1.5 cursor-pointer"
+                        class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition relative cursor-pointer"
                         title="Shopping Bag"
                         aria-label="Open Shopping Bag ({{ $cartCount }} items)"
                     >
-                        <i class="fa-solid fa-bag-shopping text-xl" aria-hidden="true"></i>
+                        <i class="fa-solid fa-bag-shopping text-base" aria-hidden="true"></i>
                         @if($cartCount > 0)
-                            <span id="nav-cart-badge" class="bg-black text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                            <span id="nav-cart-badge" class="absolute -top-0.5 -right-0.5 bg-black text-white text-[10px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white">
                                 {{ $cartCount }}
                             </span>
                         @endif
                     </button>
 
-                    <!-- Standard Action Button -->
-                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-xs font-bold text-white bg-black hover:bg-zinc-800 rounded-full transition shadow-sm cursor-pointer">
-                        Explore 3D
+                    <!-- Black Pill CTA -->
+                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-black text-white bg-black hover:bg-zinc-800 rounded-full transition shadow-sm cursor-pointer whitespace-nowrap uppercase tracking-wider">
+                        EXPLORE 3D
                     </a>
 
                     <!-- Mobile Menu Toggle Button -->
                     <button 
                         type="button" 
                         x-on:click="mobileMenuOpen = !mobileMenuOpen"
-                        class="xl:hidden p-2 text-black hover:text-zinc-500 transition"
+                        class="xl:hidden w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition"
                         aria-label="Toggle mobile menu"
                     >
-                        <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
+                        <i class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
                     </button>
                 </div>
 
@@ -197,21 +197,21 @@
                     type="text" 
                     name="q" 
                     value="{{ request('q') }}"
-                    placeholder="Search products..." 
-                    class="w-full pl-11 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-semibold text-black"
+                    placeholder="SEARCH PRODUCTS..." 
+                    class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-bold text-black uppercase"
                 >
                 <button 
                     type="submit" 
                     aria-label="Submit search" 
                     title="Search" 
-                    class="absolute left-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-zinc-500 cursor-pointer"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-zinc-500 cursor-pointer"
                 >
                     <i class="fa-solid fa-magnifying-glass text-xs" aria-hidden="true"></i>
                     <span class="sr-only">Search</span>
                 </button>
             </form>
 
-            <nav class="flex flex-col space-y-3 text-sm font-semibold text-black">
+            <nav class="flex flex-col space-y-3 text-xs font-black uppercase tracking-widest text-black">
                 <a href="{{ route('shop.index') }}" class="py-2 hover:text-zinc-500">All Products</a>
                 @if(isset($navCategories) && $navCategories->count() > 0)
                     @foreach($navCategories as $navCat)
@@ -223,7 +223,7 @@
                     <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="py-2 hover:text-zinc-500">Wearables</a>
                     <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="py-2 hover:text-zinc-500">Audio</a>
                 @endif
-                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-bold">Sale 🔥</a>
+                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-black">Sale 🔥</a>
             </nav>
         </div>
     </header>
@@ -350,7 +350,7 @@
         @yield('content')
     </main>
 
-    <!-- 4-Column Structured Footer (WCAG 2.2 Valid Heading Hierarchy: H3) -->
+    <!-- 4-Column Structured Footer -->
     <footer class="bg-white border-t border-zinc-200 text-black py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
