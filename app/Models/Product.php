@@ -38,9 +38,19 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function orderItems()
+    public function variants()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)->latest();
+    }
+
+    public function approvedReviews()
+    {
+        return $this->hasMany(Review::class)->where('is_approved', true)->latest();
     }
 
     public function getEffectivePriceAttribute()

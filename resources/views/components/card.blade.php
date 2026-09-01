@@ -1,4 +1,4 @@
-﻿@props([
+@props([
     'variant' => 'product', // product | glass | elevated | default
     'hover3d' => true,
     'image' => null,

@@ -27,8 +27,36 @@
     "file": "assets/instrument-sans-600-normal-B9e8oLYv.woff",
     "src": "_instrument-sans-600-normal-B9e8oLYv.woff"
   },
+  "node_modules/three/examples/jsm/libs/basis/basis_transcoder.js": {
+    "file": "assets/basis_transcoder-o4Hde_L7.js",
+    "src": "node_modules/three/examples/jsm/libs/basis/basis_transcoder.js"
+  },
+  "node_modules/three/examples/jsm/libs/basis/basis_transcoder.wasm": {
+    "file": "assets/basis_transcoder-VXdx5NbI.wasm",
+    "src": "node_modules/three/examples/jsm/libs/basis/basis_transcoder.wasm"
+  },
+  "node_modules/three/examples/jsm/libs/draco/draco_decoder.js": {
+    "file": "assets/draco_decoder-fzg4nYZr.js",
+    "src": "node_modules/three/examples/jsm/libs/draco/draco_decoder.js"
+  },
+  "node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm": {
+    "file": "assets/draco_decoder-C32yEggz.wasm",
+    "src": "node_modules/three/examples/jsm/libs/draco/draco_decoder.wasm"
+  },
+  "node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js": {
+    "file": "assets/draco_wasm_wrapper-DxJM36Ib.js",
+    "src": "node_modules/three/examples/jsm/libs/draco/draco_wasm_wrapper.js"
+  },
+  "node_modules/three/examples/jsm/libs/draco/gltf/draco_decoder.wasm": {
+    "file": "assets/draco_decoder-Z1_iN-Ht.wasm",
+    "src": "node_modules/three/examples/jsm/libs/draco/gltf/draco_decoder.wasm"
+  },
+  "node_modules/three/examples/jsm/libs/draco/gltf/draco_wasm_wrapper.js": {
+    "file": "assets/draco_wasm_wrapper-fZCQGLGb.js",
+    "src": "node_modules/three/examples/jsm/libs/draco/gltf/draco_wasm_wrapper.js"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-DS8fe3HK.css",
+    "file": "assets/app-CygFggsl.css",
     "name": "app",
     "names": [
       "app.css"
@@ -37,9 +65,21 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BsiwgqVa.js",
+    "file": "assets/app-9JqUCb1y.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/app-DqcfXag6.css"
+    ],
+    "assets": [
+      "assets/draco_decoder-C32yEggz.wasm",
+      "assets/draco_wasm_wrapper-DxJM36Ib.js",
+      "assets/draco_decoder-fzg4nYZr.js",
+      "assets/draco_wasm_wrapper-fZCQGLGb.js",
+      "assets/draco_decoder-Z1_iN-Ht.wasm",
+      "assets/basis_transcoder-VXdx5NbI.wasm",
+      "assets/basis_transcoder-o4Hde_L7.js"
+    ]
   }
 }

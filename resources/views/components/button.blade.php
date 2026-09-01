@@ -1,4 +1,4 @@
-﻿@props([
+@props([
     'variant' => 'primary', // primary | secondary | outline | accent | glass | danger | ghost
     'size' => 'md',       // sm | md | lg
     'href' => null,

@@ -1,4 +1,4 @@
-﻿@props([
+@props([
     'variant' => 'discount', // discount | featured | success | warning | danger | info | nano | neutral
     'size' => 'sm',          // sm | md
     'dot' => false,

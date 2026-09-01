@@ -15,6 +15,8 @@ class Order extends Model
         'city',
         'postal_code',
         'total_amount',
+        'coupon_code',
+        'discount_amount',
         'payment_method',
         'payment_status',
         'order_status',
@@ -23,6 +25,7 @@ class Order extends Model
 
     protected $casts = [
         'total_amount' => 'decimal:2',
+        'discount_amount' => 'decimal:2',
     ];
 
     public function items()

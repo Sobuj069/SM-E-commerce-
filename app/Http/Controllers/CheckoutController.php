@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -23,10 +24,23 @@ class CheckoutController extends Controller
             $subtotal += $item['price'] * $item['quantity'];
         }
 
-        $shipping = $subtotal > 100 ? 0.00 : 15.00;
-        $total = $subtotal + $shipping;
+        $couponData = session()->get('coupon', null);
+        $discount = 0.00;
 
-        return view('checkout.index', compact('cart', 'subtotal', 'shipping', 'total'));
+        if ($couponData) {
+            $coupon = Coupon::where('code', $couponData['code'])->first();
+            if ($coupon && $coupon->isValid($subtotal)) {
+                $discount = $coupon->calculateDiscount($subtotal);
+            } else {
+                session()->forget('coupon');
+                $couponData = null;
+            }
+        }
+
+        $shipping = $subtotal > 100 ? 0.00 : 15.00;
+        $total = max(0, $subtotal - $discount + $shipping);
+
+        return view('checkout.index', compact('cart', 'subtotal', 'shipping', 'discount', 'couponData', 'total'));
     }
 
     public function store(Request $request)
@@ -52,10 +66,24 @@ class CheckoutController extends Controller
         foreach ($cart as $item) {
             $subtotal += $item['price'] * $item['quantity'];
         }
-        $shipping = $subtotal > 100 ? 0.00 : 15.00;
-        $total = $subtotal + $shipping;
 
-        $order = DB::transaction(function () use ($validated, $cart, $total) {
+        $couponData = session()->get('coupon', null);
+        $discount = 0.00;
+        $couponCode = null;
+
+        if ($couponData) {
+            $coupon = Coupon::where('code', $couponData['code'])->first();
+            if ($coupon && $coupon->isValid($subtotal)) {
+                $discount = $coupon->calculateDiscount($subtotal);
+                $couponCode = $coupon->code;
+                $coupon->increment('used_count');
+            }
+        }
+
+        $shipping = $subtotal > 100 ? 0.00 : 15.00;
+        $total = max(0, $subtotal - $discount + $shipping);
+
+        $order = DB::transaction(function () use ($validated, $cart, $total, $couponCode, $discount) {
             $order = Order::create([
                 'order_number' => 'ORD-' . strtoupper(Str::random(8)),
                 'customer_name' => $validated['customer_name'],
@@ -65,6 +93,8 @@ class CheckoutController extends Controller
                 'city' => $validated['city'],
                 'postal_code' => $validated['postal_code'] ?? null,
                 'total_amount' => $total,
+                'coupon_code' => $couponCode,
+                'discount_amount' => $discount,
                 'payment_method' => $validated['payment_method'],
                 'payment_status' => 'pending',
                 'order_status' => 'pending',
@@ -85,7 +115,7 @@ class CheckoutController extends Controller
             return $order;
         });
 
-        session()->forget('cart');
+        session()->forget(['cart', 'coupon']);
 
         return redirect()->route('checkout.success', $order->order_number)
             ->with('success', 'Thank you! Your order has been placed successfully.');

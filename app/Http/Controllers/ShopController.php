@@ -39,6 +39,16 @@ class ShopController extends Controller
             $query->where('price', '<=', (float) $request->input('max_price'));
         }
 
+        // Rating filter
+        if ($request->filled('min_rating')) {
+            $query->where('rating', '>=', (float) $request->input('min_rating'));
+        }
+
+        // In-stock only filter
+        if ($request->boolean('in_stock')) {
+            $query->where('stock', '>', 0);
+        }
+
         // Sorting
         $sort = $request->input('sort', 'latest');
         switch ($sort) {
@@ -59,7 +69,7 @@ class ShopController extends Controller
                 break;
         }
 
-        $products = $query->paginate(9)->withQueryString();
+        $products = $query->paginate(12)->withQueryString();
         $categories = Category::where('is_active', true)->withCount('products')->get();
         $selectedCategory = $request->filled('category') 
             ? Category::where('slug', $request->input('category'))->first() 

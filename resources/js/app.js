@@ -1,59 +1,72 @@
+import Alpine from 'alpinejs';
+import { gsap } from 'gsap';
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+import ApexCharts from 'apexcharts';
+import * as THREE from 'three';
+import '@google/model-viewer';
 import { animate as animeAnimate, stagger as animeStagger } from 'animejs';
-import { inView, animate as motionAnimate } from 'motion';
+
+window.Alpine = Alpine;
+window.ApexCharts = ApexCharts;
+window.gsap = gsap;
+window.Swiper = Swiper;
+window.THREE = THREE;
+
+// Start Alpine
+Alpine.start();
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initial Hero Stagger Animation (Anime.js v4)
-    if (document.querySelectorAll('.hero-stagger').length > 0) {
-        animeAnimate('.hero-stagger', {
-            translateY: [40, 0],
-            opacity: [0, 1],
-            duration: 900,
-            delay: animeStagger(120, { start: 150 }),
-            ease: 'outCubic'
+    // 1. Interactive 3D Canvas Background in Hero (Three.js)
+    const heroCanvas = document.getElementById('hero-3d-canvas');
+    if (heroCanvas) {
+        initHero3DCanvas(heroCanvas);
+    }
+
+    // 2. Swiper Testimonials & Featured Sliders
+    if (document.querySelector('.testimonial-swiper')) {
+        new Swiper('.testimonial-swiper', {
+            modules: [Pagination, Autoplay, Navigation],
+            slidesPerView: 1,
+            spaceBetween: 24,
+            autoplay: { delay: 4500, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
         });
     }
 
-    // 2. Floating 3D Badges & Orbs (Anime.js v4)
-    animeAnimate('.animate-orb-1', {
-        translateX: [-25, 25],
-        translateY: [-20, 20],
-        scale: [1, 1.12],
-        duration: 7000,
-        alternate: true,
-        loop: true,
-        ease: 'inOutSine'
-    });
+    if (document.querySelector('.related-swiper')) {
+        new Swiper('.related-swiper', {
+            modules: [Navigation, Autoplay],
+            slidesPerView: 1,
+            spaceBetween: 20,
+            autoplay: { delay: 5000 },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 }
+            }
+        });
+    }
 
-    animeAnimate('.animate-orb-2', {
-        translateX: [20, -20],
-        translateY: [25, -25],
-        scale: [1, 1.15],
-        duration: 8500,
-        alternate: true,
-        loop: true,
-        ease: 'inOutSine'
-    });
+    // 3. GSAP Staggered Intro Animations
+    if (document.querySelectorAll('.gsap-hero-title').length > 0) {
+        gsap.from('.gsap-hero-title', {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: 'power3.out'
+        });
+    }
 
-    animeAnimate('.hero-float-badge-1', {
-        translateY: [-8, 8],
-        rotate: [-1.5, 1.5],
-        duration: 3500,
-        alternate: true,
-        loop: true,
-        ease: 'inOutQuad'
-    });
-
-    animeAnimate('.hero-float-badge-2', {
-        translateY: [8, -8],
-        rotate: [1.5, -1.5],
-        duration: 4000,
-        alternate: true,
-        loop: true,
-        ease: 'inOutQuad',
-        delay: 500
-    });
-
-    // 3. Interactive 3D Card Tilt Effect (Physics with Mousemove)
+    // 4. Interactive 3D Card Tilt Effect (Mouse Physics)
     const tiltElements = document.querySelectorAll('.card-3d, .hero-3d-card, .category-card-3d');
     tiltElements.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -74,43 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Scroll-Triggered Reveal Animations (Motion.dev / inView)
-    inView('.scroll-reveal', ({ target }) => {
-        motionAnimate(
-            target,
-            { opacity: [0, 1], transform: ['translateY(30px)', 'translateY(0px)'] },
-            { duration: 0.65, easing: [0.22, 1, 0.36, 1] }
-        );
-    });
-
-    inView('.stagger-grid', ({ target }) => {
-        const children = target.children;
-        animeAnimate(children, {
-            translateY: [40, 0],
-            opacity: [0, 1],
-            duration: 700,
-            delay: animeStagger(100),
-            ease: 'outQuad'
-        });
-    });
-
-    // 5. Add to Cart Pulse & Bounce Feedback
-    document.querySelectorAll('form[action*="/cart/add"]').forEach(form => {
-        form.addEventListener('submit', () => {
-            const badge = document.querySelector('#nav-cart-badge');
-            if (badge) {
-                badge.classList.remove('hidden');
-                badge.classList.add('flex');
-                animeAnimate(badge, {
-                    scale: [1, 1.5, 0.9, 1.15, 1],
-                    duration: 600,
-                    ease: 'outElastic'
-                });
-            }
-        });
-    });
-
-    // 6. Nano Banner Live Countdown Timer
+    // 5. Nano Banner Countdown Timer
     const timerElement = document.getElementById('nano-banner-timer');
     if (timerElement) {
         let totalSeconds = 5 * 3600 + 42 * 60 + 19;
@@ -126,3 +103,86 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Three.js 3D Particles & Mesh Canvas Function
+function initHero3DCanvas(container) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    // Particle Sphere Geometry
+    const geometry = new THREE.BufferGeometry();
+    const particlesCount = 350;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 12;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.045,
+        color: 0x818cf8,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending
+    });
+
+    const particlesMesh = new THREE.Points(geometry, material);
+    scene.add(particlesMesh);
+
+    // Torus Knot Accent Mesh
+    const torusGeo = new THREE.TorusKnotGeometry(1.6, 0.45, 64, 16);
+    const torusMat = new THREE.MeshBasicMaterial({
+        color: 0x4f46e5,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.18
+    });
+    const torusMesh = new THREE.Mesh(torusGeo, torusMat);
+    scene.add(torusMesh);
+
+    camera.position.z = 6;
+
+    // Mouse Parallax Interaction
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth) - 0.5;
+        mouseY = (e.clientY / window.innerHeight) - 0.5;
+    });
+
+    // Animation Loop
+    const animate = () => {
+        requestAnimationFrame(animate);
+
+        particlesMesh.rotation.y += 0.002;
+        particlesMesh.rotation.x += 0.001;
+
+        torusMesh.rotation.x += 0.004;
+        torusMesh.rotation.y += 0.005;
+
+        // Smooth camera follow mouse
+        camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+    };
+
+    animate();
+
+    // Window Resize Handler
+    window.addEventListener('resize', () => {
+        if (container.clientWidth > 0 && container.clientHeight > 0) {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+    });
+}
