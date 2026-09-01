@@ -134,9 +134,9 @@
         <!-- Products Grid Area -->
         <div class="lg:col-span-3 space-y-6">
             @if($products->count() > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-grid">
                     @foreach($products as $product)
-                        <div class="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-xl transition duration-300 flex flex-col overflow-hidden group">
+                        <div class="card-3d bg-white rounded-3xl border border-slate-200/90 hover:border-indigo-400/60 shadow-xs hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden group">
                             
                             <!-- Product Image & Badges -->
                             <div class="relative aspect-square bg-slate-100 overflow-hidden">
@@ -144,19 +144,19 @@
                                     <img 
                                         src="{{ $product->image }}" 
                                         alt="{{ $product->name }}" 
-                                        class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                        class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                                     >
                                 </a>
                                 
-                                <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                                <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
                                     @if($product->has_discount)
-                                        <span class="bg-rose-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
+                                        <span class="bg-gradient-to-r from-rose-500 to-pink-600 text-white text-[11px] font-black px-2.5 py-1 rounded-full shadow-md">
                                             -{{ $product->discount_percent }}% OFF
                                         </span>
                                     @endif
                                     @if($product->is_featured)
-                                        <span class="bg-amber-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-xs">
-                                            Featured
+                                        <span class="bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-md uppercase tracking-wider">
+                                            ⚡ Featured
                                         </span>
                                     @endif
                                 </div>
@@ -165,10 +165,10 @@
                             <!-- Details -->
                             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
                                 <div>
-                                    <span class="text-xs font-semibold text-indigo-600 uppercase tracking-wider">
+                                    <span class="text-[11px] font-black text-indigo-600 uppercase tracking-widest">
                                         {{ $product->category->name ?? 'General' }}
                                     </span>
-                                    <h3 class="font-bold text-slate-900 text-base mt-1 line-clamp-1 group-hover:text-indigo-600 transition">
+                                    <h3 class="font-extrabold text-slate-900 text-base mt-1 line-clamp-1 group-hover:text-indigo-600 transition">
                                         <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                     </h3>
                                     <p class="text-xs text-slate-500 line-clamp-2 mt-1.5 leading-relaxed">
@@ -177,18 +177,18 @@
                                 </div>
 
                                 <!-- Rating & Price & Add to Cart -->
-                                <div class="pt-2 border-t border-slate-100 flex flex-col gap-3">
+                                <div class="pt-3 border-t border-slate-100 flex flex-col gap-3">
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-1.5">
                                             <div class="flex text-amber-400 text-xs">
                                                 <i class="fa-solid fa-star"></i>
                                             </div>
-                                            <span class="text-xs font-bold text-slate-700">{{ number_format($product->rating, 1) }}</span>
-                                            <span class="text-xs text-slate-400">({{ $product->reviews_count }})</span>
+                                            <span class="text-xs font-black text-slate-800">{{ number_format($product->rating, 1) }}</span>
+                                            <span class="text-[11px] text-slate-400">({{ $product->reviews_count }})</span>
                                         </div>
                                         <div class="text-right">
                                             @if($product->has_discount)
-                                                <span class="text-xs text-slate-400 line-through mr-1">${{ number_format($product->price, 2) }}</span>
+                                                <span class="text-xs text-slate-400 line-through mr-1 font-semibold">${{ number_format($product->price, 2) }}</span>
                                                 <span class="text-lg font-black text-rose-600">${{ number_format($product->sale_price, 2) }}</span>
                                             @else
                                                 <span class="text-lg font-black text-slate-900">${{ number_format($product->price, 2) }}</span>
@@ -199,7 +199,7 @@
                                     <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-bold rounded-xl transition duration-200 shadow-xs">
+                                        <button type="submit" class="btn-add-cart w-full flex items-center justify-center gap-2 py-3 px-4 bg-slate-950 hover:bg-indigo-600 text-white text-xs font-extrabold rounded-2xl transition-all duration-200 shadow-md shadow-black/10 active:scale-95">
                                             <i class="fa-solid fa-cart-plus"></i> Add To Cart
                                         </button>
                                     </form>

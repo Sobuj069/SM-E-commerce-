@@ -28,34 +28,57 @@
 </head>
 <body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-indigo-900 text-white text-xs py-2 px-4">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p class="font-medium text-center sm:text-left flex items-center justify-center gap-2">
-                <span class="bg-indigo-500/30 text-indigo-200 px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider">Special Offer</span>
-                <span>Free shipping on all orders over $100! Fast delivery nationwide.</span>
-            </p>
-            <div class="flex items-center gap-4 text-slate-300 text-xs">
-                <span class="hover:text-white transition"><i class="fa-solid fa-phone mr-1"></i> +880 1700-000000</span>
-                <span class="hidden md:inline hover:text-white transition"><i class="fa-solid fa-envelope mr-1"></i> support@smecom.com</span>
+    <!-- Interactive 3D Nano Announcement Banner -->
+    <div id="nano-banner" class="relative z-50 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-indigo-500/30 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-600/10 via-indigo-500/20 to-amber-500/10 animate-gradient-border"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 relative flex flex-wrap items-center justify-between gap-3 text-xs">
+            
+            <!-- Left: Nano Promo Info -->
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-extrabold text-[10px] uppercase tracking-wider shadow-xs shadow-indigo-500/40">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    ⚡ Nano Flash Deal
+                </span>
+                <p class="font-medium text-slate-200 hidden sm:inline">
+                    Extra <strong class="text-amber-300 font-extrabold">20% OFF</strong> with code: 
+                    <span class="bg-white/10 px-2 py-0.5 rounded border border-white/20 font-mono text-amber-300 font-bold">SM20</span>
+                </p>
             </div>
+
+            <!-- Center: Live Dynamic Countdown Timer -->
+            <div class="flex items-center gap-2 bg-slate-900/80 px-3 py-1 rounded-full border border-indigo-400/20 shadow-inner">
+                <span class="text-slate-400 text-[11px]"><i class="fa-regular fa-clock mr-1 text-amber-400"></i> Ends in:</span>
+                <span id="nano-banner-timer" class="font-mono font-black text-amber-300 text-xs tracking-wider">05:42:19</span>
+            </div>
+
+            <!-- Right: Action CTA & Close -->
+            <div class="flex items-center gap-3">
+                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="hidden md:inline-flex items-center gap-1 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg transition duration-200 shadow-sm shadow-indigo-600/50">
+                    Claim Deal <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+                <button onclick="document.getElementById('nano-banner').remove()" class="text-slate-400 hover:text-white transition p-1" title="Close Banner">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
         </div>
     </div>
 
     <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-xs transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 gap-4">
                 
-                <!-- Logo -->
+                <!-- Logo with 3D Effect -->
                 <div class="flex items-center gap-8">
-                    <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
-                        <div class="w-11 h-11 bg-gradient-to-tr from-indigo-600 to-violet-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition duration-200">
-                            <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                        <div class="w-12 h-12 bg-gradient-to-tr from-indigo-600 via-violet-600 to-indigo-400 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 group-hover:scale-110 group-hover:rotate-6 transition duration-300 transform-style-3d">
+                            <i class="fa-solid fa-bag-shopping text-xl translate-z-10"></i>
                         </div>
                         <div>
-                            <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-600 bg-clip-text text-transparent">SM</span>
-                            <span class="text-2xl font-bold text-slate-800">Shop</span>
+                            <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">SM</span>
+                            <span class="text-2xl font-bold text-slate-900">Shop</span>
+                            <span class="block text-[10px] font-bold uppercase tracking-widest text-indigo-500 -mt-1">3D E-Commerce</span>
                         </div>
                     </a>
 
@@ -70,15 +93,15 @@
 
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-1 max-w-md mx-4">
-                    <form action="{{ route('shop.index') }}" method="GET" class="w-full relative">
+                    <form action="{{ route('shop.index') }}" method="GET" class="w-full relative group">
                         <input 
                             type="text" 
                             name="q" 
                             value="{{ request('q') }}"
-                            placeholder="Search products, brands, tech..." 
-                            class="w-full pl-11 pr-4 py-2.5 bg-slate-100/80 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+                            placeholder="Search next-gen tech, gadgets, styles..." 
+                            class="w-full pl-11 pr-4 py-2.5 bg-slate-100/90 border border-slate-200/80 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition duration-200 shadow-inner"
                         >
-                        <button type="submit" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 transition">
+                        <button type="submit" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-indigo-600 transition">
                             <i class="fa-solid fa-magnifying-glass text-sm"></i>
                         </button>
                     </form>
@@ -90,17 +113,19 @@
                     $cartCount = array_sum(array_column($cart, 'quantity'));
                 @endphp
                 <div class="flex items-center gap-3">
-                    <a href="{{ route('cart.index') }}" class="relative p-2.5 text-slate-700 hover:text-indigo-600 hover:bg-slate-100 rounded-full transition flex items-center gap-2">
-                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <a href="{{ route('cart.index') }}" class="relative p-2.5 text-slate-700 hover:text-indigo-600 hover:bg-slate-100 rounded-2xl transition flex items-center gap-2 group">
+                        <i class="fa-solid fa-cart-shopping text-xl group-hover:scale-110 transition duration-200"></i>
                         @if($cartCount > 0)
-                            <span class="absolute -top-0.5 -right-0.5 bg-indigo-600 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-xs">
+                            <span id="nav-cart-badge" class="absolute -top-0.5 -right-0.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-md shadow-indigo-500/50">
                                 {{ $cartCount }}
                             </span>
+                        @else
+                            <span id="nav-cart-badge" class="hidden absolute -top-0.5 -right-0.5 bg-indigo-600 text-white text-[11px] font-black w-5 h-5 rounded-full items-center justify-center">0</span>
                         @endif
                         <span class="hidden sm:inline text-sm font-semibold">Cart</span>
                     </a>
 
-                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-xs shadow-indigo-200 transition active:scale-95">
+                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 rounded-xl shadow-md shadow-indigo-500/25 transition duration-200 active:scale-95">
                         Shop Now
                     </a>
                 </div>
