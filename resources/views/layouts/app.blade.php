@@ -383,7 +383,7 @@
                         </li>
                         <li class="flex items-center gap-2.5">
                             <i class="fa-solid fa-envelope text-indigo-400"></i>
-                            <span>support@smcloudit.top</span>
+                            <span>support&#64;smcloudit.top</span>
                         </li>
                         <li class="flex items-center gap-2.5">
                             <i class="fa-solid fa-phone text-indigo-400"></i>

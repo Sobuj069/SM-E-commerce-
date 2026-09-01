@@ -79,8 +79,8 @@
                                 type="email" 
                                 name="customer_email" 
                                 id="cust_email"
-                                value="{{ old('customer_email', 'alex@example.com') }}" 
-                                placeholder="john@example.com" 
+                                value="{{ old('customer_email', 'alex&#64;example.com') }}" 
+                                placeholder="john&#64;example.com" 
                                 class="w-full px-4 py-3 bg-surface-elevated border border-line-subtle rounded-2xl text-xs font-bold text-content-primary focus:outline-none focus:ring-2 focus:ring-brand-primary"
                                 required
                             >

@@ -383,7 +383,7 @@
 
         <div>
             <label class="block text-xs font-bold text-content-primary mb-1">Email Address (Optional)</label>
-            <input type="email" name="user_email" placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl border border-line-subtle bg-surface-elevated text-content-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
+            <input type="email" name="user_email" placeholder="john&#64;example.com" class="w-full px-4 py-2.5 rounded-xl border border-line-subtle bg-surface-elevated text-content-primary text-sm focus:outline-none focus:ring-2 focus:ring-brand-primary">
         </div>
 
         <div>
