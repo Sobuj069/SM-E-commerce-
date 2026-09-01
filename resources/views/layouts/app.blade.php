@@ -60,8 +60,8 @@
     @endif
 
     <script>
-        // Init theme from localStorage or system preference
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        // Default to clean light mode unless dark mode explicitly chosen
+        if (localStorage.theme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -73,35 +73,34 @@
     class="flex flex-col min-h-screen bg-app text-content-primary font-sans antialiased selection:bg-brand-primary selection:text-white transition-colors duration-200"
 >
 
-    <!-- Interactive 3D Nano Announcement Banner -->
-    <div id="nano-banner" class="relative z-50 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-indigo-500/30 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-violet-600/10 via-indigo-500/20 to-amber-500/10 animate-gradient-border"></div>
+    <!-- Clean Modern Nano Announcement Banner -->
+    <div id="nano-banner" class="relative z-50 bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-700 text-white shadow-xs overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 relative flex flex-wrap items-center justify-between gap-3 text-xs">
             
             <!-- Left: Nano Promo Info -->
             <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-extrabold text-[10px] uppercase tracking-wider shadow-xs shadow-indigo-500/40">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                    ⚡ 2026 Nano Deal
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 text-white font-bold text-[11px]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+                    ⚡ 2026 Deal
                 </span>
-                <p class="font-medium text-slate-200 hidden sm:inline">
-                    Extra <strong class="text-amber-300 font-extrabold">20% OFF</strong> with code: 
-                    <span class="bg-white/10 px-2 py-0.5 rounded border border-white/20 font-mono text-amber-300 font-bold">SM20</span>
+                <p class="font-medium text-white/90 hidden sm:inline">
+                    Extra <strong class="text-amber-200 font-bold">20% OFF</strong> with code: 
+                    <span class="bg-white/15 px-2 py-0.5 rounded border border-white/20 font-mono text-amber-200 font-bold">SM20</span>
                 </p>
             </div>
 
             <!-- Center: Live Dynamic Countdown Timer -->
-            <div class="flex items-center gap-2 bg-slate-900/80 px-3 py-1 rounded-full border border-indigo-400/20 shadow-inner">
-                <span class="text-slate-400 text-[11px]"><i class="fa-regular fa-clock mr-1 text-amber-400"></i> Flash Ends:</span>
-                <span id="nano-banner-timer" class="font-mono font-black text-amber-300 text-xs tracking-wider">05:42:19</span>
+            <div class="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full border border-white/10">
+                <span class="text-white/80 text-[11px]"><i class="fa-regular fa-clock mr-1 text-amber-300"></i> Flash Ends:</span>
+                <span id="nano-banner-timer" class="font-mono font-bold text-amber-200 text-xs tracking-wider">05:42:19</span>
             </div>
 
             <!-- Right: Action CTA & Close -->
             <div class="flex items-center gap-3">
-                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="hidden md:inline-flex items-center gap-1 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1 rounded-lg transition duration-200 shadow-sm shadow-indigo-600/50">
+                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="hidden md:inline-flex items-center gap-1 text-xs font-bold text-indigo-900 bg-white hover:bg-slate-100 px-3 py-1 rounded-lg transition duration-200 shadow-sm">
                     Claim Deal <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
-                <button onclick="document.getElementById('nano-banner').remove()" class="text-slate-400 hover:text-white transition p-1" title="Close Banner">
+                <button onclick="document.getElementById('nano-banner').remove()" class="text-white/70 hover:text-white transition p-1" title="Close Banner">
                     <i class="fa-solid fa-xmark text-xs"></i>
                 </button>
             </div>
@@ -326,67 +325,67 @@
         @yield('content')
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-950 text-slate-300 mt-20 border-t border-slate-800">
+    <!-- Modern Light Clean Footer -->
+    <footer class="bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 mt-20 border-t border-slate-200/80 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
                 
                 <!-- About Column -->
                 <div class="lg:col-span-2 space-y-4">
                     <div class="flex items-center gap-2.5">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md">
+                        <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
                             <i class="fa-solid fa-cube text-lg"></i>
                         </div>
-                        <span class="text-2xl font-bold text-white">SM Shop 3D</span>
+                        <span class="text-2xl font-bold text-slate-900 dark:text-white">SM Shop 3D</span>
                     </div>
-                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm">
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
                         Your trusted next-gen 2026 e-commerce platform for cutting-edge electronics, fashion, smart wearables, and spatial audio gear.
                     </p>
-                    <div class="flex items-center gap-3 pt-2 text-slate-400">
-                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-xs"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-twitter text-xs"></i></a>
-                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-instagram text-xs"></i></a>
-                        <a href="https://github.com/Sobuj069/SM-E-commerce-" target="_blank" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-github text-xs"></i></a>
+                    <div class="flex items-center gap-3 pt-2 text-slate-500">
+                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-twitter text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-instagram text-xs"></i></a>
+                        <a href="https://github.com/Sobuj069/SM-E-commerce-" target="_blank" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition"><i class="fa-brands fa-github text-xs"></i></a>
                     </div>
                 </div>
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Quick Links</h4>
-                    <ul class="space-y-2.5 text-xs text-slate-400">
-                        <li><a href="{{ route('home') }}" class="hover:text-white transition">Home</a></li>
-                        <li><a href="{{ route('shop.index') }}" class="hover:text-white transition">3D Catalog</a></li>
-                        <li><a href="{{ route('cart.index') }}" class="hover:text-white transition">Shopping Cart</a></li>
-                        <li><a href="{{ route('checkout.index') }}" class="hover:text-white transition">Secure Checkout</a></li>
-                        <li><a href="{{ route('admin.dashboard') }}" class="text-indigo-400 hover:text-white transition font-bold">Admin Panel</a></li>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
+                        <li><a href="{{ route('home') }}" class="hover:text-indigo-600 dark:hover:text-white transition">Home</a></li>
+                        <li><a href="{{ route('shop.index') }}" class="hover:text-indigo-600 dark:hover:text-white transition">3D Catalog</a></li>
+                        <li><a href="{{ route('cart.index') }}" class="hover:text-indigo-600 dark:hover:text-white transition">Shopping Cart</a></li>
+                        <li><a href="{{ route('checkout.index') }}" class="hover:text-indigo-600 dark:hover:text-white transition">Secure Checkout</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}" class="text-indigo-600 dark:text-indigo-400 hover:underline transition font-bold">Admin Panel</a></li>
                     </ul>
                 </div>
 
                 <!-- Categories -->
                 <div>
-                    <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Collections</h4>
-                    <ul class="space-y-2.5 text-xs text-slate-400">
-                        <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-white transition">Electronics</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-white transition">Fashion</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-white transition">Smart Watches</a></li>
-                        <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-white transition">Audio Gear</a></li>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Collections</h4>
+                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
+                        <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Electronics</a></li>
+                        <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Fashion</a></li>
+                        <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Smart Watches</a></li>
+                        <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-indigo-600 dark:hover:text-white transition">Audio Gear</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact & Support -->
                 <div>
-                    <h4 class="text-xs font-black uppercase tracking-wider text-white mb-4">Contact Info</h4>
-                    <ul class="space-y-2.5 text-xs text-slate-400">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">Contact Info</h4>
+                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
                         <li class="flex items-start gap-2.5">
-                            <i class="fa-solid fa-location-dot mt-1 text-indigo-400"></i>
+                            <i class="fa-solid fa-location-dot mt-1 text-indigo-600"></i>
                             <span>Dhaka, Bangladesh</span>
                         </li>
                         <li class="flex items-center gap-2.5">
-                            <i class="fa-solid fa-envelope text-indigo-400"></i>
+                            <i class="fa-solid fa-envelope text-indigo-600"></i>
                             <span>support&#64;smcloudit.top</span>
                         </li>
                         <li class="flex items-center gap-2.5">
-                            <i class="fa-solid fa-phone text-indigo-400"></i>
+                            <i class="fa-solid fa-phone text-indigo-600"></i>
                             <span>+880 1700-000000</span>
                         </li>
                     </ul>
@@ -394,12 +393,12 @@
 
             </div>
 
-            <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
                 <p>&copy; 2026 SM Shop 3D E-Commerce. Powered by Laravel 12 & Tailwind CSS v4.</p>
                 <div class="flex items-center gap-6">
-                    <span class="hover:text-slate-400">Privacy Policy</span>
-                    <span class="hover:text-slate-400">Terms of Service</span>
-                    <span class="hover:text-slate-400">256-Bit SSL Security</span>
+                    <span class="hover:text-slate-600">Privacy Policy</span>
+                    <span class="hover:text-slate-600">Terms of Service</span>
+                    <span class="hover:text-slate-600">256-Bit SSL Security</span>
                 </div>
             </div>
         </div>

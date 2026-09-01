@@ -6,14 +6,14 @@
 <!-- =========================================================================
      1. HERO SECTION: 3D THREE.JS WEBGL CANVAS + GSAP TYPOGRAPHY + 3D SHOWCASE
      ========================================================================= -->
-<section class="relative bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-900 text-white overflow-hidden py-16 lg:py-28 perspective-1000">
+<section class="relative bg-gradient-to-b from-slate-50 via-indigo-50/40 to-white text-slate-900 overflow-hidden py-16 lg:py-24 border-b border-slate-200/80 perspective-1000">
     
     <!-- Three.js 3D WebGL Particle & Mesh Canvas Background -->
-    <div id="hero-3d-canvas" class="absolute inset-0 z-0 pointer-events-none opacity-60"></div>
+    <div id="hero-3d-canvas" class="absolute inset-0 z-0 pointer-events-none opacity-40"></div>
 
-    <!-- Glowing Ambient Neon Light Orbs -->
-    <div class="absolute top-10 left-10 w-96 h-96 rounded-full bg-indigo-600/25 blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-10 right-10 w-[30rem] h-[30rem] rounded-full bg-violet-600/20 blur-3xl pointer-events-none"></div>
+    <!-- Glowing Ambient Soft Light Orbs -->
+    <div class="absolute top-10 left-10 w-96 h-96 rounded-full bg-indigo-200/30 blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-[30rem] h-[30rem] rounded-full bg-violet-200/25 blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -22,43 +22,43 @@
             <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                 
                 <div class="gsap-hero-title inline-flex items-center gap-2">
-                    <x-badge variant="nano" :dot="true" size="md">
-                        2026 Next-Gen 3D Collection
+                    <x-badge variant="info" :dot="true" size="md">
+                        ⚡ 2026 Next-Gen Collection
                     </x-badge>
                 </div>
                 
-                <h1 class="gsap-hero-title text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.12]">
+                <h1 class="gsap-hero-title text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.12] text-slate-900">
                     Immersive 3D <br class="hidden sm:inline">
-                    <span class="bg-gradient-to-r from-indigo-300 via-violet-300 to-amber-300 bg-clip-text text-transparent">Tech, Audio & Style</span>
+                    <span class="bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">Tech, Audio & Style</span>
                 </h1>
                 
-                <p class="gsap-hero-title text-base sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                <p class="gsap-hero-title text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
                     Step into the future of online shopping with real-time 3D product previews, instant checkout, and curated tech & luxury fashion.
                 </p>
 
                 <!-- Hero CTA Buttons -->
                 <div class="gsap-hero-title flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                    <x-button variant="accent" size="lg" href="{{ route('shop.index') }}" icon="fa-solid fa-cube">
+                    <x-button variant="primary" size="lg" href="{{ route('shop.index') }}" icon="fa-solid fa-cube">
                         Explore 3D Catalog
                     </x-button>
-                    <x-button variant="glass" size="lg" href="{{ route('shop.index', ['sort' => 'popular']) }}">
+                    <x-button variant="outline" size="lg" href="{{ route('shop.index', ['sort' => 'popular']) }}">
                         Trending Deals
                     </x-button>
                 </div>
 
                 <!-- Verified Stats Strip -->
-                <div class="gsap-hero-title grid grid-cols-3 gap-6 pt-8 border-t border-white/10">
+                <div class="gsap-hero-title grid grid-cols-3 gap-6 pt-8 border-t border-slate-200/80">
                     <div>
-                        <div class="text-3xl font-black text-white bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">100%</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Authentic Gear</div>
+                        <div class="text-3xl font-black text-slate-900">100%</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Authentic Gear</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-black text-white bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">24h</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Express Delivery</div>
+                        <div class="text-3xl font-black text-slate-900">24h</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Express Delivery</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-black text-white bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">4.9★</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Customer Rating</div>
+                        <div class="text-3xl font-black text-slate-900">4.9★</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Customer Rating</div>
                     </div>
                 </div>
 
@@ -66,20 +66,19 @@
 
             <!-- Right: Interactive 3D Showcase Card with Parallax -->
             <div class="lg:col-span-5 relative perspective-2000">
-                <div class="hero-3d-card transform-style-3d relative mx-auto max-w-md rounded-3xl overflow-hidden glass-dark shadow-2xl border border-white/20 transition-transform duration-200 cursor-pointer group">
-                    <div class="aspect-4/3 w-full overflow-hidden bg-slate-900 relative">
+                <div class="hero-3d-card transform-style-3d relative mx-auto max-w-md rounded-3xl overflow-hidden bg-white/95 backdrop-blur-xl shadow-2xl border border-slate-200/80 transition-transform duration-200 cursor-pointer group">
+                    <div class="aspect-4/3 w-full overflow-hidden bg-slate-50 relative">
                         <img 
                             src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" 
                             alt="Pro Studio Audio ANC" 
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-                        <div class="absolute top-4 right-4 bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-indigo-400/30 text-amber-300 text-xs font-black flex items-center gap-1.5 shadow-lg">
-                            <i class="fa-solid fa-cube text-indigo-400"></i> 3D Ready
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-200 text-indigo-600 text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-cube text-indigo-600"></i> 3D Ready
                         </div>
                     </div>
 
-                    <div class="p-6 relative translate-z-30 space-y-3">
+                    <div class="p-6 relative translate-z-30 space-y-3 bg-white">
                         <div class="flex items-center justify-between">
                             <x-badge variant="featured" size="sm">
                                 ⭐ Staff Pick of The Week
@@ -87,15 +86,15 @@
                             <x-rating :value="4.9" :count="128" size="xs" />
                         </div>
                         
-                        <h3 class="text-xl font-black text-white">Pro Wireless Studio ANC</h3>
-                        <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                        <h3 class="text-xl font-bold text-slate-900">Pro Wireless Studio ANC</h3>
+                        <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                             Adaptive spatial audio, 40-hour battery stamina, titanium dynamic drivers, and memory-foam luxury.
                         </p>
 
                         <div class="flex items-center justify-between pt-2">
                             <div>
                                 <span class="text-xs text-slate-400 line-through mr-1 font-semibold">$299.99</span>
-                                <span class="text-2xl font-black text-amber-300">$249.99</span>
+                                <span class="text-2xl font-black text-indigo-600">$249.99</span>
                             </div>
                             <x-button variant="primary" size="sm" href="{{ route('product.show', 'pro-wireless-noise-cancelling-headphones') }}">
                                 View 3D Model
@@ -105,24 +104,24 @@
                 </div>
 
                 <!-- Floating 3D Badge: Top Left -->
-                <div class="hero-float-badge-1 absolute -top-4 -left-4 sm:-left-8 glass-dark px-4 py-2.5 rounded-2xl shadow-xl border border-white/20 hidden sm:flex items-center gap-3 backdrop-blur-xl z-20">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-slate-950 font-bold shadow-md">
-                        <i class="fa-solid fa-bolt text-sm"></i>
+                <div class="hero-float-badge-1 absolute -top-4 -left-4 sm:-left-8 bg-white/95 backdrop-blur-xl px-4 py-2.5 rounded-2xl shadow-xl border border-slate-200 hidden sm:flex items-center gap-3 z-20">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-slate-950 font-bold shadow-xs">
+                        <i class="fa-solid fa-bolt text-sm text-white"></i>
                     </div>
                     <div>
-                        <div class="text-[10px] font-black text-amber-300 uppercase">Flash Discount</div>
-                        <div class="text-xs font-extrabold text-white">Save Up To 50%</div>
+                        <div class="text-[10px] font-bold text-amber-600 uppercase">Flash Discount</div>
+                        <div class="text-xs font-bold text-slate-900">Save Up To 50%</div>
                     </div>
                 </div>
 
                 <!-- Floating 3D Badge: Bottom Right -->
-                <div class="hero-float-badge-2 absolute -bottom-6 -right-4 sm:-right-6 glass-dark px-4 py-2.5 rounded-2xl shadow-xl border border-white/20 hidden sm:flex items-center gap-3 backdrop-blur-xl z-20">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-400 to-teal-500 flex items-center justify-center text-slate-950 font-bold shadow-md">
+                <div class="hero-float-badge-2 absolute -bottom-6 -right-4 sm:-right-6 bg-white/95 backdrop-blur-xl px-4 py-2.5 rounded-2xl shadow-xl border border-slate-200 hidden sm:flex items-center gap-3 z-20">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold shadow-xs">
                         <i class="fa-solid fa-shield-check text-sm"></i>
                     </div>
                     <div>
-                        <div class="text-[10px] font-black text-emerald-300 uppercase">100% Authentic</div>
-                        <div class="text-xs font-extrabold text-white">1 Year Warranty</div>
+                        <div class="text-[10px] font-bold text-emerald-600 uppercase">100% Authentic</div>
+                        <div class="text-xs font-bold text-slate-900">1 Year Warranty</div>
                     </div>
                 </div>
             </div>
@@ -132,67 +131,65 @@
 </section>
 
 <!-- =========================================================================
-     2. VALUE PROPOSITIONS & FEATURE STRIP (GLASSMORPHISM STYLE)
+     2. VALUE PROPOSITIONS & FEATURE STRIP
      ========================================================================= -->
-<section class="py-8 bg-surface border-b border-line-subtle transition-colors duration-200">
+<section class="py-8 bg-slate-50/70 border-b border-slate-200/80 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <div class="card-3d p-5 rounded-2xl bg-surface-elevated border border-line-subtle hover:border-brand-primary shadow-xs flex items-center gap-4 cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center text-xl shadow-md shadow-indigo-500/20 shrink-0">
+            <div class="card-3d p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-indigo-300 shadow-xs flex items-center gap-4 cursor-pointer">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-truck-fast"></i>
                 </div>
                 <div>
-                    <h4 class="font-extrabold text-content-primary text-sm">Free Express Delivery</h4>
-                    <p class="text-xs text-content-muted mt-0.5">On all orders over $100</p>
+                    <h4 class="font-bold text-slate-900 text-sm">Free Express Delivery</h4>
+                    <p class="text-xs text-slate-500 mt-0.5">On all orders over $100</p>
                 </div>
             </div>
 
-            <div class="card-3d p-5 rounded-2xl bg-surface-elevated border border-line-subtle hover:border-status-success shadow-xs flex items-center gap-4 cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xl shadow-md shadow-emerald-500/20 shrink-0">
+            <div class="card-3d p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-300 shadow-xs flex items-center gap-4 cursor-pointer">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <div>
-                    <h4 class="font-extrabold text-content-primary text-sm">100% Secure Checkout</h4>
-                    <p class="text-xs text-content-muted mt-0.5">256-Bit SSL Encryption</p>
+                    <h4 class="font-bold text-slate-900 text-sm">100% Secure Checkout</h4>
+                    <p class="text-xs text-slate-500 mt-0.5">256-Bit SSL Encryption</p>
                 </div>
             </div>
 
-            <div class="card-3d p-5 rounded-2xl bg-surface-elevated border border-line-subtle hover:border-brand-accent shadow-xs flex items-center gap-4 cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center text-xl shadow-md shadow-amber-500/20 shrink-0">
+            <div class="card-3d p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-300 shadow-xs flex items-center gap-4 cursor-pointer">
+                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-rotate-left"></i>
                 </div>
                 <div>
-                    <h4 class="font-extrabold text-content-primary text-sm">30-Day Free Return</h4>
-                    <p class="text-xs text-content-muted mt-0.5">Zero hassle money-back</p>
+                    <h4 class="font-bold text-slate-900 text-sm">30-Day Free Return</h4>
+                    <p class="text-xs text-slate-500 mt-0.5">Zero hassle money-back</p>
                 </div>
             </div>
 
-            <div class="card-3d p-5 rounded-2xl bg-surface-elevated border border-line-subtle hover:border-brand-secondary shadow-xs flex items-center gap-4 cursor-pointer">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center text-xl shadow-md shadow-violet-500/20 shrink-0">
+            <div class="card-3d p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-violet-300 shadow-xs flex items-center gap-4 cursor-pointer">
+                <div class="w-12 h-12 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center text-xl shrink-0">
                     <i class="fa-solid fa-headset"></i>
                 </div>
                 <div>
-                    <h4 class="font-extrabold text-content-primary text-sm">24/7 VIP Support</h4>
-                    <p class="text-xs text-content-muted mt-0.5">Dedicated live specialists</p>
+                    <h4 class="font-bold text-slate-900 text-sm">24/7 VIP Support</h4>
+                    <p class="text-xs text-slate-500 mt-0.5">Dedicated live specialists</p>
                 </div>
             </div>
 
         </div>
     </div>
-</section>
-
 <!-- =========================================================================
-     3. 2026 BENTO-GRID CATEGORY SHOWCASE
+     3. BENTO-GRID CATEGORY SHOWCASE
      ========================================================================= -->
-<section class="py-16 bg-app transition-colors duration-200">
+<section class="py-16 bg-white transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-10">
             <div>
-                <span class="text-xs font-black text-brand-primary uppercase tracking-widest">Modern Collections</span>
-                <h2 class="text-2xl sm:text-3xl font-black text-content-primary mt-1">Browse by Bento Category</h2>
+                <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Modern Collections</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">Browse by Bento Category</h2>
             </div>
-            <a href="{{ route('shop.index') }}" class="text-xs sm:text-sm font-bold text-brand-primary hover:underline flex items-center gap-1.5">
+            <a href="{{ route('shop.index') }}" class="text-xs sm:text-sm font-bold text-indigo-600 hover:underline flex items-center gap-1.5">
                 <span>View Full Catalog</span> 
                 <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
@@ -460,14 +457,14 @@
 </section>
 
 <!-- =========================================================================
-     5. SWIPER.JS TESTIMONIALS SLIDER SECTION (GLASSMORPHISM STYLE)
+     5. SWIPER.JS TESTIMONIALS SLIDER SECTION
      ========================================================================= -->
-<section class="py-16 bg-app border-t border-line-subtle transition-colors duration-200">
+<section class="py-16 bg-white border-t border-slate-200/80 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-12">
-            <x-badge variant="nano" size="sm">⭐ Verified Experience</x-badge>
-            <h2 class="text-2xl sm:text-3xl font-black text-content-primary mt-2">Loved by Pioneers & Tech Enthusiasts</h2>
-            <p class="text-xs sm:text-sm text-content-secondary mt-2">Discover what our community has to say about our 3D product previews and fast delivery.</p>
+            <x-badge variant="info" size="sm">⭐ Verified Experience</x-badge>
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 mt-2">Loved by Pioneers & Tech Enthusiasts</h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-2">Discover what our community has to say about our 3D product previews and fast delivery.</p>
         </div>
 
         <!-- Swiper Carousel Container -->
@@ -475,25 +472,25 @@
             <div class="swiper-wrapper">
                 @foreach($testimonials as $testimonial)
                     <div class="swiper-slide h-auto">
-                        <div class="glass-card p-6 rounded-3xl h-full flex flex-col justify-between space-y-4 border border-line-subtle">
+                        <div class="p-6 rounded-3xl h-full flex flex-col justify-between space-y-4 bg-slate-50/80 border border-slate-200/80 shadow-xs">
                             <div class="space-y-3">
                                 <div class="flex items-center justify-between">
                                     <x-rating :value="$testimonial->rating" size="sm" />
-                                    <span class="text-[10px] text-content-muted font-bold">Verified Buyer</span>
+                                    <span class="text-[10px] text-slate-500 font-bold">Verified Buyer</span>
                                 </div>
-                                <h4 class="font-extrabold text-content-primary text-sm">{{ $testimonial->title ?? 'Excellent Quality!' }}</h4>
-                                <p class="text-xs text-content-secondary leading-relaxed italic">
+                                <h4 class="font-bold text-slate-900 text-sm">{{ $testimonial->title ?? 'Excellent Quality!' }}</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed italic">
                                     "{{ $testimonial->comment }}"
                                 </p>
                             </div>
 
-                            <div class="flex items-center gap-3 pt-3 border-t border-line-subtle">
-                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-600 text-white font-bold flex items-center justify-center text-xs shadow-md">
+                            <div class="flex items-center gap-3 pt-3 border-t border-slate-200/80">
+                                <div class="w-9 h-9 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs shadow-xs">
                                     {{ substr($testimonial->user_name, 0, 1) }}
                                 </div>
                                 <div>
-                                    <div class="font-bold text-xs text-content-primary">{{ $testimonial->user_name }}</div>
-                                    <div class="text-[10px] text-content-muted">Reviewed {{ $testimonial->product->name ?? 'SM Product' }}</div>
+                                    <div class="font-bold text-xs text-slate-900">{{ $testimonial->user_name }}</div>
+                                    <div class="text-[10px] text-slate-500">Reviewed {{ $testimonial->product->name ?? 'SM Product' }}</div>
                                 </div>
                             </div>
                         </div>
@@ -506,29 +503,28 @@
 </section>
 
 <!-- =========================================================================
-     6. CYBER VIP DISCOUNT & PROMOTION BANNER
+     6. VIP DISCOUNT & PROMOTION BANNER
      ========================================================================= -->
-<section class="py-16 bg-slate-950 text-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
+<section class="py-16 bg-slate-50 border-t border-slate-200/80 text-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="relative bg-gradient-to-r from-indigo-950 via-slate-900 to-violet-950 rounded-3xl p-8 sm:p-12 lg:p-16 border border-indigo-500/30 shadow-2xl overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-800 rounded-3xl p-8 sm:p-12 lg:p-16 shadow-xl overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="max-w-2xl space-y-4 relative z-10">
-                <x-badge variant="featured" size="sm">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white font-bold text-xs">
                     ⚡ Member Exclusive Promo
-                </x-badge>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight">
-                    Get 20% Off With Coupon <span class="bg-gradient-to-r from-amber-300 to-orange-400 bg-clip-text text-transparent">SM20</span>
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-white">
+                    Get 20% Off With Coupon <span class="text-amber-300">SM20</span>
                 </h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                <p class="text-white/90 text-sm sm:text-base leading-relaxed">
                     Enjoy member-only early 3D drops, automatic warranty registration, and expedited nationwide delivery.
                 </p>
                 <form action="#" onsubmit="event.preventDefault(); alert('Subscribed successfully! Use voucher code SM20 at checkout for 20% off.');" class="flex flex-col sm:flex-row gap-3 pt-4 max-w-md">
                     <input 
                         type="email" 
                         placeholder="Enter your email address" 
-                        class="w-full px-4 py-3.5 rounded-2xl bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm backdrop-blur-md"
+                        class="w-full px-4 py-3.5 rounded-2xl bg-white/15 border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-amber-300 text-sm backdrop-blur-md"
                         required
                     >
                     <x-button variant="accent" size="md" type="submit">
