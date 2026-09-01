@@ -333,3 +333,24 @@
     animation: gradient-border 6s ease infinite;
 }
 
+/* Continuous Infinite Brand Logo Marquee */
+@keyframes brand-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.brand-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: brand-marquee 28s linear infinite;
+    will-change: transform;
+}
+
+.brand-marquee-track:hover {
+    animation-play-state: paused;
+}
+
+.brand-swiper .swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
