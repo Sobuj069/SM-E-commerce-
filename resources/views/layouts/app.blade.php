@@ -67,43 +67,48 @@
     </script>
 </head>
 <body 
-    x-data="{ drawerOpen: false, mobileMenuOpen: false }"
+    x-data="{ drawerOpen: false, mobileMenuOpen: false, searchOpen: false }"
     class="flex flex-col min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white transition-colors duration-200"
 >
 
     <!-- Top Announcement Ticker Bar -->
-    <div id="nano-banner" class="bg-black text-white py-2.5 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
+    <div id="nano-banner" class="bg-black text-white py-2 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
         <span>Free standard shipping over $75 | 30-day easy returns | Code: <span class="text-amber-300 font-black">SM20</span></span>
     </div>
 
-    <!-- Sleek Gymshark Header Bar (Single Line, Perfectly Aligned) -->
+    <!-- 100% Authentic Gymshark Header (Spacious, Single-Line, Clean) -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 gap-3 lg:gap-6">
+            <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
                 
-                <!-- 1. Left: Brand Logo (Compact & Aligned) -->
+                <!-- 1. Left: Sleek Geometric Brand Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shop 3D Home">
                     <div class="w-9 h-9 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300 shrink-0">
-                        <!-- Geometric 3D Polygon Logo -->
                         <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                         </svg>
                     </div>
-                    <div class="flex flex-col justify-center leading-none">
-                        <span class="text-xl font-black tracking-tight text-black font-sans uppercase">SM SHOP</span>
-                        <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mt-1">3D GEAR</span>
-                    </div>
+                    <span class="text-xl font-black tracking-tight text-black font-sans uppercase leading-none">SM SHOP</span>
                 </a>
 
-                <!-- 2. Center: Desktop Nav Links (Never Wrap, Clean Whitespace-nowrap) -->
-                <nav class="hidden xl:flex items-center gap-4 2xl:gap-6 text-xs font-bold uppercase tracking-wider text-black shrink-0">
+                <!-- 2. Center: Gymshark Nav Links (Concise & Never Crowded) -->
+                @php
+                    $catLabels = [
+                        'electronics-gadgets' => 'TECH & GADGETS',
+                        'fashion-apparel' => 'APPAREL',
+                        'smart-watches-wearables' => 'WEARABLES',
+                        'audio-headphones' => 'AUDIO',
+                        'home-living' => 'HOME',
+                    ];
+                @endphp
+                <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-black uppercase tracking-wider text-black">
                     <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black' : '' }}">
                         ALL
                     </a>
                     @if(isset($navCategories) && $navCategories->count() > 0)
                         @foreach($navCategories as $navCat)
                             <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap {{ request('category') === $navCat->slug ? 'border-b-2 border-black' : '' }}">
-                                {{ $navCat->name }}
+                                {{ $catLabels[$navCat->slug] ?? Str::upper(explode('&', $navCat->name)[0]) }}
                             </a>
                         @endforeach
                     @else
@@ -117,32 +122,19 @@
                     </a>
                 </nav>
 
-                <!-- 3. Right: Search Pill & Action Icons (Fixed Width, Sleek Alignment) -->
+                <!-- 3. Right: Gymshark Minimal Action Icons -->
                 <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                     
-                    <!-- Clean Search Pill (Never Squashed) -->
-                    <div class="hidden md:flex items-center shrink-0">
-                        <form action="{{ route('shop.index') }}" method="GET" class="relative w-36 lg:w-44 xl:w-52" role="search">
-                            <label for="header-search-input" class="sr-only">Search products</label>
-                            <input 
-                                id="header-search-input"
-                                type="text" 
-                                name="q" 
-                                value="{{ request('q') }}"
-                                placeholder="SEARCH..." 
-                                class="w-full pl-9 pr-3 py-2 bg-zinc-100 hover:bg-zinc-200/70 border border-transparent rounded-full text-xs font-bold text-black placeholder-zinc-400 focus:outline-none focus:bg-white focus:border-black focus:ring-1 focus:ring-black transition duration-200 uppercase"
-                            >
-                            <button 
-                                type="submit" 
-                                aria-label="Submit search" 
-                                title="Search" 
-                                class="absolute left-1.5 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-zinc-500 hover:text-black transition cursor-pointer"
-                            >
-                                <i class="fa-solid fa-magnifying-glass text-xs" aria-hidden="true"></i>
-                                <span class="sr-only">Search</span>
-                            </button>
-                        </form>
-                    </div>
+                    <!-- Interactive Search Button (Opens Slide-Down Search Bar) -->
+                    <button 
+                        type="button" 
+                        @click="searchOpen = true; $nextTick(() => $refs.searchInput.focus())"
+                        class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition cursor-pointer"
+                        title="Search Products"
+                        aria-label="Search Products"
+                    >
+                        <i class="fa-solid fa-magnifying-glass text-base" aria-hidden="true"></i>
+                    </button>
 
                     <!-- Wishlist Icon -->
                     <a href="{{ route('shop.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Wishlist" aria-label="View Wishlist">
@@ -178,7 +170,7 @@
                     <button 
                         type="button" 
                         x-on:click="mobileMenuOpen = !mobileMenuOpen"
-                        class="xl:hidden w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition"
+                        class="lg:hidden w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition"
                         aria-label="Toggle mobile menu"
                     >
                         <i class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
@@ -188,8 +180,38 @@
             </div>
         </div>
 
+        <!-- Full-Width Slide-Down Search Overlay (Gymshark Style) -->
+        <div 
+            x-show="searchOpen" 
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-2"
+            @click.away="searchOpen = false"
+            @keydown.escape.window="searchOpen = false"
+            class="absolute inset-x-0 top-0 h-16 sm:h-20 bg-white border-b border-zinc-200 z-50 px-4 sm:px-8 flex items-center shadow-md" 
+            style="display: none;"
+        >
+            <form action="{{ route('shop.index') }}" method="GET" class="w-full max-w-4xl mx-auto flex items-center gap-3">
+                <i class="fa-solid fa-magnifying-glass text-zinc-400 text-lg"></i>
+                <input 
+                    type="text" 
+                    name="q" 
+                    x-ref="searchInput"
+                    value="{{ request('q') }}"
+                    placeholder="SEARCH TECH, APPAREL, WEARABLES..." 
+                    class="flex-1 py-3 text-sm sm:text-base font-bold text-black placeholder-zinc-400 uppercase border-none focus:outline-none focus:ring-0 bg-transparent"
+                >
+                <button type="button" @click="searchOpen = false" class="p-2 text-zinc-400 hover:text-black cursor-pointer" aria-label="Close search">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </form>
+        </div>
+
         <!-- Mobile Navigation Dropdown -->
-        <div x-show="mobileMenuOpen" class="xl:hidden bg-white border-t border-zinc-200 px-4 py-6 space-y-4 shadow-xl" style="display: none;">
+        <div x-show="mobileMenuOpen" class="lg:hidden bg-white border-t border-zinc-200 px-4 py-6 space-y-4 shadow-xl" style="display: none;">
             <form action="{{ route('shop.index') }}" method="GET" class="w-full relative mb-4" role="search">
                 <label for="mobile-search-input" class="sr-only">Search products</label>
                 <input 
