@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-slate-50">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,10 +7,10 @@
 
     <title>@yield('title', 'SM E-Commerce - Premium Online Store')</title>
 
-    <!-- Google Fonts & Tailwind CDN fallback / FontAwesome Icons -->
+    <!-- Modern Variable Fonts (Inter Variable & Plus Jakarta Sans) & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Vite Assets or Tailwind CDN Fallback -->
@@ -20,13 +20,16 @@
         <script src="https://cdn.tailwindcss.com"></script>
     @endif
 
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+    <script>
+        // Init theme from localStorage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
-    </style>
+    </script>
 </head>
-<body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+<body class="flex flex-col min-h-screen bg-app text-content-primary font-sans antialiased selection:bg-brand-primary selection:text-white transition-colors duration-200">
 
     <!-- Interactive 3D Nano Announcement Banner -->
     <div id="nano-banner" class="relative z-50 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-950 text-white border-b border-indigo-500/30 overflow-hidden">
@@ -107,13 +110,27 @@
                     </form>
                 </div>
 
-                <!-- Right Actions: Cart & CTA -->
+                <!-- Right Actions: Theme Toggle, Cart & CTA -->
                 @php
                     $cart = session()->get('cart', []);
                     $cartCount = array_sum(array_column($cart, 'quantity'));
                 @endphp
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('cart.index') }}" class="relative p-2.5 text-slate-700 hover:text-indigo-600 hover:bg-slate-100 rounded-2xl transition flex items-center gap-2 group">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    
+                    <!-- Theme Toggle Switcher -->
+                    <button 
+                        type="button" 
+                        onclick="toggleTheme()" 
+                        id="theme-toggle-btn"
+                        class="p-2.5 text-content-secondary hover:text-brand-primary hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition duration-200 cursor-pointer"
+                        title="Toggle Light/Dark Theme"
+                        aria-label="Toggle Theme"
+                    >
+                        <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+                        <i class="fa-solid fa-sun text-lg hidden dark:inline text-amber-400"></i>
+                    </button>
+
+                    <a href="{{ route('cart.index') }}" class="relative p-2.5 text-content-secondary hover:text-brand-primary hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition flex items-center gap-2 group">
                         <i class="fa-solid fa-cart-shopping text-xl group-hover:scale-110 transition duration-200"></i>
                         @if($cartCount > 0)
                             <span id="nav-cart-badge" class="absolute -top-0.5 -right-0.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-md shadow-indigo-500/50">
@@ -256,5 +273,16 @@
         </div>
     </footer>
 
+    <script>
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+    </script>
 </body>
 </html>
