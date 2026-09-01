@@ -102,138 +102,158 @@
 </section>
 
 <!-- =========================================================================
-     2.5. CONTINUOUS AUTO-SLIDING BRAND LOGO MARQUEE (TRUSTED PARTNERS)
+     2.5. CONTINUOUS AUTO-SLIDING COLORFUL BRAND LOGO MARQUEE (TRUSTED PARTNERS)
      ========================================================================= -->
-<section class="py-10 bg-zinc-50 border-b border-zinc-200 overflow-hidden relative">
+<section class="py-12 bg-zinc-50 border-b border-zinc-200 overflow-hidden relative">
     <!-- Left & Right Gradient Fade Masks -->
-    <div class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-zinc-50 to-transparent z-10"></div>
-    <div class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-zinc-50 to-transparent z-10"></div>
+    <div class="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-36 bg-gradient-to-r from-zinc-50 via-zinc-50/80 to-transparent z-10"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-36 bg-gradient-to-l from-zinc-50 via-zinc-50/80 to-transparent z-10"></div>
 
-    <div class="max-w-7xl mx-auto px-4 mb-5 text-center">
-        <span class="text-[11px] font-black uppercase tracking-widest text-zinc-600">OFFICIAL TECH, AUDIO & PERFORMANCE PARTNERS</span>
+    <div class="max-w-7xl mx-auto px-4 mb-6 text-center">
+        <span class="text-[11px] font-black uppercase tracking-widest text-zinc-500">OFFICIAL TECH, AUDIO & PERFORMANCE BRAND PARTNERS</span>
     </div>
 
-    <!-- Infinite Auto-Slider Track -->
-    <div class="brand-marquee-track flex items-center gap-12 sm:gap-16 py-2">
+    <!-- Infinite Auto-Slider Track with Rich Full-Color Brand Badges -->
+    <div class="brand-marquee-track flex items-center gap-6 py-2">
         
         <!-- Repeat Set 1 -->
-        <!-- Brand 1: Gymshark -->
-        <div class="flex items-center gap-2.5 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <svg class="w-6 h-6 fill-current text-black" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <span class="font-black text-sm tracking-wider uppercase text-black">GYMSHARK</span>
+        <!-- Brand 1: Samsung (Royal Blue) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-blue-300 transition-all duration-300 group">
+            <span class="font-black text-base tracking-widest uppercase text-[#034EA2] font-sans">SAMSUNG</span>
+            <span class="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">OLED</span>
         </div>
 
-        <!-- Brand 2: Sony -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
+        <!-- Brand 2: Beats by Dre (Vibrant Red) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-red-300 transition-all duration-300 group">
+            <div class="w-6 h-6 rounded-full bg-[#E01F3D] text-white font-bold flex items-center justify-center text-xs shadow-xs">b</div>
+            <span class="font-black text-sm tracking-wider uppercase text-[#E01F3D]">BEATS PRO</span>
+            <span class="text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">STUDIO</span>
+        </div>
+
+        <!-- Brand 3: Razer (Neon Chroma Green) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-emerald-300 transition-all duration-300 group">
+            <i class="fa-solid fa-gamepad text-lg text-[#00E700]"></i>
+            <span class="font-black text-sm tracking-wider uppercase text-zinc-900 group-hover:text-[#00B800] transition">RAZER</span>
+            <span class="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded-md">CHROMA</span>
+        </div>
+
+        <!-- Brand 4: Sony (Gold 3D Audio) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-amber-300 transition-all duration-300 group">
             <span class="font-black text-base tracking-widest uppercase text-black font-serif">SONY</span>
-            <span class="text-[10px] font-bold text-zinc-700 bg-zinc-200 px-1.5 py-0.5 rounded">3D AUDIO</span>
+            <span class="text-[10px] font-black text-amber-800 bg-amber-50 border border-amber-300 px-2 py-0.5 rounded-md flex items-center gap-1">
+                <i class="fa-solid fa-headphones text-[9px] text-amber-600"></i> 3D AUDIO
+            </span>
         </div>
 
-        <!-- Brand 3: Apple -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-brands fa-apple text-xl text-black"></i>
-            <span class="font-black text-sm tracking-tight uppercase text-black">APPLE AR</span>
+        <!-- Brand 5: Apple (Indigo AR) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-indigo-300 transition-all duration-300 group">
+            <i class="fa-brands fa-apple text-xl text-zinc-900"></i>
+            <span class="font-black text-sm tracking-tight uppercase text-zinc-900">APPLE</span>
+            <span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md">3D ARKIT</span>
         </div>
 
-        <!-- Brand 4: Bose -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <span class="font-black text-base tracking-tighter uppercase text-black italic">BOSE</span>
-            <span class="text-[10px] font-bold text-zinc-700 bg-zinc-200 px-1.5 py-0.5 rounded">QUIETCOMFORT</span>
+        <!-- Brand 6: Bose (Cyan QuietComfort) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-cyan-300 transition-all duration-300 group">
+            <span class="font-black text-base tracking-tighter uppercase text-zinc-900 italic font-sans">BOSE</span>
+            <span class="text-[10px] font-bold text-cyan-800 bg-cyan-50 border border-cyan-300 px-2 py-0.5 rounded-md">QUIETCOMFORT</span>
         </div>
 
-        <!-- Brand 5: Garmin -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-solid fa-diamond text-xs text-black"></i>
-            <span class="font-black text-sm tracking-widest uppercase text-black">GARMIN</span>
+        <!-- Brand 7: Garmin (Sky Blue GPS) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-sky-300 transition-all duration-300 group">
+            <i class="fa-solid fa-location-arrow text-sm text-[#007CC3]"></i>
+            <span class="font-black text-sm tracking-widest uppercase text-zinc-900">GARMIN</span>
+            <span class="text-[10px] font-bold text-sky-800 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-md">GPS BIO</span>
         </div>
 
-        <!-- Brand 6: Razer -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-solid fa-gamepad text-base text-black"></i>
-            <span class="font-black text-sm tracking-wider uppercase text-black">RAZER</span>
+        <!-- Brand 8: Gymshark (Teal Activewear) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-teal-300 transition-all duration-300 group">
+            <svg class="w-5 h-5 fill-current text-[#0D9488]" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <span class="font-black text-sm tracking-wider uppercase text-zinc-900">GYMSHARK</span>
+            <span class="text-[10px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded-md">SEAMLESS</span>
         </div>
 
-        <!-- Brand 7: Samsung -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <span class="font-black text-base tracking-widest uppercase text-black">SAMSUNG</span>
-            <span class="text-[10px] font-bold text-zinc-700 bg-zinc-200 px-1.5 py-0.5 rounded">OLED</span>
+        <!-- Brand 9: Logitech G (Cyan Gaming) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-cyan-300 transition-all duration-300 group">
+            <div class="w-5 h-5 rounded-md bg-[#00B8FC] text-white font-black flex items-center justify-center text-xs">G</div>
+            <span class="font-black text-sm tracking-wider uppercase text-zinc-900">LOGITECH G</span>
+            <span class="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-md">LIGHTSPEED</span>
         </div>
 
-        <!-- Brand 8: Beats -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <div class="w-5 h-5 rounded-full bg-black text-white font-bold flex items-center justify-center text-xs">b</div>
-            <span class="font-black text-sm tracking-wider uppercase text-black">BEATS PRO</span>
-        </div>
-
-        <!-- Brand 9: Coros -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-solid fa-stopwatch text-sm text-black"></i>
-            <span class="font-black text-sm tracking-widest uppercase text-black">COROS</span>
-        </div>
-
-        <!-- Brand 10: Logitech G -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <span class="font-black text-sm tracking-wider uppercase text-black">LOGITECH G</span>
+        <!-- Brand 10: Coros (Flame Orange) -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-orange-300 transition-all duration-300 group">
+            <i class="fa-solid fa-stopwatch text-sm text-[#FF4500]"></i>
+            <span class="font-black text-sm tracking-widest uppercase text-zinc-900">COROS</span>
+            <span class="text-[10px] font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-md">PACE PRO</span>
         </div>
 
         <!-- Repeat Set 2 (Seamless Infinite Loop) -->
-        <!-- Brand 1: Gymshark -->
-        <div class="flex items-center gap-2.5 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <svg class="w-6 h-6 fill-current text-black" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <span class="font-black text-sm tracking-wider uppercase text-black">GYMSHARK</span>
+        <!-- Brand 1: Samsung -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-blue-300 transition-all duration-300 group">
+            <span class="font-black text-base tracking-widest uppercase text-[#034EA2] font-sans">SAMSUNG</span>
+            <span class="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md">OLED</span>
         </div>
 
-        <!-- Brand 2: Sony -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
+        <!-- Brand 2: Beats by Dre -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-red-300 transition-all duration-300 group">
+            <div class="w-6 h-6 rounded-full bg-[#E01F3D] text-white font-bold flex items-center justify-center text-xs shadow-xs">b</div>
+            <span class="font-black text-sm tracking-wider uppercase text-[#E01F3D]">BEATS PRO</span>
+            <span class="text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-2 py-0.5 rounded-md">STUDIO</span>
+        </div>
+
+        <!-- Brand 3: Razer -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-emerald-300 transition-all duration-300 group">
+            <i class="fa-solid fa-gamepad text-lg text-[#00E700]"></i>
+            <span class="font-black text-sm tracking-wider uppercase text-zinc-900 group-hover:text-[#00B800] transition">RAZER</span>
+            <span class="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded-md">CHROMA</span>
+        </div>
+
+        <!-- Brand 4: Sony -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-amber-300 transition-all duration-300 group">
             <span class="font-black text-base tracking-widest uppercase text-black font-serif">SONY</span>
-            <span class="text-[10px] font-bold text-zinc-700 bg-zinc-200 px-1.5 py-0.5 rounded">3D AUDIO</span>
+            <span class="text-[10px] font-black text-amber-800 bg-amber-50 border border-amber-300 px-2 py-0.5 rounded-md flex items-center gap-1">
+                <i class="fa-solid fa-headphones text-[9px] text-amber-600"></i> 3D AUDIO
+            </span>
         </div>
 
-        <!-- Brand 3: Apple -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-brands fa-apple text-xl text-black"></i>
-            <span class="font-black text-sm tracking-tight uppercase text-black">APPLE AR</span>
+        <!-- Brand 5: Apple -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-indigo-300 transition-all duration-300 group">
+            <i class="fa-brands fa-apple text-xl text-zinc-900"></i>
+            <span class="font-black text-sm tracking-tight uppercase text-zinc-900">APPLE</span>
+            <span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-md">3D ARKIT</span>
         </div>
 
-        <!-- Brand 4: Bose -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <span class="font-black text-base tracking-tighter uppercase text-black italic">BOSE</span>
-            <span class="text-[10px] font-bold text-zinc-700 bg-zinc-200 px-1.5 py-0.5 rounded">QUIETCOMFORT</span>
+        <!-- Brand 6: Bose -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-cyan-300 transition-all duration-300 group">
+            <span class="font-black text-base tracking-tighter uppercase text-zinc-900 italic font-sans">BOSE</span>
+            <span class="text-[10px] font-bold text-cyan-800 bg-cyan-50 border border-cyan-300 px-2 py-0.5 rounded-md">QUIETCOMFORT</span>
         </div>
 
-        <!-- Brand 5: Garmin -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-solid fa-diamond text-xs text-black"></i>
-            <span class="font-black text-sm tracking-widest uppercase text-black">GARMIN</span>
+        <!-- Brand 7: Garmin -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-sky-300 transition-all duration-300 group">
+            <i class="fa-solid fa-location-arrow text-sm text-[#007CC3]"></i>
+            <span class="font-black text-sm tracking-widest uppercase text-zinc-900">GARMIN</span>
+            <span class="text-[10px] font-bold text-sky-800 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-md">GPS BIO</span>
         </div>
 
-        <!-- Brand 6: Razer -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-solid fa-gamepad text-base text-black"></i>
-            <span class="font-black text-sm tracking-wider uppercase text-black">RAZER</span>
+        <!-- Brand 8: Gymshark -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-teal-300 transition-all duration-300 group">
+            <svg class="w-5 h-5 fill-current text-[#0D9488]" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <span class="font-black text-sm tracking-wider uppercase text-zinc-900">GYMSHARK</span>
+            <span class="text-[10px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded-md">SEAMLESS</span>
         </div>
 
-        <!-- Brand 7: Samsung -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <span class="font-black text-base tracking-widest uppercase text-black">SAMSUNG</span>
-            <span class="text-[10px] font-bold text-zinc-700 bg-zinc-200 px-1.5 py-0.5 rounded">OLED</span>
+        <!-- Brand 9: Logitech G -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-cyan-300 transition-all duration-300 group">
+            <div class="w-5 h-5 rounded-md bg-[#00B8FC] text-white font-black flex items-center justify-center text-xs">G</div>
+            <span class="font-black text-sm tracking-wider uppercase text-zinc-900">LOGITECH G</span>
+            <span class="text-[10px] font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-md">LIGHTSPEED</span>
         </div>
 
-        <!-- Brand 8: Beats -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <div class="w-5 h-5 rounded-full bg-black text-white font-bold flex items-center justify-center text-xs">b</div>
-            <span class="font-black text-sm tracking-wider uppercase text-black">BEATS PRO</span>
-        </div>
-
-        <!-- Brand 9: Coros -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <i class="fa-solid fa-stopwatch text-sm text-black"></i>
-            <span class="font-black text-sm tracking-widest uppercase text-black">COROS</span>
-        </div>
-
-        <!-- Brand 10: Logitech G -->
-        <div class="flex items-center gap-2 opacity-65 hover:opacity-100 transition-all duration-300 cursor-pointer shrink-0">
-            <span class="font-black text-sm tracking-wider uppercase text-black">LOGITECH G</span>
+        <!-- Brand 10: Coros -->
+        <div class="bg-white px-5 py-2.5 rounded-2xl border border-zinc-200 shadow-xs flex items-center gap-3 shrink-0 hover:shadow-md hover:border-orange-300 transition-all duration-300 group">
+            <i class="fa-solid fa-stopwatch text-sm text-[#FF4500]"></i>
+            <span class="font-black text-sm tracking-widest uppercase text-zinc-900">COROS</span>
+            <span class="text-[10px] font-bold text-orange-700 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-md">PACE PRO</span>
         </div>
 
     </div>
