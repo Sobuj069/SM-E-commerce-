@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-[#0f172a]">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-[#0f172a] dark" data-kt-theme="true" data-kt-theme-mode="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Executive Dashboard') - Metronic Demo 1 | SM Shop</title>
+    <title>@yield('title', 'Metronic - Dark Sidebar') - SM Shop Enterprise</title>
 
-    <!-- Inter Google Font & FontAwesome 6 -->
+    <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Authentic Metronic KeenIcons Bundle -->
+    <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/keenicons/styles.bundle.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>
         [x-cloak] { display: none !important; }
-        /* Custom Metronic Scrollbar */
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        /* Metronic Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 </head>
 <body 
@@ -30,9 +34,8 @@
         sidebarOpen: false, 
         sidebarCollapsed: false,
         profileMenuOpen: false,
-        notifMenuOpen: false,
         searchModalOpen: false,
-        activeMenu: '{{ request()->routeIs('admin.dashboard') ? 'dashboards' : (request()->routeIs('admin.products.*') || request()->routeIs('admin.orders.*') ? 'ecommerce' : 'dashboards') }}'
+        notifMenuOpen: false
     }"
     @keydown.window.escape="profileMenuOpen = false; notifMenuOpen = false; searchModalOpen = false;"
     @keydown.window.ctrl.k.prevent="searchModalOpen = true"
@@ -42,10 +45,10 @@
     <div class="min-h-full flex flex-row">
         
         <!-- =====================================================================
-             1. METRONIC DEMO 1 AUTHENTIC DARK SIDEBAR (#0f172a / #111827)
+             1. METRONIC DEMO 1 AUTHENTIC DARK SIDEBAR
              ===================================================================== -->
         <aside 
-            class="bg-[#0f172a] border-r border-slate-800 flex flex-col justify-between shrink-0 fixed inset-y-0 left-0 z-50 lg:static transition-all duration-300 ease-in-out shadow-2xl lg:shadow-none"
+            class="bg-[#0f172a] border-r border-slate-800/80 flex flex-col justify-between shrink-0 fixed inset-y-0 left-0 z-50 lg:static transition-all duration-300 ease-in-out shadow-2xl lg:shadow-none"
             :class="{
                 'w-72': !sidebarCollapsed,
                 'w-20': sidebarCollapsed,
@@ -55,58 +58,58 @@
         >
             <div class="flex flex-col h-full">
                 
-                <!-- Sidebar Header: Logo & Collapse Toggle -->
-                <div class="h-20 flex items-center justify-between px-5 border-b border-slate-800/80 bg-[#090d16]">
+                <!-- Sidebar Header: Logo & Metronic Collapse Button -->
+                <div class="h-18 flex items-center justify-between px-5 border-b border-slate-800/80 bg-[#090d16]">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group overflow-hidden">
-                        <img src="{{ asset('images/logo.png') }}" alt="SM Shop Logo" class="h-9 w-auto object-contain shrink-0 drop-shadow-sm">
-                        <div x-show="!sidebarCollapsed" class="transition-opacity duration-200 min-w-0">
+                        <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 w-auto object-contain shrink-0 drop-shadow-sm">
+                        <div x-show="!sidebarCollapsed" class="min-w-0 transition-opacity duration-200">
                             <div class="font-black text-sm text-white tracking-tight uppercase flex items-center gap-1.5 truncate">
-                                <span>SM SHOP</span>
-                                <span class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-400 text-[9px] font-black border border-indigo-500/30">PRO</span>
+                                <span>METRONIC</span>
+                                <span class="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-400 text-[9px] font-black border border-indigo-500/30">DEMO 1</span>
                             </div>
                             <div class="text-[9.5px] font-bold text-slate-400 tracking-wider uppercase flex items-center gap-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span>Metronic Demo 1</span>
+                                <span>Dark Sidebar</span>
                             </div>
                         </div>
                     </a>
 
-                    <!-- Sidebar Toggle Button (Desktop & Mobile) -->
+                    <!-- Sidebar Collapse Toggle Button -->
                     <div class="flex items-center gap-1">
                         <button 
                             type="button" 
                             @click="sidebarCollapsed = !sidebarCollapsed" 
                             class="hidden lg:flex w-7 h-7 rounded-lg items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
-                            title="Toggle Sidebar width"
+                            title="Collapse Sidebar"
                         >
-                            <i class="fa-solid fa-angles-left text-xs transition-transform duration-300" :class="{ 'rotate-180': sidebarCollapsed }"></i>
+                            <i class="ki-filled ki-black-left-line text-xs transition-transform duration-300" :class="{ 'rotate-180': sidebarCollapsed }"></i>
                         </button>
                         <button 
                             type="button" 
                             @click="sidebarOpen = false" 
                             class="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
                         >
-                            <i class="fa-solid fa-xmark text-base"></i>
+                            <i class="ki-filled ki-cross text-base"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Global Quick Search Trigger in Sidebar -->
-                <div x-show="!sidebarCollapsed" class="px-4 pt-5 pb-2">
+                <div x-show="!sidebarCollapsed" class="px-4 pt-4 pb-2">
                     <button 
                         type="button" 
                         @click="searchModalOpen = true" 
                         class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200 text-xs font-semibold flex items-center justify-between transition cursor-pointer shadow-inner"
                     >
                         <div class="flex items-center gap-2.5">
-                            <i class="fa-solid fa-magnifying-glass text-slate-500 text-xs"></i>
+                            <i class="ki-filled ki-magnifier text-slate-500 text-sm"></i>
                             <span>Search dashboard...</span>
                         </div>
                         <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-[10px] font-mono text-slate-400 font-bold">⌘K</kbd>
                     </button>
                 </div>
 
-                <!-- Sidebar Navigation Menu -->
+                <!-- Sidebar Navigation Menu Links -->
                 <div class="flex-1 overflow-y-auto px-3.5 py-4 space-y-6 scrollbar-thin scrollbar-thumb-slate-800">
                     
                     <!-- GROUP 1: DASHBOARDS -->
@@ -120,16 +123,24 @@
                             href="{{ route('admin.dashboard') }}" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition group relative {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}"
                         >
-                            <i class="fa-solid fa-gauge-high text-sm shrink-0 {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}"></i>
-                            <span x-show="!sidebarCollapsed" class="truncate">Executive Analytics</span>
-                            <span x-show="!sidebarCollapsed" class="ml-auto px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-500/20 text-indigo-300">Live</span>
+                            <i class="ki-filled ki-element-11 text-base shrink-0 {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-indigo-400 group-hover:text-white' }}"></i>
+                            <span x-show="!sidebarCollapsed" class="truncate">Dark Sidebar</span>
+                            <span x-show="!sidebarCollapsed" class="ml-auto px-2 py-0.5 rounded-full text-[9px] font-black bg-indigo-500/20 text-indigo-300">Active</span>
+                        </a>
+
+                        <a 
+                            href="{{ route('admin.dashboard') }}" 
+                            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/60 transition group"
+                        >
+                            <i class="ki-filled ki-chart-line-up text-base shrink-0 text-cyan-400 group-hover:text-white"></i>
+                            <span x-show="!sidebarCollapsed" class="truncate">eCommerce Analytics</span>
                         </a>
                     </div>
 
-                    <!-- GROUP 2: ECOMMERCE & STORE -->
+                    <!-- GROUP 2: ECOMMERCE MANAGEMENT -->
                     <div class="space-y-1">
                         <div x-show="!sidebarCollapsed" class="px-3 text-[10px] font-black uppercase tracking-wider text-slate-500">
-                            eCommerce & Catalog
+                            eCommerce Apps
                         </div>
 
                         <!-- Products Catalog -->
@@ -137,7 +148,7 @@
                             href="{{ route('admin.products.index') }}" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition group {{ request()->routeIs('admin.products.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}"
                         >
-                            <i class="fa-solid fa-box text-sm shrink-0 {{ request()->routeIs('admin.products.*') ? 'text-white' : 'text-amber-400 group-hover:text-white' }}"></i>
+                            <i class="ki-filled ki-box text-base shrink-0 {{ request()->routeIs('admin.products.*') ? 'text-white' : 'text-amber-400 group-hover:text-white' }}"></i>
                             <span x-show="!sidebarCollapsed" class="truncate">Product Catalog</span>
                         </a>
 
@@ -146,7 +157,7 @@
                             href="{{ route('admin.orders.index') }}" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition group {{ request()->routeIs('admin.orders.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}"
                         >
-                            <i class="fa-solid fa-bag-shopping text-sm shrink-0 {{ request()->routeIs('admin.orders.*') ? 'text-white' : 'text-emerald-400 group-hover:text-white' }}"></i>
+                            <i class="ki-filled ki-shop text-base shrink-0 {{ request()->routeIs('admin.orders.*') ? 'text-white' : 'text-emerald-400 group-hover:text-white' }}"></i>
                             <span x-show="!sidebarCollapsed" class="truncate">Orders & Invoices</span>
                         </a>
 
@@ -155,7 +166,7 @@
                             href="{{ route('admin.coupons.index') }}" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition group {{ request()->routeIs('admin.coupons.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}"
                         >
-                            <i class="fa-solid fa-ticket text-sm shrink-0 {{ request()->routeIs('admin.coupons.*') ? 'text-white' : 'text-rose-400 group-hover:text-white' }}"></i>
+                            <i class="ki-filled ki-discount text-base shrink-0 {{ request()->routeIs('admin.coupons.*') ? 'text-white' : 'text-rose-400 group-hover:text-white' }}"></i>
                             <span x-show="!sidebarCollapsed" class="truncate">Coupon Engine</span>
                         </a>
 
@@ -164,7 +175,7 @@
                             href="{{ route('admin.reviews.index') }}" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition group {{ request()->routeIs('admin.reviews.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' : 'text-slate-400 hover:text-white hover:bg-slate-800/60' }}"
                         >
-                            <i class="fa-solid fa-star-half-stroke text-sm shrink-0 {{ request()->routeIs('admin.reviews.*') ? 'text-white' : 'text-yellow-400 group-hover:text-white' }}"></i>
+                            <i class="ki-filled ki-star text-base shrink-0 {{ request()->routeIs('admin.reviews.*') ? 'text-white' : 'text-yellow-400 group-hover:text-white' }}"></i>
                             <span x-show="!sidebarCollapsed" class="truncate">Review Moderation</span>
                         </a>
                     </div>
@@ -180,9 +191,9 @@
                             target="_blank" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/60 transition group"
                         >
-                            <i class="fa-solid fa-store text-sm shrink-0 text-cyan-400 group-hover:text-white"></i>
+                            <i class="ki-filled ki-home text-base shrink-0 text-cyan-400 group-hover:text-white"></i>
                             <span x-show="!sidebarCollapsed" class="truncate">Live Storefront</span>
-                            <i x-show="!sidebarCollapsed" class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-auto text-slate-500"></i>
+                            <i x-show="!sidebarCollapsed" class="ki-filled ki-arrow-up-right text-xs ml-auto text-slate-500"></i>
                         </a>
 
                         <a 
@@ -190,7 +201,7 @@
                             target="_blank" 
                             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/60 transition group"
                         >
-                            <i class="fa-solid fa-compass text-sm shrink-0 text-violet-400 group-hover:text-white"></i>
+                            <i class="ki-filled ki-compass text-base shrink-0 text-violet-400 group-hover:text-white"></i>
                             <span x-show="!sidebarCollapsed" class="truncate">Catalog Explorer</span>
                         </a>
                     </div>
@@ -220,7 +231,7 @@
                                 title="Sign Out" 
                                 class="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition cursor-pointer"
                             >
-                                <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                                <i class="ki-filled ki-exit-right text-sm"></i>
                             </button>
                         </form>
                     </div>
@@ -249,7 +260,7 @@
         <div class="flex-1 flex flex-col min-w-0">
             
             <!-- Metronic Topbar Header -->
-            <header class="h-20 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-md">
+            <header class="h-18 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-md">
                 
                 <!-- Left: Mobile Toggle & Breadcrumb Title -->
                 <div class="flex items-center gap-4">
@@ -258,14 +269,14 @@
                         @click="sidebarOpen = true" 
                         class="lg:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
                     >
-                        <i class="fa-solid fa-bars text-sm"></i>
+                        <i class="ki-filled ki-abstract-14 text-sm"></i>
                     </button>
 
                     <div class="flex flex-col">
                         <div class="flex items-center gap-2 text-[11px] text-slate-500 font-bold uppercase tracking-wider">
-                            <span>Admin</span>
+                            <span>Dashboards</span>
                             <span>/</span>
-                            <span class="text-indigo-400">@yield('breadcrumb', 'Dashboard')</span>
+                            <span class="text-indigo-400">@yield('breadcrumb', 'Dark Sidebar')</span>
                         </div>
                         <h2 class="text-base sm:text-lg font-black text-white tracking-tight leading-tight">
                             @yield('title', 'Executive Overview')
@@ -282,8 +293,8 @@
                         @click="searchModalOpen = true" 
                         class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 hover:text-white transition cursor-pointer"
                     >
-                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                        <span>Search</span>
+                        <i class="ki-filled ki-magnifier text-xs"></i>
+                        <span>Search...</span>
                         <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-mono text-slate-400 font-bold">⌘K</kbd>
                     </button>
 
@@ -293,7 +304,7 @@
                         target="_blank"
                         class="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white transition"
                     >
-                        <i class="fa-solid fa-store text-xs text-indigo-400"></i>
+                        <i class="ki-filled ki-shop text-xs text-indigo-400"></i>
                         <span>Live Store</span>
                     </a>
 
@@ -302,7 +313,7 @@
                         href="{{ route('admin.products.create') }}" 
                         class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-md shadow-indigo-600/30 flex items-center gap-1.5"
                     >
-                        <i class="fa-solid fa-plus text-xs"></i>
+                        <i class="ki-filled ki-plus text-xs"></i>
                         <span class="hidden sm:inline">Add Product</span>
                     </a>
 
@@ -316,7 +327,7 @@
                             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-600 flex items-center justify-center text-xs font-black text-white shadow-xs">
                                 SA
                             </div>
-                            <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 pr-1"></i>
+                            <i class="ki-filled ki-down text-[10px] text-slate-400 pr-1"></i>
                         </button>
 
                         <div 
@@ -334,19 +345,19 @@
                             </div>
 
                             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
-                                <i class="fa-solid fa-chart-pie text-indigo-400 text-xs"></i>
+                                <i class="ki-filled ki-element-11 text-indigo-400 text-xs"></i>
                                 <span>Dashboard Analytics</span>
                             </a>
 
                             <a href="{{ route('admin.products.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
-                                <i class="fa-solid fa-box text-amber-400 text-xs"></i>
+                                <i class="ki-filled ki-box text-amber-400 text-xs"></i>
                                 <span>Product Catalog</span>
                             </a>
 
                             <form action="{{ route('admin.logout') }}" method="POST" class="pt-1 border-t border-slate-800">
                                 @csrf
                                 <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition text-left cursor-pointer font-bold">
-                                    <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                                    <i class="ki-filled ki-exit-right text-xs"></i>
                                     <span>Sign Out</span>
                                 </button>
                             </form>
@@ -360,14 +371,14 @@
             <!-- Notification Messages -->
             @if(session('success'))
                 <div class="m-6 mb-0 p-4 rounded-xl bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-circle-check text-sm"></i>
+                    <i class="ki-filled ki-check-circle text-base"></i>
                     <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if(session('error'))
                 <div class="m-6 mb-0 p-4 rounded-xl bg-rose-950/70 border border-rose-500/30 text-rose-300 text-xs font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-circle-exclamation text-sm"></i>
+                    <i class="ki-filled ki-information-2 text-base"></i>
                     <span>{{ session('error') }}</span>
                 </div>
             @endif
@@ -392,7 +403,7 @@
             class="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden"
         >
             <div class="p-4 border-b border-slate-800 flex items-center gap-3">
-                <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm"></i>
+                <i class="ki-filled ki-magnifier text-slate-400 text-sm"></i>
                 <input 
                     type="text" 
                     placeholder="Search activewear catalog, orders, coupons..." 
@@ -402,15 +413,15 @@
                 <kbd class="px-2 py-1 rounded bg-slate-800 text-[10px] font-mono text-slate-400">ESC</kbd>
             </div>
             <div class="p-4 space-y-2 text-xs">
-                <div class="text-[10px] font-bold text-slate-500 uppercase">Quick Jump</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase">Quick Navigation</div>
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
-                    <i class="fa-solid fa-chart-pie text-indigo-400"></i> Executive Dashboard
+                    <i class="ki-filled ki-element-11 text-indigo-400"></i> Executive Dashboard
                 </a>
                 <a href="{{ route('admin.products.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
-                    <i class="fa-solid fa-box text-amber-400"></i> Activewear Catalog
+                    <i class="ki-filled ki-box text-amber-400"></i> Activewear Catalog
                 </a>
                 <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
-                    <i class="fa-solid fa-bag-shopping text-emerald-400"></i> Customer Orders
+                    <i class="ki-filled ki-shop text-emerald-400"></i> Customer Orders
                 </a>
             </div>
         </div>
