@@ -1,33 +1,29 @@
 @extends('layouts.admin')
 
-@section('title', 'Executive Analytics Dashboard')
-@section('breadcrumb', 'Analytics')
+@section('title', 'Executive Dashboard')
+@section('breadcrumb', 'Dark Sidebar')
 
 @section('content')
-<div class="space-y-8">
+<div class="flex flex-col gap-6 lg:gap-8">
     
     <!-- =========================================================================
-         1. TOP WELCOME HIGHLIGHT BAR (METRONIC DEMO 1 HEADER)
+         1. METRONIC SUBHEADER / TOOLBAR
          ========================================================================= -->
-    <div class="p-6 rounded-2xl bg-gradient-to-r from-[#1e1e2d] via-[#1a1f37] to-[#1e1e2d] border border-slate-800 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div class="space-y-1">
-            <div class="flex items-center gap-2">
-                <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">Welcome back, SM Administrator! 🎉</h1>
-                <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 text-[10px] font-black border border-emerald-500/30 uppercase">Active</span>
-            </div>
-            <p class="text-xs text-slate-400">
-                Here is your daily activewear storefront summary. You have <strong class="text-white font-bold">{{ $totalOrders }} orders</strong> and <strong class="text-emerald-400 font-bold">${{ number_format($totalRevenue, 2) }}</strong> in gross volume.
-            </p>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Dashboard Overview</h1>
+            <p class="text-xs text-gray-500 mt-0.5 font-medium">Central Hub for Store Performance, Orders & Apparel Inventory</p>
         </div>
 
         <div class="flex items-center gap-3">
-            <a href="{{ route('admin.products.create') }}" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-lg shadow-indigo-600/30 flex items-center gap-2 cursor-pointer">
-                <i class="fa-solid fa-plus text-xs"></i>
+            <div class="inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 shadow-xs">
+                <i class="ki-filled ki-calendar text-gray-400 text-sm"></i>
+                <span>{{ date('M d, Y') }}</span>
+            </div>
+
+            <a href="{{ route('admin.products.create') }}" class="kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold shadow-xs flex items-center gap-1.5">
+                <i class="ki-filled ki-plus text-xs"></i>
                 <span>Add New Drop</span>
-            </a>
-            <a href="{{ route('home') }}" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white text-xs font-bold transition flex items-center gap-2">
-                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-indigo-400"></i>
-                <span>View Store</span>
             </a>
         </div>
     </div>
@@ -38,195 +34,205 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
         <!-- Metric 1: Gross Sales -->
-        <div class="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 shadow-xl relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs hover:border-primary/40 transition">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Gross Revenue</span>
-                <div class="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-sm font-black border border-indigo-500/20">
-                    <i class="fa-solid fa-dollar-sign"></i>
+                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Gross Revenue</span>
+                <div class="flex items-center justify-center size-10 rounded-lg bg-blue-50 text-[#1b84ff]">
+                    <i class="ki-filled ki-dollar text-xl"></i>
                 </div>
             </div>
-            <div class="text-3xl font-black text-white mt-4 tracking-tight">${{ number_format($totalRevenue, 2) }}</div>
-            <div class="text-[11px] text-emerald-400 font-bold mt-2 flex items-center gap-1.5">
-                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black text-[10px]">+18.4%</span>
-                <span class="text-slate-400 font-medium">vs last month</span>
+            <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
+                ${{ number_format($totalRevenue, 2) }}
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+                <span class="kt-badge kt-badge-sm kt-badge-outline kt-badge-success font-bold">+18.4%</span>
+                <span class="text-xs text-gray-500 font-medium">vs last month</span>
             </div>
         </div>
 
         <!-- Metric 2: Total Orders -->
-        <div class="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 shadow-xl relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs hover:border-primary/40 transition">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Orders</span>
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-sm font-black border border-emerald-500/20">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Orders</span>
+                <div class="flex items-center justify-center size-10 rounded-lg bg-emerald-50 text-emerald-600">
+                    <i class="ki-filled ki-shop text-xl"></i>
                 </div>
             </div>
-            <div class="text-3xl font-black text-white mt-4 tracking-tight">{{ $totalOrders }}</div>
-            <div class="text-[11px] text-emerald-400 font-bold mt-2 flex items-center gap-1.5">
-                <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black text-[10px]">+12.1%</span>
-                <span class="text-slate-400 font-medium">conversion rate</span>
+            <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
+                {{ $totalOrders }}
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+                <span class="kt-badge kt-badge-sm kt-badge-outline kt-badge-info font-bold">+12.1%</span>
+                <span class="text-xs text-gray-500 font-medium">conversion rate</span>
             </div>
         </div>
 
         <!-- Metric 3: Active Products -->
-        <div class="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 shadow-xl relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs hover:border-primary/40 transition">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Catalog</span>
-                <div class="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-sm font-black border border-amber-500/20">
-                    <i class="fa-solid fa-box"></i>
+                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Active Drops</span>
+                <div class="flex items-center justify-center size-10 rounded-lg bg-amber-50 text-amber-600">
+                    <i class="ki-filled ki-box text-xl"></i>
                 </div>
             </div>
-            <div class="text-3xl font-black text-white mt-4 tracking-tight">{{ $totalProducts }}</div>
-            <div class="text-[11px] text-amber-400 font-bold mt-2 flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                <span>100% In-Stock & Available</span>
+            <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
+                {{ $totalProducts }}
+            </div>
+            <div class="flex items-center gap-2 mt-2">
+                <span class="kt-badge kt-badge-sm kt-badge-outline kt-badge-warning font-bold">100% In-Stock</span>
+                <span class="text-xs text-gray-500 font-medium">Active catalog</span>
             </div>
         </div>
 
         <!-- Metric 4: Total Customers -->
-        <div class="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 shadow-xl relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs hover:border-primary/40 transition">
             <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Athletes</span>
-                <div class="w-10 h-10 rounded-xl bg-violet-500/15 text-violet-400 flex items-center justify-center text-sm font-black border border-violet-500/20">
-                    <i class="fa-solid fa-users"></i>
+                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Athletes</span>
+                <div class="flex items-center justify-center size-10 rounded-lg bg-purple-50 text-purple-600">
+                    <i class="ki-filled ki-people text-xl"></i>
                 </div>
             </div>
-            <div class="text-3xl font-black text-white mt-4 tracking-tight">{{ $totalCustomers }}</div>
-            <div class="text-[11px] text-violet-300 font-bold mt-2 flex items-center gap-1">
-                <span>Verified accounts</span>
+            <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
+                {{ $totalCustomers }}
             </div>
-        </div>
-
-    </div>
-
-    <!-- =========================================================================
-         3. APEXCHARTS ANALYTICS: REVENUE & ORDER FULFILLMENT
-         ========================================================================= -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Revenue Trend Line/Area Chart -->
-        <div class="lg:col-span-8 p-6 rounded-2xl bg-[#0f172a] border border-slate-800 shadow-xl space-y-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
-                <div>
-                    <h3 class="text-base font-black text-white">Sales & Revenue Momentum</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Real-time transaction tracking across 7 days</p>
-                </div>
-                <div class="inline-flex items-center gap-1 p-1 bg-slate-900 rounded-xl border border-slate-800">
-                    <span class="text-xs font-black text-white bg-indigo-600 px-3 py-1 rounded-lg">7 Days</span>
-                    <span class="text-xs font-bold text-slate-400 px-3 py-1 hover:text-white cursor-pointer">30 Days</span>
-                </div>
-            </div>
-            
-            <div id="revenue-analytics-chart" class="w-full min-h-[320px]"></div>
-
-            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-xs text-center">
-                <div>
-                    <div class="text-slate-400 font-medium">Gross Volume</div>
-                    <div class="text-white font-black text-sm mt-0.5">${{ number_format($totalRevenue, 2) }}</div>
-                </div>
-                <div>
-                    <div class="text-slate-400 font-medium">Average Order</div>
-                    <div class="text-emerald-400 font-black text-sm mt-0.5">${{ number_format($totalOrders > 0 ? $totalRevenue / $totalOrders : 0, 2) }}</div>
-                </div>
-                <div>
-                    <div class="text-slate-400 font-medium">Success Rate</div>
-                    <div class="text-indigo-400 font-black text-sm mt-0.5">99.8%</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Order Fulfillment Distribution Donut Chart -->
-        <div class="lg:col-span-4 p-6 rounded-2xl bg-[#0f172a] border border-slate-800 shadow-xl space-y-4 flex flex-col justify-between">
-            <div class="border-b border-slate-800 pb-4">
-                <h3 class="text-base font-black text-white">Order Pipeline Status</h3>
-                <p class="text-xs text-slate-400 mt-0.5">Fulfillment stage breakdown</p>
-            </div>
-
-            <div id="order-status-donut" class="w-full flex items-center justify-center min-h-[240px]"></div>
-
-            <div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-800 text-xs">
-                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <span class="text-amber-400 font-bold">Pending</span>
-                    <span class="font-black text-white">{{ $statusCounts['pending'] }}</span>
-                </div>
-                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <span class="text-indigo-400 font-bold">Processing</span>
-                    <span class="font-black text-white">{{ $statusCounts['processing'] }}</span>
-                </div>
-                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <span class="text-cyan-400 font-bold">Shipped</span>
-                    <span class="font-black text-white">{{ $statusCounts['shipped'] }}</span>
-                </div>
-                <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                    <span class="text-emerald-400 font-bold">Delivered</span>
-                    <span class="font-black text-white">{{ $statusCounts['delivered'] }}</span>
-                </div>
+            <div class="flex items-center gap-2 mt-2">
+                <span class="kt-badge kt-badge-sm kt-badge-outline kt-badge-primary font-bold">Verified</span>
+                <span class="text-xs text-gray-500 font-medium">member accounts</span>
             </div>
         </div>
 
     </div>
 
     <!-- =========================================================================
-         4. RECENT ORDERS & TOP PERFORMING APPAREL
+         3. APEXCHARTS ANALYTICS: REVENUE & PIPELINE STATUS
          ========================================================================= -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         
-        <!-- Recent Orders Table -->
-        <div class="lg:col-span-8 bg-[#0f172a] border border-slate-800 rounded-2xl shadow-xl overflow-hidden flex flex-col">
-            <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+        <!-- Left: Sales & Revenue Momentum Area Chart (8 cols) -->
+        <div class="lg:col-span-8 kt-card bg-white border border-gray-200/90 rounded-xl shadow-xs flex flex-col justify-between p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
                 <div>
-                    <h3 class="text-base font-black text-white">Recent Customer Orders</h3>
-                    <p class="text-xs text-slate-400 mt-0.5">Latest activewear sales and dispatch orders</p>
+                    <h3 class="text-base font-bold text-gray-900">Sales & Revenue Momentum</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Real-time daily transaction and order distribution</p>
                 </div>
-                <a href="{{ route('admin.orders.index') }}" class="text-xs font-bold text-indigo-400 hover:text-indigo-300 transition flex items-center gap-1">
+
+                <div class="inline-flex p-1 bg-gray-100 rounded-lg text-xs font-semibold">
+                    <button type="button" class="px-3 py-1 bg-white text-gray-900 font-bold rounded-md shadow-xs">7 Days</button>
+                    <button type="button" class="px-3 py-1 text-gray-500 hover:text-gray-900 transition">30 Days</button>
+                </div>
+            </div>
+
+            <div id="revenue-analytics-chart" class="w-full min-h-[300px] mt-2"></div>
+
+            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100 text-center text-xs">
+                <div>
+                    <div class="text-gray-500 font-medium">Gross Volume</div>
+                    <div class="text-base font-bold text-gray-900 mt-0.5">${{ number_format($totalRevenue, 2) }}</div>
+                </div>
+                <div>
+                    <div class="text-gray-500 font-medium">Avg Order Value</div>
+                    <div class="text-base font-bold text-emerald-600 mt-0.5">${{ number_format($totalOrders > 0 ? $totalRevenue / $totalOrders : 0, 2) }}</div>
+                </div>
+                <div>
+                    <div class="text-gray-500 font-medium">Fulfillment Rate</div>
+                    <div class="text-base font-bold text-[#1b84ff] mt-0.5">99.8%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Order Pipeline Status Donut Chart (4 cols) -->
+        <div class="lg:col-span-4 kt-card bg-white border border-gray-200/90 rounded-xl shadow-xs flex flex-col justify-between p-6">
+            <div class="border-b border-gray-100 pb-4">
+                <h3 class="text-base font-bold text-gray-900">Order Pipeline Status</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Fulfillment stage breakdown</p>
+            </div>
+
+            <div id="order-status-donut" class="w-full flex items-center justify-center min-h-[220px]"></div>
+
+            <div class="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100 text-xs">
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <span class="text-amber-600 font-semibold">Pending</span>
+                    <span class="font-bold text-gray-900">{{ $statusCounts['pending'] }}</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <span class="text-[#1b84ff] font-semibold">Processing</span>
+                    <span class="font-bold text-gray-900">{{ $statusCounts['processing'] }}</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <span class="text-cyan-600 font-semibold">Shipped</span>
+                    <span class="font-bold text-gray-900">{{ $statusCounts['shipped'] }}</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <span class="text-emerald-600 font-semibold">Delivered</span>
+                    <span class="font-bold text-gray-900">{{ $statusCounts['delivered'] }}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- =========================================================================
+         4. METRONIC RECENT ORDERS & TOP PRODUCTS
+         ========================================================================= -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        
+        <!-- Recent Orders Table (8 cols) -->
+        <div class="lg:col-span-8 kt-card bg-white border border-gray-200/90 rounded-xl shadow-xs overflow-hidden flex flex-col justify-between">
+            <div class="p-6 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-bold text-gray-900">Recent Customer Orders</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Latest activewear sales and dispatch orders</p>
+                </div>
+                <a href="{{ route('admin.orders.index') }}" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
                     <span>View All Orders</span>
-                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <i class="ki-filled ki-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
             <div class="overflow-x-auto flex-1">
                 <table class="w-full text-left text-xs">
                     <thead>
-                        <tr class="text-slate-400 border-b border-slate-800 font-black uppercase text-[10px] tracking-wider bg-slate-900/60">
+                        <tr class="text-gray-500 border-b border-gray-100 font-bold uppercase text-[10px] tracking-wider bg-gray-50/70">
                             <th class="py-3.5 px-5">Order #</th>
-                            <th class="py-3.5 px-5">Customer</th>
+                            <th class="py-3.5 px-5">Customer Profile</th>
                             <th class="py-3.5 px-5">Amount</th>
-                            <th class="py-3.5 px-5">Status</th>
+                            <th class="py-3.5 px-5">Fulfillment Status</th>
                             <th class="py-3.5 px-5 text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800 font-medium">
+                    <tbody class="divide-y divide-gray-100 font-medium text-gray-700">
                         @forelse($recentOrders as $order)
-                            <tr class="hover:bg-slate-900/40 transition">
-                                <td class="py-3.5 px-5 font-mono font-bold text-indigo-400">
+                            <tr class="hover:bg-gray-50/60 transition">
+                                <td class="py-3.5 px-5 font-mono font-bold text-primary">
                                     {{ $order->order_number }}
                                 </td>
                                 <td class="py-3.5 px-5">
-                                    <div class="font-bold text-white text-xs">{{ $order->shipping_name ?? $order->customer_name }}</div>
-                                    <div class="text-[10px] text-slate-400 font-mono">{{ $order->shipping_email ?? $order->customer_email }}</div>
+                                    <div class="font-bold text-gray-900 text-xs">{{ $order->shipping_name ?? $order->customer_name }}</div>
+                                    <div class="text-[10px] text-gray-400 font-mono">{{ $order->shipping_email ?? $order->customer_email }}</div>
                                 </td>
-                                <td class="py-3.5 px-5 font-black text-white text-sm">
+                                <td class="py-3.5 px-5 font-bold text-gray-900 text-sm">
                                     ${{ number_format($order->total_amount, 2) }}
                                 </td>
                                 <td class="py-3.5 px-5">
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider
-                                        @if($order->order_status === 'delivered') bg-emerald-500/15 text-emerald-400 border border-emerald-500/30
-                                        @elseif($order->order_status === 'shipped') bg-cyan-500/15 text-cyan-400 border border-cyan-500/30
-                                        @elseif($order->order_status === 'processing') bg-indigo-500/15 text-indigo-400 border border-indigo-500/30
-                                        @else bg-amber-500/15 text-amber-400 border border-amber-500/30
+                                    <span class="kt-badge kt-badge-sm
+                                        @if($order->order_status === 'delivered') kt-badge-outline kt-badge-success
+                                        @elseif($order->order_status === 'shipped') kt-badge-outline kt-badge-info
+                                        @elseif($order->order_status === 'processing') kt-badge-outline kt-badge-primary
+                                        @else kt-badge-outline kt-badge-warning
                                         @endif
                                     ">
-                                        {{ $order->order_status }}
+                                        {{ ucfirst($order->order_status) }}
                                     </span>
                                 </td>
                                 <td class="py-3.5 px-5 text-right">
-                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-indigo-600 hover:text-white text-slate-300 text-xs font-bold transition border border-slate-800">
+                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold text-gray-700 hover:text-primary">
                                         Details
                                     </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="py-8 text-center text-slate-500 italic">No orders received yet.</td>
+                                <td colspan="5" class="py-8 text-center text-gray-400 italic">No customer orders recorded yet.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -234,23 +240,23 @@
             </div>
         </div>
 
-        <!-- Top Performing Activewear Drops -->
-        <div class="lg:col-span-4 bg-[#0f172a] border border-slate-800 rounded-2xl shadow-xl p-6 space-y-4">
-            <div class="border-b border-slate-800 pb-4">
-                <h3 class="text-base font-black text-white">Top Activewear Drops</h3>
-                <p class="text-xs text-slate-400 mt-0.5">Most rated and purchased gymwear</p>
+        <!-- Top Performing Apparel (4 cols) -->
+        <div class="lg:col-span-4 kt-card bg-white border border-gray-200/90 rounded-xl shadow-xs p-6 space-y-4">
+            <div class="border-b border-gray-100 pb-4">
+                <h3 class="text-base font-bold text-gray-900">Top Activewear Drops</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Most rated and popular workout apparel</p>
             </div>
 
             <div class="space-y-3.5">
                 @foreach($topProducts as $prod)
-                    <div class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900 border border-slate-800">
-                        <img src="{{ $prod->image }}" alt="{{ $prod->name }}" class="w-11 h-11 rounded-lg object-cover bg-zinc-900 shrink-0 border border-slate-800">
+                    <div class="flex items-center gap-3 p-2.5 rounded-lg border border-gray-100 hover:border-gray-200 bg-gray-50/50 transition">
+                        <img src="{{ $prod->image }}" alt="{{ $prod->name }}" class="w-11 h-11 rounded-lg object-cover bg-gray-100 shrink-0 border border-gray-200">
                         <div class="min-w-0 flex-1">
-                            <h4 class="font-bold text-xs text-white truncate">{{ $prod->name }}</h4>
+                            <h4 class="font-bold text-xs text-gray-900 truncate">{{ $prod->name }}</h4>
                             <div class="flex items-center justify-between mt-1">
-                                <span class="text-xs font-black text-emerald-400">${{ number_format($prod->price, 2) }}</span>
-                                <span class="text-[10px] text-amber-400 font-bold flex items-center gap-0.5">
-                                    <i class="fa-solid fa-star text-[9px]"></i> {{ number_format($prod->rating, 1) }}
+                                <span class="text-xs font-black text-gray-900">${{ number_format($prod->price, 2) }}</span>
+                                <span class="text-[10px] text-amber-500 font-bold flex items-center gap-0.5">
+                                    <i class="ki-filled ki-star text-[10px]"></i> {{ number_format($prod->rating, 1) }}
                                 </span>
                             </div>
                         </div>
@@ -280,40 +286,39 @@
             ],
             chart: {
                 type: 'area',
-                height: 300,
+                height: 280,
                 toolbar: { show: false },
-                background: 'transparent'
+                fontFamily: 'Inter, sans-serif'
             },
-            colors: ['#6366f1', '#10b981'],
+            colors: ['#1b84ff', '#17c653'],
             dataLabels: { enabled: false },
-            stroke: { curve: 'smooth', width: 3 },
+            stroke: { curve: 'smooth', width: 2.5 },
             fill: {
                 type: 'gradient',
                 gradient: {
                     shadeIntensity: 1,
-                    opacityFrom: 0.45,
+                    opacityFrom: 0.35,
                     opacityTo: 0.05,
                     stops: [20, 100]
                 }
             },
             xaxis: {
                 categories: chartDates,
-                labels: { style: { colors: '#94a3b8', fontSize: '11px', fontFamily: 'Inter' } },
+                labels: { style: { colors: '#78829d', fontSize: '11px', fontFamily: 'Inter' } },
                 axisBorder: { show: false },
                 axisTicks: { show: false }
             },
             yaxis: {
-                labels: { style: { colors: '#94a3b8', fontSize: '11px', fontFamily: 'Inter' } }
+                labels: { style: { colors: '#78829d', fontSize: '11px', fontFamily: 'Inter' } }
             },
             grid: {
-                borderColor: '#1e293b',
-                strokeDashArray: 4
+                borderColor: '#f1f1f4',
+                strokeDashArray: 3
             },
-            theme: { mode: 'dark' },
             legend: {
                 position: 'top',
                 horizontalAlign: 'right',
-                labels: { colors: '#cbd5e1' }
+                labels: { colors: '#4b5675' }
             }
         };
 
@@ -328,27 +333,26 @@
             series: statusCounts.reduce((a, b) => a + b, 0) > 0 ? statusCounts : [1, 0, 0, 0],
             chart: {
                 type: 'donut',
-                height: 240,
-                background: 'transparent'
+                height: 220,
+                fontFamily: 'Inter, sans-serif'
             },
             labels: statusLabels,
-            colors: ['#f59e0b', '#6366f1', '#06b6d4', '#10b981'],
+            colors: ['#f6c000', '#1b84ff', '#7239ea', '#17c653'],
             stroke: { show: false },
             dataLabels: { enabled: false },
             legend: { show: false },
-            theme: { mode: 'dark' },
             plotOptions: {
                 pie: {
                     donut: {
                         size: '72%',
                         labels: {
                             show: true,
-                            name: { show: true, fontSize: '12px', color: '#94a3b8' },
-                            value: { show: true, fontSize: '20px', fontWeight: '900', color: '#ffffff' },
+                            name: { show: true, fontSize: '12px', color: '#78829d' },
+                            value: { show: true, fontSize: '20px', fontWeight: '800', color: '#071437' },
                             total: {
                                 show: true,
                                 label: 'Total Orders',
-                                color: '#94a3b8',
+                                color: '#78829d',
                                 formatter: function (w) {
                                     return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
                                 }
