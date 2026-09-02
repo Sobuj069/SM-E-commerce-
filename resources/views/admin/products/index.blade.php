@@ -90,6 +90,9 @@
                             </td>
                             <td class="py-3.5 px-6 text-right">
                                 <div class="flex items-center justify-end gap-2">
+                                    <a href="{{ route('admin.products.edit', $prod->id) }}" class="p-2 rounded-lg bg-blue-50 hover:bg-[#1b84ff] text-[#1b84ff] hover:text-white transition" title="Edit Product">
+                                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                                    </a>
                                     <a href="{{ route('product.show', $prod->slug) }}" target="_blank" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition" title="View in Store">
                                         <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                                     </a>

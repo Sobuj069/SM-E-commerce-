@@ -212,6 +212,38 @@ class AdminController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Activewear drop published successfully!');
     }
 
+    public function editProduct(Product $product)
+    {
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('admin.products.edit', compact('product', 'categories', 'brands'));
+    }
+
+    public function updateProduct(Request $request, Product $product)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
+            'price' => 'required|numeric|min:0',
+            'sale_price' => 'nullable|numeric|min:0',
+            'sku' => 'nullable|string|max:50',
+            'stock' => 'required|integer|min:0',
+            'image' => 'required|url',
+            'short_description' => 'required|string|max:500',
+            'description' => 'nullable|string',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
+        ]);
+
+        $data['is_featured'] = $request->has('is_featured');
+        $data['is_active'] = $request->has('is_active');
+
+        $product->update($data);
+
+        return redirect()->route('admin.products.index')->with('success', "Activewear drop '{$product->name}' updated successfully!");
+    }
+
     public function deleteProduct(Product $product)
     {
         $product->delete();

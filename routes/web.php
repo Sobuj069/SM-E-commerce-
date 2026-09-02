@@ -59,6 +59,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/products', [AdminController::class, 'products'])->name('products.index');
     Route::get('/products/create', [AdminController::class, 'createProduct'])->name('products.create');
     Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
+    Route::get('/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.edit');
+    Route::put('/products/{product}', [AdminController::class, 'updateProduct'])->name('products.update');
     Route::delete('/products/{product}', [AdminController::class, 'deleteProduct'])->name('products.delete');
 
     // Stocks & Purchases Inflow
