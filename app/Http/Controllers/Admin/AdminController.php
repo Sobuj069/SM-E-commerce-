@@ -454,6 +454,8 @@ class AdminController extends Controller
             'processing' => Order::where('order_status', 'processing')->count(),
             'shipped' => Order::where('order_status', 'shipped')->count(),
             'delivered' => Order::where('order_status', 'delivered')->count(),
+            'partial_delivered' => Order::where('order_status', 'partial_delivered')->count(),
+            'returned' => Order::where('order_status', 'returned')->count(),
             'cancelled' => Order::where('order_status', 'cancelled')->count(),
         ];
 
@@ -471,16 +473,98 @@ class AdminController extends Controller
     public function updateOrderStatus(Request $request, Order $order)
     {
         $request->validate([
-            'order_status' => 'required|in:pending,processing,shipped,delivered,cancelled,returned',
-            'payment_status' => 'required|in:pending,paid,failed',
+            'order_status' => 'required|in:pending,processing,shipped,delivered,partial_delivered,cancelled,returned',
+            'payment_status' => 'required|in:pending,paid,partial,failed',
         ]);
+
+        $newStatus = $request->order_status;
+        $order->load('items.product');
+
+        // Automatic Stock Restoration if returned or cancelled
+        if (in_array($newStatus, ['returned', 'cancelled']) && !$order->stock_restored) {
+            foreach ($order->items as $item) {
+                if ($item->product) {
+                    $item->product->increment('stock', $item->quantity);
+                }
+            }
+            $order->stock_restored = true;
+        }
 
         $order->update([
-            'order_status' => $request->order_status,
+            'order_status' => $newStatus,
             'payment_status' => $request->payment_status,
+            'courier_status' => $newStatus === 'returned' ? 'returned' : ($newStatus === 'delivered' ? 'delivered' : $order->courier_status),
         ]);
 
-        return back()->with('success', 'Order status updated successfully!');
+        return back()->with('success', 'Order status updated successfully! ' . ($order->stock_restored ? '(Inventory stock automatically restored)' : ''));
+    }
+
+    public function processCourierReturn(Request $request, Order $order)
+    {
+        $request->validate([
+            'action_type' => 'required|in:full_return,partial_delivery',
+            'return_reason' => 'nullable|string|max:500',
+            'collected_amount' => 'nullable|numeric|min:0',
+            'return_charge' => 'nullable|numeric|min:0',
+            'returned_items' => 'nullable|array',
+        ]);
+
+        $order->load('items.product');
+        $action = $request->action_type;
+
+        if ($action === 'full_return') {
+            // Full Return
+            if (!$order->stock_restored) {
+                foreach ($order->items as $item) {
+                    if ($item->product) {
+                        $item->product->increment('stock', $item->quantity);
+                    }
+                }
+                $order->stock_restored = true;
+            }
+
+            $order->update([
+                'order_status' => 'returned',
+                'courier_status' => 'returned',
+                'payment_status' => 'failed',
+                'return_reason' => $request->return_reason ?: 'Customer returned parcel / Delivery refused',
+                'return_charge' => (float)($request->return_charge ?? 0),
+                'collected_amount' => 0,
+            ]);
+
+            return back()->with('success', "Order #{$order->order_number} marked as FULL RETURN. All items restored to stock (+inventory).");
+        } else {
+            // Partial Delivery
+            $collected = (float)($request->collected_amount ?? 0);
+            $returnedItems = $request->input('returned_items', []);
+
+            // Restore stock for returned items
+            $restoredCount = 0;
+            if (is_array($returnedItems)) {
+                foreach ($returnedItems as $itemId => $qty) {
+                    $qty = (int)$qty;
+                    if ($qty > 0) {
+                        $item = $order->items->where('id', $itemId)->first();
+                        if ($item && $item->product) {
+                            $item->product->increment('stock', $qty);
+                            $restoredCount += $qty;
+                        }
+                    }
+                }
+            }
+
+            $order->update([
+                'order_status' => 'partial_delivered',
+                'courier_status' => 'delivered',
+                'payment_status' => $collected >= $order->total_amount ? 'paid' : 'partial',
+                'collected_amount' => $collected,
+                'return_charge' => (float)($request->return_charge ?? 0),
+                'return_reason' => $request->return_reason ?: 'Partial delivery accepted by customer',
+                'stock_restored' => true,
+            ]);
+
+            return back()->with('success', "Order #{$order->order_number} marked as PARTIAL DELIVERY. Cash collected: \${$collected}. {$restoredCount} returned items restored to inventory.");
+        }
     }
 
     // ==========================================

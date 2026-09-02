@@ -26,22 +26,28 @@
 
     <!-- Status Tabs -->
     <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-semibold">
-        <a href="{{ route('admin.orders.index', ['status' => 'all']) }}" class="px-4 py-2 rounded-lg transition {{ $status === 'all' ? 'bg-[#1b84ff] text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+        <a href="{{ route('admin.orders.index', ['status' => 'all']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'all' ? 'bg-[#1b84ff] text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
             All Orders ({{ $statusTotals['all'] }})
         </a>
-        <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" class="px-4 py-2 rounded-lg transition {{ $status === 'pending' ? 'bg-amber-500 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+        <a href="{{ route('admin.orders.index', ['status' => 'pending']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'pending' ? 'bg-amber-500 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
             Pending ({{ $statusTotals['pending'] }})
         </a>
-        <a href="{{ route('admin.orders.index', ['status' => 'processing']) }}" class="px-4 py-2 rounded-lg transition {{ $status === 'processing' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+        <a href="{{ route('admin.orders.index', ['status' => 'processing']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'processing' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
             Processing ({{ $statusTotals['processing'] }})
         </a>
-        <a href="{{ route('admin.orders.index', ['status' => 'shipped']) }}" class="px-4 py-2 rounded-lg transition {{ $status === 'shipped' ? 'bg-purple-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+        <a href="{{ route('admin.orders.index', ['status' => 'shipped']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'shipped' ? 'bg-purple-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
             Shipped ({{ $statusTotals['shipped'] }})
         </a>
-        <a href="{{ route('admin.orders.index', ['status' => 'delivered']) }}" class="px-4 py-2 rounded-lg transition {{ $status === 'delivered' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+        <a href="{{ route('admin.orders.index', ['status' => 'delivered']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'delivered' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
             Delivered ({{ $statusTotals['delivered'] }})
         </a>
-        <a href="{{ route('admin.orders.index', ['status' => 'cancelled']) }}" class="px-4 py-2 rounded-lg transition {{ $status === 'cancelled' ? 'bg-rose-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+        <a href="{{ route('admin.orders.index', ['status' => 'partial_delivered']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'partial_delivered' ? 'bg-amber-600 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+            📦 Partial Delivered ({{ $statusTotals['partial_delivered'] }})
+        </a>
+        <a href="{{ route('admin.orders.index', ['status' => 'returned']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'returned' ? 'bg-rose-700 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
+            ↩️ Returned ({{ $statusTotals['returned'] }})
+        </a>
+        <a href="{{ route('admin.orders.index', ['status' => 'cancelled']) }}" class="px-4 py-2 rounded-lg transition shrink-0 {{ $status === 'cancelled' ? 'bg-gray-700 text-white shadow-xs' : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50' }}">
             Cancelled ({{ $statusTotals['cancelled'] }})
         </a>
     </div>
@@ -53,7 +59,7 @@
                 <thead>
                     <tr class="text-gray-500 border-b border-gray-100 font-bold uppercase text-[10px] tracking-wider bg-gray-50/70">
                         <th class="py-3.5 px-6">Order #</th>
-                        <th class="py-3.5 px-6">Customer & Phone</th>
+                        <th class="py-3.5 px-6">Customer &amp; Phone</th>
                         <th class="py-3.5 px-6">Total Amount</th>
                         <th class="py-3.5 px-6">Courier Logistics</th>
                         <th class="py-3.5 px-6">Order Status</th>
@@ -88,13 +94,21 @@
                             <td class="py-3.5 px-6">
                                 <span class="kt-badge kt-badge-sm
                                     @if($ord->order_status === 'delivered') kt-badge-outline kt-badge-success
+                                    @elseif($ord->order_status === 'partial_delivered') kt-badge-outline kt-badge-warning
+                                    @elseif($ord->order_status === 'returned') kt-badge-outline kt-badge-destructive
                                     @elseif($ord->order_status === 'shipped') kt-badge-outline kt-badge-info
                                     @elseif($ord->order_status === 'processing') kt-badge-outline kt-badge-primary
                                     @elseif($ord->order_status === 'cancelled') kt-badge-outline kt-badge-destructive
                                     @else kt-badge-outline kt-badge-warning
                                     @endif
                                 ">
-                                    {{ ucfirst($ord->order_status) }}
+                                    @if($ord->order_status === 'partial_delivered')
+                                        📦 Partial Delivered
+                                    @elseif($ord->order_status === 'returned')
+                                        ↩️ Returned
+                                    @else
+                                        {{ ucfirst($ord->order_status) }}
+                                    @endif
                                 </span>
                             </td>
                             <td class="py-3.5 px-6 text-gray-500 text-[11px]">

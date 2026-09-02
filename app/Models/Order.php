@@ -16,6 +16,7 @@ class Order extends Model
         'city',
         'postal_code',
         'total_amount',
+        'collected_amount',
         'coupon_code',
         'discount_amount',
         'payment_method',
@@ -26,6 +27,9 @@ class Order extends Model
         'tracking_code',
         'courier_status',
         'courier_charge',
+        'return_charge',
+        'return_reason',
+        'stock_restored',
         'fraud_risk_score',
         'fraud_status',
         'fraud_notes',
@@ -34,8 +38,11 @@ class Order extends Model
 
     protected $casts = [
         'total_amount' => 'decimal:2',
+        'collected_amount' => 'decimal:2',
         'discount_amount' => 'decimal:2',
         'courier_charge' => 'decimal:2',
+        'return_charge' => 'decimal:2',
+        'stock_restored' => 'boolean',
         'fraud_risk_score' => 'integer',
     ];
 

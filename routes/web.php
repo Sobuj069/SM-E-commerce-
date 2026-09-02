@@ -91,6 +91,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/orders', [AdminController::class, 'orders'])->name('orders.index');
     Route::get('/orders/{order}', [AdminController::class, 'showOrder'])->name('orders.show');
     Route::post('/orders/{order}/status', [AdminController::class, 'updateOrderStatus'])->name('orders.status');
+    Route::post('/orders/{order}/return', [AdminController::class, 'processCourierReturn'])->name('orders.return');
 
     // Courier Integration & Panel
     Route::get('/courier', [AdminController::class, 'courier'])->name('courier.index');
