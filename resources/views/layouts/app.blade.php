@@ -376,10 +376,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <!-- Top 4 Columns Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 mb-16">
+            <div class="grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 mb-12 sm:mb-16">
                 
                 <!-- Col 1: Help -->
-                <div class="md:col-span-2 space-y-4">
+                <div class="col-span-1 md:col-span-2 space-y-4">
                     <h3 class="text-xs font-black text-black tracking-tight uppercase">Help</h3>
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
                         <li><a href="#" class="hover:text-black hover:underline">FAQ</a></li>
@@ -393,7 +393,7 @@
                 </div>
 
                 <!-- Col 2: My Account -->
-                <div class="md:col-span-2 space-y-4">
+                <div class="col-span-1 md:col-span-2 space-y-4">
                     <h3 class="text-xs font-black text-black tracking-tight uppercase">My Account</h3>
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
                         <li><a href="{{ route('cart.index') }}" class="hover:text-black hover:underline">Login</a></li>
@@ -402,7 +402,7 @@
                 </div>
 
                 <!-- Col 3: Pages -->
-                <div class="md:col-span-3 space-y-4">
+                <div class="col-span-2 sm:col-span-1 md:col-span-3 space-y-4">
                     <h3 class="text-xs font-black text-black tracking-tight uppercase">Pages</h3>
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
                         <li><a href="{{ route('shop.index') }}" class="hover:text-black hover:underline">Stores</a></li>
@@ -419,34 +419,34 @@
                     </ul>
                 </div>
 
-                <!-- Col 4: More About SM Shop (3 Rich Cards) -->
-                <div class="md:col-span-5 space-y-4">
+                <!-- Col 4: More About SM Shop (3 Responsive Cards) -->
+                <div class="col-span-2 sm:col-span-2 md:col-span-5 space-y-3 sm:space-y-4">
                     <h3 class="text-xs font-black text-black tracking-tight uppercase">More About SM Shop</h3>
                     
-                    <!-- 3 Feature Cards Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <!-- 3 Feature Cards Grid (Compact 3-Column on Mobile & Desktop) -->
+                    <div class="grid grid-cols-3 gap-2 sm:gap-3">
                         
                         <!-- Card 1: Blog -->
-                        <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-3 group min-h-[120px]">
+                        <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-2.5 sm:p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3 group min-h-[95px] sm:min-h-[120px]">
                             <div class="flex flex-col items-center">
-                                <span class="font-black text-[13px] tracking-tight uppercase leading-none text-black">SM SHOP</span>
-                                <span class="text-[8px] font-bold tracking-widest text-zinc-600 uppercase">CENTRAL</span>
+                                <span class="font-black text-[10px] sm:text-[13px] tracking-tight uppercase leading-none text-black">SM SHOP</span>
+                                <span class="text-[7px] sm:text-[8px] font-bold tracking-widest text-zinc-600 uppercase">CENTRAL</span>
                             </div>
-                            <span class="text-xs font-bold text-black group-hover:underline">Blog</span>
+                            <span class="text-[10px] sm:text-xs font-bold text-black group-hover:underline">Blog</span>
                         </a>
 
                         <!-- Card 2: Student Discount -->
-                        <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2.5 group min-h-[120px]">
-                            <div class="w-8 h-8 rounded-full border-2 border-black flex items-center justify-center font-black text-xs text-black">
+                        <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-2.5 sm:p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-1.5 sm:space-y-2.5 group min-h-[95px] sm:min-h-[120px]">
+                            <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-black flex items-center justify-center font-black text-[10px] sm:text-xs text-black shrink-0">
                                 %
                             </div>
-                            <span class="text-[11px] font-bold text-black leading-tight group-hover:underline">Students get an extra 10% off</span>
+                            <span class="text-[9.5px] sm:text-[11px] font-bold text-black leading-tight group-hover:underline">Students get 10% off</span>
                         </a>
 
                         <!-- Card 3: Email Sign Up -->
-                        <a href="#nano-banner" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2.5 group min-h-[120px]">
-                            <i class="fa-regular fa-envelope text-xl text-black"></i>
-                            <span class="text-xs font-bold text-black group-hover:underline">Email Sign Up</span>
+                        <a href="#nano-banner" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-2.5 sm:p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-1.5 sm:space-y-2.5 group min-h-[95px] sm:min-h-[120px]">
+                            <i class="fa-regular fa-envelope text-base sm:text-xl text-black"></i>
+                            <span class="text-[10px] sm:text-xs font-bold text-black group-hover:underline">Email Sign Up</span>
                         </a>
 
                     </div>
