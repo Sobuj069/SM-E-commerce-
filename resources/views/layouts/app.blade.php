@@ -987,7 +987,7 @@
         </button>
     </div>
 
-    <!-- Floating Chatbot Window (Elegant Height & Responsive Card) -->
+    <!-- Floating Chatbot Window (TALL Real Modern Chatbot Dimensions) -->
     <div 
         x-show="chatOpen" 
         x-transition:enter="transition ease-out duration-300"
@@ -996,13 +996,13 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-        class="w-88 sm:w-[400px] max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px] max-h-[calc(100vh-100px)]"
-        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; display: none;"
+        class="bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden"
+        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; width: 400px !important; max-width: calc(100vw - 2rem) !important; height: 580px !important; max-height: calc(100vh - 105px) !important; display: none; flex-direction: column !important;"
     >
         <!-- Chat Header -->
         <div class="bg-black text-white p-4 flex items-center justify-between shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full bg-zinc-800 flex items-center justify-center text-white text-base">
+                <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white text-base">
                     <i class="fa-solid fa-bolt text-amber-400"></i>
                 </div>
                 <div>
@@ -1022,35 +1022,39 @@
             <button 
                 type="button"
                 @click="sendQuickPrompt('Track Order: SM-1001')" 
-                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
+                class="px-3 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 📦 Track Order
             </button>
             <button 
                 type="button"
                 @click="sendQuickPrompt('What are the best-selling gym leggings?')" 
-                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
+                class="px-3 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 🔥 Best Sellers
             </button>
             <button 
                 type="button"
                 @click="sendQuickPrompt('What is the promo code for discounts?')" 
-                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
+                class="px-3 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 🏷️ Promo Codes
             </button>
             <button 
                 type="button"
                 @click="sendQuickPrompt('How long does shipping take?')" 
-                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
+                class="px-3 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 🚚 Shipping Time
             </button>
         </div>
 
-        <!-- Chat Conversation Messages Scroll Container -->
-        <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto space-y-3 bg-zinc-50/50 text-xs">
+        <!-- Chat Conversation Messages Scroll Container (Spacious and Tall) -->
+        <div 
+            id="chat-messages-container" 
+            class="p-4 space-y-3 bg-zinc-50/50 text-xs"
+            style="flex: 1 1 0% !important; min-height: 280px !important; overflow-y: auto !important;"
+        >
             <template x-for="(msg, idx) in chatMessages" :key="idx">
                 <div :class="msg.sender === 'user' ? 'flex justify-end' : 'flex justify-start'">
                     <div 
@@ -1075,7 +1079,7 @@
         <!-- Chat Input Form -->
         <form 
             @submit.prevent="handleChatSubmit()" 
-            class="p-3 border-t border-zinc-200 bg-white flex items-center gap-2 shrink-0"
+            class="p-3.5 border-t border-zinc-200 bg-white flex items-center gap-2 shrink-0"
         >
             <input 
                 type="text" 
