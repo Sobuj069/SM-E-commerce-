@@ -18,6 +18,24 @@ Route::post('/newsletter/subscribe', function(\Illuminate\Http\Request $request)
     return back()->with('success', 'Thanks for subscribing! Use code SM20 at checkout for 20% off.');
 })->name('newsletter.subscribe');
 
+// Live Chatbot Order Tracking API
+Route::post('/api/track-order', function(\Illuminate\Http\Request $request) {
+    $orderNumber = trim($request->input('order_number'));
+    $order = \App\Models\Order::where('order_number', $orderNumber)->first();
+    if ($order) {
+        return response()->json([
+            'found' => true,
+            'order_number' => $order->order_number,
+            'status' => ucfirst($order->order_status),
+            'courier' => $order->courier_name ? ucfirst($order->courier_name) : 'Pending Dispatch',
+            'consignment' => $order->consignment_id ?? 'Will be generated shortly',
+            'amount' => '$' . number_format($order->total_amount, 2),
+            'date' => $order->created_at->format('M d, Y'),
+        ]);
+    }
+    return response()->json(['found' => false]);
+})->name('api.track.order');
+
 // Shopping Cart & Coupons
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
