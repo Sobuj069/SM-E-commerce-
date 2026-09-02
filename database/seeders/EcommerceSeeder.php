@@ -76,30 +76,35 @@ class EcommerceSeeder extends Seeder
             ]
         );
 
-        // 3. High-Impact Gymshark Banners
-        Banner::updateOrCreate(
-            ['title' => 'CONDITIONING IS EVERYTHING'],
-            [
-                'subtitle' => 'Engineered seamless gymwear, heavyweight fleece pump covers, and squat-proof activewear designed for peak human performance.',
-                'badge' => 'NEW 2026 DROP',
-                'button_text' => 'SHOP ALL APPAREL',
-                'link' => '/shop',
-                'image' => '/images/gymshark_hero_banner.jpg',
-                'is_active' => true,
-            ]
-        );
+        // Clean tables to purge old non-apparel data
+        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
+        Review::truncate();
+        ProductVariant::truncate();
+        Product::truncate();
+        Category::truncate();
+        Banner::truncate();
+        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
-        Banner::updateOrCreate(
-            ['title' => 'SEAMLESS 2.0 INNOVATION'],
-            [
-                'subtitle' => 'Precision jacquard knitwear with sweat-wicking DRY technology, zero-chafing ergonomic construction, and body-sculpting contour shading.',
-                'badge' => 'FABRIC TECHNOLOGY',
-                'button_text' => 'EXPLORE SEAMLESS',
-                'link' => '/shop?category=seamless',
-                'image' => '/images/gymshark_campaign_banner.jpg',
-                'is_active' => true,
-            ]
-        );
+        // 3. High-Impact Gymshark Banners
+        Banner::create([
+            'title' => 'CONDITIONING IS EVERYTHING',
+            'subtitle' => 'Engineered seamless gymwear, heavyweight fleece pump covers, and squat-proof activewear designed for peak human performance.',
+            'badge' => 'NEW 2026 DROP',
+            'button_text' => 'SHOP WOMEN',
+            'link' => '/shop?category=women',
+            'image' => '/images/gymshark_hero_banner.jpg',
+            'is_active' => true,
+        ]);
+
+        Banner::create([
+            'title' => 'SEAMLESS 2.0 INNOVATION',
+            'subtitle' => 'Precision jacquard knitwear with sweat-wicking DRY technology, zero-chafing ergonomic construction, and body-sculpting contour shading.',
+            'badge' => 'FABRIC TECHNOLOGY',
+            'button_text' => 'EXPLORE SEAMLESS',
+            'link' => '/shop?category=seamless',
+            'image' => '/images/gymshark_campaign_banner.jpg',
+            'is_active' => true,
+        ]);
 
         // 4. Gymshark Athletic Categories
         $categories = [
@@ -147,18 +152,8 @@ class EcommerceSeeder extends Seeder
 
         $categoryModels = [];
         foreach ($categories as $catData) {
-            $categoryModels[$catData['slug']] = Category::updateOrCreate(
-                ['slug' => $catData['slug']],
-                $catData
-            );
+            $categoryModels[$catData['slug']] = Category::create($catData);
         }
-
-        // Clean tables to prevent duplicate key conflicts
-        \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
-        Review::truncate();
-        ProductVariant::truncate();
-        Product::truncate();
-        \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
         // 5. Authentic Gymshark Apparel Catalog with Fabric & Sizing
         $products = [
@@ -343,15 +338,13 @@ class EcommerceSeeder extends Seeder
             $variants = $prodData['variants'] ?? [];
             unset($prodData['category_slug'], $prodData['variants']);
 
-            $product = Product::updateOrCreate(
-                ['slug' => $prodData['slug']],
+            $product = Product::create(
                 array_merge($prodData, ['category_id' => $category->id])
             );
 
             // Create Variants
             foreach ($variants as $varData) {
-                ProductVariant::updateOrCreate(
-                    ['sku' => $varData['sku']],
+                ProductVariant::create(
                     array_merge($varData, ['product_id' => $product->id])
                 );
             }

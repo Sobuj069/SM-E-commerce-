@@ -374,73 +374,160 @@
         @yield('content')
     </main>
 
-    <!-- 4-Column Structured Footer (Gymshark Style) -->
-    <footer class="bg-white border-t border-zinc-200 text-black py-16">
+    <!-- =========================================================================
+         EXACT OFFICIAL GYMSHARK FOOTER (PIXEL-PERFECT MATCH TO GYMSHARK.COM)
+         ========================================================================= -->
+    <footer class="bg-white border-t border-zinc-200 text-black pt-16 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+            
+            <!-- Top 4 Columns Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 mb-16">
                 
                 <!-- Col 1: Help -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">Help & Support</h3>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
-                        <li><a href="#" class="hover:text-black">FAQ & Contact</a></li>
-                        <li><a href="#" class="hover:text-black">Delivery Information</a></li>
-                        <li><a href="#" class="hover:text-black">Returns Policy</a></li>
-                        <li><a href="#" class="hover:text-black">Size Guide & Fit Help</a></li>
-                        <li><a href="#" class="hover:text-black">Orders & Tracking</a></li>
+                <div class="md:col-span-2 space-y-4">
+                    <h3 class="text-xs font-black text-black tracking-tight uppercase">Help</h3>
+                    <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
+                        <li><a href="#" class="hover:text-black hover:underline">FAQ</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Track Your Order</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Delivery Information</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Returns Policy</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Make A Return</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Orders</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Submit a Fake</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 2: My Account -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">My Account</h3>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
-                        <li><a href="{{ route('cart.index') }}" class="hover:text-black">View Bag</a></li>
-                        <li><a href="{{ route('checkout.index') }}" class="hover:text-black">Checkout</a></li>
-                        <li><a href="{{ route('shop.index') }}" class="hover:text-black">Track Order</a></li>
-                        <li><a href="{{ route('shop.index') }}" class="hover:text-black">Wishlist</a></li>
+                <div class="md:col-span-2 space-y-4">
+                    <h3 class="text-xs font-black text-black tracking-tight uppercase">My Account</h3>
+                    <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
+                        <li><a href="{{ route('cart.index') }}" class="hover:text-black hover:underline">Login</a></li>
+                        <li><a href="{{ route('cart.index') }}" class="hover:text-black hover:underline">Register</a></li>
                     </ul>
                 </div>
 
-                <!-- Col 3: Dynamic Collections -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">Collections</h3>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
-                        @if(isset($navCategories) && $navCategories->count() > 0)
-                            @foreach($navCategories as $navCat)
-                                <li><a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-black">{{ $navCat->name }}</a></li>
-                            @endforeach
-                        @else
-                            <li><a href="{{ route('shop.index', ['category' => 'women']) }}" class="hover:text-black">Women's Activewear</a></li>
-                            <li><a href="{{ route('shop.index', ['category' => 'men']) }}" class="hover:text-black">Men's Gymwear</a></li>
-                            <li><a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="hover:text-black">Seamless Collection</a></li>
-                            <li><a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="hover:text-black">Hoodies & Sweats</a></li>
-                        @endif
+                <!-- Col 3: Pages -->
+                <div class="md:col-span-3 space-y-4">
+                    <h3 class="text-xs font-black text-black tracking-tight uppercase">Pages</h3>
+                    <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
+                        <li><a href="{{ route('shop.index') }}" class="hover:text-black hover:underline">Stores</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Refer a Friend</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Gymshark Central</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Gymshark Loyalty</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">About Us</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Careers</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Student Discount</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Military and Government Discount</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Accessibility Statement</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Factory List</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">Sustainability</a></li>
                     </ul>
                 </div>
 
-                <!-- Col 4: About SM Shark -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">About SM Shark</h3>
-                    <ul class="space-y-2 text-xs text-zinc-500 font-medium">
-                        <li><a href="#" class="hover:text-black">About Us</a></li>
-                        <li><a href="#" class="hover:text-black">Sustainability & Fabric</a></li>
-                        <li><a href="#" class="hover:text-black">Conditioning Community</a></li>
-                        <li><a href="#" class="hover:text-black">Student Discount (10% Off)</a></li>
-                        <li><a href="#" class="hover:text-black">Privacy Notice</a></li>
-                    </ul>
+                <!-- Col 4: More About Gymshark (3 Rich Cards) -->
+                <div class="md:col-span-5 space-y-4">
+                    <h3 class="text-xs font-black text-black tracking-tight uppercase">More About Gymshark</h3>
+                    
+                    <!-- 3 Feature Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        
+                        <!-- Card 1: Blog -->
+                        <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-3 group min-h-[120px]">
+                            <div class="flex flex-col items-center">
+                                <span class="font-black text-[13px] tracking-tight uppercase leading-none text-black">GYMSHARK</span>
+                                <span class="text-[8px] font-bold tracking-widest text-zinc-600 uppercase">CENTRAL</span>
+                            </div>
+                            <span class="text-xs font-bold text-black group-hover:underline">Blog</span>
+                        </a>
+
+                        <!-- Card 2: Student Discount -->
+                        <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2.5 group min-h-[120px]">
+                            <div class="w-8 h-8 rounded-full border-2 border-black flex items-center justify-center font-black text-xs text-black">
+                                %
+                            </div>
+                            <span class="text-[11px] font-bold text-black leading-tight group-hover:underline">Students get an extra 10% off</span>
+                        </a>
+
+                        <!-- Card 3: Email Sign Up -->
+                        <a href="#nano-banner" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-2.5 group min-h-[120px]">
+                            <i class="fa-regular fa-envelope text-xl text-black"></i>
+                            <span class="text-xs font-bold text-black group-hover:underline">Email Sign Up</span>
+                        </a>
+
+                    </div>
                 </div>
 
             </div>
 
-            <div class="mt-12 pt-8 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-400 font-medium gap-4">
-                <p>&copy; {{ date('Y') }} SM SHARK APPAREL. All rights reserved.</p>
-                <div class="flex items-center gap-6">
-                    <a href="#" class="hover:text-black">Privacy Notice</a>
-                    <a href="#" class="hover:text-black">Terms & Conditions</a>
-                    <a href="#" class="hover:text-black">Cookie Policy</a>
+            <!-- Middle Bar: Payment Methods & Social Media Icons -->
+            <div class="pt-8 pb-6 border-t border-zinc-200 flex flex-col lg:flex-row items-center justify-between gap-6">
+                
+                <!-- Payment Badges -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                    <span class="px-2.5 py-1 bg-[#1A1F71] text-white text-[10px] font-black tracking-widest rounded italic shadow-xs">VISA</span>
+                    <span class="px-2 py-1 bg-black text-white text-[10px] font-black rounded flex items-center gap-0.5 shadow-xs">
+                        <span class="w-3 h-3 rounded-full bg-red-600 inline-block -mr-1.5 opacity-95"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-400 inline-block opacity-95"></span>
+                    </span>
+                    <span class="px-2.5 py-1 bg-[#003087] text-white text-[10px] font-black rounded italic shadow-xs">PayPal</span>
+                    <span class="px-2.5 py-1 bg-black text-white text-[10px] font-black rounded flex items-center gap-1 shadow-xs">
+                        <i class="fa-brands fa-apple text-xs"></i> Pay
+                    </span>
+                    <span class="px-2.5 py-1 bg-[#FFB3C7] text-black text-[10px] font-black rounded shadow-xs">Klarna.</span>
+                    <span class="px-2.5 py-1 bg-[#007BC1] text-white text-[10px] font-black rounded shadow-xs">AMEX</span>
+                    <span class="px-2.5 py-1 bg-[#B2FCE4] text-black text-[10px] font-black rounded shadow-xs">afterpay<span class="text-[8px]">&copy;</span></span>
+                    <span class="px-2.5 py-1 bg-[#4E008E] text-white text-[10px] font-black rounded shadow-xs">sezzle</span>
+                </div>
+
+                <!-- Social Media Icons (Exact Gymshark Sequence) -->
+                <div class="flex items-center gap-3 text-black">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Pinterest">
+                        <i class="fa-brands fa-pinterest-p"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="X">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Bottom Legal Bar (Exact Copy & Country Selector) -->
+            <div class="pt-6 border-t border-zinc-200 flex flex-col lg:flex-row items-center justify-between text-xs text-zinc-500 font-medium gap-4">
+                <p class="text-center lg:text-left">
+                    &copy; {{ date('Y') }} | Gymshark Limited | All Rights Reserved. | We Do Gym.
+                </p>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs">
+                    <a href="#" class="hover:text-black underline underline-offset-2">Terms & Conditions</a>
+                    <a href="#" class="hover:text-black underline underline-offset-2">Terms of Use</a>
+                    <a href="#" class="hover:text-black underline underline-offset-2">Privacy Notice</a>
+                    <a href="#" class="hover:text-black underline underline-offset-2">Cookie Policy</a>
+                    <a href="#" class="hover:text-black underline underline-offset-2">Modern Slavery</a>
+                </div>
+
+                <!-- Country Selector -->
+                <div class="flex items-center gap-2 font-bold text-black text-xs cursor-pointer hover:underline">
+                    <span class="text-sm">🇺🇸</span>
+                    <span>US | English</span>
+                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </div>
             </div>
+
         </div>
     </footer>
 
