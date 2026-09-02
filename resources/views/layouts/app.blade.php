@@ -246,6 +246,7 @@
                     <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="py-2 hover:text-zinc-500">Seamless Collection</a>
                     <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="py-2 hover:text-zinc-500">Hoodies & Sweats</a>
                     <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="py-2 hover:text-zinc-500">Accessories & Gear</a>
+                @endif
                 <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-black">Outlet 🔥</a>
                 <a href="{{ route('admin.dashboard') }}" class="py-2 text-black font-black flex items-center gap-2 border-t border-zinc-200 pt-3">
                     <i class="fa-solid fa-gauge-high text-xs"></i> Admin Control Panel
