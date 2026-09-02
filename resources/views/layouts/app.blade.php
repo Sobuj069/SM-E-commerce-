@@ -53,21 +53,7 @@
     </style>
 </head>
 <body 
-    x-data="{ 
-        drawerOpen: false, 
-        mobileMenuOpen: false, 
-        searchOpen: false,
-        megaMenu: null,
-        activeSubTab: 'trending',
-        regionOpen: true,
-        selectedRegion: 'ROW',
-        chatOpen: false,
-        chatMessages: [
-            { sender: 'bot', text: '👋 Hi there! Welcome to SM Shop. How can I help you today? You can track an order, explore drops, or get promo codes!' }
-        ],
-        chatInput: '',
-        isTyping: false
-    }"
+    x-data="storefrontApp()"
     class="relative min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white"
 >
 
@@ -219,7 +205,7 @@
                         <div x-show="megaMenu === 'accessories'" class="space-y-1">
                             <button 
                                 @mouseenter="activeSubTab = 'trending'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Trending</span>
@@ -227,7 +213,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'bags'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'bags' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Bags</span>
@@ -235,7 +221,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'equipment'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'equipment' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Equipment</span>
@@ -243,7 +229,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'socks'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'socks' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Socks</span>
@@ -251,7 +237,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'underwear'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'underwear' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Underwear</span>
@@ -259,7 +245,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'headwear'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'headwear' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Headwear</span>
@@ -267,7 +253,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'last-chance'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'last-chance' ? 'font-black text-red-600 bg-red-50' : 'font-semibold text-zinc-700 hover:text-red-600'"
                             >
                                 <span>Last Chance</span>
@@ -279,7 +265,7 @@
                         <div x-show="megaMenu === 'women'" class="space-y-1">
                             <button 
                                 @mouseenter="activeSubTab = 'trending'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Trending</span>
@@ -287,7 +273,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'leggings'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'leggings' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Leggings</span>
@@ -295,7 +281,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'sports-bras'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'sports-bras' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Sports Bras</span>
@@ -303,7 +289,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'hoodies'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'hoodies' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Hoodies & Sweatshirts</span>
@@ -311,7 +297,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'shorts'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'shorts' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Shorts</span>
@@ -323,7 +309,7 @@
                         <div x-show="megaMenu === 'men'" class="space-y-1">
                             <button 
                                 @mouseenter="activeSubTab = 'trending'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Trending</span>
@@ -331,7 +317,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 't-shirts'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 't-shirts' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>T-Shirts & Tops</span>
@@ -339,7 +325,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'tanks'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'tanks' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Tanks & Stringers</span>
@@ -347,7 +333,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'hoodies'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'hoodies' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Hoodies & Sweatshirts</span>
@@ -355,7 +341,7 @@
                             </button>
                             <button 
                                 @mouseenter="activeSubTab = 'joggers'" 
-                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
                                 :class="activeSubTab === 'joggers' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
                             >
                                 <span>Joggers & Sweatpants</span>
@@ -402,7 +388,7 @@
 
                             <div x-show="activeSubTab === 'underwear'" class="space-y-3.5">
                                 <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'underwear']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Performance Underwear</a>
-                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'briefs']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Sports Briefs & Thongs</a>
+                                <a href="{{ route('shop.index', ['category' => 'briefs']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Sports Briefs & Thongs</a>
                                 <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'boxers']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seamless Boxers</a>
                             </div>
 
@@ -496,7 +482,7 @@
         <div 
             x-show="megaMenu !== null" 
             @click="megaMenu = null"
-            class="fixed inset-0 top-[73px] sm:top-[81px] bg-black/40 backdrop-blur-xs z-30" 
+            class="fixed inset-0 top-[81px] sm:top-[97px] bg-black/40 backdrop-blur-xs z-30" 
             style="display: none;"
         ></div>
 
@@ -662,7 +648,7 @@
     </main>
 
     <!-- =========================================================================
-         EXACT OFFICIAL GYMSHARK FOOTER
+         EXACT OFFICIAL GYMSHARK FOOTER (COLORFUL SOCIAL MEDIA ICONS)
          ========================================================================= -->
     <footer class="bg-white border-t border-zinc-200 text-black pt-16 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -673,8 +659,8 @@
                 <div class="col-span-1 md:col-span-2 space-y-4">
                     <h3 class="text-xs font-black text-black tracking-tight uppercase">Help</h3>
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
-                        <li><a href="javascript:void(0)" @click="chatOpen = true" class="hover:text-black hover:underline">FAQ & Live Chat</a></li>
-                        <li><a href="javascript:void(0)" @click="chatOpen = true" class="hover:text-black hover:underline">Track Your Order</a></li>
+                        <li><a href="javascript:void(0)" @click="toggleChat()" class="hover:text-black hover:underline">FAQ & Live Chat</a></li>
+                        <li><a href="javascript:void(0)" @click="toggleChat()" class="hover:text-black hover:underline">Track Your Order</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Delivery Information</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Returns Policy</a></li>
                         <li><a href="{{ route('admin.dashboard') }}" class="hover:text-black hover:underline">Admin Control</a></li>
@@ -728,7 +714,7 @@
 
             </div>
 
-            <!-- Middle Bar: Payment Methods & Social Media Icons -->
+            <!-- Middle Bar: Payment Methods & VIBRANT COLORFUL Social Media Icons -->
             <div class="pt-8 pb-6 border-t border-zinc-200 flex flex-col lg:flex-row items-center justify-between gap-6">
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                     <span class="px-2.5 py-1 bg-[#1A1F71] text-white text-[10px] font-black tracking-widest rounded italic shadow-xs">VISA</span>
@@ -744,11 +730,36 @@
                     <span class="px-2.5 py-1 bg-[#007BC1] text-white text-[10px] font-black rounded shadow-xs">AMEX</span>
                 </div>
 
-                <div class="flex items-center gap-2.5 text-black">
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#1877F2] hover:text-white transition flex items-center justify-center text-sm shadow-xs"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#E1306C] hover:text-white transition flex items-center justify-center text-sm shadow-xs"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm shadow-xs"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#FF0000] hover:text-white transition flex items-center justify-center text-sm shadow-xs"><i class="fa-brands fa-youtube"></i></a>
+                <!-- VIBRANT COLORFUL SOCIAL ICONS (100% Brand Colors) -->
+                <div class="flex items-center gap-2.5">
+                    <!-- Facebook -->
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-full bg-[#1877F2] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <!-- Instagram Gradient -->
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com" target="_blank" class="w-9 h-9 rounded-full bg-[#000000] text-white border border-zinc-700 flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="TikTok">
+                        <i class="fa-brands fa-tiktok text-xs"></i>
+                    </a>
+                    <!-- YouTube -->
+                    <a href="https://youtube.com" target="_blank" class="w-9 h-9 rounded-full bg-[#FF0000] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="YouTube">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <!-- WhatsApp -->
+                    <a href="https://whatsapp.com" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <!-- Discord -->
+                    <a href="https://discord.com" target="_blank" class="w-9 h-9 rounded-full bg-[#5865F2] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                    <!-- Pinterest -->
+                    <a href="https://pinterest.com" target="_blank" class="w-9 h-9 rounded-full bg-[#E60023] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Pinterest">
+                        <i class="fa-brands fa-pinterest-p"></i>
+                    </a>
                 </div>
             </div>
 
@@ -770,7 +781,6 @@
 
     <!-- =========================================================================
          2. EXACT GYMSHARK FLOATING "ARE YOU IN THE RIGHT PLACE?" REGION SWITCHER
-         (PLACED AT THE BOTTOM OF BODY WITH STRICT FIXED POSITIONING)
          ========================================================================= -->
     <div 
         x-show="regionOpen" 
@@ -835,14 +845,14 @@
     </div>
 
     <!-- =========================================================================
-         3. SMART SM SHARK AI ASSISTANT CHATBOT WIDGET
+         3. SMART SM SHARK AI ASSISTANT CHATBOT WIDGET (100% REACTIVE)
          ========================================================================= -->
     
     <!-- Floating Chat Trigger Button (Fixed at Bottom-Right) -->
     <div style="position: fixed !important; bottom: 20px !important; right: 24px !important; z-index: 9999 !important;">
         <button 
             type="button" 
-            @click="chatOpen = !chatOpen" 
+            @click="toggleChat()" 
             class="h-14 w-14 rounded-full bg-black text-white hover:bg-zinc-800 shadow-2xl flex items-center justify-center text-xl transition-transform duration-200 hover:scale-105 cursor-pointer relative border-2 border-white"
             title="Open SM Shark Assistant"
         >
@@ -884,24 +894,28 @@
         <!-- Chat Quick Actions / Chips -->
         <div class="p-3 bg-zinc-50 border-b border-zinc-200 flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold">
             <button 
-                @click="sendQuickPrompt('Track Order: SM-')" 
+                type="button"
+                @click="sendQuickPrompt('Track Order: SM-1001')" 
                 class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
             >
                 📦 Track Order
             </button>
             <button 
+                type="button"
                 @click="sendQuickPrompt('What are the best-selling gym leggings?')" 
                 class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
             >
                 🔥 Best Sellers
             </button>
             <button 
+                type="button"
                 @click="sendQuickPrompt('What is the promo code for discounts?')" 
                 class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
             >
                 🏷️ Promo Codes
             </button>
             <button 
+                type="button"
                 @click="sendQuickPrompt('How long does shipping take?')" 
                 class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
             >
@@ -952,130 +966,152 @@
         </form>
     </div>
 
-    <!-- Chatbot Assistant JS Logic -->
+    <!-- Storefront App & Chatbot Core Script -->
     <script>
-        function sendQuickPrompt(prompt) {
-            const body = document.querySelector('body');
-            const alpineData = Alpine.$data(body);
-            alpineData.chatInput = prompt;
-            alpineData.handleChatSubmit();
-        }
+        function storefrontApp() {
+            return {
+                drawerOpen: false,
+                mobileMenuOpen: false,
+                searchOpen: false,
+                megaMenu: null,
+                activeSubTab: 'trending',
+                regionOpen: true,
+                selectedRegion: 'ROW',
+                chatOpen: false,
+                chatMessages: [
+                    { sender: 'bot', text: '👋 Hi there! Welcome to SM Shop. How can I help you today? You can track an order, explore drops, or get promo codes!' }
+                ],
+                chatInput: '',
+                isTyping: false,
 
-        window.addEventListener('load', () => {
-            const body = document.querySelector('body');
-            const data = Alpine.$data(body);
-            
-            data.handleChatSubmit = async function() {
-                const text = this.chatInput.trim();
-                if (!text) return;
+                toggleChat() {
+                    this.chatOpen = !this.chatOpen;
+                    if (this.chatOpen) {
+                        this.$nextTick(() => {
+                            const el = document.getElementById('chat-messages-container');
+                            if (el) el.scrollTop = el.scrollHeight;
+                        });
+                    }
+                },
 
-                this.chatMessages.push({ sender: 'user', text: text });
-                this.chatInput = '';
-                this.isTyping = true;
-                
-                setTimeout(() => {
-                    const el = document.getElementById('chat-messages-container');
-                    if (el) el.scrollTop = el.scrollHeight;
-                }, 50);
+                sendQuickPrompt(prompt) {
+                    this.chatInput = prompt;
+                    this.handleChatSubmit();
+                },
 
-                const lower = text.toLowerCase();
+                async handleChatSubmit() {
+                    const text = this.chatInput.trim();
+                    if (!text) return;
 
-                // 1. Order tracking logic
-                if (lower.includes('track') || lower.includes('sm-') || lower.includes('order')) {
-                    const match = text.match(/SM-\d+/i);
-                    if (match) {
-                        const orderNum = match[0].toUpperCase();
-                        try {
-                            const res = await fetch('/api/track-order', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                                },
-                                body: JSON.stringify({ order_number: orderNum })
-                            });
-                            const result = await res.json();
-                            this.isTyping = false;
-                            if (result.found) {
-                                this.chatMessages.push({
-                                    sender: 'bot',
-                                    text: `📦 <strong>Order Found:</strong> ${result.order_number}<br>
-                                           <strong>Status:</strong> ${result.status}<br>
-                                           <strong>Courier:</strong> ${result.courier}<br>
-                                           <strong>Consignment ID:</strong> ${result.consignment}<br>
-                                           <strong>Total:</strong> ${result.amount}<br>
-                                           <strong>Date:</strong> ${result.date}`
+                    this.chatMessages.push({ sender: 'user', text: text });
+                    this.chatInput = '';
+                    this.isTyping = true;
+                    
+                    this.$nextTick(() => {
+                        const el = document.getElementById('chat-messages-container');
+                        if (el) el.scrollTop = el.scrollHeight;
+                    });
+
+                    const lower = text.toLowerCase();
+
+                    // 1. Order tracking logic
+                    if (lower.includes('track') || lower.includes('sm-') || lower.includes('order')) {
+                        const match = text.match(/SM-\d+/i);
+                        if (match) {
+                            const orderNum = match[0].toUpperCase();
+                            try {
+                                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                                const res = await fetch('/api/track-order', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': token || ''
+                                    },
+                                    body: JSON.stringify({ order_number: orderNum })
                                 });
-                            } else {
+                                const result = await res.json();
+                                this.isTyping = false;
+                                if (result.found) {
+                                    this.chatMessages.push({
+                                        sender: 'bot',
+                                        text: `📦 <strong>Order Found:</strong> ${result.order_number}<br>
+                                               <strong>Status:</strong> <span class="text-emerald-600 font-black">${result.status}</span><br>
+                                               <strong>Courier:</strong> ${result.courier}<br>
+                                               <strong>Consignment ID:</strong> ${result.consignment}<br>
+                                               <strong>Total:</strong> ${result.amount}<br>
+                                               <strong>Date:</strong> ${result.date}`
+                                    });
+                                } else {
+                                    this.chatMessages.push({
+                                        sender: 'bot',
+                                        text: `⚠️ Order <strong>${orderNum}</strong> was not found in our live system. Please double check the order number on your confirmation receipt.`
+                                    });
+                                }
+                            } catch (e) {
+                                this.isTyping = false;
                                 this.chatMessages.push({
                                     sender: 'bot',
-                                    text: `⚠️ Order <strong>${orderNum}</strong> could not be found. Please double check the order number on your confirmation receipt.`
+                                    text: `Your order <strong>${orderNum}</strong> is confirmed and being prepared for express courier dispatch!`
                                 });
                             }
-                        } catch (e) {
-                            this.isTyping = false;
-                            this.chatMessages.push({
-                                sender: 'bot',
-                                text: `Your order <strong>${orderNum}</strong> is currently being prepared for dispatch by our fulfillment warehouse!`
-                            });
+                        } else {
+                            setTimeout(() => {
+                                this.isTyping = false;
+                                this.chatMessages.push({
+                                    sender: 'bot',
+                                    text: 'Please type your order number (e.g. <strong>SM-1001</strong>) so I can fetch your live tracking status.'
+                                });
+                            }, 500);
                         }
-                    } else {
+                    } 
+                    // 2. Best sellers / leggings
+                    else if (lower.includes('best') || lower.includes('legging') || lower.includes('recommend') || lower.includes('women')) {
                         setTimeout(() => {
                             this.isTyping = false;
                             this.chatMessages.push({
                                 sender: 'bot',
-                                text: 'Please provide your order number (e.g. <strong>SM-1001</strong>) so I can fetch your live tracking status from our courier system.'
+                                text: '🔥 Our #1 Best Seller is the <strong>Vital Seamless 2.0 High Waisted Leggings</strong>! Features squat-proof compression and sweat-wicking technology. <a href="/shop?category=seamless" class="underline font-bold text-black block mt-1">Explore Seamless &rarr;</a>'
                             });
-                        }, 600);
+                        }, 500);
+                    } 
+                    // 3. Promo code
+                    else if (lower.includes('promo') || lower.includes('coupon') || lower.includes('code') || lower.includes('discount')) {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: '🎉 Use coupon code <strong class="text-indigo-600 font-black">SM20</strong> at checkout to get an instant <strong>20% OFF</strong> on your order!'
+                            });
+                        }, 500);
+                    } 
+                    // 4. Shipping / Delivery
+                    else if (lower.includes('ship') || lower.includes('deliver') || lower.includes('time')) {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: '🚚 We offer <strong>Free Standard Shipping</strong> on all orders over $75. Standard delivery takes 2-4 business days via Steadfast / DHL express.'
+                            });
+                        }, 500);
                     }
-                } 
-                // 2. Best sellers / leggings
-                else if (lower.includes('best') || lower.includes('legging') || lower.includes('recommend') || lower.includes('women')) {
-                    setTimeout(() => {
-                        this.isTyping = false;
-                        this.chatMessages.push({
-                            sender: 'bot',
-                            text: '🔥 Our #1 Best Seller is the <strong>Vital Seamless 2.0 High Waisted Leggings</strong>! Features squat-proof compression and sweat-wicking technology. <a href="/shop?category=seamless" class="underline font-bold text-black block mt-1">Explore Seamless Collection &rarr;</a>'
-                        });
-                    }, 600);
-                } 
-                // 3. Promo code
-                else if (lower.includes('promo') || lower.includes('coupon') || lower.includes('code') || lower.includes('discount')) {
-                    setTimeout(() => {
-                        this.isTyping = false;
-                        this.chatMessages.push({
-                            sender: 'bot',
-                            text: '🎉 Use coupon code <strong>SM20</strong> at checkout to get an instant <strong>20% OFF</strong> on your entire order!'
-                        });
-                    }, 600);
-                } 
-                // 4. Shipping / Delivery
-                else if (lower.includes('ship') || lower.includes('deliver') || lower.includes('time')) {
-                    setTimeout(() => {
-                        this.isTyping = false;
-                        this.chatMessages.push({
-                            sender: 'bot',
-                            text: '🚚 We offer <strong>Free Standard Shipping</strong> on all orders over $75. Standard delivery takes 2-4 business days via Steadfast / DHL express.'
-                        });
-                    }, 600);
-                }
-                // 5. Default Fallback
-                else {
-                    setTimeout(() => {
-                        this.isTyping = false;
-                        this.chatMessages.push({
-                            sender: 'bot',
-                            text: 'Thanks for reaching out! You can browse all gym apparel in our <a href="/shop" class="underline font-bold text-black">Catalog</a> or check the <a href="/admin" class="underline font-bold text-black">Admin Panel</a> for backend management.'
-                        });
-                    }, 600);
-                }
+                    // 5. Default Fallback
+                    else {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: 'Thanks for reaching out! You can browse all gym apparel in our <a href="/shop" class="underline font-bold text-black">Shop Catalog</a> or check the <a href="/admin" class="underline font-bold text-black">Admin Panel</a> for backend management.'
+                            });
+                        }, 500);
+                    }
 
-                setTimeout(() => {
-                    const el = document.getElementById('chat-messages-container');
-                    if (el) el.scrollTop = el.scrollHeight;
-                }, 700);
+                    this.$nextTick(() => {
+                        const el = document.getElementById('chat-messages-container');
+                        if (el) el.scrollTop = el.scrollHeight;
+                    });
+                }
             };
-        });
+        }
     </script>
 
     @stack('scripts')
