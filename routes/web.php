@@ -59,8 +59,8 @@ Route::get('/admin/login', [AdminController::class, 'loginView'])->name('admin.l
 Route::post('/admin/login', [AdminController::class, 'loginPost'])->name('admin.login.post');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-// Admin Control Panel (Metronic Tailwind Demo 1 Dark Sidebar Suite)
-Route::prefix('admin')->name('admin.')->group(function () {
+// Admin Control Panel (Protected by Auth Middleware)
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
     // Categories

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Sign In | Metronic Executive Center - SM Shop</title>
+    <title>Sign In - SM Shop Admin</title>
 
-    <!-- Google Fonts: Valley Sans / Plus Jakarta Sans / Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans / Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
         [x-cloak] { display: none !important; }
         
         body, h1, h2, h3, h4, h5, h6, p, a, input, select, textarea, button, label, span:not(.fa-solid):not(.fa-regular):not(.fa-brands):not(.svg-inline--fa) {
-            font-family: 'Valley Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
         }
 
         i.fa-solid, i.fa-regular, i.fa-brands, .svg-inline--fa {
@@ -40,10 +40,7 @@
     <header class="w-full max-w-6xl mx-auto flex items-center justify-between py-2">
         <a href="{{ route('home') }}" class="flex items-center gap-3">
             <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 w-auto object-contain">
-            <div class="flex items-center gap-1.5">
-                <span class="text-xs font-black text-gray-900 uppercase tracking-tight">METRONIC</span>
-                <span class="px-2 py-0.5 rounded bg-blue-50 text-[#1b84ff] text-[10px] font-bold uppercase">Demo 1</span>
-            </div>
+            <span class="text-sm font-black text-gray-900 uppercase tracking-tight">SM SHOP ADMIN</span>
         </a>
 
         <a href="{{ route('home') }}" class="text-xs font-bold text-gray-600 hover:text-primary transition flex items-center gap-1.5">
@@ -55,31 +52,13 @@
     <!-- Main Auth Card Container -->
     <div class="w-full max-w-md mx-auto my-auto py-6">
         
-        <!-- Classic Metronic Card -->
+        <!-- Clean Modern Card -->
         <div class="bg-white border border-gray-200/90 rounded-2xl p-8 sm:p-10 shadow-xl shadow-gray-200/60 space-y-6">
             
             <!-- Header -->
             <div class="text-center space-y-1 pb-2">
                 <h1 class="text-2xl font-black text-gray-900 tracking-tight">Sign In</h1>
-                <p class="text-xs text-gray-500 font-medium">Welcome back to Metronic Executive Control Center</p>
-            </div>
-
-            <!-- Quick Auto-fill Alert Badge -->
-            <div class="p-3.5 rounded-xl bg-blue-50/80 border border-blue-100 flex items-center justify-between text-xs">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-circle-info text-[#1b84ff] text-sm shrink-0"></i>
-                    <div>
-                        <span class="text-[11px] font-bold text-gray-800">Demo Administrator Account:</span>
-                        <div class="text-[10px] text-gray-500 font-mono">admin@smcloudit.top / password123</div>
-                    </div>
-                </div>
-                <button 
-                    type="button" 
-                    @click="document.getElementById('email').value='admin@smcloudit.top'; document.getElementById('password').value='password123';"
-                    class="px-2.5 py-1 bg-[#1b84ff] text-white text-[10px] font-bold rounded-md hover:bg-[#006ae6] transition shadow-xs shrink-0 cursor-pointer"
-                >
-                    Auto-Fill
-                </button>
+                <p class="text-xs text-gray-500 font-medium">Welcome back to SM Shop Control Center</p>
             </div>
 
             <!-- Error Messages -->
@@ -116,10 +95,10 @@
                             type="email" 
                             id="email" 
                             name="email" 
-                            value="{{ old('email', 'admin@smcloudit.top') }}" 
+                            value="{{ old('email') }}" 
                             required 
                             autocomplete="email"
-                            placeholder="admin@smcloudit.top" 
+                            placeholder="name@domain.com" 
                             class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 transition"
                         >
                     </div>
@@ -138,7 +117,6 @@
                             :type="showPassword ? 'text' : 'password'" 
                             id="password" 
                             name="password" 
-                            value="password123"
                             required 
                             autocomplete="current-password"
                             placeholder="••••••••••••" 
@@ -154,16 +132,12 @@
                     </div>
                 </div>
 
-                <!-- Remember Me & Forgot Password -->
+                <!-- Remember Me -->
                 <div class="flex items-center justify-between text-xs pt-1">
                     <label class="flex items-center gap-2 cursor-pointer font-medium text-gray-600">
                         <input type="checkbox" name="remember" checked class="rounded border-gray-300 text-[#1b84ff] focus:ring-0">
                         <span>Remember session</span>
                     </label>
-
-                    <a href="javascript:void(0)" onclick="alert('Demo Administrator Password is: password123')" class="font-bold text-[#1b84ff] hover:underline">
-                        Forgot Password?
-                    </a>
                 </div>
 
                 <!-- Submit Button -->
@@ -183,7 +157,7 @@
     <!-- Footer -->
     <footer class="w-full max-w-6xl mx-auto py-3 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-gray-200">
         <div>
-            {{ date('Y') }} &copy; <a href="{{ route('home') }}" class="font-bold text-gray-800 hover:text-primary">SM Shop</a> &bull; Metronic Tailwind Classic Auth
+            {{ date('Y') }} &copy; <a href="{{ route('home') }}" class="font-bold text-gray-800 hover:text-primary">SM Shop</a> &bull; Control Center
         </div>
         <div class="flex items-center gap-4">
             <a href="{{ route('home') }}" class="hover:text-primary transition">Storefront</a>

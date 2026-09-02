@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title', 'Executive Dashboard')
-@section('breadcrumb', 'Dark Sidebar')
+@section('breadcrumb', 'Overview')
 
 @section('content')
 <div class="flex flex-col gap-6 lg:gap-8">

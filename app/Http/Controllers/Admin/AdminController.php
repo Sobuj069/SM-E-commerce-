@@ -45,7 +45,7 @@ class AdminController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome to Metronic Executive Control Center!');
+            return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome to SM Shop Admin Dashboard!');
         }
 
         return back()->withErrors([

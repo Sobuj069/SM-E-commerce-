@@ -116,12 +116,12 @@
                     <img class="h-8 w-auto object-contain shrink-0" src="{{ asset('images/logo.png') }}" alt="SM Shop"/>
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5">
-                            <span class="text-sm font-black text-white tracking-tight uppercase">METRONIC</span>
-                            <span class="kt-badge kt-badge-sm kt-badge-primary text-[10px] font-bold">DEMO 1</span>
+                            <span class="text-sm font-black text-white tracking-tight uppercase">SM SHOP</span>
+                            <span class="kt-badge kt-badge-sm kt-badge-primary text-[10px] font-bold">ADMIN</span>
                         </div>
-                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            Dark Sidebar
+                            Control Center
                         </span>
                     </div>
                 </a>
