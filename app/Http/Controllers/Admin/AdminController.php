@@ -118,8 +118,10 @@ class AdminController extends Controller
     public function categories()
     {
         $categories = Category::with(['parent.parent'])->withCount('products')->latest()->get();
-        $parentCategories = Category::with('parent')->get();
-        return view('admin.categories.index', compact('categories', 'parentCategories'));
+        $mainCategories = Category::whereNull('parent_id')->orderBy('name')->get();
+        $subCategories = Category::whereNotNull('parent_id')->with('parent')->orderBy('name')->get();
+        $parentCategories = Category::with('parent')->orderBy('name')->get();
+        return view('admin.categories.index', compact('categories', 'mainCategories', 'subCategories', 'parentCategories'));
     }
 
     public function storeCategory(Request $request)
