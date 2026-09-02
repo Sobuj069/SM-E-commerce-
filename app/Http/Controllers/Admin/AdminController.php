@@ -260,13 +260,32 @@ class AdminController extends Controller
         $data['is_active'] = true;
 
         unset($data['image_file'], $data['gallery_files'], $data['gallery_urls']);
-        Product::create($data);
+        $product = Product::create($data);
 
-        return redirect()->route('admin.products.index')->with('success', 'Activewear drop with multiple gallery images published successfully!');
+        // 3. Save Product Size & Color Variants
+        $variantsData = $request->input('variants', []);
+        if (is_array($variantsData) && count($variantsData) > 0) {
+            foreach ($variantsData as $var) {
+                if (!empty($var['size']) || !empty($var['color']) || !empty($var['name'])) {
+                    $name = !empty($var['name']) ? $var['name'] : trim(($var['color'] ?? '') . ' ' . ($var['size'] ?? ''));
+                    $product->variants()->create([
+                        'name' => $name ?: 'Standard',
+                        'size' => $var['size'] ?? null,
+                        'color' => $var['color'] ?? null,
+                        'sku' => $var['sku'] ?? null,
+                        'price' => !empty($var['price']) ? (float)$var['price'] : null,
+                        'stock' => isset($var['stock']) && $var['stock'] !== '' ? (int)$var['stock'] : 10,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('admin.products.index')->with('success', 'Activewear drop with sizes, colors, and multiple gallery images published successfully!');
     }
 
     public function editProduct(Product $product)
     {
+        $product->load('variants');
         $categories = Category::with('parent')->get();
         $brands = Brand::all();
         return view('admin.products.edit', compact('product', 'categories', 'brands'));
@@ -330,7 +349,28 @@ class AdminController extends Controller
         unset($data['image_file'], $data['gallery_files'], $data['gallery_urls'], $data['existing_gallery']);
         $product->update($data);
 
-        return redirect()->route('admin.products.index')->with('success', "Activewear drop '{$product->name}' with gallery updated successfully!");
+        // 3. Synchronize Size & Color Variants
+        if ($request->has('variants')) {
+            $variantsData = $request->input('variants', []);
+            $product->variants()->delete();
+            if (is_array($variantsData)) {
+                foreach ($variantsData as $var) {
+                    if (!empty($var['size']) || !empty($var['color']) || !empty($var['name'])) {
+                        $name = !empty($var['name']) ? $var['name'] : trim(($var['color'] ?? '') . ' ' . ($var['size'] ?? ''));
+                        $product->variants()->create([
+                            'name' => $name ?: 'Standard',
+                            'size' => $var['size'] ?? null,
+                            'color' => $var['color'] ?? null,
+                            'sku' => $var['sku'] ?? null,
+                            'price' => !empty($var['price']) ? (float)$var['price'] : null,
+                            'stock' => isset($var['stock']) && $var['stock'] !== '' ? (int)$var['stock'] : 10,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return redirect()->route('admin.products.index')->with('success', "Activewear drop '{$product->name}' with variants & gallery updated successfully!");
     }
 
     public function deleteProduct(Product $product)

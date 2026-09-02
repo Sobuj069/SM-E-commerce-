@@ -9,6 +9,28 @@
     existingGallery: {{ json_encode($product->gallery_images ?? []) }},
     newGalleryPreviews: [],
     newGalleryUrls: [''],
+    variants: {{ json_encode($product->variants->map(function($v) {
+        return [
+            'name' => $v->name,
+            'size' => $v->size ?? '',
+            'color' => $v->color ?? '#000000',
+            'stock' => $v->stock,
+            'price' => $v->price ?? '',
+            'sku' => $v->sku ?? '',
+        ];
+    })) }},
+
+    // Quick Helpers
+    commonSizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    commonColors: [
+        { name: 'Black', hex: '#000000' },
+        { name: 'Onyx Grey', hex: '#374151' },
+        { name: 'Navy Blue', hex: '#1e3a8a' },
+        { name: 'Rose Red', hex: '#e11d48' },
+        { name: 'Sage Green', hex: '#059669' },
+        { name: 'White', hex: '#ffffff' }
+    ],
+
     onPrimaryChange(e) {
         const file = e.target.files[0];
         if (file) {
@@ -32,13 +54,35 @@
     },
     removeNewGalleryUrl(index) {
         this.newGalleryUrls.splice(index, 1);
+    },
+
+    // Variant Actions
+    addVariant(size = '', color = '#000000', colorName = '') {
+        const name = (colorName || (color ? 'Color' : '')) + (size ? ' / ' + size : '');
+        this.variants.push({
+            name: name.trim() || 'Standard Variant',
+            size: size,
+            color: color,
+            price: '',
+            stock: 10,
+            sku: ''
+        });
+    },
+    removeVariant(index) {
+        this.variants.splice(index, 1);
+    },
+    quickAddSize(size) {
+        this.addVariant(size, '#000000', 'Black');
+    },
+    quickAddColor(col) {
+        this.addVariant('M', col.hex, col.name);
     }
 }">
     
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Edit Activewear Drop</h1>
-            <p class="text-xs text-gray-500 mt-0.5 font-medium">Update pricing, inventory stock, multiple gallery photos, specs, and status</p>
+            <p class="text-xs text-gray-500 mt-0.5 font-medium">Update pricing, inventory stock, sizes, colors, multiple gallery photos, and specs</p>
         </div>
         <div class="flex items-center gap-2">
             <a href="{{ route('product.show', $product->slug) }}" target="_blank" class="kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold flex items-center gap-1.5 text-gray-700">
@@ -94,7 +138,7 @@
             </div>
 
             <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">SKU Identifier</label>
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Master SKU Identifier</label>
                 <input type="text" name="sku" value="{{ old('sku', $product->sku) }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 font-mono placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition">
             </div>
         </div>
@@ -112,8 +156,108 @@
             </div>
 
             <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Stock Inventory Units *</label>
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Total Stock Inventory *</label>
                 <input type="number" name="stock" value="{{ old('stock', $product->stock) }}" min="0" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
+            </div>
+        </div>
+
+        <!-- =========================================================================
+             SECTION: SIZE & COLOR VARIATIONS MANAGEMENT
+             ========================================================================= -->
+        <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200 pb-3">
+                <div>
+                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-primary"></i>
+                        <span>Product Sizes &amp; Colors (Variants)</span>
+                    </h3>
+                    <p class="text-[11px] text-gray-500">Manage available size options (XS, S, M, L) and color swatches for this drop</p>
+                </div>
+                
+                <button 
+                    type="button" 
+                    @click="addVariant('M', '#000000', 'Black')"
+                    class="px-3 py-1.5 bg-black hover:bg-zinc-800 text-white text-[11px] font-bold rounded-lg flex items-center gap-1.5 shadow-xs transition cursor-pointer self-start sm:self-auto"
+                >
+                    <i class="fa-solid fa-plus text-[10px]"></i> Add Size/Color Option
+                </button>
+            </div>
+
+            <!-- Quick Add Presets Bar -->
+            <div class="flex flex-wrap items-center gap-4 bg-white p-3 rounded-xl border border-zinc-200 text-xs">
+                <!-- Size chips -->
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase">Quick Sizes:</span>
+                    <template x-for="sz in commonSizes" :key="sz">
+                        <button type="button" @click="quickAddSize(sz)" class="px-2 py-0.5 rounded-md bg-zinc-100 hover:bg-black hover:text-white border border-zinc-300 text-[10px] font-bold transition cursor-pointer" x-text="'+ ' + sz"></button>
+                    </template>
+                </div>
+
+                <div class="h-4 w-px bg-zinc-300 hidden sm:block"></div>
+
+                <!-- Color swatches -->
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase">Quick Colors:</span>
+                    <template x-for="col in commonColors" :key="col.name">
+                        <button type="button" @click="quickAddColor(col)" class="flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 hover:bg-zinc-200 border border-zinc-300 text-[10px] font-bold transition cursor-pointer">
+                            <span class="w-2.5 h-2.5 rounded-full border border-zinc-400" :style="'background-color: ' + col.hex"></span>
+                            <span x-text="col.name"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Dynamic Variations Table -->
+            <div x-show="variants.length > 0" class="overflow-x-auto rounded-xl border border-zinc-200 bg-white">
+                <table class="w-full text-left text-xs">
+                    <thead>
+                        <tr class="bg-zinc-100/70 text-gray-600 uppercase text-[10px] font-bold border-b border-zinc-200">
+                            <th class="py-2.5 px-3">Option Name</th>
+                            <th class="py-2.5 px-3">Size</th>
+                            <th class="py-2.5 px-3">Color Swatch</th>
+                            <th class="py-2.5 px-3">Stock</th>
+                            <th class="py-2.5 px-3">Price ($) (Optional)</th>
+                            <th class="py-2.5 px-3">SKU</th>
+                            <th class="py-2.5 px-3 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-100 font-medium">
+                        <template x-for="(v, vIdx) in variants" :key="vIdx">
+                            <tr class="hover:bg-zinc-50/50">
+                                <td class="py-2 px-3">
+                                    <input type="text" :name="'variants[' + vIdx + '][name]'" x-model="v.name" placeholder="e.g. Black / M" class="w-full px-2.5 py-1.5 bg-zinc-50 border border-zinc-200 rounded text-xs font-semibold focus:outline-none focus:border-black">
+                                </td>
+                                <td class="py-2 px-3 w-28">
+                                    <input type="text" :name="'variants[' + vIdx + '][size]'" x-model="v.size" placeholder="S, M, L..." class="w-full px-2.5 py-1.5 bg-zinc-50 border border-zinc-200 rounded text-xs font-bold uppercase focus:outline-none focus:border-black">
+                                </td>
+                                <td class="py-2 px-3 w-36">
+                                    <div class="flex items-center gap-2">
+                                        <input type="color" :name="'variants[' + vIdx + '][color]'" x-model="v.color" class="w-7 h-7 rounded border border-zinc-300 cursor-pointer p-0.5 shrink-0">
+                                        <input type="text" x-model="v.color" placeholder="#000000" class="w-20 px-2 py-1 bg-zinc-50 border border-zinc-200 rounded text-[10px] font-mono uppercase">
+                                    </div>
+                                </td>
+                                <td class="py-2 px-3 w-24">
+                                    <input type="number" :name="'variants[' + vIdx + '][stock]'" x-model="v.stock" placeholder="10" class="w-full px-2.5 py-1.5 bg-zinc-50 border border-zinc-200 rounded text-xs font-bold focus:outline-none focus:border-black">
+                                </td>
+                                <td class="py-2 px-3 w-28">
+                                    <input type="number" step="0.01" :name="'variants[' + vIdx + '][price]'" x-model="v.price" placeholder="Base" class="w-full px-2.5 py-1.5 bg-zinc-50 border border-zinc-200 rounded text-xs font-semibold focus:outline-none focus:border-black">
+                                </td>
+                                <td class="py-2 px-3 w-28">
+                                    <input type="text" :name="'variants[' + vIdx + '][sku]'" x-model="v.sku" placeholder="VTL-BLK-M" class="w-full px-2.5 py-1.5 bg-zinc-50 border border-zinc-200 rounded text-xs font-mono uppercase focus:outline-none focus:border-black">
+                                </td>
+                                <td class="py-2 px-3 text-right">
+                                    <button type="button" @click="removeVariant(vIdx)" class="p-1.5 rounded-lg bg-red-50 hover:bg-red-600 text-red-600 hover:text-white transition cursor-pointer" title="Remove Variation">
+                                        <i class="fa-solid fa-trash text-xs"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <div x-show="variants.length === 0" class="p-4 text-center text-xs text-gray-400 italic bg-white rounded-xl border border-dashed border-zinc-300">
+                No size or color variations configured. Click above to add sizes (XS, S, M, L) and color swatches!
             </div>
         </div>
 
@@ -123,7 +267,7 @@
         <div class="p-5 rounded-2xl bg-gray-50/70 border border-gray-200 space-y-4">
             <div class="flex items-center justify-between border-b border-gray-200 pb-3">
                 <div>
-                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider">1. Primary Showcase Image (Cover)</h3>
+                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider">Primary Showcase Image (Cover)</h3>
                     <p class="text-[11px] text-gray-500">Main thumbnail image for shop listings and banners</p>
                 </div>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-[#1b84ff] border border-blue-200">Current Cover</span>
@@ -157,7 +301,7 @@
         <div class="p-5 rounded-2xl bg-gray-50/70 border border-gray-200 space-y-4">
             <div class="flex items-center justify-between border-b border-gray-200 pb-3">
                 <div>
-                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider">2. Multiple Product Gallery Photos</h3>
+                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider">Multiple Product Gallery Photos</h3>
                     <p class="text-[11px] text-gray-500">Manage multiple angles, model poses, and fabric details</p>
                 </div>
                 <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
