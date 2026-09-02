@@ -81,7 +81,7 @@
          ========================================================================= -->
     <header class="sticky top-0 z-40 bg-white border-b border-zinc-200" @mouseleave="megaMenu = null">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20 relative">
+            <div class="flex items-center justify-between h-20 sm:h-24 relative">
                 
                 <!-- 1. Left: Women, Men, Accessories Nav Links (Exact Gymshark Navigation) -->
                 <nav class="flex items-center gap-6 sm:gap-8 text-xs font-bold tracking-wide text-black h-full">
@@ -90,7 +90,7 @@
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'women'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'women']) }}" 
-                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
+                            class="py-8 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
                             :class="megaMenu === 'women' ? 'border-black text-black font-black' : 'border-transparent text-zinc-900 font-bold'"
                         >
                             Women
@@ -101,7 +101,7 @@
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'men'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'men']) }}" 
-                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
+                            class="py-8 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
                             :class="megaMenu === 'men' ? 'border-black text-black font-black' : 'border-transparent text-zinc-900 font-bold'"
                         >
                             Men
@@ -112,7 +112,7 @@
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'accessories'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'accessories']) }}" 
-                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
+                            class="py-8 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
                             :class="megaMenu === 'accessories' ? 'border-black text-black font-black' : 'border-transparent text-zinc-900 font-bold'"
                         >
                             Accessories
@@ -120,9 +120,9 @@
                     </div>
                 </nav>
 
-                <!-- 2. Center: Centered Authentic SM Shop Logo -->
-                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group py-1" aria-label="SM Shop">
-                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 sm:h-11 w-auto object-contain group-hover:scale-105 transition duration-300">
+                <!-- 2. Center: Centered Authentic SM Shop Logo (Large & Prominent) -->
+                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group py-2" aria-label="SM Shop">
+                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-12 sm:h-16 md:h-20 max-w-[240px] sm:max-w-[320px] w-auto object-contain group-hover:scale-105 transition duration-300">
                 </a>
 
                 <!-- 3. Right: Gymshark Search Bar & Action Icons -->
