@@ -1,38 +1,47 @@
 @extends('layouts.admin')
 
 @section('title', 'Order ' . $order->order_number)
+@section('breadcrumb', 'Orders / #' . $order->order_number)
 
 @section('content')
 <div class="space-y-6 max-w-5xl mx-auto">
+    
+    <!-- Top Action Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <div class="flex items-center gap-3">
                 <h1 class="text-xl font-black text-white font-mono">{{ $order->order_number }}</h1>
-                <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase {{ $order->order_status === 'delivered' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ($order->order_status === 'processing' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30') }}">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider
+                    @if($order->order_status === 'delivered') bg-emerald-500/15 text-emerald-400 border border-emerald-500/30
+                    @elseif($order->order_status === 'shipped') bg-cyan-500/15 text-cyan-400 border border-cyan-500/30
+                    @elseif($order->order_status === 'processing') bg-indigo-500/15 text-indigo-400 border border-indigo-500/30
+                    @else bg-amber-500/15 text-amber-400 border border-amber-500/30
+                    @endif
+                ">
                     {{ $order->order_status }}
                 </span>
             </div>
-            <p class="text-xs text-slate-400 mt-1">Placed on {{ $order->created_at->format('M d, Y \a\t H:i A') }}</p>
+            <p class="text-xs text-gray-400 mt-0.5">Placed on {{ $order->created_at->format('M d, Y \a\t H:i A') }}</p>
         </div>
 
         <div class="flex items-center gap-3">
-            <button onclick="window.print()" class="px-4 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-2">
-                <i class="fa-solid fa-print"></i> Print Invoice
+            <button onclick="window.print()" class="px-4 py-2.5 rounded-xl bg-[#1e1e2d] hover:bg-[#2b2b40] border border-[#2b2b40] text-white text-xs font-bold transition flex items-center gap-2 cursor-pointer shadow-md">
+                <i class="fa-solid fa-print text-xs"></i> Print Invoice
             </button>
-            <a href="{{ route('admin.orders.index') }}" class="px-4 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-bold transition">
+            <a href="{{ route('admin.orders.index') }}" class="px-4 py-2.5 rounded-xl bg-[#1e1e2d] hover:bg-[#2b2b40] border border-[#2b2b40] text-gray-400 hover:text-white text-xs font-bold transition">
                 Back to Orders
             </a>
         </div>
     </div>
 
-    <!-- Status Updater Control -->
-    <div class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl">
-        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Update Order & Payment Status</h3>
+    <!-- Status Updater Control Card -->
+    <div class="p-6 rounded-2xl bg-[#1e1e2d] border border-[#2b2b40] shadow-xl">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Update Order & Payment Status</h3>
         <form action="{{ route('admin.orders.status', $order->id) }}" method="POST" class="flex flex-col sm:flex-row items-center gap-4">
             @csrf
-            <div class="flex-1 w-full">
-                <label class="text-[10px] font-bold text-slate-400 block mb-1">Fulfillment Status</label>
-                <select name="order_status" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <div class="flex-1 w-full space-y-1">
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Fulfillment Stage</label>
+                <select name="order_status" class="w-full px-4 py-2.5 rounded-xl bg-[#151521] border border-[#2b2b40] text-white text-xs font-bold focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
                     <option value="pending" {{ $order->order_status == 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="processing" {{ $order->order_status == 'processing' ? 'selected' : '' }}>Processing</option>
                     <option value="shipped" {{ $order->order_status == 'shipped' ? 'selected' : '' }}>Shipped</option>
@@ -41,9 +50,9 @@
                 </select>
             </div>
 
-            <div class="flex-1 w-full">
-                <label class="text-[10px] font-bold text-slate-400 block mb-1">Payment Status</label>
-                <select name="payment_status" class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <div class="flex-1 w-full space-y-1">
+                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Payment Verification</label>
+                <select name="payment_status" class="w-full px-4 py-2.5 rounded-xl bg-[#151521] border border-[#2b2b40] text-white text-xs font-bold focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
                     <option value="pending" {{ $order->payment_status == 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="paid" {{ $order->payment_status == 'paid' ? 'selected' : '' }}>Paid</option>
                     <option value="failed" {{ $order->payment_status == 'failed' ? 'selected' : '' }}>Failed</option>
@@ -51,42 +60,45 @@
             </div>
 
             <div class="sm:self-end w-full sm:w-auto">
-                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition">
-                    Save Changes
+                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black uppercase tracking-wider transition shadow-lg shadow-indigo-600/30 cursor-pointer">
+                    Save Status
                 </button>
             </div>
         </form>
     </div>
 
     <!-- Printable Invoice & Order Details -->
-    <div class="p-8 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl space-y-8 print:bg-white print:text-black print:p-0">
+    <div class="p-8 rounded-2xl bg-[#1e1e2d] border border-[#2b2b40] shadow-2xl space-y-8 print:bg-white print:text-black print:p-0">
         
         <!-- Header -->
-        <div class="flex justify-between items-start pb-6 border-b border-slate-800">
-            <div>
-                <div class="text-xl font-black text-white">SM SHOP 3D</div>
-                <div class="text-xs text-slate-400">Next-Gen E-Commerce Experience</div>
+        <div class="flex justify-between items-start pb-6 border-b border-[#2b2b40]">
+            <div class="flex items-center gap-3">
+                <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-10 w-auto object-contain">
+                <div>
+                    <div class="text-base font-black text-white uppercase">SM SHOP</div>
+                    <div class="text-xs text-gray-400">Fashion & Apparel Ltd.</div>
+                </div>
             </div>
             <div class="text-right">
                 <div class="text-sm font-mono font-bold text-indigo-400">{{ $order->order_number }}</div>
-                <div class="text-xs text-slate-400">{{ $order->created_at->format('d M Y') }}</div>
+                <div class="text-xs text-gray-400">{{ $order->created_at->format('d M Y') }}</div>
             </div>
         </div>
 
         <!-- Customer & Shipping Addresses -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-            <div class="space-y-1">
-                <span class="font-bold text-slate-400 uppercase tracking-wider block text-[10px]">Customer Details</span>
-                <div class="font-bold text-white text-sm">{{ $order->customer_name }}</div>
-                <div class="text-slate-300">{{ $order->customer_email }}</div>
-                <div class="text-slate-300">{{ $order->customer_phone }}</div>
+            <div class="space-y-1.5 p-4 rounded-xl bg-[#151521] border border-[#2b2b40]">
+                <span class="font-bold text-indigo-400 uppercase tracking-wider block text-[10px]">Customer Details</span>
+                <div class="font-bold text-white text-sm">{{ $order->shipping_name ?? $order->customer_name }}</div>
+                <div class="text-gray-300">{{ $order->shipping_email ?? $order->customer_email }}</div>
+                <div class="text-gray-300">{{ $order->shipping_phone ?? $order->customer_phone }}</div>
             </div>
 
-            <div class="space-y-1 md:text-right">
-                <span class="font-bold text-slate-400 uppercase tracking-wider block text-[10px]">Shipping Destination</span>
-                <div class="text-slate-300">{{ $order->shipping_address }}</div>
-                <div class="text-slate-300">{{ $order->city }} {{ $order->postal_code ? '(' . $order->postal_code . ')' : '' }}</div>
-                <div class="text-slate-400 text-[11px] pt-1">Payment: <strong class="uppercase text-white">{{ $order->payment_method }}</strong></div>
+            <div class="space-y-1.5 p-4 rounded-xl bg-[#151521] border border-[#2b2b40]">
+                <span class="font-bold text-emerald-400 uppercase tracking-wider block text-[10px]">Shipping Destination</span>
+                <div class="text-gray-300">{{ $order->shipping_address }}</div>
+                <div class="text-gray-300">{{ $order->city }} {{ $order->postal_code ? '(' . $order->postal_code . ')' : '' }}</div>
+                <div class="text-gray-400 text-[11px] pt-1">Payment Method: <strong class="uppercase text-white">{{ $order->payment_method }}</strong></div>
             </div>
         </div>
 
@@ -94,42 +106,38 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="text-slate-400 border-b border-slate-800 font-bold uppercase text-[10px]">
-                        <th class="py-3">Product</th>
-                        <th class="py-3 text-center">Qty</th>
-                        <th class="py-3 text-right">Price</th>
-                        <th class="py-3 text-right">Subtotal</th>
+                    <tr class="text-gray-400 border-b border-[#2b2b40] font-bold uppercase text-[10px] bg-[#151521]/60">
+                        <th class="py-3 px-4">Activewear Item</th>
+                        <th class="py-3 px-4 text-center">Qty</th>
+                        <th class="py-3 px-4 text-right">Unit Price</th>
+                        <th class="py-3 px-4 text-right">Line Total</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800/60 font-medium">
+                <tbody class="divide-y divide-[#2b2b40] font-medium">
                     @foreach($order->items as $item)
                         <tr>
-                            <td class="py-3 text-white font-bold">{{ $item->product_name }}</td>
-                            <td class="py-3 text-center text-slate-300">{{ $item->quantity }}</td>
-                            <td class="py-3 text-right text-slate-300">${{ number_format($item->price, 2) }}</td>
-                            <td class="py-3 text-right text-white font-black">${{ number_format($item->subtotal, 2) }}</td>
+                            <td class="py-3.5 px-4">
+                                <div class="font-bold text-white text-xs">{{ $item->product_name ?? ($item->product->name ?? 'Product') }}</div>
+                                @if($item->variant_info)
+                                    <div class="text-[10px] text-gray-400">{{ $item->variant_info }}</div>
+                                @endif
+                            </td>
+                            <td class="py-3.5 px-4 text-center font-bold text-white">{{ $item->quantity }}</td>
+                            <td class="py-3.5 px-4 text-right text-gray-300">${{ number_format($item->price, 2) }}</td>
+                            <td class="py-3.5 px-4 text-right font-black text-white">${{ number_format($item->total_price, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr class="border-t border-[#2b2b40]">
+                        <td colspan="3" class="py-4 px-4 text-right font-bold text-gray-400 uppercase text-[10px]">Grand Total:</td>
+                        <td class="py-4 px-4 text-right font-black text-base text-emerald-400">${{ number_format($order->total_amount, 2) }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
-        <!-- Totals Summary -->
-        <div class="border-t border-slate-800 pt-4 flex justify-end">
-            <div class="w-64 space-y-2 text-xs">
-                @if($order->coupon_code)
-                    <div class="flex justify-between text-emerald-400">
-                        <span>Coupon Discount ({{ $order->coupon_code }}):</span>
-                        <span class="font-bold">-${{ number_format($order->discount_amount, 2) }}</span>
-                    </div>
-                @endif
-                <div class="flex justify-between text-base font-black text-white pt-2 border-t border-slate-800">
-                    <span>Total Amount:</span>
-                    <span class="text-amber-300">${{ number_format($order->total_amount, 2) }}</span>
-                </div>
-            </div>
-        </div>
-
     </div>
+
 </div>
 @endsection

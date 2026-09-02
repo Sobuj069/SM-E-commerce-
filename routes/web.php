@@ -36,7 +36,12 @@ Route::prefix('checkout')->name('checkout.')->group(function () {
     Route::get('/success/{orderNumber}', [CheckoutController::class, 'success'])->name('success');
 });
 
-// Admin Control Panel (ApexCharts, CRUD, Orders, Coupons, Reviews)
+// Admin Authentication (Metronic Login & Logout)
+Route::get('/admin/login', [AdminController::class, 'loginView'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'loginPost'])->name('admin.login.post');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+// Admin Control Panel (Metronic Tailwind Demo 1 Dark Sidebar)
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     

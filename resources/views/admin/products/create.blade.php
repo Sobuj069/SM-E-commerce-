@@ -1,31 +1,33 @@
 @extends('layouts.admin')
 
-@section('title', 'Add New 3D Product')
+@section('title', 'Add New Activewear Product')
+@section('breadcrumb', 'Catalog / Add Product')
 
 @section('content')
 <div class="max-w-4xl mx-auto space-y-6">
+    
     <div class="flex items-center justify-between">
         <div>
-            <h1 class="text-xl font-black text-white">Add New Product</h1>
-            <p class="text-xs text-slate-400 mt-1">Publish a new catalog item with pricing & 3D attributes</p>
+            <h1 class="text-xl font-black text-white">Add New Activewear Drop</h1>
+            <p class="text-xs text-gray-400 mt-0.5">Publish new gym apparel, set fabric specs, pricing, and stock inventory</p>
         </div>
-        <a href="{{ route('admin.products.index') }}" class="text-xs font-bold text-slate-400 hover:text-white">
-            <i class="fa-solid fa-arrow-left mr-1"></i> Back to Products
+        <a href="{{ route('admin.products.index') }}" class="px-3.5 py-2 rounded-xl bg-[#1e1e2d] hover:bg-[#2b2b40] border border-[#2b2b40] text-xs font-bold text-gray-300 hover:text-white transition flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-left text-xs"></i> Back to Catalog
         </a>
     </div>
 
-    <form action="{{ route('admin.products.store') }}" method="POST" class="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-6">
+    <form action="{{ route('admin.products.store') }}" method="POST" class="p-8 rounded-2xl bg-[#1e1e2d] border border-[#2b2b40] shadow-xl space-y-6">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Product Name</label>
-                <input type="text" name="name" placeholder="e.g. Next-Gen 3D VR Spatial Headset" class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Product Name</label>
+                <input type="text" name="name" placeholder="e.g. Vital Seamless 2.0 Leggings" class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
             </div>
 
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Category</label>
-                <select name="category_id" class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Apparel Category</label>
+                <select name="category_id" class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                     @endforeach
@@ -34,57 +36,58 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Regular Price ($)</label>
-                <input type="number" step="0.01" name="price" placeholder="199.99" class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Regular Price ($)</label>
+                <input type="number" step="0.01" name="price" placeholder="54.00" class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
             </div>
 
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Sale Price ($) (Optional)</label>
-                <input type="number" step="0.01" name="sale_price" placeholder="149.99" class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Sale Price ($) (Optional)</label>
+                <input type="number" step="0.01" name="sale_price" placeholder="44.00" class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
             </div>
 
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Stock Inventory</label>
-                <input type="number" name="stock" value="25" class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Stock Inventory</label>
+                <input type="number" name="stock" value="50" class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">SKU Code</label>
-                <input type="text" name="sku" placeholder="VR-NXT-001" class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">SKU Identifier</label>
+                <input type="text" name="sku" placeholder="VTL-SMS-001" class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
             </div>
 
-            <div>
-                <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Primary Image URL</label>
-                <input type="url" name="image" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">High-Res Image URL</label>
+                <input type="url" name="image" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
             </div>
         </div>
 
-        <div>
-            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Short Tagline Description</label>
-            <input type="text" name="short_description" placeholder="Ultra-low latency, 8K micro-OLED panels, and spatial audio tracking." class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+        <div class="space-y-1.5">
+            <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Short Tagline Description</label>
+            <input type="text" name="short_description" placeholder="High-waisted compression fit, sweat-wicking DRY fabric, and supportive ribbed waistband." class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" required>
         </div>
 
-        <div>
-            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Full Specifications & Description</label>
-            <textarea name="description" rows="4" placeholder="Detailed product story, tech specs, dimensions, and in-box items..." class="w-full px-4 py-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white text-xs font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        <div class="space-y-1.5">
+            <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider">Full Story & Fabric Specifications</label>
+            <textarea name="description" rows="4" placeholder="Detailed product story, fabric composition (e.g. 93% Nylon, 7% Elastane), washing instructions, and fit guide..." class="w-full px-4 py-3 bg-[#151521] border border-[#2b2b40] rounded-xl text-xs font-bold text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"></textarea>
         </div>
 
-        <div class="flex items-center gap-3">
-            <input type="checkbox" name="is_featured" id="is_featured" value="1" class="rounded text-indigo-600 focus:ring-0">
-            <label for="is_featured" class="text-xs font-bold text-slate-300 cursor-pointer">
-                Mark as 3D Featured Showcase on Homepage
+        <div class="flex items-center gap-3 pt-2">
+            <input type="checkbox" name="is_featured" id="is_featured" value="1" class="rounded border-[#2b2b40] bg-[#151521] text-indigo-600 focus:ring-0">
+            <label for="is_featured" class="text-xs font-bold text-gray-300 cursor-pointer">
+                Mark as Featured New Drop on Storefront
             </label>
         </div>
 
-        <div class="pt-4 flex justify-end gap-3 border-t border-slate-800">
-            <a href="{{ route('admin.products.index') }}" class="px-6 py-3 rounded-2xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+        <div class="pt-6 flex items-center justify-end gap-3 border-t border-[#2b2b40]">
+            <a href="{{ route('admin.products.index') }}" class="px-5 py-2.5 rounded-xl bg-[#151521] hover:bg-[#2b2b40] text-gray-300 hover:text-white text-xs font-bold transition border border-[#2b2b40]">
                 Cancel
             </a>
-            <button type="submit" class="px-8 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition shadow-lg shadow-indigo-600/25">
-                Save & Publish
+            <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black uppercase tracking-wider transition shadow-lg shadow-indigo-600/30 flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
+                <span>Publish Product</span>
             </button>
         </div>
     </form>
