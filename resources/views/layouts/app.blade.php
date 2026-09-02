@@ -856,35 +856,35 @@
                     <span class="px-2.5 py-1 bg-[#007BC1] text-white text-[10px] font-black rounded shadow-xs">AMEX</span>
                 </div>
 
-                <!-- VIBRANT COLORFUL SOCIAL ICONS (100% Brand Colors) -->
-                <div class="flex items-center gap-2.5">
+                <!-- VIBRANT COLORFUL SOCIAL ICONS (100% Guaranteed Crisp Pure SVGs with Official Brand Colors) -->
+                <div class="flex items-center gap-2 sm:gap-2.5">
                     <!-- Facebook -->
-                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-full bg-[#1877F2] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Facebook">
-                        <i class="fa-brands fa-facebook-f"></i>
+                    <a href="https://facebook.com" target="_blank" style="background: #1877F2 !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="Facebook">
+                        <svg style="width: 16px; height: 16px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                     </a>
                     <!-- Instagram Gradient -->
-                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Instagram">
-                        <i class="fa-brands fa-instagram"></i>
+                    <a href="https://instagram.com" target="_blank" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="Instagram">
+                        <svg style="width: 16px; height: 16px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
                     <!-- TikTok -->
-                    <a href="https://tiktok.com" target="_blank" class="w-9 h-9 rounded-full bg-[#000000] text-white border border-zinc-700 flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="TikTok">
-                        <i class="fa-brands fa-tiktok text-xs"></i>
+                    <a href="https://tiktok.com" target="_blank" style="background: #000000 !important; border: 1px solid #3f3f46 !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="TikTok">
+                        <svg style="width: 15px; height: 15px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 2.89 3.5 2.77 1.81-.02 3.25-1.51 3.31-3.32.04-3.04.01-6.09.02-9.13-.01-4.52.01-9.04-.01-13.56z"/></svg>
                     </a>
                     <!-- YouTube -->
-                    <a href="https://youtube.com" target="_blank" class="w-9 h-9 rounded-full bg-[#FF0000] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="YouTube">
-                        <i class="fa-brands fa-youtube"></i>
+                    <a href="https://youtube.com" target="_blank" style="background: #FF0000 !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="YouTube">
+                        <svg style="width: 16px; height: 16px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </a>
                     <!-- WhatsApp -->
-                    <a href="https://whatsapp.com" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="WhatsApp">
-                        <i class="fa-brands fa-whatsapp"></i>
+                    <a href="https://whatsapp.com" target="_blank" style="background: #25D366 !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="WhatsApp">
+                        <svg style="width: 16px; height: 16px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                     </a>
                     <!-- Discord -->
-                    <a href="https://discord.com" target="_blank" class="w-9 h-9 rounded-full bg-[#5865F2] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Discord">
-                        <i class="fa-brands fa-discord"></i>
+                    <a href="https://discord.com" target="_blank" style="background: #5865F2 !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="Discord">
+                        <svg style="width: 16px; height: 16px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     </a>
                     <!-- Pinterest -->
-                    <a href="https://pinterest.com" target="_blank" class="w-9 h-9 rounded-full bg-[#E60023] text-white flex items-center justify-center text-sm shadow-md hover:scale-110 transition duration-200" title="Pinterest">
-                        <i class="fa-brands fa-pinterest-p"></i>
+                    <a href="https://pinterest.com" target="_blank" style="background: #E60023 !important; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.15);" class="hover:scale-110 transition duration-200" title="Pinterest">
+                        <svg style="width: 16px; height: 16px; fill: #ffffff !important;" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
                     </a>
                 </div>
             </div>
@@ -987,7 +987,7 @@
         </button>
     </div>
 
-    <!-- Floating Chatbot Window -->
+    <!-- Floating Chatbot Window (Elegant Height & Responsive Card) -->
     <div 
         x-show="chatOpen" 
         x-transition:enter="transition ease-out duration-300"
@@ -996,14 +996,14 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-        class="w-88 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px]"
+        class="w-88 sm:w-[400px] max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px] max-h-[calc(100vh-100px)]"
         style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; display: none;"
     >
         <!-- Chat Header -->
-        <div class="bg-black text-white p-4 flex items-center justify-between">
+        <div class="bg-black text-white p-4 flex items-center justify-between shrink-0">
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-zinc-800 flex items-center justify-center text-white text-base">
-                    <i class="fa-solid fa-bolt"></i>
+                    <i class="fa-solid fa-bolt text-amber-400"></i>
                 </div>
                 <div>
                     <div class="text-xs font-black uppercase tracking-wider">SM Shark Assistant</div>
@@ -1018,53 +1018,53 @@
         </div>
 
         <!-- Chat Quick Actions / Chips -->
-        <div class="p-3 bg-zinc-50 border-b border-zinc-200 flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold">
+        <div class="p-3 bg-zinc-50 border-b border-zinc-200 flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold shrink-0">
             <button 
                 type="button"
                 @click="sendQuickPrompt('Track Order: SM-1001')" 
-                class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
+                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 📦 Track Order
             </button>
             <button 
                 type="button"
                 @click="sendQuickPrompt('What are the best-selling gym leggings?')" 
-                class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
+                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 🔥 Best Sellers
             </button>
             <button 
                 type="button"
                 @click="sendQuickPrompt('What is the promo code for discounts?')" 
-                class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
+                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 🏷️ Promo Codes
             </button>
             <button 
                 type="button"
                 @click="sendQuickPrompt('How long does shipping take?')" 
-                class="px-2.5 py-1 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer"
+                class="px-2.5 py-1.5 bg-white border border-zinc-200 rounded-full hover:bg-black hover:text-white hover:border-black transition shrink-0 cursor-pointer shadow-2xs"
             >
                 🚚 Shipping Time
             </button>
         </div>
 
         <!-- Chat Conversation Messages Scroll Container -->
-        <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto space-y-3 bg-white text-xs">
+        <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto space-y-3 bg-zinc-50/50 text-xs">
             <template x-for="(msg, idx) in chatMessages" :key="idx">
                 <div :class="msg.sender === 'user' ? 'flex justify-end' : 'flex justify-start'">
                     <div 
-                        class="max-w-[80%] p-3 rounded-2xl leading-relaxed"
-                        :class="msg.sender === 'user' ? 'bg-black text-white rounded-br-none font-semibold' : 'bg-zinc-100 text-zinc-800 rounded-bl-none font-medium border border-zinc-200'"
+                        class="max-w-[85%] p-3.5 rounded-2xl leading-relaxed text-xs shadow-2xs"
+                        :class="msg.sender === 'user' ? 'bg-black text-white rounded-br-none font-semibold' : 'bg-white text-zinc-800 rounded-bl-none font-medium border border-zinc-200'"
                     >
-                        <span x-html="msg.text"></span>
+                        <div x-html="msg.text"></div>
                     </div>
                 </div>
             </template>
 
             <!-- Typing indicator -->
             <div x-show="isTyping" class="flex justify-start" style="display: none;">
-                <div class="bg-zinc-100 text-zinc-500 p-3 rounded-2xl rounded-bl-none border border-zinc-200 flex items-center gap-1.5">
+                <div class="bg-white text-zinc-500 p-3 rounded-2xl rounded-bl-none border border-zinc-200 flex items-center gap-1.5 shadow-2xs">
                     <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-bounce"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-bounce" style="animation-delay: 0.2s"></span>
                     <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-bounce" style="animation-delay: 0.4s"></span>
@@ -1075,17 +1075,17 @@
         <!-- Chat Input Form -->
         <form 
             @submit.prevent="handleChatSubmit()" 
-            class="p-3 border-t border-zinc-200 bg-zinc-50 flex items-center gap-2"
+            class="p-3 border-t border-zinc-200 bg-white flex items-center gap-2 shrink-0"
         >
             <input 
                 type="text" 
                 x-model="chatInput" 
                 placeholder="Ask about activewear, sizing, or order..." 
-                class="flex-1 px-3.5 py-2.5 bg-white border border-zinc-200 rounded-full text-xs font-semibold focus:outline-none focus:border-black transition"
+                class="flex-1 px-4 py-2.5 bg-zinc-100 border border-zinc-200 rounded-full text-xs font-semibold focus:outline-none focus:bg-white focus:border-black transition"
             >
             <button 
                 type="submit" 
-                class="w-9 h-9 rounded-full bg-black text-white hover:bg-zinc-800 flex items-center justify-center transition shrink-0 cursor-pointer"
+                class="w-10 h-10 rounded-full bg-black text-white hover:bg-zinc-800 flex items-center justify-center transition shrink-0 cursor-pointer shadow-md"
             >
                 <i class="fa-solid fa-paper-plane text-xs"></i>
             </button>
