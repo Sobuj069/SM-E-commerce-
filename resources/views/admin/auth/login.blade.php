@@ -1,59 +1,91 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-[#0f172a] dark" data-kt-theme="true" data-kt-theme-mode="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full bg-[#f4f6f9]" data-kt-theme="true" data-kt-theme-mode="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Metronic Sign In - SM Shop Enterprise</title>
+    <title>Sign In | Metronic Executive Center - SM Shop</title>
 
-    <!-- Google Font: Inter -->
+    <!-- Google Fonts: Valley Sans / Plus Jakarta Sans / Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Authentic Metronic KeenIcons Bundle -->
-    <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/keenicons/styles.bundle.css" rel="stylesheet"/>
+    <!-- FontAwesome 6 (CSS + SVG Vector Engine) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+
+    <!-- Metronic Official Styles -->
+    <link href="https://keenthemes.com/metronic/tailwind/dist/assets/css/styles.css" rel="stylesheet"/>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="h-full bg-[#0b0f19] text-slate-200 font-sans antialiased flex items-center justify-center p-4 selection:bg-indigo-600 selection:text-white" x-data="{ showPassword: false }">
 
-    <!-- Atmospheric Glows -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl"></div>
-    </div>
-
-    <!-- Metronic Login Card Container -->
-    <div class="relative z-10 w-full max-w-md">
+    <style>
+        [x-cloak] { display: none !important; }
         
-        <!-- Logo & Metronic Branding Header -->
-        <div class="text-center mb-8 space-y-3">
-            <a href="{{ route('home') }}" class="inline-block hover:scale-105 transition-transform duration-300">
-                <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-12 w-auto mx-auto object-contain drop-shadow-md">
-            </a>
-            <div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[11px] font-bold text-indigo-400 uppercase tracking-widest">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Metronic Demo 1 Core
-                </span>
-            </div>
-        </div>
+        body, h1, h2, h3, h4, h5, h6, p, a, input, select, textarea, button, label, span:not(.fa-solid):not(.fa-regular):not(.fa-brands):not(.svg-inline--fa) {
+            font-family: 'Valley Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        }
 
-        <!-- Metronic Auth Card -->
-        <div class="bg-[#0f172a] border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6 backdrop-blur-md">
+        i.fa-solid, i.fa-regular, i.fa-brands, .svg-inline--fa {
+            font-family: inherit;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="h-full bg-[#f4f6f9] text-gray-800 antialiased flex flex-col justify-between p-4 sm:p-6 selection:bg-[#1b84ff] selection:text-white" x-data="{ showPassword: false }">
+
+    <!-- Top Header -->
+    <header class="w-full max-w-6xl mx-auto flex items-center justify-between py-2">
+        <a href="{{ route('home') }}" class="flex items-center gap-3">
+            <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 w-auto object-contain">
+            <div class="flex items-center gap-1.5">
+                <span class="text-xs font-black text-gray-900 uppercase tracking-tight">METRONIC</span>
+                <span class="px-2 py-0.5 rounded bg-blue-50 text-[#1b84ff] text-[10px] font-bold uppercase">Demo 1</span>
+            </div>
+        </a>
+
+        <a href="{{ route('home') }}" class="text-xs font-bold text-gray-600 hover:text-primary transition flex items-center gap-1.5">
+            <span>Live Storefront</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+        </a>
+    </header>
+
+    <!-- Main Auth Card Container -->
+    <div class="w-full max-w-md mx-auto my-auto py-6">
+        
+        <!-- Classic Metronic Card -->
+        <div class="bg-white border border-gray-200/90 rounded-2xl p-8 sm:p-10 shadow-xl shadow-gray-200/60 space-y-6">
             
-            <div class="text-left space-y-1 border-b border-slate-800 pb-5">
-                <h1 class="text-xl font-black text-white tracking-tight">Executive Sign In</h1>
-                <p class="text-xs text-slate-400">Enter your credentials to access the Metronic Control Center.</p>
+            <!-- Header -->
+            <div class="text-center space-y-1 pb-2">
+                <h1 class="text-2xl font-black text-gray-900 tracking-tight">Sign In</h1>
+                <p class="text-xs text-gray-500 font-medium">Welcome back to Metronic Executive Control Center</p>
             </div>
 
-            <!-- Flash Error Message -->
+            <!-- Quick Auto-fill Alert Badge -->
+            <div class="p-3.5 rounded-xl bg-blue-50/80 border border-blue-100 flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-[#1b84ff] text-sm shrink-0"></i>
+                    <div>
+                        <span class="text-[11px] font-bold text-gray-800">Demo Administrator Account:</span>
+                        <div class="text-[10px] text-gray-500 font-mono">admin@smcloudit.top / password123</div>
+                    </div>
+                </div>
+                <button 
+                    type="button" 
+                    @click="document.getElementById('email').value='admin@smcloudit.top'; document.getElementById('password').value='password123';"
+                    class="px-2.5 py-1 bg-[#1b84ff] text-white text-[10px] font-bold rounded-md hover:bg-[#006ae6] transition shadow-xs shrink-0 cursor-pointer"
+                >
+                    Auto-Fill
+                </button>
+            </div>
+
+            <!-- Error Messages -->
             @if($errors->any())
-                <div class="p-3.5 rounded-xl bg-rose-950/70 border border-rose-500/30 text-rose-300 text-xs font-semibold flex items-start gap-2.5">
-                    <i class="ki-filled ki-information-2 text-base shrink-0 mt-0.5"></i>
+                <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-start gap-2.5">
+                    <i class="fa-solid fa-circle-exclamation text-base text-rose-600 shrink-0 mt-0.5"></i>
                     <div>
                         @foreach ($errors->all() as $error)
                             <p>{{ $error }}</p>
@@ -63,8 +95,8 @@
             @endif
 
             @if(session('success'))
-                <div class="p-3.5 rounded-xl bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
-                    <i class="ki-filled ki-check-circle text-base"></i>
+                <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-base text-emerald-600"></i>
                     <span>{{ session('success') }}</span>
                 </div>
             @endif
@@ -75,10 +107,10 @@
 
                 <!-- Email Input -->
                 <div class="space-y-1.5">
-                    <label for="email" class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Email Address</label>
+                    <label for="email" class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Email Address</label>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
-                            <i class="ki-filled ki-sms text-base"></i>
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-envelope text-xs"></i>
                         </span>
                         <input 
                             type="email" 
@@ -88,7 +120,7 @@
                             required 
                             autocomplete="email"
                             placeholder="admin@smcloudit.top" 
-                            class="w-full pl-10 pr-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                            class="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 transition"
                         >
                     </div>
                 </div>
@@ -96,11 +128,11 @@
                 <!-- Password Input -->
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <label for="password" class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Password</label>
+                        <label for="password" class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Password</label>
                     </div>
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
-                            <i class="ki-filled ki-lock text-base"></i>
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-lock text-xs"></i>
                         </span>
                         <input 
                             :type="showPassword ? 'text' : 'password'" 
@@ -108,61 +140,56 @@
                             name="password" 
                             value="password123"
                             required 
-                            placeholder="••••••••" 
-                            class="w-full pl-10 pr-10 py-3 bg-slate-900 border border-slate-800 rounded-xl text-xs font-semibold text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+                            autocomplete="current-password"
+                            placeholder="••••••••••••" 
+                            class="w-full pl-9 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/20 transition"
                         >
                         <button 
                             type="button" 
-                            @click="showPassword = !showPassword"
-                            class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-white cursor-pointer"
+                            @click="showPassword = !showPassword" 
+                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition cursor-pointer"
                         >
-                            <i :class="showPassword ? 'ki-filled ki-eye-slash' : 'ki-filled ki-eye'" class="text-base"></i>
+                            <i class="fa-solid" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Remember & Auto-Fill Demo Credentials -->
-                <div class="flex items-center justify-between pt-1">
-                    <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-400 hover:text-slate-300">
-                        <input type="checkbox" name="remember" value="1" checked class="rounded border-slate-800 bg-slate-900 text-indigo-600 focus:ring-0">
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between text-xs pt-1">
+                    <label class="flex items-center gap-2 cursor-pointer font-medium text-gray-600">
+                        <input type="checkbox" name="remember" checked class="rounded border-gray-300 text-[#1b84ff] focus:ring-0">
                         <span>Remember session</span>
                     </label>
 
-                    <button 
-                        type="button" 
-                        onclick="document.getElementById('email').value='admin@smcloudit.top'; document.getElementById('password').value='password123';"
-                        class="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 transition underline underline-offset-2 cursor-pointer"
-                    >
-                        Auto-fill Demo Credentials
-                    </button>
+                    <a href="javascript:void(0)" onclick="alert('Demo Administrator Password is: password123')" class="font-bold text-[#1b84ff] hover:underline">
+                        Forgot Password?
+                    </a>
                 </div>
 
                 <!-- Submit Button -->
                 <button 
                     type="submit" 
-                    class="w-full py-3.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-[0.99] text-white text-xs font-black uppercase tracking-wider transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 cursor-pointer"
+                    class="w-full mt-2 py-3 px-4 bg-[#1b84ff] hover:bg-[#006ae6] text-white font-bold rounded-lg text-xs tracking-wide shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                    <span>Sign In to Metronic</span>
-                    <i class="ki-filled ki-arrow-right text-xs"></i>
+                    <span>Sign In to Dashboard</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
                 </button>
             </form>
 
-            <!-- Back to Storefront Link -->
-            <div class="pt-4 border-t border-slate-800 text-center">
-                <a href="{{ route('home') }}" class="text-xs text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5 font-medium">
-                    <i class="ki-filled ki-arrow-left text-xs"></i>
-                    <span>Back to SM Shop Storefront</span>
-                </a>
-            </div>
-
         </div>
 
-        <!-- Footer Note -->
-        <p class="text-center text-[11px] text-slate-500 mt-6">
-            &copy; {{ date('Y') }} SM Shop &bull; Metronic Tailwind Demo 1
-        </p>
-
     </div>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-6xl mx-auto py-3 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-gray-200">
+        <div>
+            {{ date('Y') }} &copy; <a href="{{ route('home') }}" class="font-bold text-gray-800 hover:text-primary">SM Shop</a> &bull; Metronic Tailwind Classic Auth
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="{{ route('home') }}" class="hover:text-primary transition">Storefront</a>
+            <a href="{{ route('shop.index') }}" class="hover:text-primary transition">Catalog</a>
+        </div>
+    </footer>
 
 </body>
 </html>
