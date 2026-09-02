@@ -7,11 +7,6 @@
 
     <title>@yield('title', 'Metronic - Dark Sidebar') | SM Shop Enterprise</title>
 
-    <!-- Google Font: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-
     <!-- Official Keenthemes Metronic CSS Bundle -->
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/apexcharts/apexcharts.css" rel="stylesheet"/>
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/keenicons/styles.bundle.css" rel="stylesheet"/>
@@ -25,15 +20,63 @@
     
     <style>
         [x-cloak] { display: none !important; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #13141a; }
-        ::-webkit-scrollbar-thumb { background: #2b2b40; border-radius: 9999px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3b3b55; }
+        
+        /* Times New Roman Global Typography */
+        *, body, h1, h2, h3, h4, h5, h6, p, span, a, input, select, textarea, button, table, th, td, kbd, div, label {
+            font-family: 'Times New Roman', Times, Georgia, serif !important;
+        }
+
+        /* Sidebar Custom Smooth Scrollbar */
+        .sidebar-scrollable::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar-scrollable::-webkit-scrollbar-track {
+            background: #13141a;
+        }
+        .sidebar-scrollable::-webkit-scrollbar-thumb {
+            background: #2b2b40;
+            border-radius: 4px;
+        }
+        .sidebar-scrollable::-webkit-scrollbar-thumb:hover {
+            background: #1b84ff;
+        }
+
+        /* Global Crisp Table Borders */
+        table, .kt-card table {
+            border-collapse: collapse !important;
+            border: 1px solid #cbd5e1 !important;
+            width: 100% !important;
+        }
+        th, .kt-card table th {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            border: 1px solid #cbd5e1 !important;
+            padding: 10px 14px !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.02em;
+        }
+        td, .kt-card table td {
+            border: 1px solid #e2e8f0 !important;
+            padding: 10px 14px !important;
+            font-size: 14px !important;
+        }
+        tbody tr:nth-child(even), .kt-card table tbody tr:nth-child(even) {
+            background-color: #f8fafc !important;
+        }
+        tbody tr:hover, .kt-card table tbody tr:hover {
+            background-color: #eff6ff !important;
+        }
+
+        /* Crisp Borders on Cards & Containers */
+        .kt-card {
+            border: 1px solid #cbd5e1 !important;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+        }
     </style>
 </head>
 <body 
-    class="antialiased flex h-full text-base text-foreground bg-background demo1 kt-sidebar-fixed kt-header-fixed selection:bg-[#1b84ff] selection:text-white"
+    class="antialiased flex h-full text-base text-foreground bg-[#f8fafc] demo1 kt-sidebar-fixed kt-header-fixed selection:bg-[#1b84ff] selection:text-white"
     x-data="{ 
         sidebarOpen: false, 
         profileMenuOpen: false,
@@ -48,23 +91,23 @@
     <div class="flex grow min-h-full">
         
         <!-- =====================================================================
-             1. OFFICIAL METRONIC DARK SIDEBAR (#13141a)
+             1. OFFICIAL METRONIC DARK SIDEBAR (#13141a) WITH WORKING SCROLLBAR
              ===================================================================== -->
         <div 
-            class="kt-sidebar dark bg-[#13141a] border-e border-[#1e1e2d] fixed top-0 bottom-0 z-20 flex flex-col items-stretch shrink-0 w-[280px] transition-transform duration-300 shadow-2xl lg:shadow-none"
+            class="kt-sidebar dark bg-[#13141a] border-e border-[#1e1e2d] fixed top-0 bottom-0 left-0 z-20 flex flex-col items-stretch w-[280px] h-screen max-h-screen overflow-hidden transition-transform duration-300 shadow-2xl lg:shadow-none"
             :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full lg:translate-x-0': !sidebarOpen }"
             id="sidebar"
         >
-            <!-- Sidebar Header: Logo & Branding -->
+            <!-- Sidebar Header: Logo & Branding (Fixed at Top) -->
             <div class="kt-sidebar-header flex items-center justify-between px-6 shrink-0 h-[70px] border-b border-[#1e1e2d] bg-[#0f1015]">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
                     <img class="h-8 w-auto object-contain shrink-0" src="{{ asset('images/logo.png') }}" alt="SM Shop"/>
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5">
                             <span class="text-sm font-black text-white tracking-tight uppercase">METRONIC</span>
-                            <span class="kt-badge kt-badge-sm kt-badge-primary text-[9px] font-bold">DEMO 1</span>
+                            <span class="kt-badge kt-badge-sm kt-badge-primary text-[10px] font-bold">DEMO 1</span>
                         </div>
-                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                             Dark Sidebar
                         </span>
@@ -77,8 +120,8 @@
                 </button>
             </div>
 
-            <!-- Quick Search Input in Sidebar -->
-            <div class="px-5 pt-5 pb-2">
+            <!-- Quick Search Input in Sidebar (Fixed) -->
+            <div class="px-5 pt-4 pb-2 shrink-0">
                 <div class="kt-input bg-[#1a1b24] border-[#2b2b40] rounded-lg cursor-pointer" @click="searchModalOpen = true">
                     <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs"></i>
                     <input 
@@ -87,24 +130,24 @@
                         class="bg-transparent text-xs text-gray-200 placeholder-gray-500 cursor-pointer pointer-events-none" 
                         readonly
                     />
-                    <kbd class="px-1.5 py-0.5 rounded bg-[#2b2b40] text-[9px] font-mono text-gray-400 font-bold">⌘K</kbd>
+                    <kbd class="px-1.5 py-0.5 rounded bg-[#2b2b40] text-[10px] font-mono text-gray-400 font-bold">⌘K</kbd>
                 </div>
             </div>
 
-            <!-- Sidebar Content & Navigation Menu -->
-            <div class="kt-sidebar-content flex grow shrink-0 py-4 pe-2 overflow-y-auto">
-                <div class="kt-menu flex flex-col grow gap-1 px-4" data-kt-menu="true">
+            <!-- Sidebar Content & Navigation Menu (100% FULLY SCROLLABLE) -->
+            <div class="kt-sidebar-content flex-1 min-h-0 py-2 px-1 overflow-y-auto overflow-x-hidden sidebar-scrollable" style="scrollbar-width: thin; scrollbar-color: #2b2b40 #13141a;">
+                <div class="kt-menu flex flex-col gap-1 px-3 pb-8" data-kt-menu="true">
                     
                     <!-- Section: Dashboards -->
                     <div class="kt-menu-item pt-2 pb-1">
-                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                        <span class="kt-menu-heading uppercase text-[11px] font-bold text-gray-400 tracking-wider px-2.5">
                             Executive
                         </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.dashboard') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.dashboard') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.dashboard') }}"
                         >
                             <span class="w-5 text-center">
@@ -119,14 +162,14 @@
 
                     <!-- Section: Catalog Management -->
                     <div class="kt-menu-item pt-4 pb-1">
-                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                        <span class="kt-menu-heading uppercase text-[11px] font-bold text-gray-400 tracking-wider px-2.5">
                             Catalog Management
                         </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.products.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -138,7 +181,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.categories.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.categories.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.categories.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -150,7 +193,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.brands.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.brands.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.brands.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -162,14 +205,14 @@
 
                     <!-- Section: Inventory & Purchases -->
                     <div class="kt-menu-item pt-4 pb-1">
-                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                        <span class="kt-menu-heading uppercase text-[11px] font-bold text-gray-400 tracking-wider px-2.5">
                             Stock & Inflow
                         </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.stocks.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.stocks.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.stocks.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.stocks.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -181,7 +224,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.purchases.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.purchases.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.purchases.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.purchases.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -193,14 +236,14 @@
 
                     <!-- Section: Orders, Courier & Fraud -->
                     <div class="kt-menu-item pt-4 pb-1">
-                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                        <span class="kt-menu-heading uppercase text-[11px] font-bold text-gray-400 tracking-wider px-2.5">
                             Logistics & Orders
                         </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.orders.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.orders.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.orders.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -212,7 +255,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.courier.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.courier.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.courier.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.courier.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -224,7 +267,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.fraud.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.fraud.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.fraud.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.fraud.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -236,14 +279,14 @@
 
                     <!-- Section: Customers & Marketing -->
                     <div class="kt-menu-item pt-4 pb-1">
-                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                        <span class="kt-menu-heading uppercase text-[11px] font-bold text-gray-400 tracking-wider px-2.5">
                             Community & Marketing
                         </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.customers.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.customers.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.customers.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -255,7 +298,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.coupons.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.coupons.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.coupons.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.coupons.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -267,7 +310,7 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.reviews.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.reviews.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.reviews.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -277,11 +320,38 @@
                         </a>
                     </div>
 
+                    <!-- Storefront Channels -->
+                    <div class="kt-menu-item pt-4 pb-1">
+                        <span class="kt-menu-heading uppercase text-[11px] font-bold text-gray-400 tracking-wider px-2.5">
+                            Storefront Channels
+                        </span>
+                    </div>
+
+                    <div class="kt-menu-item">
+                        <a class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-[#1a1b24] transition" href="{{ route('home') }}" target="_blank">
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-store text-sm text-cyan-400"></i>
+                            </span>
+                            <span class="kt-menu-title">Live Storefront</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ms-auto text-gray-500"></i>
+                        </a>
+                    </div>
+
+                    <div class="kt-menu-item">
+                        <a class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold text-gray-300 hover:text-white hover:bg-[#1a1b24] transition" href="{{ route('shop.index') }}" target="_blank">
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-compass text-sm text-violet-400"></i>
+                            </span>
+                            <span class="kt-menu-title">Catalog Explorer</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ms-auto text-gray-500"></i>
+                        </a>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Sidebar Footer: Profile Card -->
-            <div class="p-4 border-t border-[#1e1e2d] bg-[#0f1015]">
+            <!-- Sidebar Footer: Profile Card (Fixed at Bottom) -->
+            <div class="p-3 border-t border-[#1e1e2d] bg-[#0f1015] shrink-0">
                 <div class="flex items-center justify-between p-2 rounded-lg bg-[#161720] border border-[#2b2b40]">
                     <div class="flex items-center gap-2.5 min-w-0">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-blue-600 flex items-center justify-center text-xs font-black text-white shrink-0">
@@ -322,10 +392,10 @@
         <!-- =====================================================================
              2. MAIN WRAPPER: OFFICIAL METRONIC TOPBAR & LIGHT BODY CANVAS
              ===================================================================== -->
-        <div class="flex flex-col grow lg:ps-[280px] pt-[70px] min-w-0 bg-[#f9fafb]">
+        <div class="flex flex-col grow lg:ps-[280px] pt-[70px] min-w-0 bg-[#f8fafc]">
             
             <!-- Metronic Official Topbar Header (Crisp White / Light) -->
-            <header class="kt-header fixed top-0 end-0 start-0 z-10 flex items-stretch shrink-0 bg-white border-b border-gray-200 h-[70px] lg:ps-[280px]">
+            <header class="kt-header fixed top-0 end-0 start-0 z-10 flex items-stretch shrink-0 bg-white border-b border-gray-300 h-[70px] lg:ps-[280px]">
                 <div class="kt-container-fluid flex items-center justify-between w-full px-4 lg:px-8">
                     
                     <!-- Left: Mobile Toggle & Breadcrumbs -->
@@ -333,15 +403,15 @@
                         <button 
                             type="button" 
                             @click="sidebarOpen = true" 
-                            class="lg:hidden p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100 transition"
+                            class="lg:hidden p-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
                         >
                             <i class="fa-solid fa-bars text-sm"></i>
                         </button>
 
-                        <div class="flex items-center gap-2 text-xs text-gray-500 font-medium">
-                            <a href="{{ route('admin.dashboard') }}" class="hover:text-primary transition font-medium text-gray-600">Dashboards</a>
-                            <span class="text-gray-300">/</span>
-                            <span class="text-gray-900 font-semibold">@yield('breadcrumb', 'Dark Sidebar')</span>
+                        <div class="flex items-center gap-2 text-sm text-gray-600 font-medium">
+                            <a href="{{ route('admin.dashboard') }}" class="hover:text-primary transition font-bold text-gray-700">Dashboards</a>
+                            <span class="text-gray-400">/</span>
+                            <span class="text-gray-950 font-bold">@yield('breadcrumb', 'Dark Sidebar')</span>
                         </div>
                     </div>
 
@@ -352,18 +422,18 @@
                         <button 
                             type="button" 
                             @click="searchModalOpen = true" 
-                            class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 text-xs text-gray-500 transition cursor-pointer"
+                            class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-gray-50 hover:bg-gray-100 text-xs text-gray-600 transition cursor-pointer"
                         >
-                            <i class="fa-solid fa-magnifying-glass text-xs text-gray-400"></i>
+                            <i class="fa-solid fa-magnifying-glass text-xs text-gray-500"></i>
                             <span>Search...</span>
-                            <kbd class="px-1.5 py-0.2 rounded bg-white border border-gray-200 text-[10px] font-mono text-gray-500">⌘K</kbd>
+                            <kbd class="px-1.5 py-0.2 rounded bg-white border border-gray-300 text-[10px] font-mono text-gray-600">⌘K</kbd>
                         </button>
 
                         <!-- Live Storefront Link -->
                         <a 
                             href="{{ route('home') }}" 
                             target="_blank"
-                            class="hidden md:inline-flex kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold text-gray-700 hover:text-primary gap-1.5"
+                            class="hidden md:inline-flex kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold text-gray-700 hover:text-primary gap-1.5 border border-gray-300"
                         >
                             <i class="fa-solid fa-store text-xs text-primary"></i>
                             <span>Live Store</span>
@@ -372,7 +442,7 @@
                         <!-- Primary CTA: Add Product Drop -->
                         <a 
                             href="{{ route('admin.products.create') }}" 
-                            class="kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold shadow-xs flex items-center gap-1.5"
+                            class="kt-btn kt-btn-primary kt-btn-sm text-xs font-bold shadow-xs flex items-center gap-1.5"
                         >
                             <i class="fa-solid fa-plus text-xs"></i>
                             <span class="hidden sm:inline">Add Product</span>
@@ -396,11 +466,11 @@
                                 x-transition:enter="transition ease-out duration-100"
                                 x-transition:enter-start="opacity-0 scale-95"
                                 x-transition:enter-end="opacity-100 scale-100"
-                                class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl p-2 shadow-xl z-50 space-y-1 text-xs"
+                                class="absolute right-0 mt-2 w-56 bg-white border border-gray-300 rounded-xl p-2 shadow-xl z-50 space-y-1 text-xs"
                                 style="display: none;"
                             >
-                                <div class="px-3 py-2 border-b border-gray-100 mb-1">
-                                    <div class="font-bold text-gray-900">SM Administrator</div>
+                                <div class="px-3 py-2 border-b border-gray-200 mb-1">
+                                    <div class="font-bold text-gray-900 text-sm">SM Administrator</div>
                                     <div class="text-[11px] text-gray-500 font-mono">admin@smcloudit.top</div>
                                 </div>
 
@@ -424,7 +494,7 @@
                                     <span>Fraud Checker</span>
                                 </a>
 
-                                <form action="{{ route('admin.logout') }}" method="POST" class="pt-1 border-t border-gray-100">
+                                <form action="{{ route('admin.logout') }}" method="POST" class="pt-1 border-t border-gray-200">
                                     @csrf
                                     <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-rose-600 hover:bg-rose-50 transition text-left cursor-pointer font-semibold">
                                         <i class="fa-solid fa-right-from-bracket text-xs"></i>
@@ -441,14 +511,14 @@
 
             <!-- Notification Messages -->
             @if(session('success'))
-                <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
+                <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-sm font-bold flex items-center gap-2">
                     <i class="fa-solid fa-circle-check text-base text-emerald-600"></i>
                     <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2">
+                <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-900 text-sm font-bold flex items-center gap-2">
                     <i class="fa-solid fa-circle-exclamation text-base text-rose-600"></i>
                     <span>{{ session('error') }}</span>
                 </div>
@@ -460,11 +530,11 @@
             </main>
 
             <!-- Metronic Footer -->
-            <footer class="kt-container-fluid px-4 lg:px-8 py-4 border-t border-gray-200 bg-white flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-2">
+            <footer class="kt-container-fluid px-4 lg:px-8 py-4 border-t border-gray-300 bg-white flex flex-col sm:flex-row items-center justify-between text-xs text-gray-600 gap-2 font-medium">
                 <div>
-                    {{ date('Y') }} &copy; <a href="{{ route('home') }}" class="font-bold text-gray-800 hover:text-primary">SM Shop</a> &bull; Metronic Tailwind Demo 1
+                    {{ date('Y') }} &copy; <a href="{{ route('home') }}" class="font-bold text-gray-900 hover:text-primary">SM Shop</a> &bull; Metronic Tailwind Demo 1
                 </div>
-                <div class="flex items-center gap-4 font-medium">
+                <div class="flex items-center gap-4">
                     <a href="{{ route('admin.dashboard') }}" class="hover:text-primary transition">Dashboard</a>
                     <a href="{{ route('admin.products.index') }}" class="hover:text-primary transition">Catalog</a>
                     <a href="{{ route('admin.orders.index') }}" class="hover:text-primary transition">Orders</a>
@@ -485,7 +555,7 @@
     >
         <div 
             @click.away="searchModalOpen = false" 
-            class="bg-white border border-gray-200 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden"
+            class="bg-white border border-gray-300 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden"
         >
             <div class="p-4 border-b border-gray-200 flex items-center gap-3">
                 <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
