@@ -58,19 +58,19 @@
 >
 
     <!-- Top Announcement Ticker Bar -->
-    <div id="nano-banner" class="bg-black text-white py-2 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
-        <span>Free standard shipping over $75 | 30-day easy returns | Use Code: <span class="text-amber-300 font-black">SM20</span> for 20% off</span>
+    <div id="nano-banner" class="bg-black text-white py-2 px-3 sm:px-4 text-center text-[11px] sm:text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-2">
+        <span>Free standard shipping over $75 | 30-day returns | Code: <span class="text-amber-300 font-black">SM20</span> (20% Off)</span>
     </div>
 
     <!-- =========================================================================
-         1:1 AUTHENTIC GYMSHARK TOP HEADER & MEGA MENU FLYOUT
+         1:1 AUTHENTIC GYMSHARK TOP HEADER & RESPONSIVE NAVIGATION
          ========================================================================= -->
     <header class="sticky top-0 z-40 bg-white border-b border-zinc-200" @mouseleave="megaMenu = null">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 sm:h-24 relative">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20 lg:h-24 relative">
                 
-                <!-- 1. Left: Women, Men, Accessories Nav Links (Exact Gymshark Navigation) -->
-                <nav class="flex items-center gap-6 sm:gap-8 text-xs font-bold tracking-wide text-black h-full">
+                <!-- 1. Left (Desktop): Women, Men, Accessories Nav Links (Exact Gymshark Navigation) -->
+                <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-bold tracking-wide text-black h-full">
                     
                     <!-- Women Tab -->
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'women'; activeSubTab = 'trending'">
@@ -94,7 +94,7 @@
                         </a>
                     </div>
 
-                    <!-- Accessories Tab (Active Screenshot Match!) -->
+                    <!-- Accessories Tab -->
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'accessories'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'accessories']) }}" 
@@ -106,16 +106,37 @@
                     </div>
                 </nav>
 
-                <!-- 2. Center: Centered Authentic SM Shop Logo (Large & Prominent) -->
-                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group py-2" aria-label="SM Shop">
-                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-12 sm:h-16 md:h-20 max-w-[240px] sm:max-w-[320px] w-auto object-contain group-hover:scale-105 transition duration-300">
+                <!-- 1. Left (Mobile & Tablet): Clean Hamburger Menu & Search Trigger -->
+                <div class="flex lg:hidden items-center gap-1 sm:gap-2">
+                    <button 
+                        type="button" 
+                        @click="mobileMenuOpen = true"
+                        class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition cursor-pointer"
+                        aria-label="Open navigation menu"
+                    >
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+
+                    <button 
+                        type="button" 
+                        @click="searchOpen = true; $nextTick(() => $refs.searchInput.focus())"
+                        class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition cursor-pointer"
+                        title="Search Activewear"
+                    >
+                        <i class="fa-solid fa-magnifying-glass text-base"></i>
+                    </button>
+                </div>
+
+                <!-- 2. Center: Centered Authentic SM Shop Logo (Responsive Scaling) -->
+                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group py-1" aria-label="SM Shop">
+                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 sm:h-12 lg:h-18 max-w-[150px] sm:max-w-[220px] lg:max-w-[320px] w-auto object-contain group-hover:scale-105 transition duration-300">
                 </a>
 
-                <!-- 3. Right: Gymshark Search Bar & Action Icons -->
-                <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+                <!-- 3. Right: Desktop Search & Action Icons -->
+                <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                     
-                    <!-- Gymshark Search Bar (As seen in screenshot) -->
-                    <div class="relative hidden lg:block w-52 xl:w-64">
+                    <!-- Desktop Search Bar -->
+                    <div class="relative hidden lg:block w-48 xl:w-64">
                         <form action="{{ route('shop.index') }}" method="GET">
                             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs pointer-events-none"></i>
                             <input 
@@ -127,24 +148,14 @@
                         </form>
                     </div>
 
-                    <!-- Mobile Search Trigger Button -->
-                    <button 
-                        type="button" 
-                        @click="searchOpen = true; $nextTick(() => $refs.searchInput.focus())"
-                        class="lg:hidden w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition cursor-pointer"
-                        title="Search Activewear"
-                    >
-                        <i class="fa-solid fa-magnifying-glass text-base"></i>
-                    </button>
-
                     <!-- Wishlist Icon -->
-                    <a href="{{ route('shop.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Wishlist">
-                        <i class="fa-regular fa-heart text-base"></i>
+                    <a href="{{ route('shop.index') }}" class="w-8 sm:w-9 h-8 sm:h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Wishlist">
+                        <i class="fa-regular fa-heart text-base sm:text-lg"></i>
                     </a>
 
                     <!-- Account / Admin Direct Icon -->
-                    <a href="{{ route('admin.dashboard') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Account / Admin Panel">
-                        <i class="fa-regular fa-user text-base"></i>
+                    <a href="{{ route('admin.dashboard') }}" class="w-8 sm:w-9 h-8 sm:h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Account / Admin Panel">
+                        <i class="fa-regular fa-user text-base sm:text-lg"></i>
                     </a>
 
                     <!-- Cart Bag Trigger -->
@@ -155,25 +166,15 @@
                     <button 
                         type="button"
                         x-on:click="drawerOpen = true"
-                        class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition relative cursor-pointer"
+                        class="w-8 sm:w-9 h-8 sm:h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition relative cursor-pointer"
                         title="Shopping Bag"
                     >
-                        <i class="fa-solid fa-bag-shopping text-base"></i>
+                        <i class="fa-solid fa-bag-shopping text-base sm:text-lg"></i>
                         @if($cartCount > 0)
-                            <span id="nav-cart-badge" class="absolute -top-0.5 -right-0.5 bg-[#1b84ff] text-white text-[10px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white">
+                            <span id="nav-cart-badge" class="absolute -top-1 -right-1 bg-[#1b84ff] text-white text-[10px] font-black w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white">
                                 {{ $cartCount }}
                             </span>
                         @endif
-                    </button>
-
-                    <!-- Mobile Menu Toggle Button -->
-                    <button 
-                        type="button" 
-                        x-on:click="mobileMenuOpen = !mobileMenuOpen"
-                        class="lg:hidden w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition"
-                        aria-label="Toggle mobile menu"
-                    >
-                        <i class="fa-solid fa-bars text-lg"></i>
                     </button>
                 </div>
 
@@ -181,7 +182,7 @@
         </div>
 
         <!-- =====================================================================
-             1:1 GYMSHARK 2-COLUMN MEGA MENU FLYOUT DROPDOWN (Directly under Header)
+             1:1 GYMSHARK 2-COLUMN MEGA MENU FLYOUT DROPDOWN (Desktop Only)
              ===================================================================== -->
         <div 
             x-show="megaMenu !== null" 
@@ -191,14 +192,14 @@
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-1"
-            class="absolute top-full left-0 right-0 w-full bg-white border-b border-zinc-200 shadow-2xl z-40" 
+            class="hidden lg:block absolute top-full left-0 right-0 w-full bg-white border-b border-zinc-200 shadow-2xl z-40" 
             style="display: none;"
             @mouseenter="/* keep open */"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex min-h-[380px] max-h-[500px]">
                     
-                    <!-- COLUMN 1: LEFT SUB-CATEGORY TABS (Exact Screenshot Match) -->
+                    <!-- COLUMN 1: LEFT SUB-CATEGORY TABS -->
                     <div class="w-56 sm:w-64 border-r border-zinc-200 py-6 pr-4 overflow-y-auto space-y-1">
                         
                         <!-- ACCESSORIES TABS -->
@@ -351,7 +352,7 @@
 
                     </div>
 
-                    <!-- COLUMN 2: CENTER SUBCATEGORY ITEMS (Exact Screenshot Match) -->
+                    <!-- COLUMN 2: CENTER SUBCATEGORY ITEMS -->
                     <div class="w-72 sm:w-80 py-6 px-8 border-r border-zinc-200 overflow-y-auto space-y-3.5">
                         
                         <!-- ACCESSORIES SUBCATEGORIES -->
@@ -482,7 +483,7 @@
         <div 
             x-show="megaMenu !== null" 
             @click="megaMenu = null"
-            class="fixed inset-0 top-[81px] sm:top-[97px] bg-black/40 backdrop-blur-xs z-30" 
+            class="hidden lg:block fixed inset-0 top-[81px] sm:top-[97px] bg-black/40 backdrop-blur-xs z-30" 
             style="display: none;"
         ></div>
 
@@ -506,29 +507,154 @@
                     name="q" 
                     x-ref="searchInput"
                     value="{{ request('q') }}"
-                    placeholder="SEARCH WOMEN'S, MEN'S, LEGGINGS, ACCESSORIES..." 
-                    class="flex-1 py-3 text-sm sm:text-base font-bold text-black placeholder-zinc-400 uppercase border-none focus:outline-none focus:ring-0 bg-transparent"
+                    placeholder="SEARCH ACTIVEWEAR, LEGGINGS, HOODIES..." 
+                    class="flex-1 py-3 text-xs sm:text-sm font-bold text-black placeholder-zinc-400 uppercase border-none focus:outline-none focus:ring-0 bg-transparent"
                 >
                 <button type="button" @click="searchOpen = false" class="p-2 text-zinc-400 hover:text-black cursor-pointer">
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </form>
         </div>
-
-        <!-- Mobile Navigation Menu -->
-        <div x-show="mobileMenuOpen" class="lg:hidden bg-white border-t border-zinc-200 px-4 py-6 space-y-4 shadow-xl" style="display: none;">
-            <nav class="flex flex-col space-y-3 text-xs font-black uppercase tracking-widest text-black">
-                <a href="{{ route('shop.index', ['category' => 'women']) }}" class="py-2 hover:text-zinc-500">Women's Activewear</a>
-                <a href="{{ route('shop.index', ['category' => 'men']) }}" class="py-2 hover:text-zinc-500">Men's Gymwear</a>
-                <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="py-2 hover:text-zinc-500">Accessories & Gear</a>
-                <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="py-2 hover:text-zinc-500">Seamless Collection</a>
-                <a href="{{ route('shop.index') }}" class="py-2 hover:text-zinc-500">All Apparel</a>
-                <a href="{{ route('admin.dashboard') }}" class="py-2 text-black font-black flex items-center gap-2 border-t border-zinc-200 pt-3">
-                    <i class="fa-solid fa-gauge-high text-xs"></i> Admin Control Panel
-                </a>
-            </nav>
-        </div>
     </header>
+
+    <!-- =========================================================================
+         MOBILE CATEGORIES & NAVIGATION SLIDE-OVER DRAWER (FULL INTERACTIVE)
+         ========================================================================= -->
+    <div 
+        x-show="mobileMenuOpen" 
+        x-on:keydown.escape.window="mobileMenuOpen = false"
+        class="fixed inset-0 z-50 overflow-hidden lg:hidden" 
+        style="display: none;"
+    >
+        <!-- Backdrop -->
+        <div 
+            x-show="mobileMenuOpen"
+            x-transition:enter="ease-in-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="ease-in-out duration-300"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity" 
+            @click="mobileMenuOpen = false"
+        ></div>
+
+        <div class="fixed inset-y-0 left-0 max-w-full flex pr-10">
+            <div 
+                x-show="mobileMenuOpen"
+                x-transition:enter="transform transition ease-in-out duration-300"
+                x-transition:enter-start="-translate-x-full"
+                x-transition:enter-end="translate-x-0"
+                x-transition:leave="transform transition ease-in-out duration-300"
+                x-transition:leave-start="translate-x-0"
+                x-transition:leave-end="-translate-x-full"
+                class="w-screen max-w-xs sm:max-w-sm bg-white shadow-2xl flex flex-col justify-between"
+                x-data="{ mobileAccordion: 'women' }"
+            >
+                <!-- Drawer Header -->
+                <div class="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between bg-zinc-50">
+                    <a href="{{ route('home') }}" @click="mobileMenuOpen = false">
+                        <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 w-auto object-contain">
+                    </a>
+                    <button @click="mobileMenuOpen = false" class="w-8 h-8 rounded-full bg-zinc-200 text-zinc-600 hover:text-black flex items-center justify-center cursor-pointer">
+                        <i class="fa-solid fa-xmark text-base"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Content -->
+                <div class="p-4 flex-1 overflow-y-auto space-y-2.5">
+                    
+                    <!-- 1. WOMEN ACCORDION -->
+                    <div class="border border-zinc-200 rounded-2xl overflow-hidden shadow-2xs">
+                        <button 
+                            @click="mobileAccordion = mobileAccordion === 'women' ? null : 'women'" 
+                            class="w-full p-3.5 text-left font-black text-xs uppercase tracking-wider flex items-center justify-between bg-zinc-50 hover:bg-zinc-100 transition cursor-pointer"
+                        >
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-black"></span> WOMEN
+                            </span>
+                            <i class="fa-solid text-[11px]" :class="mobileAccordion === 'women' ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                        </button>
+                        <div x-show="mobileAccordion === 'women'" class="p-4 bg-white border-t border-zinc-200 space-y-3 text-xs font-bold text-zinc-800">
+                            <a href="{{ route('shop.index', ['category' => 'women']) }}" class="block text-black font-black hover:underline pb-1 border-b border-zinc-100">&rarr; All Women's Apparel</a>
+                            <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="block hover:underline">Vital Seamless 2.0</a>
+                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'leggings']) }}" class="block hover:underline">Leggings</a>
+                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'bra']) }}" class="block hover:underline">Sports Bras</a>
+                            <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="block hover:underline">Hoodies & Sweatshirts</a>
+                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'shorts']) }}" class="block hover:underline">Cycling Shorts</a>
+                        </div>
+                    </div>
+
+                    <!-- 2. MEN ACCORDION -->
+                    <div class="border border-zinc-200 rounded-2xl overflow-hidden shadow-2xs">
+                        <button 
+                            @click="mobileAccordion = mobileAccordion === 'men' ? null : 'men'" 
+                            class="w-full p-3.5 text-left font-black text-xs uppercase tracking-wider flex items-center justify-between bg-zinc-50 hover:bg-zinc-100 transition cursor-pointer"
+                        >
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-black"></span> MEN
+                            </span>
+                            <i class="fa-solid text-[11px]" :class="mobileAccordion === 'men' ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                        </button>
+                        <div x-show="mobileAccordion === 'men'" class="p-4 bg-white border-t border-zinc-200 space-y-3 text-xs font-bold text-zinc-800">
+                            <a href="{{ route('shop.index', ['category' => 'men']) }}" class="block text-black font-black hover:underline pb-1 border-b border-zinc-100">&rarr; All Men's Gymwear</a>
+                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'power']) }}" class="block hover:underline">Power Collection</a>
+                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'pump cover']) }}" class="block hover:underline">Heavyweight Pump Covers</a>
+                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 't-shirt']) }}" class="block hover:underline">T-Shirts & Tops</a>
+                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'tank']) }}" class="block hover:underline">Tanks & Stringers</a>
+                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'joggers']) }}" class="block hover:underline">Joggers & Sweatpants</a>
+                        </div>
+                    </div>
+
+                    <!-- 3. ACCESSORIES ACCORDION -->
+                    <div class="border border-zinc-200 rounded-2xl overflow-hidden shadow-2xs">
+                        <button 
+                            @click="mobileAccordion = mobileAccordion === 'accessories' ? null : 'accessories'" 
+                            class="w-full p-3.5 text-left font-black text-xs uppercase tracking-wider flex items-center justify-between bg-zinc-50 hover:bg-zinc-100 transition cursor-pointer"
+                        >
+                            <span class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-black"></span> ACCESSORIES
+                            </span>
+                            <i class="fa-solid text-[11px]" :class="mobileAccordion === 'accessories' ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                        </button>
+                        <div x-show="mobileAccordion === 'accessories'" class="p-4 bg-white border-t border-zinc-200 space-y-3 text-xs font-bold text-zinc-800">
+                            <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-black font-black hover:underline pb-1 border-b border-zinc-100">&rarr; All Accessories</a>
+                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'bag']) }}" class="block hover:underline">Gym Bags & Backpacks</a>
+                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'lifting']) }}" class="block hover:underline">Equipment & Lifting Straps</a>
+                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'socks']) }}" class="block hover:underline">Performance Socks</a>
+                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'cap']) }}" class="block hover:underline">Headwear & Caps</a>
+                        </div>
+                    </div>
+
+                    <!-- 4. QUICK LINKS -->
+                    <div class="pt-2 space-y-2">
+                        <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="p-3 bg-zinc-100 rounded-xl block font-bold text-xs text-zinc-900 hover:bg-zinc-200">
+                            ⚡ Seamless Activewear Drop
+                        </a>
+                        <button 
+                            type="button"
+                            @click="mobileMenuOpen = false; toggleChat(); sendQuickPrompt('Track Order: SM-1001')" 
+                            class="w-full p-3 bg-zinc-100 rounded-xl text-left font-bold text-xs text-zinc-900 hover:bg-zinc-200 flex items-center justify-between cursor-pointer"
+                        >
+                            <span>📦 Live Order Tracking</span>
+                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                        </button>
+                        <a href="{{ route('admin.dashboard') }}" class="p-3 bg-black text-white rounded-xl flex items-center gap-2 font-bold text-xs hover:bg-zinc-800">
+                            <i class="fa-solid fa-gauge-high text-xs"></i> Admin Control Panel
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Drawer Bottom -->
+                <div class="p-4 border-t border-zinc-200 bg-zinc-50 flex items-center justify-between text-xs font-bold text-zinc-600">
+                    <span class="flex items-center gap-1.5"><span class="text-base">🌐</span> Region: <span x-text="selectedRegion"></span></span>
+                    <a href="{{ route('shop.index') }}" class="underline text-black">Shop All &rarr;</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- Mobile Slide-Over Cart Drawer -->
     <div 
@@ -780,7 +906,7 @@
     </footer>
 
     <!-- =========================================================================
-         2. EXACT GYMSHARK FLOATING "ARE YOU IN THE RIGHT PLACE?" REGION SWITCHER
+         2. EXACT GYMSHARK FLOATING REGION SWITCHER (Desktop Only Floating)
          ========================================================================= -->
     <div 
         x-show="regionOpen" 
@@ -790,7 +916,7 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-        class="bg-[#121212] text-white p-5 rounded-2xl shadow-2xl border border-zinc-800 w-80 max-w-[calc(100vw-2rem)]"
+        class="hidden md:block bg-[#121212] text-white p-5 rounded-2xl shadow-2xl border border-zinc-800 w-80 max-w-[calc(100vw-2rem)]"
         style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; display: none;"
     >
         <div class="flex items-center justify-between mb-4">
