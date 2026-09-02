@@ -4,81 +4,81 @@
 @section('breadcrumb', 'Orders')
 
 @section('content')
-<div class="space-y-6">
+<div class="flex flex-col gap-6 lg:gap-8">
     
     <!-- Top Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl font-black text-white">Order Pipeline & Invoices</h1>
-            <p class="text-xs text-gray-400 mt-0.5">Track apparel purchases, update dispatch stages, and manage customer fulfillment</p>
+            <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Order Pipeline & Invoices</h1>
+            <p class="text-xs text-gray-500 mt-0.5">Track apparel purchases, update dispatch stages, and manage customer fulfillment</p>
         </div>
         <div class="inline-flex items-center gap-2">
-            <span class="px-3 py-1.5 rounded-xl bg-[#1e1e2d] border border-[#2b2b40] text-xs font-bold text-gray-300">
-                Total Orders: <span class="text-white font-black">{{ $orders->total() }}</span>
+            <span class="px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-xs font-semibold text-gray-700 shadow-xs">
+                Total Orders: <strong class="text-gray-900">{{ $orders->total() }}</strong>
             </span>
         </div>
     </div>
 
     <!-- Metronic Orders Data Table -->
-    <div class="bg-[#1e1e2d] rounded-2xl border border-[#2b2b40] shadow-xl overflow-hidden">
+    <div class="kt-card bg-white border border-gray-200/90 rounded-xl shadow-xs overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="text-gray-400 border-b border-[#2b2b40] font-black uppercase text-[10px] tracking-wider bg-[#151521]/60">
-                        <th class="py-4 px-5">Order #</th>
-                        <th class="py-4 px-5">Customer Profile</th>
-                        <th class="py-4 px-5">Payment Method</th>
-                        <th class="py-4 px-5">Total Amount</th>
-                        <th class="py-4 px-5">Fulfillment Status</th>
-                        <th class="py-4 px-5">Placed At</th>
-                        <th class="py-4 px-5 text-right">Actions</th>
+                    <tr class="text-gray-500 border-b border-gray-100 font-bold uppercase text-[10px] tracking-wider bg-gray-50/70">
+                        <th class="py-3.5 px-6">Order #</th>
+                        <th class="py-3.5 px-6">Customer Profile</th>
+                        <th class="py-3.5 px-6">Payment</th>
+                        <th class="py-3.5 px-6">Total Amount</th>
+                        <th class="py-3.5 px-6">Fulfillment Status</th>
+                        <th class="py-3.5 px-6">Placed Date</th>
+                        <th class="py-3.5 px-6 text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-[#2b2b40] font-medium">
+                <tbody class="divide-y divide-gray-100 font-medium text-gray-700">
                     @forelse($orders as $ord)
-                        <tr class="hover:bg-[#151521]/40 transition">
-                            <td class="py-3.5 px-5 font-mono font-bold text-indigo-400">
+                        <tr class="hover:bg-gray-50/60 transition">
+                            <td class="py-3.5 px-6 font-mono font-bold text-primary">
                                 {{ $ord->order_number }}
                             </td>
-                            <td class="py-3.5 px-5">
-                                <div class="font-bold text-white text-xs">{{ $ord->shipping_name ?? $ord->customer_name }}</div>
-                                <div class="text-[10px] text-gray-400 font-mono mt-0.5">{{ $ord->shipping_email ?? $ord->customer_email }}</div>
+                            <td class="py-3.5 px-6">
+                                <div class="font-bold text-gray-900 text-xs">{{ $ord->shipping_name ?? $ord->customer_name }}</div>
+                                <div class="text-[10px] text-gray-400 font-mono">{{ $ord->shipping_email ?? $ord->customer_email }}</div>
                             </td>
-                            <td class="py-3.5 px-5">
+                            <td class="py-3.5 px-6">
                                 <div class="flex items-center gap-1.5">
-                                    <span class="uppercase font-bold text-[11px] text-gray-300">{{ $ord->payment_method }}</span>
-                                    <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase {{ $ord->payment_status === 'paid' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/15 text-amber-400 border border-amber-500/30' }}">
+                                    <span class="uppercase font-bold text-[11px] text-gray-700">{{ $ord->payment_method }}</span>
+                                    <span class="kt-badge kt-badge-sm {{ $ord->payment_status === 'paid' ? 'kt-badge-outline kt-badge-success' : 'kt-badge-outline kt-badge-warning' }}">
                                         {{ $ord->payment_status }}
                                     </span>
                                 </div>
                             </td>
-                            <td class="py-3.5 px-5 font-black text-white text-sm">
+                            <td class="py-3.5 px-6 font-black text-gray-900 text-sm">
                                 ${{ number_format($ord->total_amount, 2) }}
                             </td>
-                            <td class="py-3.5 px-5">
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider
-                                    @if($ord->order_status === 'delivered') bg-emerald-500/15 text-emerald-400 border border-emerald-500/30
-                                    @elseif($ord->order_status === 'shipped') bg-cyan-500/15 text-cyan-400 border border-cyan-500/30
-                                    @elseif($ord->order_status === 'processing') bg-indigo-500/15 text-indigo-400 border border-indigo-500/30
-                                    @else bg-amber-500/15 text-amber-400 border border-amber-500/30
+                            <td class="py-3.5 px-6">
+                                <span class="kt-badge kt-badge-sm
+                                    @if($ord->order_status === 'delivered') kt-badge-outline kt-badge-success
+                                    @elseif($ord->order_status === 'shipped') kt-badge-outline kt-badge-info
+                                    @elseif($ord->order_status === 'processing') kt-badge-outline kt-badge-primary
+                                    @else kt-badge-outline kt-badge-warning
                                     @endif
                                 ">
-                                    {{ $ord->order_status }}
+                                    {{ ucfirst($ord->order_status) }}
                                 </span>
                             </td>
-                            <td class="py-3.5 px-5 text-gray-400 text-[11px]">
+                            <td class="py-3.5 px-6 text-gray-500 text-[11px]">
                                 {{ $ord->created_at->format('M d, Y H:i') }}
                             </td>
-                            <td class="py-3.5 px-5 text-right">
-                                <a href="{{ route('admin.orders.show', $ord->id) }}" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition inline-flex items-center gap-1.5 shadow-md shadow-indigo-600/20">
-                                    <i class="fa-solid fa-file-invoice text-[10px]"></i>
+                            <td class="py-3.5 px-6 text-right">
+                                <a href="{{ route('admin.orders.show', $ord->id) }}" class="kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold inline-flex items-center gap-1.5">
+                                    <i class="fa-solid fa-file-invoice text-xs"></i>
                                     <span>Manage</span>
                                 </a>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-12 text-center text-gray-500 italic">No customer orders recorded yet.</td>
+                            <td colspan="7" class="py-12 text-center text-gray-400 italic">No customer orders recorded yet.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -86,7 +86,7 @@
         </div>
 
         @if($orders->hasPages())
-            <div class="p-4 border-t border-[#2b2b40] bg-[#1a1a27]">
+            <div class="p-4 border-t border-gray-100 bg-gray-50/50">
                 {{ $orders->links() }}
             </div>
         @endif

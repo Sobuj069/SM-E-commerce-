@@ -5,29 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
-    <title>@yield('title', 'Metronic - Dark Sidebar') | SM Shop</title>
+    <title>@yield('title', 'Metronic - Dark Sidebar') | SM Shop Enterprise</title>
 
     <!-- Google Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
-    <!-- Official Keenthemes Metronic CSS Bundle & KeenIcons -->
+    <!-- Official Keenthemes Metronic CSS Bundle -->
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/apexcharts/apexcharts.css" rel="stylesheet"/>
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/keenicons/styles.bundle.css" rel="stylesheet"/>
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/css/styles.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+    <!-- Lucide Icons Bundle -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>
         [x-cloak] { display: none !important; }
-        /* Official Metronic typography & base styles */
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
+        /* Custom Metronic scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #13141a; }
+        ::-webkit-scrollbar-thumb { background: #2b2b40; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b3b55; }
     </style>
 </head>
 <body 
-    class="antialiased flex h-full text-base text-foreground bg-background demo1 kt-sidebar-fixed kt-header-fixed"
+    class="antialiased flex h-full text-base text-foreground bg-background demo1 kt-sidebar-fixed kt-header-fixed selection:bg-[#1b84ff] selection:text-white"
     x-data="{ 
         sidebarOpen: false, 
         profileMenuOpen: false,
@@ -43,10 +50,10 @@
     <div class="flex grow min-h-full">
         
         <!-- =====================================================================
-             1. OFFICIAL METRONIC DARK SIDEBAR
+             1. OFFICIAL METRONIC DARK SIDEBAR (#13141a)
              ===================================================================== -->
         <div 
-            class="kt-sidebar dark bg-[#13141a] border-e border-[#1e1e2d] fixed top-0 bottom-0 z-20 flex flex-col items-stretch shrink-0 w-[280px] transition-transform duration-300"
+            class="kt-sidebar dark bg-[#13141a] border-e border-[#1e1e2d] fixed top-0 bottom-0 z-20 flex flex-col items-stretch shrink-0 w-[280px] transition-transform duration-300 shadow-2xl lg:shadow-none"
             :class="{ 'translate-x-0': sidebarOpen, '-translate-x-full lg:translate-x-0': !sidebarOpen }"
             id="sidebar"
         >
@@ -57,7 +64,7 @@
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5">
                             <span class="text-sm font-black text-white tracking-tight uppercase">METRONIC</span>
-                            <span class="kt-badge kt-badge-sm kt-badge-primary">DEMO 1</span>
+                            <span class="kt-badge kt-badge-sm kt-badge-primary text-[9px] font-bold">DEMO 1</span>
                         </div>
                         <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -68,19 +75,18 @@
 
                 <!-- Mobile Close -->
                 <button type="button" @click="sidebarOpen = false" class="lg:hidden kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost text-gray-400 hover:text-white">
-                    <i class="ki-filled ki-cross text-base"></i>
+                    <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
 
             <!-- Quick Search Input in Sidebar -->
             <div class="px-5 pt-5 pb-2">
-                <div class="kt-input bg-[#1a1b24] border-[#2b2b40] rounded-lg">
-                    <i class="ki-filled ki-magnifier text-gray-400"></i>
+                <div class="kt-input bg-[#1a1b24] border-[#2b2b40] rounded-lg cursor-pointer" @click="searchModalOpen = true">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs"></i>
                     <input 
                         type="text" 
                         placeholder="Search dashboard..." 
-                        @click="searchModalOpen = true"
-                        class="bg-transparent text-xs text-gray-200 placeholder-gray-500 cursor-pointer" 
+                        class="bg-transparent text-xs text-gray-200 placeholder-gray-500 cursor-pointer pointer-events-none" 
                         readonly
                     />
                     <kbd class="px-1.5 py-0.5 rounded bg-[#2b2b40] text-[9px] font-mono text-gray-400 font-bold">⌘K</kbd>
@@ -100,11 +106,11 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.dashboard') ? 'bg-[#1b84ff] text-white' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.dashboard') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.dashboard') }}"
                         >
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-element-11 text-base {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-gray-400' }}"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-gauge-high text-sm {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-indigo-400' }}"></i>
                             </span>
                             <span class="kt-menu-title font-semibold">Dark Sidebar</span>
                             <span class="ms-auto kt-badge kt-badge-sm {{ request()->routeIs('admin.dashboard') ? 'bg-white/20 text-white' : 'kt-badge-outline kt-badge-success' }}">
@@ -113,7 +119,7 @@
                         </a>
                     </div>
 
-                    <!-- Section: eCommerce -->
+                    <!-- Section: eCommerce Management -->
                     <div class="kt-menu-item pt-4 pb-1">
                         <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
                             eCommerce & Store
@@ -122,11 +128,11 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.products.index') }}"
                         >
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-box text-base {{ request()->routeIs('admin.products.*') ? 'text-white' : 'text-amber-400' }}"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-box text-sm {{ request()->routeIs('admin.products.*') ? 'text-white' : 'text-amber-400' }}"></i>
                             </span>
                             <span class="kt-menu-title font-semibold">Products Catalog</span>
                         </a>
@@ -134,23 +140,35 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.orders.*') ? 'bg-[#1b84ff] text-white' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.orders.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.orders.index') }}"
                         >
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-shop text-base {{ request()->routeIs('admin.orders.*') ? 'text-white' : 'text-emerald-400' }}"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-bag-shopping text-sm {{ request()->routeIs('admin.orders.*') ? 'text-white' : 'text-emerald-400' }}"></i>
                             </span>
                             <span class="kt-menu-title font-semibold">Orders & Invoices</span>
                         </a>
                     </div>
 
+                    <div class="kt-menu-item {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.customers.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.customers.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-users text-sm {{ request()->routeIs('admin.customers.*') ? 'text-white' : 'text-cyan-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Athletes & Customers</span>
+                        </a>
+                    </div>
+
                     <div class="kt-menu-item {{ request()->routeIs('admin.coupons.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.coupons.*') ? 'bg-[#1b84ff] text-white' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.coupons.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.coupons.index') }}"
                         >
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-discount text-base {{ request()->routeIs('admin.coupons.*') ? 'text-white' : 'text-rose-400' }}"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-ticket text-sm {{ request()->routeIs('admin.coupons.*') ? 'text-white' : 'text-rose-400' }}"></i>
                             </span>
                             <span class="kt-menu-title font-semibold">Coupon Engine</span>
                         </a>
@@ -158,11 +176,11 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.reviews.*') ? 'bg-[#1b84ff] text-white' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.reviews.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.reviews.index') }}"
                         >
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-star text-base {{ request()->routeIs('admin.reviews.*') ? 'text-white' : 'text-yellow-400' }}"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-star-half-stroke text-sm {{ request()->routeIs('admin.reviews.*') ? 'text-white' : 'text-yellow-400' }}"></i>
                             </span>
                             <span class="kt-menu-title font-semibold">Reviews Moderation</span>
                         </a>
@@ -177,21 +195,21 @@
 
                     <div class="kt-menu-item">
                         <a class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b24] transition" href="{{ route('home') }}" target="_blank">
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-home text-base text-cyan-400"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-store text-sm text-cyan-400"></i>
                             </span>
                             <span class="kt-menu-title">Live Storefront</span>
-                            <i class="ki-filled ki-arrow-up-right text-xs ms-auto text-gray-500"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ms-auto text-gray-500"></i>
                         </a>
                     </div>
 
                     <div class="kt-menu-item">
                         <a class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b24] transition" href="{{ route('shop.index') }}" target="_blank">
-                            <span class="kt-menu-icon">
-                                <i class="ki-filled ki-compass text-base text-violet-400"></i>
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-compass text-sm text-violet-400"></i>
                             </span>
                             <span class="kt-menu-title">Catalog Explorer</span>
-                            <i class="ki-filled ki-arrow-up-right text-xs ms-auto text-gray-500"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ms-auto text-gray-500"></i>
                         </a>
                     </div>
 
@@ -215,8 +233,8 @@
 
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
-                        <button type="submit" title="Sign Out" class="kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost text-gray-400 hover:text-rose-400">
-                            <i class="ki-filled ki-exit-right text-sm"></i>
+                        <button type="submit" title="Sign Out" class="p-2 text-gray-400 hover:text-rose-400 hover:bg-[#2b2b40] rounded-lg transition cursor-pointer">
+                            <i class="fa-solid fa-right-from-bracket text-xs"></i>
                         </button>
                     </form>
                 </div>
@@ -251,9 +269,9 @@
                         <button 
                             type="button" 
                             @click="sidebarOpen = true" 
-                            class="lg:hidden kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost text-gray-600"
+                            class="lg:hidden p-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100 transition"
                         >
-                            <i class="ki-filled ki-abstract-14 text-lg"></i>
+                            <i class="fa-solid fa-bars text-sm"></i>
                         </button>
 
                         <div class="flex items-center gap-2 text-xs text-gray-500 font-medium">
@@ -272,7 +290,7 @@
                             @click="searchModalOpen = true" 
                             class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 text-xs text-gray-500 transition cursor-pointer"
                         >
-                            <i class="ki-filled ki-magnifier text-xs text-gray-400"></i>
+                            <i class="fa-solid fa-magnifying-glass text-xs text-gray-400"></i>
                             <span>Search...</span>
                             <kbd class="px-1.5 py-0.2 rounded bg-white border border-gray-200 text-[10px] font-mono text-gray-500">⌘K</kbd>
                         </button>
@@ -281,9 +299,9 @@
                         <a 
                             href="{{ route('home') }}" 
                             target="_blank"
-                            class="hidden md:inline-flex kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold text-gray-700 hover:text-primary"
+                            class="hidden md:inline-flex kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold text-gray-700 hover:text-primary gap-1.5"
                         >
-                            <i class="ki-filled ki-shop text-xs text-primary"></i>
+                            <i class="fa-solid fa-store text-xs text-primary"></i>
                             <span>Live Store</span>
                         </a>
 
@@ -292,7 +310,7 @@
                             href="{{ route('admin.products.create') }}" 
                             class="kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold shadow-xs flex items-center gap-1.5"
                         >
-                            <i class="ki-filled ki-plus text-xs"></i>
+                            <i class="fa-solid fa-plus text-xs"></i>
                             <span class="hidden sm:inline">Add Product</span>
                         </a>
 
@@ -323,19 +341,24 @@
                                 </div>
 
                                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
-                                    <i class="ki-filled ki-element-11 text-primary text-xs"></i>
+                                    <i class="fa-solid fa-gauge-high text-primary text-xs"></i>
                                     <span>Dashboard</span>
                                 </a>
 
                                 <a href="{{ route('admin.products.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
-                                    <i class="ki-filled ki-box text-amber-500 text-xs"></i>
+                                    <i class="fa-solid fa-box text-amber-500 text-xs"></i>
                                     <span>Products Catalog</span>
+                                </a>
+
+                                <a href="{{ route('admin.customers.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
+                                    <i class="fa-solid fa-users text-cyan-500 text-xs"></i>
+                                    <span>Customer Profiles</span>
                                 </a>
 
                                 <form action="{{ route('admin.logout') }}" method="POST" class="pt-1 border-t border-gray-100">
                                     @csrf
                                     <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-rose-600 hover:bg-rose-50 transition text-left cursor-pointer font-semibold">
-                                        <i class="ki-filled ki-exit-right text-xs"></i>
+                                        <i class="fa-solid fa-right-from-bracket text-xs"></i>
                                         <span>Sign Out</span>
                                     </button>
                                 </form>
@@ -350,14 +373,14 @@
             <!-- Notification Messages -->
             @if(session('success'))
                 <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
-                    <i class="ki-filled ki-check-circle text-base text-emerald-600"></i>
+                    <i class="fa-solid fa-circle-check text-base text-emerald-600"></i>
                     <span>{{ session('success') }}</span>
                 </div>
             @endif
 
             @if(session('error'))
                 <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2">
-                    <i class="ki-filled ki-information-2 text-base text-rose-600"></i>
+                    <i class="fa-solid fa-circle-exclamation text-base text-rose-600"></i>
                     <span>{{ session('error') }}</span>
                 </div>
             @endif
@@ -372,10 +395,11 @@
                 <div>
                     {{ date('Y') }} &copy; <a href="{{ route('home') }}" class="font-bold text-gray-800 hover:text-primary">SM Shop</a> &bull; Metronic Tailwind Demo 1
                 </div>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-4 font-medium">
                     <a href="{{ route('admin.dashboard') }}" class="hover:text-primary transition">Dashboard</a>
                     <a href="{{ route('admin.products.index') }}" class="hover:text-primary transition">Catalog</a>
                     <a href="{{ route('admin.orders.index') }}" class="hover:text-primary transition">Orders</a>
+                    <a href="{{ route('admin.customers.index') }}" class="hover:text-primary transition">Customers</a>
                 </div>
             </footer>
 
@@ -394,10 +418,10 @@
             class="bg-white border border-gray-200 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden"
         >
             <div class="p-4 border-b border-gray-200 flex items-center gap-3">
-                <i class="ki-filled ki-magnifier text-gray-400 text-base"></i>
+                <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
                 <input 
                     type="text" 
-                    placeholder="Search activewear catalog, orders, coupons..." 
+                    placeholder="Search activewear catalog, orders, coupons, customers..." 
                     class="w-full bg-transparent border-none text-gray-900 text-xs font-semibold focus:outline-none placeholder-gray-400"
                     autofocus
                 >
@@ -406,18 +430,27 @@
             <div class="p-4 space-y-2 text-xs">
                 <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Quick Navigation</div>
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
-                    <i class="ki-filled ki-element-11 text-primary"></i> Executive Dashboard
+                    <i class="fa-solid fa-gauge-high text-primary"></i> Executive Dashboard
                 </a>
                 <a href="{{ route('admin.products.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
-                    <i class="ki-filled ki-box text-amber-500"></i> Activewear Catalog
+                    <i class="fa-solid fa-box text-amber-500"></i> Activewear Catalog
                 </a>
                 <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
-                    <i class="ki-filled ki-shop text-emerald-500"></i> Customer Orders
+                    <i class="fa-solid fa-bag-shopping text-emerald-500"></i> Customer Orders
+                </a>
+                <a href="{{ route('admin.customers.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
+                    <i class="fa-solid fa-users text-cyan-500"></i> Registered Customers
                 </a>
             </div>
         </div>
     </div>
 
     @stack('scripts')
+    <script>
+        // Initialize Lucide icons if any
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
 </body>
 </html>

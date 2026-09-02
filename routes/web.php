@@ -56,6 +56,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/orders/{order}', [AdminController::class, 'showOrder'])->name('orders.show');
     Route::post('/orders/{order}/status', [AdminController::class, 'updateOrderStatus'])->name('orders.status');
 
+    // Customers
+    Route::get('/customers', [AdminController::class, 'customers'])->name('customers.index');
+
     // Coupons
     Route::get('/coupons', [AdminController::class, 'coupons'])->name('coupons.index');
     Route::post('/coupons', [AdminController::class, 'storeCoupon'])->name('coupons.store');

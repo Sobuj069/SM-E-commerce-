@@ -12,17 +12,17 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Dashboard Overview</h1>
-            <p class="text-xs text-gray-500 mt-0.5 font-medium">Central Hub for Store Performance, Orders & Apparel Inventory</p>
+            <p class="text-xs text-gray-500 mt-0.5 font-medium">Central Hub for Store Performance, Real-Time Orders & Drops Inventory</p>
         </div>
 
         <div class="flex items-center gap-3">
             <div class="inline-flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 shadow-xs">
-                <i class="ki-filled ki-calendar text-gray-400 text-sm"></i>
+                <i class="fa-regular fa-calendar text-gray-400 text-xs"></i>
                 <span>{{ date('M d, Y') }}</span>
             </div>
 
             <a href="{{ route('admin.products.create') }}" class="kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold shadow-xs flex items-center gap-1.5">
-                <i class="ki-filled ki-plus text-xs"></i>
+                <i class="fa-solid fa-plus text-xs"></i>
                 <span>Add New Drop</span>
             </a>
         </div>
@@ -38,7 +38,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Gross Revenue</span>
                 <div class="flex items-center justify-center size-10 rounded-lg bg-blue-50 text-[#1b84ff]">
-                    <i class="ki-filled ki-dollar text-xl"></i>
+                    <i class="fa-solid fa-dollar-sign text-base"></i>
                 </div>
             </div>
             <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
@@ -55,7 +55,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Orders</span>
                 <div class="flex items-center justify-center size-10 rounded-lg bg-emerald-50 text-emerald-600">
-                    <i class="ki-filled ki-shop text-xl"></i>
+                    <i class="fa-solid fa-bag-shopping text-base"></i>
                 </div>
             </div>
             <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
@@ -72,7 +72,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Active Drops</span>
                 <div class="flex items-center justify-center size-10 rounded-lg bg-amber-50 text-amber-600">
-                    <i class="ki-filled ki-box text-xl"></i>
+                    <i class="fa-solid fa-box text-base"></i>
                 </div>
             </div>
             <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
@@ -89,7 +89,7 @@
             <div class="flex items-center justify-between">
                 <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Total Athletes</span>
                 <div class="flex items-center justify-center size-10 rounded-lg bg-purple-50 text-purple-600">
-                    <i class="ki-filled ki-people text-xl"></i>
+                    <i class="fa-solid fa-users text-base"></i>
                 </div>
             </div>
             <div class="text-2xl lg:text-3xl font-black text-gray-900 mt-3 tracking-tight">
@@ -117,8 +117,8 @@
                 </div>
 
                 <div class="inline-flex p-1 bg-gray-100 rounded-lg text-xs font-semibold">
-                    <button type="button" class="px-3 py-1 bg-white text-gray-900 font-bold rounded-md shadow-xs">7 Days</button>
-                    <button type="button" class="px-3 py-1 text-gray-500 hover:text-gray-900 transition">30 Days</button>
+                    <button type="button" class="px-3 py-1 bg-white text-gray-900 font-bold rounded-md shadow-xs cursor-pointer">7 Days</button>
+                    <button type="button" class="px-3 py-1 text-gray-500 hover:text-gray-900 transition cursor-pointer">30 Days</button>
                 </div>
             </div>
 
@@ -185,7 +185,7 @@
                 </div>
                 <a href="{{ route('admin.orders.index') }}" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
                     <span>View All Orders</span>
-                    <i class="ki-filled ki-arrow-right text-[10px]"></i>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </a>
             </div>
 
@@ -256,7 +256,7 @@
                             <div class="flex items-center justify-between mt-1">
                                 <span class="text-xs font-black text-gray-900">${{ number_format($prod->price, 2) }}</span>
                                 <span class="text-[10px] text-amber-500 font-bold flex items-center gap-0.5">
-                                    <i class="ki-filled ki-star text-[10px]"></i> {{ number_format($prod->rating, 1) }}
+                                    <i class="fa-solid fa-star text-[10px]"></i> {{ number_format($prod->rating, 1) }}
                                 </span>
                             </div>
                         </div>

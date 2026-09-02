@@ -104,122 +104,138 @@ class AdminController extends Controller
         ));
     }
 
-    // Product List & Management
+    // Products Index
     public function products()
     {
-        $products = Product::with('category')->latest()->paginate(15);
+        $products = Product::with('category')->latest()->paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
+    // Create Product
     public function createProduct()
     {
-        $categories = Category::where('is_active', true)->get();
+        $categories = Category::all();
         return view('admin.products.create', compact('categories'));
     }
 
+    // Store Product
     public function storeProduct(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:0',
             'sale_price' => 'nullable|numeric|min:0',
-            'stock' => 'required|integer|min:0',
             'sku' => 'nullable|string|max:50',
+            'stock' => 'required|integer|min:0',
             'image' => 'required|url',
             'short_description' => 'required|string|max:500',
             'description' => 'nullable|string',
-            'is_featured' => 'boolean',
+            'is_featured' => 'nullable|boolean',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']) . '-' . rand(100, 999);
-        $validated['is_featured'] = $request->boolean('is_featured');
-        $validated['is_active'] = true;
+        $data['slug'] = Str::slug($data['name']) . '-' . Str::random(5);
+        $data['is_featured'] = $request->has('is_featured');
+        $data['in_stock'] = $data['stock'] > 0;
 
-        $product = Product::create($validated);
+        Product::create($data);
 
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Activewear drop published successfully to storefront!');
     }
 
+    // Delete Product
     public function deleteProduct(Product $product)
     {
         $product->delete();
-        return back()->with('success', 'Product removed successfully.');
+        return redirect()->route('admin.products.index')->with('success', 'Product removed successfully.');
     }
 
-    // Order Management
+    // Orders Index
     public function orders()
     {
         $orders = Order::latest()->paginate(15);
         return view('admin.orders.index', compact('orders'));
     }
 
+    // Show Order
     public function showOrder(Order $order)
     {
         $order->load('items.product');
         return view('admin.orders.show', compact('order'));
     }
 
+    // Update Order Status
     public function updateOrderStatus(Request $request, Order $order)
     {
-        $validated = $request->validate([
+        $request->validate([
             'order_status' => 'required|in:pending,processing,shipped,delivered,cancelled',
             'payment_status' => 'required|in:pending,paid,failed',
         ]);
 
-        $order->update($validated);
+        $order->update([
+            'order_status' => $request->order_status,
+            'payment_status' => $request->payment_status,
+        ]);
 
         return back()->with('success', 'Order status updated successfully!');
     }
 
-    // Coupon Engine Management
+    // Customers List
+    public function customers()
+    {
+        $customers = User::latest()->paginate(15);
+        return view('admin.customers.index', compact('customers'));
+    }
+
+    // Coupons Index
     public function coupons()
     {
         $coupons = Coupon::latest()->get();
         return view('admin.coupons.index', compact('coupons'));
     }
 
+    // Store Coupon
     public function storeCoupon(Request $request)
     {
-        $validated = $request->validate([
-            'code' => 'required|string|unique:coupons,code|max:30',
+        $data = $request->validate([
+            'code' => 'required|string|unique:coupons,code|max:50',
             'type' => 'required|in:percentage,fixed',
-            'value' => 'required|numeric|min:1',
+            'value' => 'required|numeric|min:0',
             'min_spend' => 'nullable|numeric|min:0',
-            'max_discount' => 'nullable|numeric|min:0',
             'usage_limit' => 'nullable|integer|min:1',
         ]);
 
-        $validated['code'] = strtoupper(trim($validated['code']));
-        $validated['is_active'] = true;
+        $data['is_active'] = true;
+        Coupon::create($data);
 
-        Coupon::create($validated);
-
-        return back()->with('success', "Coupon {$validated['code']} created!");
+        return redirect()->route('admin.coupons.index')->with('success', 'Coupon voucher created and activated!');
     }
 
+    // Delete Coupon
     public function deleteCoupon(Coupon $coupon)
     {
         $coupon->delete();
-        return back()->with('success', 'Coupon deleted.');
+        return redirect()->route('admin.coupons.index')->with('success', 'Coupon deleted.');
     }
 
-    // Review Moderation
+    // Reviews Moderation Index
     public function reviews()
     {
-        $reviews = Review::with('product')->latest()->paginate(20);
+        $reviews = Review::with('product')->latest()->paginate(15);
         return view('admin.reviews.index', compact('reviews'));
     }
 
+    // Toggle Review Approval
     public function toggleReview(Review $review)
     {
         $review->update(['is_approved' => !$review->is_approved]);
         return back()->with('success', 'Review approval status updated.');
     }
 
+    // Delete Review
     public function deleteReview(Review $review)
     {
         $review->delete();
-        return back()->with('success', 'Review deleted.');
+        return redirect()->route('admin.reviews.index')->with('success', 'Review deleted permanently.');
     }
 }
