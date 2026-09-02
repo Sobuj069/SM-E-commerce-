@@ -81,14 +81,17 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
                 
-                <!-- 1. Left: Sleek Brand Logo -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shark Home">
-                    <div class="w-9 h-9 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300 shrink-0">
-                        <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        </svg>
+                <!-- 1. Left: Colorful Fashion & Clothing Brand Logo -->
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shark Apparel Home">
+                    <div class="w-10 h-10 rounded-2xl bg-zinc-950 p-1 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:shadow-rose-500/20 transition-all duration-300 shrink-0 border border-zinc-800">
+                        <img src="{{ asset('images/logo.svg') }}" alt="SM Shark Logo" class="w-full h-full object-contain">
                     </div>
-                    <span class="text-xl font-black tracking-tight text-black font-sans uppercase leading-none">SM SHARK</span>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-black tracking-tight text-black font-sans uppercase leading-none flex items-center gap-1">
+                            SM <span class="bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 bg-clip-text text-transparent">SHARK</span>
+                        </span>
+                        <span class="text-[8.5px] font-black tracking-widest text-zinc-400 uppercase leading-none mt-1">APPAREL &bull; CLOTHING</span>
+                    </div>
                 </a>
 
                 <!-- 2. Center: Gymshark Apparel Nav Links -->
@@ -412,8 +415,8 @@
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
                         <li><a href="{{ route('shop.index') }}" class="hover:text-black hover:underline">Stores</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Refer a Friend</a></li>
-                        <li><a href="#" class="hover:text-black hover:underline">Gymshark Central</a></li>
-                        <li><a href="#" class="hover:text-black hover:underline">Gymshark Loyalty</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">SM Shark Central</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">SM Shark Loyalty</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">About Us</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Careers</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Student Discount</a></li>
@@ -424,9 +427,9 @@
                     </ul>
                 </div>
 
-                <!-- Col 4: More About Gymshark (3 Rich Cards) -->
+                <!-- Col 4: More About SM Shark (3 Rich Cards) -->
                 <div class="md:col-span-5 space-y-4">
-                    <h3 class="text-xs font-black text-black tracking-tight uppercase">More About Gymshark</h3>
+                    <h3 class="text-xs font-black text-black tracking-tight uppercase">More About SM Shark</h3>
                     
                     <!-- 3 Feature Cards Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -434,7 +437,7 @@
                         <!-- Card 1: Blog -->
                         <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-3 group min-h-[120px]">
                             <div class="flex flex-col items-center">
-                                <span class="font-black text-[13px] tracking-tight uppercase leading-none text-black">GYMSHARK</span>
+                                <span class="font-black text-[13px] tracking-tight uppercase leading-none text-black">SM SHARK</span>
                                 <span class="text-[8px] font-bold tracking-widest text-zinc-600 uppercase">CENTRAL</span>
                             </div>
                             <span class="text-xs font-bold text-black group-hover:underline">Blog</span>
@@ -479,37 +482,37 @@
                     <span class="px-2.5 py-1 bg-[#4E008E] text-white text-[10px] font-black rounded shadow-xs">sezzle</span>
                 </div>
 
-                <!-- Social Media Icons (Exact Gymshark Sequence) -->
-                <div class="flex items-center gap-3 text-black">
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Discord">
+                <!-- Social Media Icons (Vibrant Brand Hovers) -->
+                <div class="flex items-center gap-2.5 text-black">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#5865F2] hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="Discord">
                         <i class="fa-brands fa-discord"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Facebook">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#1877F2] hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Pinterest">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#E60023] hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="Pinterest">
                         <i class="fa-brands fa-pinterest-p"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="YouTube">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#FF0000] hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="YouTube">
                         <i class="fa-brands fa-youtube"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="Instagram">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-[#E1306C] hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="Instagram">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="X">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="X">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm" aria-label="TikTok">
+                    <a href="#" class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-black hover:text-white transition flex items-center justify-center text-sm shadow-xs" aria-label="TikTok">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
                 </div>
 
             </div>
 
-            <!-- Bottom Legal Bar (Exact Copy & Country Selector) -->
+            <!-- Bottom Legal Bar (Exact Company Name & Clean Country Selector) -->
             <div class="pt-6 border-t border-zinc-200 flex flex-col lg:flex-row items-center justify-between text-xs text-zinc-500 font-medium gap-4">
                 <p class="text-center lg:text-left">
-                    &copy; {{ date('Y') }} | Gymshark Limited | All Rights Reserved. | We Do Gym.
+                    &copy; {{ date('Y') }} | SM Shark Apparel Ltd. | All Rights Reserved. | We Do Gym.
                 </p>
 
                 <div class="flex flex-wrap items-center justify-center gap-4 text-xs">
@@ -521,10 +524,10 @@
                 </div>
 
                 <!-- Country Selector -->
-                <div class="flex items-center gap-2 font-bold text-black text-xs cursor-pointer hover:underline">
-                    <span class="text-sm">🇺🇸</span>
+                <div class="flex items-center gap-1.5 font-bold text-black text-xs cursor-pointer hover:underline">
+                    <span class="text-base leading-none">🇺🇸</span>
                     <span>US | English</span>
-                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    <i class="fa-solid fa-chevron-down text-[9px] text-zinc-400"></i>
                 </div>
             </div>
 
