@@ -1,28 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <defs>
-    <linearGradient id="smGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#FF0055" />
-      <stop offset="50%" stop-color="#FF5500" />
-      <stop offset="100%" stop-color="#FFCC00" />
-    </linearGradient>
-    <linearGradient id="smGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7928CA" />
-      <stop offset="100%" stop-color="#FF0080" />
-    </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#FF0055" flood-opacity="0.35" />
-    </filter>
-  </defs>
-  
-  <!-- Dynamic Athletic Shark Fin & Fabric Wave -->
-  <g filter="url(#glow)">
-    <!-- Primary Shark Fin Swell -->
-    <path d="M15 80 C25 65, 38 45, 52 20 C58 10, 68 8, 72 16 C76 24, 70 38, 58 50 C48 60, 42 68, 40 82 C30 84, 20 83, 15 80 Z" fill="url(#smGrad1)" />
-    
-    <!-- Secondary Interlocking Activewear Curve (S-M Flow) -->
-    <path d="M42 45 C50 35, 65 30, 80 32 C86 33, 88 40, 84 46 C76 58, 62 68, 50 78 C54 68, 52 58, 42 45 Z" fill="url(#smGrad2)" opacity="0.95" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 130" width="500" height="130" fill="none">
+  <style>
+    .brand-title {
+      font-family: "Playfair Display", "Georgia", "Times New Roman", serif;
+      font-weight: 900;
+      font-size: 50px;
+      fill: #000000;
+      letter-spacing: -0.5px;
+    }
+    .brand-sub {
+      font-family: "Inter", "Plus Jakarta Sans", "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 14.5px;
+      fill: #000000;
+      letter-spacing: 5.5px;
+    }
+  </style>
 
-    <!-- Sharp Dynamic S-Slash Accent -->
-    <path d="M30 68 C40 55, 55 48, 70 44 C62 54, 52 64, 38 74 C34 72, 31 70, 30 68 Z" fill="#FFFFFF" opacity="0.9" />
+  <!-- Left: Bold Tailoring Compass / Caliper Icon in Pure Black -->
+  <g transform="translate(10, 8)">
+    <!-- Top Pivot Ring -->
+    <circle cx="48" cy="24" r="14" stroke="#000000" stroke-width="8" fill="#FFFFFF" />
+    <circle cx="48" cy="24" r="6" fill="#000000" />
+    
+    <!-- Left Leg -->
+    <line x1="42" y1="36" x2="12" y2="108" stroke="#000000" stroke-width="8.5" stroke-linecap="round" />
+    
+    <!-- Right Leg -->
+    <line x1="54" y1="36" x2="84" y2="108" stroke="#000000" stroke-width="8.5" stroke-linecap="round" />
+    
+    <!-- Fine Needle Tip Accents -->
+    <circle cx="12" cy="108" r="4.25" fill="#000000" />
+    <circle cx="84" cy="108" r="4.25" fill="#000000" />
   </g>
+
+  <!-- Right: Bold Deep Black Typography -->
+  <text x="125" y="66" class="brand-title">SM Shop</text>
+  <text x="128" y="98" class="brand-sub">FASHION &amp; APPAREL</text>
 </svg>
