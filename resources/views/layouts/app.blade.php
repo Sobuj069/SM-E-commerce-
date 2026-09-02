@@ -38,11 +38,161 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 
+    <!-- Storefront Global State & Chatbot Core Definition -->
+    <script>
+        function storefrontApp() {
+            return {
+                drawerOpen: false,
+                mobileMenuOpen: false,
+                searchOpen: false,
+                megaMenu: null,
+                activeSubTab: 'trending',
+                regionOpen: true,
+                selectedRegion: 'ROW',
+                chatOpen: false,
+                chatMessages: [
+                    { sender: 'bot', text: '👋 Hi there! Welcome to SM Shop. How can I help you today? You can track an order, explore drops, or get promo codes!' }
+                ],
+                chatInput: '',
+                isTyping: false,
+
+                toggleChat() {
+                    this.chatOpen = !this.chatOpen;
+                    if (this.chatOpen) {
+                        this.$nextTick(() => {
+                            const el = document.getElementById('chat-messages-container');
+                            if (el) el.scrollTop = el.scrollHeight;
+                        });
+                    }
+                },
+
+                sendQuickPrompt(prompt) {
+                    this.chatInput = prompt;
+                    this.handleChatSubmit();
+                },
+
+                async handleChatSubmit() {
+                    const text = this.chatInput.trim();
+                    if (!text) return;
+
+                    this.chatMessages.push({ sender: 'user', text: text });
+                    this.chatInput = '';
+                    this.isTyping = true;
+                    
+                    this.$nextTick(() => {
+                        const el = document.getElementById('chat-messages-container');
+                        if (el) el.scrollTop = el.scrollHeight;
+                    });
+
+                    const lower = text.toLowerCase();
+
+                    // 1. Order tracking logic
+                    if (lower.includes('track') || lower.includes('sm-') || lower.includes('order')) {
+                        const match = text.match(/SM-\d+/i);
+                        if (match) {
+                            const orderNum = match[0].toUpperCase();
+                            try {
+                                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                                const res = await fetch('/api/track-order', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': token || ''
+                                    },
+                                    body: JSON.stringify({ order_number: orderNum })
+                                });
+                                const result = await res.json();
+                                this.isTyping = false;
+                                if (result.found) {
+                                    this.chatMessages.push({
+                                        sender: 'bot',
+                                        text: `📦 <strong>Order Found:</strong> ${result.order_number}<br>
+                                               <strong>Status:</strong> <span class="text-emerald-600 font-black">${result.status}</span><br>
+                                               <strong>Courier:</strong> ${result.courier}<br>
+                                               <strong>Consignment ID:</strong> ${result.consignment}<br>
+                                               <strong>Total:</strong> ${result.amount}<br>
+                                               <strong>Date:</strong> ${result.date}`
+                                    });
+                                } else {
+                                    this.chatMessages.push({
+                                        sender: 'bot',
+                                        text: `⚠️ Order <strong>${orderNum}</strong> was not found in our live system. Please double check the order number on your confirmation receipt.`
+                                    });
+                                }
+                            } catch (e) {
+                                this.isTyping = false;
+                                this.chatMessages.push({
+                                    sender: 'bot',
+                                    text: `Your order <strong>${orderNum}</strong> is confirmed and being prepared for express courier dispatch!`
+                                });
+                            }
+                        } else {
+                            setTimeout(() => {
+                                this.isTyping = false;
+                                this.chatMessages.push({
+                                    sender: 'bot',
+                                    text: 'Please type your order number (e.g. <strong>SM-1001</strong>) so I can fetch your live tracking status.'
+                                });
+                            }, 500);
+                        }
+                    } 
+                    // 2. Best sellers / leggings
+                    else if (lower.includes('best') || lower.includes('legging') || lower.includes('recommend') || lower.includes('women')) {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: '🔥 Our #1 Best Seller is the <strong>Vital Seamless 2.0 High Waisted Leggings</strong>! Features squat-proof compression and sweat-wicking technology. <a href="/shop?category=seamless" class="underline font-bold text-black block mt-1">Explore Seamless &rarr;</a>'
+                            });
+                        }, 500);
+                    } 
+                    // 3. Promo code
+                    else if (lower.includes('promo') || lower.includes('coupon') || lower.includes('code') || lower.includes('discount')) {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: '🎉 Use coupon code <strong class="text-indigo-600 font-black">SM20</strong> at checkout to get an instant <strong>20% OFF</strong> on your order!'
+                            });
+                        }, 500);
+                    } 
+                    // 4. Shipping / Delivery
+                    else if (lower.includes('ship') || lower.includes('deliver') || lower.includes('time')) {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: '🚚 We offer <strong>Free Standard Shipping</strong> on all orders over $75. Standard delivery takes 2-4 business days via Steadfast / DHL express.'
+                            });
+                        }, 500);
+                    }
+                    // 5. Default Fallback
+                    else {
+                        setTimeout(() => {
+                            this.isTyping = false;
+                            this.chatMessages.push({
+                                sender: 'bot',
+                                text: 'Thanks for reaching out! You can browse all gym apparel in our <a href="/shop" class="underline font-bold text-black">Shop Catalog</a> or check the <a href="/admin" class="underline font-bold text-black">Admin Panel</a> for backend management.'
+                            });
+                        }, 500);
+                    }
+
+                    this.$nextTick(() => {
+                        const el = document.getElementById('chat-messages-container');
+                        if (el) el.scrollTop = el.scrollHeight;
+                    });
+                }
+            };
+        }
+        window.storefrontApp = storefrontApp;
+    </script>
+
     <!-- Vite Assets -->
     @if(file_exists(public_path('build/manifest.json')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
         <script src="https://cdn.tailwindcss.com"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @endif
 
     <style>
@@ -909,6 +1059,7 @@
          2. EXACT GYMSHARK FLOATING REGION SWITCHER (Desktop Only Floating)
          ========================================================================= -->
     <div 
+        x-cloak
         x-show="regionOpen" 
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-4 scale-95"
@@ -917,7 +1068,7 @@
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
         class="hidden md:block bg-[#121212] text-white p-5 rounded-2xl shadow-2xl border border-zinc-800 w-80 max-w-[calc(100vw-2rem)]"
-        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; display: none;"
+        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important;"
     >
         <div class="flex items-center justify-between mb-4">
             <span class="text-xs font-black tracking-wider uppercase">ARE YOU IN THE RIGHT PLACE?</span>
@@ -989,6 +1140,7 @@
 
     <!-- Floating Chatbot Window (TALL Real Modern Chatbot Dimensions) -->
     <div 
+        x-cloak
         x-show="chatOpen" 
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-4 scale-95"
@@ -997,7 +1149,7 @@
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
         class="bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden"
-        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; width: 400px !important; max-width: calc(100vw - 2rem) !important; height: 580px !important; max-height: calc(100vh - 105px) !important; display: none; flex-direction: column !important;"
+        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; width: 400px !important; max-width: calc(100vw - 2rem) !important; height: 580px !important; max-height: calc(100vh - 105px) !important; flex-direction: column !important;"
     >
         <!-- Chat Header -->
         <div class="bg-black text-white p-4 flex items-center justify-between shrink-0">
@@ -1095,154 +1247,6 @@
             </button>
         </form>
     </div>
-
-    <!-- Storefront App & Chatbot Core Script -->
-    <script>
-        function storefrontApp() {
-            return {
-                drawerOpen: false,
-                mobileMenuOpen: false,
-                searchOpen: false,
-                megaMenu: null,
-                activeSubTab: 'trending',
-                regionOpen: true,
-                selectedRegion: 'ROW',
-                chatOpen: false,
-                chatMessages: [
-                    { sender: 'bot', text: '👋 Hi there! Welcome to SM Shop. How can I help you today? You can track an order, explore drops, or get promo codes!' }
-                ],
-                chatInput: '',
-                isTyping: false,
-
-                toggleChat() {
-                    this.chatOpen = !this.chatOpen;
-                    if (this.chatOpen) {
-                        this.$nextTick(() => {
-                            const el = document.getElementById('chat-messages-container');
-                            if (el) el.scrollTop = el.scrollHeight;
-                        });
-                    }
-                },
-
-                sendQuickPrompt(prompt) {
-                    this.chatInput = prompt;
-                    this.handleChatSubmit();
-                },
-
-                async handleChatSubmit() {
-                    const text = this.chatInput.trim();
-                    if (!text) return;
-
-                    this.chatMessages.push({ sender: 'user', text: text });
-                    this.chatInput = '';
-                    this.isTyping = true;
-                    
-                    this.$nextTick(() => {
-                        const el = document.getElementById('chat-messages-container');
-                        if (el) el.scrollTop = el.scrollHeight;
-                    });
-
-                    const lower = text.toLowerCase();
-
-                    // 1. Order tracking logic
-                    if (lower.includes('track') || lower.includes('sm-') || lower.includes('order')) {
-                        const match = text.match(/SM-\d+/i);
-                        if (match) {
-                            const orderNum = match[0].toUpperCase();
-                            try {
-                                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                                const res = await fetch('/api/track-order', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'X-CSRF-TOKEN': token || ''
-                                    },
-                                    body: JSON.stringify({ order_number: orderNum })
-                                });
-                                const result = await res.json();
-                                this.isTyping = false;
-                                if (result.found) {
-                                    this.chatMessages.push({
-                                        sender: 'bot',
-                                        text: `📦 <strong>Order Found:</strong> ${result.order_number}<br>
-                                               <strong>Status:</strong> <span class="text-emerald-600 font-black">${result.status}</span><br>
-                                               <strong>Courier:</strong> ${result.courier}<br>
-                                               <strong>Consignment ID:</strong> ${result.consignment}<br>
-                                               <strong>Total:</strong> ${result.amount}<br>
-                                               <strong>Date:</strong> ${result.date}`
-                                    });
-                                } else {
-                                    this.chatMessages.push({
-                                        sender: 'bot',
-                                        text: `⚠️ Order <strong>${orderNum}</strong> was not found in our live system. Please double check the order number on your confirmation receipt.`
-                                    });
-                                }
-                            } catch (e) {
-                                this.isTyping = false;
-                                this.chatMessages.push({
-                                    sender: 'bot',
-                                    text: `Your order <strong>${orderNum}</strong> is confirmed and being prepared for express courier dispatch!`
-                                });
-                            }
-                        } else {
-                            setTimeout(() => {
-                                this.isTyping = false;
-                                this.chatMessages.push({
-                                    sender: 'bot',
-                                    text: 'Please type your order number (e.g. <strong>SM-1001</strong>) so I can fetch your live tracking status.'
-                                });
-                            }, 500);
-                        }
-                    } 
-                    // 2. Best sellers / leggings
-                    else if (lower.includes('best') || lower.includes('legging') || lower.includes('recommend') || lower.includes('women')) {
-                        setTimeout(() => {
-                            this.isTyping = false;
-                            this.chatMessages.push({
-                                sender: 'bot',
-                                text: '🔥 Our #1 Best Seller is the <strong>Vital Seamless 2.0 High Waisted Leggings</strong>! Features squat-proof compression and sweat-wicking technology. <a href="/shop?category=seamless" class="underline font-bold text-black block mt-1">Explore Seamless &rarr;</a>'
-                            });
-                        }, 500);
-                    } 
-                    // 3. Promo code
-                    else if (lower.includes('promo') || lower.includes('coupon') || lower.includes('code') || lower.includes('discount')) {
-                        setTimeout(() => {
-                            this.isTyping = false;
-                            this.chatMessages.push({
-                                sender: 'bot',
-                                text: '🎉 Use coupon code <strong class="text-indigo-600 font-black">SM20</strong> at checkout to get an instant <strong>20% OFF</strong> on your order!'
-                            });
-                        }, 500);
-                    } 
-                    // 4. Shipping / Delivery
-                    else if (lower.includes('ship') || lower.includes('deliver') || lower.includes('time')) {
-                        setTimeout(() => {
-                            this.isTyping = false;
-                            this.chatMessages.push({
-                                sender: 'bot',
-                                text: '🚚 We offer <strong>Free Standard Shipping</strong> on all orders over $75. Standard delivery takes 2-4 business days via Steadfast / DHL express.'
-                            });
-                        }, 500);
-                    }
-                    // 5. Default Fallback
-                    else {
-                        setTimeout(() => {
-                            this.isTyping = false;
-                            this.chatMessages.push({
-                                sender: 'bot',
-                                text: 'Thanks for reaching out! You can browse all gym apparel in our <a href="/shop" class="underline font-bold text-black">Shop Catalog</a> or check the <a href="/admin" class="underline font-bold text-black">Admin Panel</a> for backend management.'
-                            });
-                        }, 500);
-                    }
-
-                    this.$nextTick(() => {
-                        const el = document.getElementById('chat-messages-container');
-                        if (el) el.scrollTop = el.scrollHeight;
-                    });
-                }
-            };
-        }
-    </script>
 
     @stack('scripts')
 </body>
