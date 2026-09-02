@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
     protected $fillable = [
         'category_id',
+        'brand_id',
         'name',
         'slug',
         'short_description',
@@ -33,22 +36,32 @@ class Product extends Model
         'reviews_count' => 'integer',
     ];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function variants()
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class)->latest();
+    }
+
+    public function variants(): HasMany
     {
         return $this->hasMany(ProductVariant::class);
     }
 
-    public function reviews()
+    public function reviews(): HasMany
     {
         return $this->hasMany(Review::class)->latest();
     }
 
-    public function approvedReviews()
+    public function approvedReviews(): HasMany
     {
         return $this->hasMany(Review::class)->where('is_approved', true)->latest();
     }
@@ -60,31 +73,16 @@ class Product extends Model
             : $this->price;
     }
 
-    public function getHasDiscountAttribute()
+    public function getHasDiscountAttribute(): bool
     {
-        return ($this->sale_price !== null && $this->sale_price > 0 && $this->sale_price < $this->price);
+        return $this->sale_price !== null && $this->sale_price > 0 && $this->sale_price < $this->price;
     }
 
-    public function getDiscountPercentAttribute()
+    public function getDiscountPercentageAttribute(): int
     {
-        if ($this->has_discount && $this->price > 0) {
-            return round((($this->price - $this->sale_price) / $this->price) * 100);
+        if (!$this->has_discount || $this->price <= 0) {
+            return 0;
         }
-        return 0;
-    }
-
-    public function getInStockAttribute()
-    {
-        return $this->stock > 0;
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    public function scopeFeatured($query)
-    {
-        return $query->where('is_featured', true);
+        return (int) round((($this->price - $this->sale_price) / $this->price) * 100);
     }
 }

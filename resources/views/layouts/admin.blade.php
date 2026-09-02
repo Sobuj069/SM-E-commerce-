@@ -26,7 +26,6 @@
     <style>
         [x-cloak] { display: none !important; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; }
-        /* Custom Metronic scrollbars */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #13141a; }
         ::-webkit-scrollbar-thumb { background: #2b2b40; border-radius: 9999px; }
@@ -38,10 +37,9 @@
     x-data="{ 
         sidebarOpen: false, 
         profileMenuOpen: false,
-        notifMenuOpen: false,
         searchModalOpen: false
     }"
-    @keydown.window.escape="profileMenuOpen = false; notifMenuOpen = false; searchModalOpen = false;"
+    @keydown.window.escape="profileMenuOpen = false; searchModalOpen = false;"
     @keydown.window.ctrl.k.prevent="searchModalOpen = true"
     @keydown.window.cmd.k.prevent="searchModalOpen = true"
 >
@@ -74,7 +72,7 @@
                 </a>
 
                 <!-- Mobile Close -->
-                <button type="button" @click="sidebarOpen = false" class="lg:hidden kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost text-gray-400 hover:text-white">
+                <button type="button" @click="sidebarOpen = false" class="lg:hidden p-2 text-gray-400 hover:text-white">
                     <i class="fa-solid fa-xmark text-base"></i>
                 </button>
             </div>
@@ -100,7 +98,7 @@
                     <!-- Section: Dashboards -->
                     <div class="kt-menu-item pt-2 pb-1">
                         <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
-                            Dashboards
+                            Executive
                         </span>
                     </div>
 
@@ -119,16 +117,16 @@
                         </a>
                     </div>
 
-                    <!-- Section: eCommerce Management -->
+                    <!-- Section: Catalog Management -->
                     <div class="kt-menu-item pt-4 pb-1">
                         <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
-                            eCommerce & Store
+                            Catalog Management
                         </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.products.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -138,33 +136,126 @@
                         </a>
                     </div>
 
+                    <div class="kt-menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.categories.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.categories.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-shapes text-sm {{ request()->routeIs('admin.categories.*') ? 'text-white' : 'text-cyan-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Categories</span>
+                        </a>
+                    </div>
+
+                    <div class="kt-menu-item {{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.brands.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.brands.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-tags text-sm {{ request()->routeIs('admin.brands.*') ? 'text-white' : 'text-purple-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Brands</span>
+                        </a>
+                    </div>
+
+                    <!-- Section: Inventory & Purchases -->
+                    <div class="kt-menu-item pt-4 pb-1">
+                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                            Stock & Inflow
+                        </span>
+                    </div>
+
+                    <div class="kt-menu-item {{ request()->routeIs('admin.stocks.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.stocks.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.stocks.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-warehouse text-sm {{ request()->routeIs('admin.stocks.*') ? 'text-white' : 'text-emerald-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Product Stock</span>
+                        </a>
+                    </div>
+
+                    <div class="kt-menu-item {{ request()->routeIs('admin.purchases.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.purchases.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.purchases.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-truck-ramp-box text-sm {{ request()->routeIs('admin.purchases.*') ? 'text-white' : 'text-blue-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Supplier Purchases</span>
+                        </a>
+                    </div>
+
+                    <!-- Section: Orders, Courier & Fraud -->
+                    <div class="kt-menu-item pt-4 pb-1">
+                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                            Logistics & Orders
+                        </span>
+                    </div>
+
                     <div class="kt-menu-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.orders.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.orders.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.orders.index') }}"
                         >
                             <span class="w-5 text-center">
                                 <i class="fa-solid fa-bag-shopping text-sm {{ request()->routeIs('admin.orders.*') ? 'text-white' : 'text-emerald-400' }}"></i>
                             </span>
-                            <span class="kt-menu-title font-semibold">Orders & Invoices</span>
+                            <span class="kt-menu-title font-semibold">Web Order List</span>
                         </a>
+                    </div>
+
+                    <div class="kt-menu-item {{ request()->routeIs('admin.courier.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.courier.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.courier.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-truck-fast text-sm {{ request()->routeIs('admin.courier.*') ? 'text-white' : 'text-cyan-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Courier Panel</span>
+                        </a>
+                    </div>
+
+                    <div class="kt-menu-item {{ request()->routeIs('admin.fraud.*') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.fraud.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            href="{{ route('admin.fraud.index') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-shield-halved text-sm {{ request()->routeIs('admin.fraud.*') ? 'text-white' : 'text-rose-400' }}"></i>
+                            </span>
+                            <span class="kt-menu-title font-semibold">Fraud Checker</span>
+                        </a>
+                    </div>
+
+                    <!-- Section: Customers & Marketing -->
+                    <div class="kt-menu-item pt-4 pb-1">
+                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
+                            Community & Marketing
+                        </span>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.customers.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.customers.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.customers.index') }}"
                         >
                             <span class="w-5 text-center">
-                                <i class="fa-solid fa-users text-sm {{ request()->routeIs('admin.customers.*') ? 'text-white' : 'text-cyan-400' }}"></i>
+                                <i class="fa-solid fa-users text-sm {{ request()->routeIs('admin.customers.*') ? 'text-white' : 'text-indigo-400' }}"></i>
                             </span>
-                            <span class="kt-menu-title font-semibold">Athletes & Customers</span>
+                            <span class="kt-menu-title font-semibold">Athletes & Users</span>
                         </a>
                     </div>
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.coupons.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.coupons.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.coupons.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.coupons.index') }}"
                         >
                             <span class="w-5 text-center">
@@ -176,40 +267,13 @@
 
                     <div class="kt-menu-item {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.reviews.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold {{ request()->routeIs('admin.reviews.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-400 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.reviews.index') }}"
                         >
                             <span class="w-5 text-center">
                                 <i class="fa-solid fa-star-half-stroke text-sm {{ request()->routeIs('admin.reviews.*') ? 'text-white' : 'text-yellow-400' }}"></i>
                             </span>
-                            <span class="kt-menu-title font-semibold">Reviews Moderation</span>
-                        </a>
-                    </div>
-
-                    <!-- Section: Storefront Channels -->
-                    <div class="kt-menu-item pt-4 pb-1">
-                        <span class="kt-menu-heading uppercase text-[10px] font-bold text-gray-500 tracking-wider px-2.5">
-                            Storefront Channels
-                        </span>
-                    </div>
-
-                    <div class="kt-menu-item">
-                        <a class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b24] transition" href="{{ route('home') }}" target="_blank">
-                            <span class="w-5 text-center">
-                                <i class="fa-solid fa-store text-sm text-cyan-400"></i>
-                            </span>
-                            <span class="kt-menu-title">Live Storefront</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ms-auto text-gray-500"></i>
-                        </a>
-                    </div>
-
-                    <div class="kt-menu-item">
-                        <a class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b24] transition" href="{{ route('shop.index') }}" target="_blank">
-                            <span class="w-5 text-center">
-                                <i class="fa-solid fa-compass text-sm text-violet-400"></i>
-                            </span>
-                            <span class="kt-menu-title">Catalog Explorer</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs ms-auto text-gray-500"></i>
+                            <span class="kt-menu-title font-semibold">Reviews</span>
                         </a>
                     </div>
 
@@ -345,14 +409,19 @@
                                     <span>Dashboard</span>
                                 </a>
 
-                                <a href="{{ route('admin.products.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
-                                    <i class="fa-solid fa-box text-amber-500 text-xs"></i>
-                                    <span>Products Catalog</span>
+                                <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
+                                    <i class="fa-solid fa-bag-shopping text-emerald-500 text-xs"></i>
+                                    <span>Web Orders</span>
                                 </a>
 
-                                <a href="{{ route('admin.customers.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
-                                    <i class="fa-solid fa-users text-cyan-500 text-xs"></i>
-                                    <span>Customer Profiles</span>
+                                <a href="{{ route('admin.courier.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
+                                    <i class="fa-solid fa-truck-fast text-cyan-500 text-xs"></i>
+                                    <span>Courier Panel</span>
+                                </a>
+
+                                <a href="{{ route('admin.fraud.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-50 transition font-medium">
+                                    <i class="fa-solid fa-shield-halved text-rose-500 text-xs"></i>
+                                    <span>Fraud Checker</span>
                                 </a>
 
                                 <form action="{{ route('admin.logout') }}" method="POST" class="pt-1 border-t border-gray-100">
@@ -399,7 +468,8 @@
                     <a href="{{ route('admin.dashboard') }}" class="hover:text-primary transition">Dashboard</a>
                     <a href="{{ route('admin.products.index') }}" class="hover:text-primary transition">Catalog</a>
                     <a href="{{ route('admin.orders.index') }}" class="hover:text-primary transition">Orders</a>
-                    <a href="{{ route('admin.customers.index') }}" class="hover:text-primary transition">Customers</a>
+                    <a href="{{ route('admin.courier.index') }}" class="hover:text-primary transition">Courier</a>
+                    <a href="{{ route('admin.fraud.index') }}" class="hover:text-primary transition">Fraud Checker</a>
                 </div>
             </footer>
 
@@ -421,7 +491,7 @@
                 <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
                 <input 
                     type="text" 
-                    placeholder="Search activewear catalog, orders, coupons, customers..." 
+                    placeholder="Search activewear catalog, orders, couriers, fraud checker..." 
                     class="w-full bg-transparent border-none text-gray-900 text-xs font-semibold focus:outline-none placeholder-gray-400"
                     autofocus
                 >
@@ -435,11 +505,20 @@
                 <a href="{{ route('admin.products.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
                     <i class="fa-solid fa-box text-amber-500"></i> Activewear Catalog
                 </a>
-                <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
-                    <i class="fa-solid fa-bag-shopping text-emerald-500"></i> Customer Orders
+                <a href="{{ route('admin.stocks.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
+                    <i class="fa-solid fa-warehouse text-emerald-500"></i> Product Stock
                 </a>
-                <a href="{{ route('admin.customers.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
-                    <i class="fa-solid fa-users text-cyan-500"></i> Registered Customers
+                <a href="{{ route('admin.purchases.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
+                    <i class="fa-solid fa-truck-ramp-box text-blue-500"></i> Supplier Purchases
+                </a>
+                <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
+                    <i class="fa-solid fa-bag-shopping text-purple-500"></i> Web Orders
+                </a>
+                <a href="{{ route('admin.courier.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
+                    <i class="fa-solid fa-truck-fast text-cyan-500"></i> Courier Panel
+                </a>
+                <a href="{{ route('admin.fraud.index') }}" class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-primary transition font-medium">
+                    <i class="fa-solid fa-shield-halved text-rose-500"></i> Fraud Checker
                 </a>
             </div>
         </div>
@@ -447,7 +526,6 @@
 
     @stack('scripts')
     <script>
-        // Initialize Lucide icons if any
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }

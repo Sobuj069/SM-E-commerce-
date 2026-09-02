@@ -41,30 +41,52 @@ Route::get('/admin/login', [AdminController::class, 'loginView'])->name('admin.l
 Route::post('/admin/login', [AdminController::class, 'loginPost'])->name('admin.login.post');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 
-// Admin Control Panel (Metronic Tailwind Demo 1 Dark Sidebar)
+// Admin Control Panel (Metronic Tailwind Demo 1 Dark Sidebar Suite)
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     
-    // Products
+    // Categories
+    Route::get('/categories', [AdminController::class, 'categories'])->name('categories.index');
+    Route::post('/categories', [AdminController::class, 'storeCategory'])->name('categories.store');
+    Route::delete('/categories/{category}', [AdminController::class, 'deleteCategory'])->name('categories.delete');
+
+    // Brands
+    Route::get('/brands', [AdminController::class, 'brands'])->name('brands.index');
+    Route::post('/brands', [AdminController::class, 'storeBrand'])->name('brands.store');
+    Route::delete('/brands/{brand}', [AdminController::class, 'deleteBrand'])->name('brands.delete');
+
+    // Products & Drops
     Route::get('/products', [AdminController::class, 'products'])->name('products.index');
     Route::get('/products/create', [AdminController::class, 'createProduct'])->name('products.create');
     Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
     Route::delete('/products/{product}', [AdminController::class, 'deleteProduct'])->name('products.delete');
 
-    // Orders
+    // Stocks & Purchases Inflow
+    Route::get('/stocks', [AdminController::class, 'stocks'])->name('stocks.index');
+    Route::post('/stocks/{product}', [AdminController::class, 'updateStock'])->name('stocks.update');
+    Route::get('/purchases', [AdminController::class, 'purchases'])->name('purchases.index');
+    Route::post('/purchases', [AdminController::class, 'storePurchase'])->name('purchases.store');
+
+    // Orders & Status Maintainer
     Route::get('/orders', [AdminController::class, 'orders'])->name('orders.index');
     Route::get('/orders/{order}', [AdminController::class, 'showOrder'])->name('orders.show');
     Route::post('/orders/{order}/status', [AdminController::class, 'updateOrderStatus'])->name('orders.status');
 
-    // Customers
-    Route::get('/customers', [AdminController::class, 'customers'])->name('customers.index');
+    // Courier Integration & Panel
+    Route::get('/courier', [AdminController::class, 'courier'])->name('courier.index');
+    Route::post('/courier/{order}/send', [AdminController::class, 'sendToCourier'])->name('courier.send');
+    Route::post('/courier/settings', [AdminController::class, 'saveCourierSettings'])->name('courier.settings');
 
-    // Coupons
+    // Fraud Checker & Risk Analyzer
+    Route::get('/fraud-checker', [AdminController::class, 'fraudChecker'])->name('fraud.index');
+    Route::post('/fraud-checker/blacklist', [AdminController::class, 'blacklistAdd'])->name('fraud.blacklist.add');
+    Route::delete('/fraud-checker/blacklist/{blacklist}', [AdminController::class, 'blacklistRemove'])->name('fraud.blacklist.remove');
+
+    // Customers, Coupons, Reviews
+    Route::get('/customers', [AdminController::class, 'customers'])->name('customers.index');
     Route::get('/coupons', [AdminController::class, 'coupons'])->name('coupons.index');
     Route::post('/coupons', [AdminController::class, 'storeCoupon'])->name('coupons.store');
     Route::delete('/coupons/{coupon}', [AdminController::class, 'deleteCoupon'])->name('coupons.delete');
-
-    // Reviews
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews.index');
     Route::post('/reviews/{review}/toggle', [AdminController::class, 'toggleReview'])->name('reviews.toggle');
     Route::delete('/reviews/{review}', [AdminController::class, 'deleteReview'])->name('reviews.delete');

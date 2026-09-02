@@ -15,6 +15,7 @@
                     @if($order->order_status === 'delivered') kt-badge-outline kt-badge-success
                     @elseif($order->order_status === 'shipped') kt-badge-outline kt-badge-info
                     @elseif($order->order_status === 'processing') kt-badge-outline kt-badge-primary
+                    @elseif($order->order_status === 'cancelled') kt-badge-outline kt-badge-destructive
                     @else kt-badge-outline kt-badge-warning
                     @endif
                 ">
@@ -34,6 +35,118 @@
         </div>
     </div>
 
+    <!-- 2-Grid: Fraud Risk Intelligence & Courier Dispatch -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Widget 1: Fraud Risk Analysis -->
+        <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs space-y-3">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-primary"></i>
+                    <span>Fraud & Risk Intelligence</span>
+                </h3>
+                <span class="kt-badge kt-badge-sm font-bold {{ $fraudAnalysis['status'] === 'safe' ? 'kt-badge-outline kt-badge-success' : ($fraudAnalysis['status'] === 'review' ? 'kt-badge-outline kt-badge-warning' : 'kt-badge-outline kt-badge-destructive') }}">
+                    Risk Score: {{ $fraudAnalysis['score'] }}/100 ({{ ucfirst($fraudAnalysis['status']) }})
+                </span>
+            </div>
+
+            <div class="p-3 rounded-lg {{ $fraudAnalysis['status'] === 'safe' ? 'bg-emerald-50/60 border border-emerald-100 text-emerald-800' : 'bg-rose-50/60 border border-rose-100 text-rose-800' }} text-xs">
+                <div class="font-bold flex items-center gap-1.5">
+                    <i class="fa-solid {{ $fraudAnalysis['status'] === 'safe' ? 'fa-circle-check text-emerald-600' : 'fa-triangle-exclamation text-rose-600' }}"></i>
+                    <span>{{ $fraudAnalysis['status'] === 'safe' ? 'Customer Profile Appears Safe' : 'Security Alert: Review Carefully' }}</span>
+                </div>
+                <div class="text-[11px] mt-1 text-gray-600">
+                    Delivery Success Rate: <strong class="text-gray-900">{{ $fraudAnalysis['success_rate'] }}%</strong> &bull; Past Orders: {{ $fraudAnalysis['total_orders'] }}
+                </div>
+            </div>
+
+            @if(count($fraudAnalysis['reasons']) > 0)
+                <div class="space-y-1 text-[11px] text-gray-600">
+                    <div class="font-bold text-gray-700 text-[10px] uppercase">Risk Factors:</div>
+                    @foreach($fraudAnalysis['reasons'] as $r)
+                        <div class="flex items-center gap-1.5 text-rose-600">
+                            <i class="fa-solid fa-circle-exclamation text-[9px]"></i>
+                            <span>{{ $r }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="pt-2 flex items-center justify-between text-xs border-t border-gray-100">
+                <a href="{{ route('admin.fraud.index', ['phone' => $order->customer_phone]) }}" class="text-primary font-semibold hover:underline">
+                    Detailed Fraud History &rarr;
+                </a>
+
+                @if($fraudAnalysis['status'] !== 'blacklisted')
+                    <form action="{{ route('admin.fraud.blacklist.add') }}" method="POST" onsubmit="return confirm('Blacklist this customer phone number?');">
+                        @csrf
+                        <input type="hidden" name="phone" value="{{ $order->customer_phone }}">
+                        <input type="hidden" name="reason" value="Suspicious activity from order #{{ $order->order_number }}">
+                        <button type="submit" class="text-rose-600 font-semibold hover:underline cursor-pointer">
+                            Blacklist Phone
+                        </button>
+                    </form>
+                @endif
+            </div>
+        </div>
+
+        <!-- Widget 2: Courier Logistics & Dispatch -->
+        <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs space-y-3">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <i class="fa-solid fa-truck-fast text-emerald-600"></i>
+                    <span>Courier Dispatch & Consignment</span>
+                </h3>
+                @if($order->consignment_id)
+                    <span class="kt-badge kt-badge-sm kt-badge-outline kt-badge-info font-bold">
+                        {{ ucfirst($order->courier_status) }}
+                    </span>
+                @else
+                    <span class="kt-badge kt-badge-sm kt-badge-outline kt-badge-warning">
+                        Not Dispatched
+                    </span>
+                @endif
+            </div>
+
+            @if($order->consignment_id)
+                <div class="p-3.5 rounded-lg bg-gray-50 border border-gray-100 space-y-1.5 text-xs">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Assigned Courier:</span>
+                        <strong class="uppercase text-gray-900">{{ $order->courier_name }}</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Consignment ID:</span>
+                        <strong class="font-mono text-emerald-600">{{ $order->consignment_id }}</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500">Tracking Code:</span>
+                        <strong class="font-mono text-gray-700">{{ $order->tracking_code }}</strong>
+                    </div>
+                </div>
+            @else
+                <form action="{{ route('admin.courier.send', $order->id) }}" method="POST" class="space-y-3 text-xs">
+                    @csrf
+                    <div class="space-y-1">
+                        <label class="block font-bold text-gray-700 uppercase text-[10px]">Select Courier Provider</label>
+                        <select name="courier" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 focus:outline-none focus:border-primary">
+                            <option value="steadfast">Steadfast Courier</option>
+                            <option value="pathao">Pathao Express</option>
+                            <option value="redx">RedX Logistics</option>
+                            <option value="paperfly">Paperfly</option>
+                            <option value="dhl">DHL Worldwide</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold shadow-xs flex items-center justify-center gap-1.5 py-2.5 cursor-pointer">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                        <span>Generate Consignment & Send</span>
+                    </button>
+                </form>
+            @endif
+        </div>
+
+    </div>
+
     <!-- Status Updater Control Card -->
     <div class="kt-card p-6 bg-white border border-gray-200/90 rounded-xl shadow-xs">
         <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Update Order & Payment Status</h3>
@@ -47,6 +160,7 @@
                     <option value="shipped" {{ $order->order_status == 'shipped' ? 'selected' : '' }}>Shipped</option>
                     <option value="delivered" {{ $order->order_status == 'delivered' ? 'selected' : '' }}>Delivered</option>
                     <option value="cancelled" {{ $order->order_status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                    <option value="returned" {{ $order->order_status == 'returned' ? 'selected' : '' }}>Returned</option>
                 </select>
             </div>
 
@@ -76,7 +190,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-10 w-auto object-contain">
                 <div>
                     <div class="text-base font-black text-gray-900 uppercase">SM SHOP</div>
-                    <div class="text-xs text-gray-500">Fashion & Activewear Ltd.</div>
+                    <div class="text-xs text-gray-500">Fashion & Activewear Enterprise</div>
                 </div>
             </div>
             <div class="text-right">
@@ -91,7 +205,7 @@
                 <span class="font-bold text-primary uppercase tracking-wider block text-[10px]">Customer Details</span>
                 <div class="font-bold text-gray-900 text-sm">{{ $order->shipping_name ?? $order->customer_name }}</div>
                 <div class="text-gray-600">{{ $order->shipping_email ?? $order->customer_email }}</div>
-                <div class="text-gray-600">{{ $order->shipping_phone ?? $order->customer_phone }}</div>
+                <div class="text-gray-600 font-mono font-bold">{{ $order->shipping_phone ?? $order->customer_phone }}</div>
             </div>
 
             <div class="space-y-1.5 p-4 rounded-lg bg-gray-50 border border-gray-100">
