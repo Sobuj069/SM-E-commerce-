@@ -68,7 +68,7 @@
         chatInput: '',
         isTyping: false
     }"
-    class="flex flex-col min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white transition-colors duration-200"
+    class="relative min-h-screen bg-white text-black font-sans antialiased selection:bg-black selection:text-white"
 >
 
     <!-- Top Announcement Ticker Bar -->
@@ -77,9 +77,9 @@
     </div>
 
     <!-- =========================================================================
-         1:1 AUTHENTIC GYMSHARK TOP HEADER & 2-COLUMN MEGA MENU FLYOUT
+         1:1 AUTHENTIC GYMSHARK TOP HEADER & MEGA MENU FLYOUT
          ========================================================================= -->
-    <header class="sticky top-0 z-40 bg-white border-b border-zinc-200 transition duration-300" @mouseleave="megaMenu = null">
+    <header class="sticky top-0 z-40 bg-white border-b border-zinc-200" @mouseleave="megaMenu = null">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20 relative">
                 
@@ -90,7 +90,7 @@
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'women'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'women']) }}" 
-                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500"
+                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
                             :class="megaMenu === 'women' ? 'border-black text-black font-black' : 'border-transparent text-zinc-900 font-bold'"
                         >
                             Women
@@ -101,7 +101,7 @@
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'men'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'men']) }}" 
-                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500"
+                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
                             :class="megaMenu === 'men' ? 'border-black text-black font-black' : 'border-transparent text-zinc-900 font-bold'"
                         >
                             Men
@@ -112,7 +112,7 @@
                     <div class="h-full flex items-center" @mouseenter="megaMenu = 'accessories'; activeSubTab = 'trending'">
                         <a 
                             href="{{ route('shop.index', ['category' => 'accessories']) }}" 
-                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500"
+                            class="py-6 transition whitespace-nowrap border-b-2 hover:text-zinc-500 flex items-center"
                             :class="megaMenu === 'accessories' ? 'border-black text-black font-black' : 'border-transparent text-zinc-900 font-bold'"
                         >
                             Accessories
@@ -195,297 +195,310 @@
         </div>
 
         <!-- =====================================================================
-             1:1 GYMSHARK 2-COLUMN MEGA MENU FLYOUT OVERLAY (FROM USER SCREENSHOT)
+             1:1 GYMSHARK 2-COLUMN MEGA MENU FLYOUT DROPDOWN (Directly under Header)
              ===================================================================== -->
         <div 
             x-show="megaMenu !== null" 
             x-transition:enter="transition ease-out duration-150"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
+            x-transition:enter-start="opacity-0 -translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-100"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-x-0 top-[65px] sm:top-[81px] bottom-0 z-50 flex pointer-events-auto" 
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-1"
+            class="absolute top-full left-0 right-0 w-full bg-white border-b border-zinc-200 shadow-2xl z-40" 
             style="display: none;"
+            @mouseenter="/* keep open */"
         >
-            <!-- 2-Column Mega Menu Panel (White Container) -->
-            <div class="bg-white flex shadow-2xl h-full border-r border-zinc-200 z-10 shrink-0" @mouseenter="/* keep open */">
-                
-                <!-- COLUMN 1: LEFT SUB-CATEGORY TABS (Exact Screenshot Match) -->
-                <div class="w-56 sm:w-64 border-r border-zinc-200 py-6 px-4 overflow-y-auto space-y-1">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex min-h-[380px] max-h-[500px]">
                     
-                    <!-- ACCESSORIES TABS -->
-                    <div x-show="megaMenu === 'accessories'" class="space-y-1">
-                        <button 
-                            @mouseenter="activeSubTab = 'trending'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Trending</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'bags'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'bags' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Bags</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'equipment'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'equipment' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Equipment</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'socks'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'socks' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Socks</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'underwear'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'underwear' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Underwear</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'headwear'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'headwear' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Headwear</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'last-chance'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'last-chance' ? 'font-black text-red-600 bg-red-50' : 'font-semibold text-zinc-700 hover:text-red-600'"
-                        >
-                            <span>Last Chance</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
+                    <!-- COLUMN 1: LEFT SUB-CATEGORY TABS (Exact Screenshot Match) -->
+                    <div class="w-56 sm:w-64 border-r border-zinc-200 py-6 pr-4 overflow-y-auto space-y-1">
+                        
+                        <!-- ACCESSORIES TABS -->
+                        <div x-show="megaMenu === 'accessories'" class="space-y-1">
+                            <button 
+                                @mouseenter="activeSubTab = 'trending'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Trending</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'bags'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'bags' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Bags</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'equipment'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'equipment' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Equipment</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'socks'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'socks' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Socks</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'underwear'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'underwear' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Underwear</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'headwear'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'headwear' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Headwear</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'last-chance'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'last-chance' ? 'font-black text-red-600 bg-red-50' : 'font-semibold text-zinc-700 hover:text-red-600'"
+                            >
+                                <span>Last Chance</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                        </div>
+
+                        <!-- WOMEN TABS -->
+                        <div x-show="megaMenu === 'women'" class="space-y-1">
+                            <button 
+                                @mouseenter="activeSubTab = 'trending'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Trending</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'leggings'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'leggings' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Leggings</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'sports-bras'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'sports-bras' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Sports Bras</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'hoodies'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'hoodies' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Hoodies & Sweatshirts</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'shorts'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'shorts' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Shorts</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                        </div>
+
+                        <!-- MEN TABS -->
+                        <div x-show="megaMenu === 'men'" class="space-y-1">
+                            <button 
+                                @mouseenter="activeSubTab = 'trending'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Trending</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 't-shirts'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 't-shirts' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>T-Shirts & Tops</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'tanks'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'tanks' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Tanks & Stringers</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'hoodies'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'hoodies' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Hoodies & Sweatshirts</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                            <button 
+                                @mouseenter="activeSubTab = 'joggers'" 
+                                class="w-full text-left py-2 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
+                                :class="activeSubTab === 'joggers' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
+                            >
+                                <span>Joggers & Sweatpants</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
+                            </button>
+                        </div>
+
                     </div>
 
-                    <!-- WOMEN TABS -->
-                    <div x-show="megaMenu === 'women'" class="space-y-1">
-                        <button 
-                            @mouseenter="activeSubTab = 'trending'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Trending</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'leggings'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'leggings' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Leggings</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'sports-bras'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'sports-bras' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Sports Bras</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'hoodies'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'hoodies' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Hoodies & Sweatshirts</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'shorts'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'shorts' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Shorts</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
+                    <!-- COLUMN 2: CENTER SUBCATEGORY ITEMS (Exact Screenshot Match) -->
+                    <div class="w-72 sm:w-80 py-6 px-8 border-r border-zinc-200 overflow-y-auto space-y-3.5">
+                        
+                        <!-- ACCESSORIES SUBCATEGORIES -->
+                        <div x-show="megaMenu === 'accessories'">
+                            <div x-show="activeSubTab === 'trending'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Accessories</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'sort' => 'latest']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">New Arrivals</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Back in Stock</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'sort' => 'popular']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Best Sellers</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seasonal Accessories</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Running Accessories</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'bags'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'bag']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Gym Bags</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'backpack']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Everyday Backpacks</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'duffle']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Duffle Bags</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'crossbody']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Crossbody & Waist Packs</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'equipment'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'lifting']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Lifting Belts & Straps</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'band']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Resistance Bands</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'bottle']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Water Bottles & Shakers</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'mat']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Yoga Mats</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'socks'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Socks</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'crew socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Crew Socks</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'quarter socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Quarter Socks</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'trainer socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Trainer Socks</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'underwear'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'underwear']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Performance Underwear</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'briefs']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Sports Briefs & Thongs</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'boxers']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seamless Boxers</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'headwear'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'cap']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Headwear</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'trucker cap']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Dad Caps & Snapbacks</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'beanie']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Knit Beanies</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'last-chance'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'accessories', 'sort' => 'popular']) }}" class="block text-xs font-black text-red-600 hover:underline">Accessories Outlet Sale</a>
+                                <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Final Stock Clearance</a>
+                            </div>
+                        </div>
+
+                        <!-- WOMEN SUBCATEGORIES -->
+                        <div x-show="megaMenu === 'women'">
+                            <div x-show="activeSubTab === 'trending'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'women']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Women's Apparel</a>
+                                <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Vital Seamless 2.0</a>
+                                <a href="{{ route('shop.index', ['category' => 'women', 'sort' => 'latest']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">New Releases</a>
+                                <a href="{{ route('shop.index', ['category' => 'women', 'sort' => 'popular']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Best Sellers</a>
+                                <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'squat proof']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Squat-Proof Sets</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'leggings'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'leggings']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Leggings</a>
+                                <a href="{{ route('shop.index', ['category' => 'seamless', 'q' => 'leggings']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">High Waisted Seamless</a>
+                                <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'pocket leggings']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Pocket Leggings</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'sports-bras'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'bra']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Sports Bras</a>
+                                <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'high support bra']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">High Support Bras</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'hoodies'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Hoodies & Sweats</a>
+                                <a href="{{ route('shop.index', ['category' => 'hoodies-sweats', 'q' => 'oversized']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Oversized Pump Covers</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'shorts'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'shorts']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Cycling Shorts</a>
+                                <a href="{{ route('shop.index', ['category' => 'seamless', 'q' => 'shorts']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seamless Gym Shorts</a>
+                            </div>
+                        </div>
+
+                        <!-- MEN SUBCATEGORIES -->
+                        <div x-show="megaMenu === 'men'">
+                            <div x-show="activeSubTab === 'trending'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'men']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Men's Gymwear</a>
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'power']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Power Collection</a>
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'pump cover']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Heavyweight Pump Covers</a>
+                                <a href="{{ route('shop.index', ['category' => 'men', 'sort' => 'latest']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">New Releases</a>
+                                <a href="{{ route('shop.index', ['category' => 'men', 'sort' => 'popular']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Best Sellers</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 't-shirts'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 't-shirt']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All T-Shirts & Tops</a>
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'oversized tee']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Oversized T-Shirts</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'tanks'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'stringer']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Drop Arm Stringers</a>
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'tank']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Workout Tanks & Vests</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'hoodies'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'hoodies-sweats', 'q' => 'men']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Heavyweight Pullover Hoodies</a>
+                            </div>
+
+                            <div x-show="activeSubTab === 'joggers'" class="space-y-3.5">
+                                <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'joggers']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Tapered Fit Joggers</a>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- MEN TABS -->
-                    <div x-show="megaMenu === 'men'" class="space-y-1">
-                        <button 
-                            @mouseenter="activeSubTab = 'trending'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'trending' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Trending</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 't-shirts'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 't-shirts' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>T-Shirts & Tops</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'tanks'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'tanks' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Tanks & Stringers</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'hoodies'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'hoodies' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Hoodies & Sweatshirts</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
-                        <button 
-                            @mouseenter="activeSubTab = 'joggers'" 
-                            class="w-full text-left py-2.5 px-3 rounded-lg text-xs tracking-wide flex items-center justify-between transition cursor-pointer"
-                            :class="activeSubTab === 'joggers' ? 'font-black text-black bg-zinc-100' : 'font-semibold text-zinc-700 hover:text-black'"
-                        >
-                            <span>Joggers & Sweatpants</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-zinc-400"></i>
-                        </button>
+                    <!-- Right Empty Space inside container -->
+                    <div class="flex-1 py-6 px-8 hidden md:block">
+                        <div class="h-full flex items-center justify-end text-zinc-400 text-xs font-semibold">
+                            <span class="hover:text-black cursor-pointer" @click="megaMenu = null">Press ESC to close &times;</span>
+                        </div>
                     </div>
 
                 </div>
-
-                <!-- COLUMN 2: CENTER SUBCATEGORY ITEMS (Exact Screenshot Match) -->
-                <div class="w-64 sm:w-80 py-6 px-8 overflow-y-auto space-y-4">
-                    
-                    <!-- ACCESSORIES SUBCATEGORIES -->
-                    <div x-show="megaMenu === 'accessories'">
-                        <div x-show="activeSubTab === 'trending'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Accessories</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'sort' => 'latest']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">New Arrivals</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Back in Stock</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'sort' => 'popular']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Best Sellers</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seasonal Accessories</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Running Accessories</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'bags'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'bag']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Gym Bags</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'backpack']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Everyday Backpacks</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'duffle']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Duffle Bags</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'crossbody']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Crossbody & Waist Packs</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'equipment'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'lifting']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Lifting Belts & Straps</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'band']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Resistance Bands</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'bottle']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Water Bottles & Shakers</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'mat']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Yoga Mats</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'socks'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Socks</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'crew socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Crew Socks</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'quarter socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Quarter Socks</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'trainer socks']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Trainer Socks</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'underwear'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'underwear']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Performance Underwear</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'briefs']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Sports Briefs & Thongs</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'boxers']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seamless Boxers</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'headwear'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'cap']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Headwear</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'trucker cap']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Dad Caps & Snapbacks</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'q' => 'beanie']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Knit Beanies</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'last-chance'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'accessories', 'sort' => 'popular']) }}" class="block text-xs font-black text-red-600 hover:underline">Accessories Outlet Sale</a>
-                            <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Final Stock Clearance</a>
-                        </div>
-                    </div>
-
-                    <!-- WOMEN SUBCATEGORIES -->
-                    <div x-show="megaMenu === 'women'">
-                        <div x-show="activeSubTab === 'trending'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'women']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Women's Apparel</a>
-                            <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Vital Seamless 2.0</a>
-                            <a href="{{ route('shop.index', ['category' => 'women', 'sort' => 'latest']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">New Releases</a>
-                            <a href="{{ route('shop.index', ['category' => 'women', 'sort' => 'popular']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Best Sellers</a>
-                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'squat proof']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Squat-Proof Sets</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'leggings'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'leggings']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Leggings</a>
-                            <a href="{{ route('shop.index', ['category' => 'seamless', 'q' => 'leggings']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">High Waisted Seamless</a>
-                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'pocket leggings']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Pocket Leggings</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'sports-bras'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'bra']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Sports Bras</a>
-                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'high support bra']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">High Support Bras</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'hoodies'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Hoodies & Sweats</a>
-                            <a href="{{ route('shop.index', ['category' => 'hoodies-sweats', 'q' => 'oversized']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Oversized Pump Covers</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'shorts'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'women', 'q' => 'shorts']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Cycling Shorts</a>
-                            <a href="{{ route('shop.index', ['category' => 'seamless', 'q' => 'shorts']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Seamless Gym Shorts</a>
-                        </div>
-                    </div>
-
-                    <!-- MEN SUBCATEGORIES -->
-                    <div x-show="megaMenu === 'men'">
-                        <div x-show="activeSubTab === 'trending'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'men']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All Men's Gymwear</a>
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'power']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Power Collection</a>
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'pump cover']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Heavyweight Pump Covers</a>
-                            <a href="{{ route('shop.index', ['category' => 'men', 'sort' => 'latest']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">New Releases</a>
-                            <a href="{{ route('shop.index', ['category' => 'men', 'sort' => 'popular']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Best Sellers</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 't-shirts'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 't-shirt']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">All T-Shirts & Tops</a>
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'oversized tee']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Oversized T-Shirts</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'tanks'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'stringer']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Drop Arm Stringers</a>
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'tank']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Workout Tanks & Vests</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'hoodies'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'hoodies-sweats', 'q' => 'men']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Heavyweight Pullover Hoodies</a>
-                        </div>
-
-                        <div x-show="activeSubTab === 'joggers'" class="space-y-3.5">
-                            <a href="{{ route('shop.index', ['category' => 'men', 'q' => 'joggers']) }}" class="block text-xs font-bold text-zinc-900 hover:underline">Tapered Fit Joggers</a>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
-
-            <!-- COLUMN 3: BACKDROP OVERLAY (Covers the rest of the screen with a sleek blurred dark backdrop) -->
-            <div class="flex-1 bg-black/40 backdrop-blur-xs cursor-pointer" @click="megaMenu = null"></div>
-
         </div>
+
+        <!-- Full-Page Dimming Backdrop for Mega Menu -->
+        <div 
+            x-show="megaMenu !== null" 
+            @click="megaMenu = null"
+            class="fixed inset-0 top-[73px] sm:top-[81px] bg-black/40 backdrop-blur-xs z-30" 
+            style="display: none;"
+        ></div>
 
         <!-- Mobile Search Dropdown -->
         <div 
@@ -757,6 +770,7 @@
 
     <!-- =========================================================================
          2. EXACT GYMSHARK FLOATING "ARE YOU IN THE RIGHT PLACE?" REGION SWITCHER
+         (PLACED AT THE BOTTOM OF BODY WITH STRICT FIXED POSITIONING)
          ========================================================================= -->
     <div 
         x-show="regionOpen" 
@@ -766,8 +780,8 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-        class="fixed bottom-24 right-6 z-40 bg-[#121212] text-white p-5 rounded-2xl shadow-2xl border border-zinc-800 w-80 max-w-[calc(100vw-3rem)]"
-        style="display: none;"
+        class="bg-[#121212] text-white p-5 rounded-2xl shadow-2xl border border-zinc-800 w-80 max-w-[calc(100vw-2rem)]"
+        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; display: none;"
     >
         <div class="flex items-center justify-between mb-4">
             <span class="text-xs font-black tracking-wider uppercase">ARE YOU IN THE RIGHT PLACE?</span>
@@ -824,8 +838,8 @@
          3. SMART SM SHARK AI ASSISTANT CHATBOT WIDGET
          ========================================================================= -->
     
-    <!-- Floating Chat Trigger Button -->
-    <div class="fixed bottom-6 right-6 z-40 flex items-center gap-2">
+    <!-- Floating Chat Trigger Button (Fixed at Bottom-Right) -->
+    <div style="position: fixed !important; bottom: 20px !important; right: 24px !important; z-index: 9999 !important;">
         <button 
             type="button" 
             @click="chatOpen = !chatOpen" 
@@ -846,8 +860,8 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-        class="fixed bottom-24 right-6 z-50 w-88 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px]"
-        style="display: none;"
+        class="w-88 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[520px]"
+        style="position: fixed !important; bottom: 85px !important; right: 24px !important; z-index: 9999 !important; display: none;"
     >
         <!-- Chat Header -->
         <div class="bg-black text-white p-4 flex items-center justify-between">
