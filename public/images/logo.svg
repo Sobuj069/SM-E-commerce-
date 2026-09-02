@@ -1,39 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 130" width="500" height="130" fill="none">
-  <style>
-    .brand-title {
-      font-family: "Playfair Display", "Georgia", "Times New Roman", serif;
-      font-weight: 900;
-      font-size: 50px;
-      fill: #000000;
-      letter-spacing: -0.5px;
-    }
-    .brand-sub {
-      font-family: "Inter", "Plus Jakarta Sans", "Montserrat", sans-serif;
-      font-weight: 800;
-      font-size: 14.5px;
-      fill: #000000;
-      letter-spacing: 5.5px;
-    }
-  </style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120" fill="none">
+  <defs>
+    <!-- Smooth typography & sharp rendering -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@700;800;900&display=swap');
+      .title-text {
+        font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+        font-size: 52px;
+        font-weight: 900;
+        fill: #000000;
+        letter-spacing: -0.5px;
+      }
+      .sub-text {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 13.5px;
+        font-weight: 800;
+        fill: #000000;
+        letter-spacing: 5.5px;
+      }
+    </style>
+  </defs>
 
-  <!-- Left: Bold Tailoring Compass / Caliper Icon in Pure Black -->
-  <g transform="translate(10, 8)">
-    <!-- Top Pivot Ring -->
-    <circle cx="48" cy="24" r="14" stroke="#000000" stroke-width="8" fill="#FFFFFF" />
-    <circle cx="48" cy="24" r="6" fill="#000000" />
-    
-    <!-- Left Leg -->
-    <line x1="42" y1="36" x2="12" y2="108" stroke="#000000" stroke-width="8.5" stroke-linecap="round" />
-    
-    <!-- Right Leg -->
-    <line x1="54" y1="36" x2="84" y2="108" stroke="#000000" stroke-width="8.5" stroke-linecap="round" />
-    
-    <!-- Fine Needle Tip Accents -->
-    <circle cx="12" cy="108" r="4.25" fill="#000000" />
-    <circle cx="84" cy="108" r="4.25" fill="#000000" />
+  <!-- Left: Interlocking Luxury SM Monogram -->
+  <g transform="translate(10, 5)">
+    <!-- Base Letter M -->
+    <path d="M 20 95 L 20 25 L 50 72 L 80 25 L 80 95" 
+          stroke="#000000" 
+          stroke-width="8.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none" />
+
+    <!-- Interlocking Weave Letter S with clean depth -->
+    <!-- Knockout white backdrop path for 3D interlocking illusion -->
+    <path d="M 75 35 C 65 18, 35 18, 30 42 C 25 62, 75 64, 70 86 C 65 106, 30 106, 22 88" 
+          stroke="#FFFFFF" 
+          stroke-width="15" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none" />
+
+    <!-- Pure Black S Path -->
+    <path d="M 75 35 C 65 18, 35 18, 30 42 C 25 62, 75 64, 70 86 C 65 106, 30 106, 22 88" 
+          stroke="#000000" 
+          stroke-width="9" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none" />
   </g>
 
-  <!-- Right: Bold Deep Black Typography -->
-  <text x="125" y="66" class="brand-title">SM Shop</text>
-  <text x="128" y="98" class="brand-sub">FASHION &amp; APPAREL</text>
+  <!-- Right: Crystal-Clear Typography -->
+  <!-- Top: SM Shop -->
+  <text x="116" y="60" class="title-text">SM Shop</text>
+
+  <!-- Bottom: F A S H I O N   &   A P P A R E L -->
+  <text x="118" y="90" class="sub-text">FASHION &amp; APPAREL</text>
 </svg>
