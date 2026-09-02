@@ -7,23 +7,29 @@
 
     <title>@yield('title', 'Metronic - Dark Sidebar') | SM Shop Enterprise</title>
 
+    <!-- FontAwesome 6 (CSS + SVG Vector Engine for 100% guaranteed rendering) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+
     <!-- Official Keenthemes Metronic CSS Bundle -->
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/apexcharts/apexcharts.css" rel="stylesheet"/>
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/vendors/keenicons/styles.bundle.css" rel="stylesheet"/>
     <link href="https://keenthemes.com/metronic/tailwind/dist/assets/css/styles.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-    <!-- Lucide Icons Bundle -->
-    <script src="https://unpkg.com/lucide@latest"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>
         [x-cloak] { display: none !important; }
         
-        /* Times New Roman Global Typography */
-        *, body, h1, h2, h3, h4, h5, h6, p, span, a, input, select, textarea, button, table, th, td, kbd, div, label {
+        /* Times New Roman for text elements (Without breaking Icon fonts!) */
+        body, h1, h2, h3, h4, h5, h6, p, a, input, select, textarea, button, table, th, td, kbd, label {
             font-family: 'Times New Roman', Times, Georgia, serif !important;
+        }
+
+        /* Protect and ensure Icon rendering */
+        i.fa-solid, i.fa-regular, i.fa-brands, .svg-inline--fa {
+            font-family: inherit;
+            display: inline-block;
         }
 
         /* Sidebar Custom Smooth Scrollbar */
@@ -595,10 +601,5 @@
     </div>
 
     @stack('scripts')
-    <script>
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-    </script>
 </body>
 </html>
