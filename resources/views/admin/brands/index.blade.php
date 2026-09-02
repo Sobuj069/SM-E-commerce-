@@ -4,12 +4,20 @@
 @section('breadcrumb', 'Catalog / Brands')
 
 @section('content')
-<div class="flex flex-col gap-6 lg:gap-8">
+<div class="flex flex-col gap-6 lg:gap-8" x-data="{
+    logoPreview: '',
+    onLogoChange(e) {
+        const file = e.target.files[0];
+        if (file) {
+            this.logoPreview = URL.createObjectURL(file);
+        }
+    }
+}">
     
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Activewear Brands</h1>
-            <p class="text-xs text-gray-500 mt-0.5">Manage apparel partner brands, official suppliers, and in-house labels</p>
+            <p class="text-xs text-gray-500 mt-0.5">Manage apparel partner brands, official suppliers, and in-house labels with logo image upload</p>
         </div>
     </div>
 
@@ -17,9 +25,11 @@
         
         <!-- Left: Brands Table (8 cols) -->
         <div class="lg:col-span-8 kt-card bg-white border border-gray-200/90 rounded-xl shadow-xs overflow-hidden">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+            <div class="p-5 sm:p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                 <h3 class="text-base font-bold text-gray-900">Partner Brands ({{ $brands->count() }})</h3>
-                <span class="text-xs text-gray-500">Official Labels</span>
+                <span class="px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200">
+                    Official Labels
+                </span>
             </div>
 
             <div class="overflow-x-auto">
@@ -38,9 +48,9 @@
                                 <td class="py-3.5 px-6">
                                     <div class="flex items-center gap-3">
                                         @if($brand->logo)
-                                            <img src="{{ $brand->logo }}" alt="{{ $brand->name }}" class="w-10 h-10 rounded-lg object-contain bg-gray-100 p-1 border border-gray-200">
+                                            <img src="{{ $brand->logo }}" alt="{{ $brand->name }}" class="w-10 h-10 rounded-lg object-contain bg-gray-50 p-1 border border-gray-200 shrink-0">
                                         @else
-                                            <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs">
+                                            <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-xs shrink-0">
                                                 <i class="fa-solid fa-tag"></i>
                                             </div>
                                         @endif
@@ -70,7 +80,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="py-8 text-center text-gray-400 italic">No brands added yet.</td>
+                                <td colspan="4" class="py-12 text-center text-gray-400 italic">No brands added yet.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -80,25 +90,51 @@
 
         <!-- Right: Add Brand Form (4 cols) -->
         <div class="lg:col-span-4 kt-card bg-white border border-gray-200/90 rounded-xl p-6 shadow-xs space-y-4">
-            <h3 class="text-base font-bold text-gray-900 pb-3 border-b border-gray-100">
-                Register New Brand
+            <h3 class="text-base font-bold text-gray-900 pb-3 border-b border-gray-100 flex items-center justify-between">
+                <span>Register New Brand</span>
+                <i class="fa-solid fa-award text-purple-600"></i>
             </h3>
 
-            <form action="{{ route('admin.brands.store') }}" method="POST" class="space-y-4 text-xs">
+            <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
                 @csrf
+                
                 <div class="space-y-1">
-                    <label class="block font-bold text-gray-700 uppercase text-[10px]">Brand Name</label>
-                    <input type="text" name="name" placeholder="e.g. Gymshark, SM Pro" class="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 font-semibold focus:outline-none focus:border-primary focus:bg-white transition" required>
+                    <label class="block font-bold text-gray-700 uppercase text-[10px]">Brand Name *</label>
+                    <input type="text" name="name" placeholder="e.g. Gymshark, SM Pro Active" class="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 font-semibold focus:outline-none focus:border-primary focus:bg-white transition" required>
+                </div>
+
+                <!-- Brand Logo (File Upload or URL) -->
+                <div class="space-y-2 pt-1 border-t border-gray-100">
+                    <label class="block font-bold text-gray-700 uppercase text-[10px]">Brand Logo Image</label>
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 overflow-hidden flex items-center justify-center p-1 shrink-0">
+                            <template x-if="logoPreview">
+                                <img :src="logoPreview" class="w-full h-full object-contain">
+                            </template>
+                            <template x-if="!logoPreview">
+                                <i class="fa-solid fa-award text-gray-400 text-base"></i>
+                            </template>
+                        </div>
+                        
+                        <div class="flex-1 space-y-1.5">
+                            <label class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-[11px] font-bold text-gray-800 flex items-center justify-center gap-1.5 cursor-pointer transition">
+                                <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
+                                <span>Upload Logo File</span>
+                                <input type="file" name="logo_file" accept="image/*" @change="onLogoChange($event)" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1 pt-1">
+                        <label class="block font-semibold text-gray-500 text-[10px]">Or Logo URL (Web Link):</label>
+                        <input type="url" name="logo" x-on:input="logoPreview = $event.target.value" placeholder="https://..." class="w-full px-3.5 py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 text-xs font-semibold focus:outline-none focus:border-primary focus:bg-white transition">
+                    </div>
                 </div>
 
                 <div class="space-y-1">
-                    <label class="block font-bold text-gray-700 uppercase text-[10px]">Logo URL</label>
-                    <input type="url" name="logo" placeholder="https://..." class="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 font-semibold focus:outline-none focus:border-primary focus:bg-white transition">
-                </div>
-
-                <div class="space-y-1">
-                    <label class="block font-bold text-gray-700 uppercase text-[10px]">Description</label>
-                    <textarea name="description" rows="3" placeholder="Brand story, official warranty..." class="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 font-semibold focus:outline-none focus:border-primary focus:bg-white transition"></textarea>
+                    <label class="block font-bold text-gray-700 uppercase text-[10px]">Description (Optional)</label>
+                    <textarea name="description" rows="2" placeholder="Brand story, official warranty..." class="w-full px-4 py-2.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 font-semibold focus:outline-none focus:border-primary focus:bg-white transition"></textarea>
                 </div>
 
                 <button type="submit" class="w-full kt-btn kt-btn-primary text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs cursor-pointer py-3">

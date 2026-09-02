@@ -4,40 +4,93 @@
 @section('breadcrumb', 'Catalog / Add Product')
 
 @section('content')
-<div class="max-w-4xl mx-auto flex flex-col gap-6">
+<div class="max-w-5xl mx-auto flex flex-col gap-6" x-data="{
+    primaryPreview: '',
+    galleryPreviews: [],
+    galleryUrls: [''],
+    onPrimaryChange(e) {
+        const file = e.target.files[0];
+        if (file) {
+            this.primaryPreview = URL.createObjectURL(file);
+        }
+    },
+    onGalleryFilesChange(e) {
+        const files = Array.from(e.target.files);
+        files.forEach(f => {
+            this.galleryPreviews.push(URL.createObjectURL(f));
+        });
+    },
+    removeGalleryPreview(index) {
+        this.galleryPreviews.splice(index, 1);
+    },
+    addGalleryUrl() {
+        this.galleryUrls.push('');
+    },
+    removeGalleryUrl(index) {
+        this.galleryUrls.splice(index, 1);
+    }
+}">
     
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Add New Activewear Drop</h1>
-            <p class="text-xs text-gray-500 mt-0.5 font-medium">Publish new gym apparel, set fabric specs, pricing, and stock inventory</p>
+            <p class="text-xs text-gray-500 mt-0.5 font-medium">Publish new gym apparel with multiple photo angles, pricing, specs, and inventory</p>
         </div>
         <a href="{{ route('admin.products.index') }}" class="kt-btn kt-btn-outline kt-btn-sm text-xs font-semibold flex items-center gap-1.5 text-gray-700">
             <i class="fa-solid fa-arrow-left text-xs"></i> Back to Catalog
         </a>
     </div>
 
-    <form action="{{ route('admin.products.store') }}" method="POST" class="p-8 rounded-xl bg-white border border-gray-200/90 shadow-xs space-y-6">
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 rounded-xl bg-white border border-gray-200/90 shadow-xs space-y-6">
         @csrf
 
+        <!-- Basic Information -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Product Name</label>
-                <input type="text" name="name" placeholder="e.g. Vital Seamless 2.0 Leggings" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Product Name *</label>
+                <input type="text" name="name" placeholder="e.g. Vital Seamless 2.0 High Waisted Leggings" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
             </div>
 
             <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Apparel Category</label>
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Apparel Category & Hierarchy *</label>
                 <select name="category_id" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 focus:outline-none focus:border-primary focus:bg-white transition" required>
                     @foreach($categories as $cat)
-                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                        <option value="{{ $cat->id }}">
+                            @if($cat->level == 1)
+                                👑 {{ $cat->name }} (Main)
+                            @elseif($cat->level == 2)
+                                &nbsp;&nbsp;↳ {{ $cat->name }} (Sub of {{ $cat->parent->name ?? '' }})
+                            @else
+                                &nbsp;&nbsp;&nbsp;&nbsp;↳ {{ $cat->name }} (Child)
+                            @endif
+                        </option>
                     @endforeach
                 </select>
             </div>
         </div>
 
+        <!-- Brand & SKU -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Partner Brand Label (Optional)</label>
+                <select name="brand_id" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 focus:outline-none focus:border-primary focus:bg-white transition">
+                    <option value="">-- No Brand (In-House SM Label) --</option>
+                    @foreach($brands as $brand)
+                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">SKU Identifier</label>
+                <input type="text" name="sku" placeholder="VTL-SMS-001" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 font-mono placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition">
+            </div>
+        </div>
+
+        <!-- Pricing & Stock -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Regular Price ($)</label>
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Regular Price ($) *</label>
                 <input type="number" step="0.01" name="price" placeholder="54.00" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
             </div>
 
@@ -47,25 +100,118 @@
             </div>
 
             <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Stock Inventory</label>
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Stock Inventory Units *</label>
                 <input type="number" name="stock" value="50" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">SKU Identifier</label>
-                <input type="text" name="sku" placeholder="VTL-SMS-001" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition">
+        <!-- =========================================================================
+             SECTION 1: PRIMARY MAIN PRODUCT IMAGE
+             ========================================================================= -->
+        <div class="p-5 rounded-2xl bg-gray-50/70 border border-gray-200 space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+                <div>
+                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider">1. Primary Showcase Image (Cover)</h3>
+                    <p class="text-[11px] text-gray-500">Main cover image displayed on catalog cards and store banners</p>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-[#1b84ff] border border-blue-200">Required</span>
             </div>
 
-            <div class="space-y-1.5">
-                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">High-Res Image URL</label>
-                <input type="url" name="image" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                <!-- Preview box -->
+                <div class="sm:col-span-3 flex justify-center sm:justify-start">
+                    <div class="w-24 h-28 rounded-xl bg-white border border-gray-300 overflow-hidden flex items-center justify-center p-1 shadow-xs">
+                        <template x-if="primaryPreview">
+                            <img :src="primaryPreview" class="w-full h-full object-cover rounded-lg">
+                        </template>
+                        <template x-if="!primaryPreview">
+                            <div class="text-center p-2 text-gray-400">
+                                <i class="fa-solid fa-image text-2xl mb-1"></i>
+                                <div class="text-[9px] font-bold">Cover Preview</div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Inputs -->
+                <div class="sm:col-span-9 space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-700 mb-1">Upload Primary Image File:</label>
+                        <input type="file" name="image_file" accept="image/*" @change="onPrimaryChange($event)" class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#1b84ff] file:text-white hover:file:bg-blue-600 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-gray-500 mb-1">Or Paste Direct Image URL:</label>
+                        <input type="url" name="image" x-on:input="primaryPreview = $event.target.value" placeholder="https://images.unsplash.com/..." class="w-full px-3.5 py-2 rounded-lg bg-white border border-gray-200 text-gray-900 text-xs font-semibold focus:outline-none focus:border-primary transition">
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- =========================================================================
+             SECTION 2: MULTIPLE GALLERY IMAGES
+             ========================================================================= -->
+        <div class="p-5 rounded-2xl bg-gray-50/70 border border-gray-200 space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+                <div>
+                    <h3 class="font-bold text-xs text-gray-900 uppercase tracking-wider">2. Multiple Product Gallery Images</h3>
+                    <p class="text-[11px] text-gray-500">Upload multiple side angles, back view, fabric close-ups, and on-model photos</p>
+                </div>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Multiple Photos</span>
+            </div>
+
+            <!-- Multi-file uploader -->
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-gray-700">Upload Multiple Photos (Select Multiple Files at Once):</label>
+                <div class="p-6 border-2 border-dashed border-gray-300 hover:border-[#1b84ff] rounded-2xl bg-white text-center cursor-pointer transition relative">
+                    <input type="file" name="gallery_files[]" multiple accept="image/*" @change="onGalleryFilesChange($event)" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                    <i class="fa-solid fa-images text-2xl text-[#1b84ff] mb-2"></i>
+                    <p class="text-xs font-bold text-gray-800">Drag & Drop or Click to Select Multiple Gallery Images</p>
+                    <p class="text-[10px] text-gray-400 mt-0.5">JPEG, PNG, WEBP, AVIF up to 5MB each</p>
+                </div>
+            </div>
+
+            <!-- Live Gallery Preview Grid -->
+            <template x-if="galleryPreviews.length > 0">
+                <div class="space-y-2 pt-2">
+                    <label class="block text-xs font-bold text-gray-700">Selected Gallery Photos Preview (<span x-text="galleryPreviews.length"></span>):</label>
+                    <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                        <template x-for="(img, idx) in galleryPreviews" :key="idx">
+                            <div class="relative aspect-square rounded-xl bg-white border border-gray-200 overflow-hidden group shadow-xs">
+                                <img :src="img" class="w-full h-full object-cover">
+                                <button type="button" @click="removeGalleryPreview(idx)" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-[10px] opacity-90 hover:opacity-100 transition shadow-md cursor-pointer" title="Remove Photo">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Or Add Gallery Image URLs -->
+            <div class="space-y-2 pt-3 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <label class="block text-[11px] font-bold text-gray-700">Or Add Gallery Image URLs:</label>
+                    <button type="button" @click="addGalleryUrl()" class="px-2.5 py-1 bg-white border border-gray-300 hover:border-black rounded-lg text-[10px] font-bold text-gray-800 flex items-center gap-1 transition cursor-pointer">
+                        <i class="fa-solid fa-plus text-[9px]"></i> Add Another URL
+                    </button>
+                </div>
+
+                <div class="space-y-2">
+                    <template x-for="(url, uIdx) in galleryUrls" :key="uIdx">
+                        <div class="flex items-center gap-2">
+                            <input type="url" name="gallery_urls[]" x-model="galleryUrls[uIdx]" placeholder="https://images.unsplash.com/..." class="flex-1 px-3.5 py-2 rounded-lg bg-white border border-gray-200 text-gray-900 text-xs font-semibold focus:outline-none focus:border-primary transition">
+                            <button type="button" @click="removeGalleryUrl(uIdx)" x-show="galleryUrls.length > 1" class="w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white flex items-center justify-center transition cursor-pointer">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tagline & Descriptions -->
         <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Short Tagline Description</label>
+            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Short Tagline Description *</label>
             <input type="text" name="short_description" placeholder="High-waisted compression fit, sweat-wicking DRY fabric, and supportive ribbed waistband." class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition" required>
         </div>
 
@@ -85,9 +231,9 @@
             <a href="{{ route('admin.products.index') }}" class="kt-btn kt-btn-outline text-xs font-semibold text-gray-600">
                 Cancel
             </a>
-            <button type="submit" class="kt-btn kt-btn-primary text-xs font-semibold flex items-center gap-2 shadow-xs cursor-pointer">
+            <button type="submit" class="kt-btn kt-btn-primary text-xs font-semibold flex items-center gap-2 shadow-xs cursor-pointer px-6 py-3">
                 <i class="fa-solid fa-cloud-arrow-up text-xs"></i>
-                <span>Publish Drop</span>
+                <span>Publish Drop with Gallery</span>
             </button>
         </div>
     </form>

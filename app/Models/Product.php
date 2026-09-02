@@ -21,6 +21,7 @@ class Product extends Model
         'stock',
         'sku',
         'image',
+        'gallery_images',
         'is_featured',
         'is_active',
         'rating',
@@ -35,6 +36,7 @@ class Product extends Model
         'is_active' => 'boolean',
         'stock' => 'integer',
         'reviews_count' => 'integer',
+        'gallery_images' => 'array',
     ];
 
     /**
@@ -81,6 +83,24 @@ class Product extends Model
     public function approvedReviews(): HasMany
     {
         return $this->hasMany(Review::class)->where('is_approved', true)->latest();
+    }
+
+    /**
+     * Get all images combined (primary thumbnail + gallery images)
+     */
+    public function getAllImagesAttribute(): array
+    {
+        $gallery = is_array($this->gallery_images) ? $this->gallery_images : [];
+        $images = [];
+        if (!empty($this->image)) {
+            $images[] = $this->image;
+        }
+        foreach ($gallery as $img) {
+            if (!empty($img) && !in_array($img, $images)) {
+                $images[] = $img;
+            }
+        }
+        return !empty($images) ? $images : ['https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800'];
     }
 
     public function getEffectivePriceAttribute()

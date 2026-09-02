@@ -23,6 +23,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" 
      x-data="{ 
          viewMode: 'image', // 'image' | '3d'
+         activeImage: '{{ $product->image }}',
          quantity: 1,
          selectedVariantId: '{{ $product->variants->first()?->id ?? '' }}',
          activePrice: {{ $product->effective_price }},
@@ -67,10 +68,10 @@
                 <!-- Showcase Media Frame -->
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#f4f4f5] border border-zinc-200 group">
                     
-                    <!-- Mode 1: Studio Photo -->
+                    <!-- Mode 1: Studio Photo (Switchable between Gallery Images) -->
                     <div x-show="viewMode === 'image'" class="w-full h-full relative flex items-center justify-center overflow-hidden">
                         <img 
-                            src="{{ $product->image }}" 
+                            :src="activeImage" 
                             alt="{{ $product->name }}" 
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         >
@@ -107,6 +108,32 @@
                     </div>
 
                 </div>
+
+                <!-- Multiple Gallery Images Thumbnail Row -->
+                @php
+                    $allImages = $product->all_images;
+                @endphp
+                @if(count($allImages) > 1)
+                    <div class="space-y-1.5 pt-1">
+                        <div class="flex items-center justify-between text-[11px] font-bold text-zinc-500 uppercase tracking-wider">
+                            <span>Photo Angles ({{ count($allImages) }})</span>
+                            <span class="text-[10px] text-zinc-400">Click to switch</span>
+                        </div>
+                        <div class="flex items-center gap-2.5 overflow-x-auto pb-1">
+                            @foreach($allImages as $idx => $img)
+                                <button 
+                                    type="button" 
+                                    @click="activeImage = '{{ $img }}'; viewMode = 'image'" 
+                                    class="w-16 h-20 rounded-xl overflow-hidden border-2 transition shrink-0 cursor-pointer shadow-2xs"
+                                    :class="activeImage === '{{ $img }}' ? 'border-black ring-1 ring-black scale-105' : 'border-zinc-200 hover:border-zinc-400 opacity-70 hover:opacity-100'"
+                                    title="View Photo {{ $idx + 1 }}"
+                                >
+                                    <img src="{{ $img }}" alt="{{ $product->name }} Angle {{ $idx + 1 }}" class="w-full h-full object-cover">
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <!-- Right: Product Information & Interactive Options -->

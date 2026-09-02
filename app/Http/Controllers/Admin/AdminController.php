@@ -113,32 +113,45 @@ class AdminController extends Controller
     }
 
     // ==========================================
-    // 3. CATEGORIES MANAGEMENT
+    // 3. CATEGORIES MANAGEMENT (Category, Subcategory, Child Category)
     // ==========================================
     public function categories()
     {
-        $categories = Category::withCount('products')->latest()->get();
-        return view('admin.categories.index', compact('categories'));
+        $categories = Category::with(['parent.parent'])->withCount('products')->latest()->get();
+        $parentCategories = Category::with('parent')->get();
+        return view('admin.categories.index', compact('categories', 'parentCategories'));
     }
 
     public function storeCategory(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
-            'image' => 'nullable|url',
+            'name' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|string',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
             'description' => 'nullable|string',
         ]);
 
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('uploads/categories', 'public');
+            $data['image'] = '/storage/' . $path;
+        }
+
         $data['slug'] = Str::slug($data['name']);
+        if (Category::where('slug', $data['slug'])->exists()) {
+            $data['slug'] .= '-' . Str::random(4);
+        }
+
+        unset($data['image_file']);
         Category::create($data);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Apparel category created successfully!');
+        return redirect()->route('admin.categories.index')->with('success', 'Category / Subcategory registered successfully!');
     }
 
     public function deleteCategory(Category $category)
     {
         $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category removed successfully.');
     }
 
     // ==========================================
@@ -154,15 +167,22 @@ class AdminController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255|unique:brands,name',
-            'logo' => 'nullable|url',
+            'logo' => 'nullable|string',
+            'logo_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:4096',
             'description' => 'nullable|string',
         ]);
 
+        if ($request->hasFile('logo_file')) {
+            $path = $request->file('logo_file')->store('uploads/brands', 'public');
+            $data['logo'] = '/storage/' . $path;
+        }
+
         $data['slug'] = Str::slug($data['name']);
         $data['is_active'] = true;
+        unset($data['logo_file']);
         Brand::create($data);
 
-        return redirect()->route('admin.brands.index')->with('success', 'Activewear brand registered successfully!');
+        return redirect()->route('admin.brands.index')->with('success', 'Activewear brand registered successfully with logo!');
     }
 
     public function deleteBrand(Brand $brand)
@@ -172,7 +192,7 @@ class AdminController extends Controller
     }
 
     // ==========================================
-    // 5. PRODUCTS & CATALOG
+    // 5. PRODUCTS & CATALOG (MULTIPLE IMAGES SUPPORT)
     // ==========================================
     public function products()
     {
@@ -182,7 +202,7 @@ class AdminController extends Controller
 
     public function createProduct()
     {
-        $categories = Category::all();
+        $categories = Category::with('parent')->get();
         $brands = Brand::all();
         return view('admin.products.create', compact('categories', 'brands'));
     }
@@ -197,24 +217,57 @@ class AdminController extends Controller
             'sale_price' => 'nullable|numeric|min:0',
             'sku' => 'nullable|string|max:50',
             'stock' => 'required|integer|min:0',
-            'image' => 'required|url',
+            'image' => 'nullable|string',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif|max:5120',
+            'gallery_files.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif|max:5120',
+            'gallery_urls' => 'nullable|array',
+            'gallery_urls.*' => 'nullable|string',
             'short_description' => 'required|string|max:500',
             'description' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
         ]);
 
+        // 1. Handle Primary Image
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('uploads/products', 'public');
+            $data['image'] = '/storage/' . $path;
+        } elseif (empty($data['image'])) {
+            $data['image'] = 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800';
+        }
+
+        // 2. Handle Multiple Gallery Images
+        $galleryImages = [];
+        if ($request->hasFile('gallery_files')) {
+            foreach ($request->file('gallery_files') as $file) {
+                if ($file && $file->isValid()) {
+                    $gPath = $file->store('uploads/products/gallery', 'public');
+                    $galleryImages[] = '/storage/' . $gPath;
+                }
+            }
+        }
+        if (!empty($data['gallery_urls']) && is_array($data['gallery_urls'])) {
+            foreach ($data['gallery_urls'] as $url) {
+                $trimmed = trim($url);
+                if (!empty($trimmed)) {
+                    $galleryImages[] = $trimmed;
+                }
+            }
+        }
+        $data['gallery_images'] = $galleryImages;
+
         $data['slug'] = Str::slug($data['name']) . '-' . Str::random(5);
         $data['is_featured'] = $request->has('is_featured');
         $data['is_active'] = true;
 
+        unset($data['image_file'], $data['gallery_files'], $data['gallery_urls']);
         Product::create($data);
 
-        return redirect()->route('admin.products.index')->with('success', 'Activewear drop published successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Activewear drop with multiple gallery images published successfully!');
     }
 
     public function editProduct(Product $product)
     {
-        $categories = Category::all();
+        $categories = Category::with('parent')->get();
         $brands = Brand::all();
         return view('admin.products.edit', compact('product', 'categories', 'brands'));
     }
@@ -229,19 +282,55 @@ class AdminController extends Controller
             'sale_price' => 'nullable|numeric|min:0',
             'sku' => 'nullable|string|max:50',
             'stock' => 'required|integer|min:0',
-            'image' => 'required|url',
+            'image' => 'nullable|string',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif|max:5120',
+            'existing_gallery' => 'nullable|array',
+            'gallery_files.*' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif|max:5120',
+            'gallery_urls' => 'nullable|array',
+            'gallery_urls.*' => 'nullable|string',
             'short_description' => 'required|string|max:500',
             'description' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
         ]);
 
+        // 1. Primary Image Update
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('uploads/products', 'public');
+            $data['image'] = '/storage/' . $path;
+        } elseif (empty($data['image'])) {
+            $data['image'] = $product->image;
+        }
+
+        // 2. Manage Multiple Gallery Images (Retain kept + add new)
+        $galleryImages = is_array($request->input('existing_gallery')) ? $request->input('existing_gallery') : [];
+
+        if ($request->hasFile('gallery_files')) {
+            foreach ($request->file('gallery_files') as $file) {
+                if ($file && $file->isValid()) {
+                    $gPath = $file->store('uploads/products/gallery', 'public');
+                    $galleryImages[] = '/storage/' . $gPath;
+                }
+            }
+        }
+
+        if (!empty($data['gallery_urls']) && is_array($data['gallery_urls'])) {
+            foreach ($data['gallery_urls'] as $url) {
+                $trimmed = trim($url);
+                if (!empty($trimmed)) {
+                    $galleryImages[] = $trimmed;
+                }
+            }
+        }
+        $data['gallery_images'] = array_values(array_filter($galleryImages));
+
         $data['is_featured'] = $request->has('is_featured');
         $data['is_active'] = $request->has('is_active');
 
+        unset($data['image_file'], $data['gallery_files'], $data['gallery_urls'], $data['existing_gallery']);
         $product->update($data);
 
-        return redirect()->route('admin.products.index')->with('success', "Activewear drop '{$product->name}' updated successfully!");
+        return redirect()->route('admin.products.index')->with('success', "Activewear drop '{$product->name}' with gallery updated successfully!");
     }
 
     public function deleteProduct(Product $product)

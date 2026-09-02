@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        if (Schema::hasTable('categories') && !Schema::hasColumn('categories', 'parent_id')) {
+            Schema::table('categories', function (Blueprint $table) {
+                $table->foreignId('parent_id')->nullable()->after('id')->constrained('categories')->nullOnDelete();
+            });
+        }
+
+        if (Schema::hasTable('products') && !Schema::hasColumn('products', 'gallery_images')) {
+            Schema::table('products', function (Blueprint $table) {
+                $table->json('gallery_images')->nullable()->after('image');
+            });
+        }
+    }
+
+    public function down(): void
+    {
+        if (Schema::hasTable('categories') && Schema::hasColumn('categories', 'parent_id')) {
+            Schema::table('categories', function (Blueprint $table) {
+                $table->dropForeign(['parent_id']);
+                $table->dropColumn('parent_id');
+            });
+        }
+
+        if (Schema::hasTable('products') && Schema::hasColumn('products', 'gallery_images')) {
+            Schema::table('products', function (Blueprint $table) {
+                $table->dropColumn('gallery_images');
+            });
+        }
+    }
+};
