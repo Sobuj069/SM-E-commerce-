@@ -6,22 +6,22 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- SEO Meta Tags -->
-    <title>@yield('title', 'SM Shark - Conditioning & Performance Gymwear')</title>
-    <meta name="description" content="Shop gym clothes, seamless workout leggings, heavyweight hoodies, and conditioning apparel engineered for peak performance at SM Shark.">
-    <meta name="keywords" content="gymshark, gym clothes, workout clothes, seamless leggings, fitness apparel, activewear, gym hoodies, mens gymwear, womens activewear">
-    <meta name="author" content="SM Shark">
+    <title>@yield('title', 'SM Shop - Fashion & Apparel')</title>
+    <meta name="description" content="Shop trendy fashion, athletic gym clothes, seamless workout leggings, and apparel engineered for peak performance at SM Shop.">
+    <meta name="keywords" content="sm shop, fashion, apparel, gym clothes, workout clothes, seamless leggings, fitness apparel, activewear, hoodies">
+    <meta name="author" content="SM Shop">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'SM Shark - Conditioning & Performance Gymwear')">
-    <meta property="og:description" content="Be a visionary. Shop seamless gymwear, squat-proof leggings, and heavyweight pump covers with express delivery.">
+    <meta property="og:title" content="@yield('title', 'SM Shop - Fashion & Apparel')">
+    <meta property="og:description" content="Shop trendy fashion, seamless gymwear, squat-proof leggings, and heavyweight pump covers with express delivery at SM Shop.">
     <meta property="og:image" content="{{ asset('images/gymshark_hero_banner.jpg') }}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('title', 'SM Shark - Conditioning & Performance Gymwear')">
-    <meta name="twitter:description" content="Be a visionary. Shop seamless gymwear, squat-proof leggings, and heavyweight pump covers.">
+    <meta name="twitter:title" content="@yield('title', 'SM Shop - Fashion & Apparel')">
+    <meta name="twitter:description" content="Shop trendy fashion, seamless gymwear, squat-proof leggings, and heavyweight pump covers at SM Shop.">
     <meta name="twitter:image" content="{{ asset('images/gymshark_hero_banner.jpg') }}">
 
     <!-- PWA Web App Manifest & Theme Color -->
@@ -81,17 +81,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
                 
-                <!-- 1. Left: Colorful Fashion & Clothing Brand Logo -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shark Apparel Home">
-                    <div class="w-10 h-10 rounded-2xl bg-zinc-950 p-1 flex items-center justify-center shadow-sm group-hover:scale-105 group-hover:shadow-rose-500/20 transition-all duration-300 shrink-0 border border-zinc-800">
-                        <img src="{{ asset('images/logo.svg') }}" alt="SM Shark Logo" class="w-full h-full object-contain">
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-xl font-black tracking-tight text-black font-sans uppercase leading-none flex items-center gap-1">
-                            SM <span class="bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 bg-clip-text text-transparent">SHARK</span>
-                        </span>
-                        <span class="text-[8.5px] font-black tracking-widest text-zinc-400 uppercase leading-none mt-1">APPAREL &bull; CLOTHING</span>
-                    </div>
+                <!-- 1. Left: Official SM Shop Fashion & Apparel Logo -->
+                <a href="{{ route('home') }}" class="flex items-center shrink-0 group py-1" aria-label="SM Shop Fashion & Apparel Home">
+                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop - Fashion & Apparel" class="h-8 sm:h-10 w-auto object-contain group-hover:opacity-90 transition duration-300">
                 </a>
 
                 <!-- 2. Center: Gymshark Apparel Nav Links -->
@@ -415,8 +407,8 @@
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
                         <li><a href="{{ route('shop.index') }}" class="hover:text-black hover:underline">Stores</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Refer a Friend</a></li>
-                        <li><a href="#" class="hover:text-black hover:underline">SM Shark Central</a></li>
-                        <li><a href="#" class="hover:text-black hover:underline">SM Shark Loyalty</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">SM Shop Central</a></li>
+                        <li><a href="#" class="hover:text-black hover:underline">SM Shop Loyalty</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">About Us</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Careers</a></li>
                         <li><a href="#" class="hover:text-black hover:underline">Student Discount</a></li>
@@ -427,9 +419,9 @@
                     </ul>
                 </div>
 
-                <!-- Col 4: More About SM Shark (3 Rich Cards) -->
+                <!-- Col 4: More About SM Shop (3 Rich Cards) -->
                 <div class="md:col-span-5 space-y-4">
-                    <h3 class="text-xs font-black text-black tracking-tight uppercase">More About SM Shark</h3>
+                    <h3 class="text-xs font-black text-black tracking-tight uppercase">More About SM Shop</h3>
                     
                     <!-- 3 Feature Cards Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -437,7 +429,7 @@
                         <!-- Card 1: Blog -->
                         <a href="#" class="bg-[#f4f4f5] hover:bg-zinc-200 transition p-4 rounded-xl flex flex-col items-center justify-center text-center space-y-3 group min-h-[120px]">
                             <div class="flex flex-col items-center">
-                                <span class="font-black text-[13px] tracking-tight uppercase leading-none text-black">SM SHARK</span>
+                                <span class="font-black text-[13px] tracking-tight uppercase leading-none text-black">SM SHOP</span>
                                 <span class="text-[8px] font-bold tracking-widest text-zinc-600 uppercase">CENTRAL</span>
                             </div>
                             <span class="text-xs font-bold text-black group-hover:underline">Blog</span>
@@ -512,7 +504,7 @@
             <!-- Bottom Legal Bar (Exact Company Name & Clean Country Selector) -->
             <div class="pt-6 border-t border-zinc-200 flex flex-col lg:flex-row items-center justify-between text-xs text-zinc-500 font-medium gap-4">
                 <p class="text-center lg:text-left">
-                    &copy; {{ date('Y') }} | SM Shark Apparel Ltd. | All Rights Reserved. | We Do Gym.
+                    &copy; {{ date('Y') }} | SM Shop Fashion &amp; Apparel Ltd. | All Rights Reserved.
                 </p>
 
                 <div class="flex flex-wrap items-center justify-center gap-4 text-xs">

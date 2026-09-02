@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SM Shark - Conditioning & Performance Gymwear')
+@section('title', 'SM Shop - Fashion & Apparel')
 
 @section('content')
 @php
