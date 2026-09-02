@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' - SM Shop')
+@section('title', $product->name . ' - SM Shark Conditioning')
 
 @section('content')
 <!-- Breadcrumbs -->
@@ -9,7 +9,7 @@
         <nav class="flex text-[11px] font-bold text-zinc-500 uppercase tracking-wider gap-2 items-center">
             <a href="{{ route('home') }}" class="hover:text-black">HOME</a>
             <span>/</span>
-            <a href="{{ route('shop.index') }}" class="hover:text-black">SHOP</a>
+            <a href="{{ route('shop.index') }}" class="hover:text-black">APPAREL</a>
             @if($product->category)
                 <span>/</span>
                 <a href="{{ route('shop.index', ['category' => $product->category->slug]) }}" class="hover:text-black">{{ $product->category->name }}</a>
@@ -41,7 +41,7 @@
     <div class="bg-white rounded-2xl border border-zinc-200 p-6 sm:p-10 shadow-xs">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
             
-            <!-- Left: Interactive 3D Viewer & Gallery Container -->
+            <!-- Left: Interactive Gallery & 3D Viewer -->
             <div class="lg:col-span-6 space-y-4">
                 
                 <!-- View Mode Toggle -->
@@ -52,7 +52,7 @@
                         :class="viewMode === 'image' ? 'bg-black text-white shadow-sm' : 'text-zinc-600 hover:text-black'"
                         class="flex-1 py-2 rounded-full text-xs font-black uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                        <i class="fa-solid fa-image"></i> HD Photo Gallery
+                        <i class="fa-solid fa-image"></i> Studio Photography
                     </button>
                     <button 
                         type="button" 
@@ -67,7 +67,7 @@
                 <!-- Showcase Media Frame -->
                 <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#f4f4f5] border border-zinc-200 group">
                     
-                    <!-- Mode 1: HD Image -->
+                    <!-- Mode 1: Studio Photo -->
                     <div x-show="viewMode === 'image'" class="w-full h-full relative flex items-center justify-center overflow-hidden">
                         <img 
                             src="{{ $product->image }}" 
@@ -83,7 +83,7 @@
                             @endif
                             @if($product->is_featured)
                                 <x-badge variant="featured" size="md">
-                                    NEW RELEASE
+                                    NEW DROP
                                 </x-badge>
                             @endif
                         </div>
@@ -115,7 +115,7 @@
                     
                     <div class="flex items-center justify-between">
                         <span class="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">
-                            {{ $product->category->name ?? 'GEAR' }}
+                            {{ $product->category->name ?? 'APPAREL' }}
                         </span>
                         <span class="text-[11px] text-zinc-400 font-mono font-bold" x-text="'SKU: ' + activeSku">SKU: {{ $product->sku ?? 'N/A' }}</span>
                     </div>
@@ -146,12 +146,21 @@
                         {{ $product->short_description }}
                     </p>
 
-                    <!-- Color Swatches & Variant Selectors -->
+                    <!-- Model Measurement Note -->
+                    <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200 text-xs text-zinc-600 font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-ruler-combined text-black"></i>
+                        <span><strong>Fit Guide:</strong> True to size. Model is 6'1" (185cm) wearing size M.</span>
+                    </div>
+
+                    <!-- Color Swatches & Sizing Selectors -->
                     @if($product->variants->count() > 0)
                         <div class="pt-2 space-y-3">
-                            <label class="text-xs font-black uppercase tracking-widest text-black block">
-                                SELECT VARIANT / SIZE:
-                            </label>
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-black uppercase tracking-widest text-black block">
+                                    SELECT SIZE & COLOR:
+                                </label>
+                                <span class="text-xs text-zinc-500 font-bold uppercase underline cursor-pointer">Size Guide</span>
+                            </div>
                             <div class="flex flex-wrap gap-2.5">
                                 @foreach($product->variants as $var)
                                     <button 
@@ -174,9 +183,9 @@
                     <div class="p-3.5 rounded-xl bg-zinc-100 border border-zinc-200 space-y-1.5">
                         <div class="flex items-center justify-between text-xs">
                             <span class="font-black uppercase tracking-wider text-black flex items-center gap-1.5">
-                                <i class="fa-solid fa-bolt text-amber-500"></i> HIGH DEMAND ITEM
+                                <i class="fa-solid fa-bolt text-amber-500"></i> HIGH DEMAND DROP
                             </span>
-                            <span class="font-bold text-zinc-600" x-text="activeStock + ' UNITS REMAINING'">{{ $product->stock }} UNITS REMAINING</span>
+                            <span class="font-bold text-zinc-600" x-text="activeStock + ' ITEMS IN STOCK'">{{ $product->stock }} ITEMS IN STOCK</span>
                         </div>
                     </div>
 
@@ -216,8 +225,8 @@
                         <span class="text-[10px] font-black uppercase text-black">FREE OVER $75</span>
                     </div>
                     <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200">
-                        <i class="fa-solid fa-shield-check text-black text-sm mb-1 block"></i>
-                        <span class="text-[10px] font-black uppercase text-black">1 YEAR WARRANTY</span>
+                        <i class="fa-solid fa-shield-heart text-black text-sm mb-1 block"></i>
+                        <span class="text-[10px] font-black uppercase text-black">SQUAT PROOF</span>
                     </div>
                     <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200">
                         <i class="fa-solid fa-rotate-left text-black text-sm mb-1 block"></i>
@@ -229,13 +238,23 @@
 
         </div>
 
-        <!-- Detailed Description Section -->
+        <!-- Detailed Fabric & Construction Specs -->
         <div class="mt-14 pt-10 border-t border-zinc-200">
             <h3 class="text-base font-black uppercase tracking-wider text-black mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-circle-info"></i> PRODUCT OVERVIEW & 3D TECH SPECS
+                <i class="fa-solid fa-layer-group"></i> FABRIC & CONDITIONING DETAILS
             </h3>
             <div class="text-xs sm:text-sm text-zinc-600 leading-relaxed space-y-4 font-medium">
                 <p>{{ $product->description ?? $product->short_description }}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                    <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                        <h4 class="font-bold text-black text-xs uppercase mb-1">Materials & Composition</h4>
+                        <p class="text-xs text-zinc-500">90% High-Grade Nylon, 10% Elastane. 4-way hyper-stretch seamless knit with DRY sweat-wicking yarn.</p>
+                    </div>
+                    <div class="p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                        <h4 class="font-bold text-black text-xs uppercase mb-1">Care Instructions</h4>
+                        <p class="text-xs text-zinc-500">Machine wash cold with like colors. Do not bleach or tumble dry. Hang dry to maintain elasticity.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -244,88 +263,47 @@
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div>
                     <h3 class="text-xl font-black uppercase tracking-tight text-black flex items-center gap-2">
-                        <i class="fa-solid fa-star text-amber-400"></i> VERIFIED COMMUNITY REVIEWS
+                        <i class="fa-solid fa-star text-amber-400"></i> ATHLETE COMMUNITY REVIEWS
                     </h3>
-                    <p class="text-xs text-zinc-500 uppercase tracking-wider font-bold mt-1">Real feedback from athletes & tech pioneers worldwide.</p>
+                    <p class="text-xs text-zinc-500 uppercase tracking-wider font-bold mt-1">Real feedback from athletes conditioning worldwide.</p>
                 </div>
-                <button type="button" x-on:click="$dispatch('open-modal', 'review-modal')" class="bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-widest py-3 px-6 rounded-full transition cursor-pointer">
+                <button 
+                    type="button" 
+                    x-on:click="$dispatch('open-modal', 'review-modal')" 
+                    class="px-6 py-3 bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-wider rounded-full transition shadow-sm cursor-pointer"
+                >
                     WRITE A REVIEW
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-zinc-50 p-6 rounded-2xl border border-zinc-200">
-                <div class="md:col-span-4 text-center border-b md:border-b-0 md:border-r border-zinc-200 pb-6 md:pb-0 md:pr-6">
-                    <div class="text-5xl font-black text-black">{{ number_format($product->rating, 1) }}</div>
-                    <div class="my-2"><x-rating :value="$product->rating" size="md" /></div>
-                    <div class="text-xs text-zinc-500 font-bold uppercase tracking-wider">BASED ON {{ $totalReviews }} VERIFIED REVIEWS</div>
-                </div>
-
-                <div class="md:col-span-8 space-y-2">
-                    @foreach([5, 4, 3, 2, 1] as $star)
-                        <div class="flex items-center gap-3 text-xs font-bold uppercase">
-                            <span class="w-12 text-black">{{ $star }} Star</span>
-                            <div class="flex-1 h-2 bg-zinc-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-black rounded-full" style="width: {{ $ratingDistribution[$star] ?? 0 }}%;"></div>
+            <!-- Review Items Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @forelse($product->reviews as $review)
+                    <div class="bg-zinc-50 p-6 rounded-2xl border border-zinc-200 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-1 text-amber-400">
+                                @for($i = 0; $i < $review->rating; $i++)
+                                    <i class="fa-solid fa-star text-xs"></i>
+                                @endfor
                             </div>
-                            <span class="w-10 text-right text-zinc-500">{{ $ratingDistribution[$star] ?? 0 }}%</span>
+                            <h4 class="font-bold text-sm text-black">"{{ $review->title }}"</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed font-medium">{{ $review->comment }}</p>
                         </div>
-                    @endforeach
-                </div>
+                        <div class="pt-4 border-t border-zinc-200 flex items-center justify-between text-xs">
+                            <span class="font-bold text-black">{{ $review->user_name }}</span>
+                            <span class="text-emerald-600 font-bold flex items-center gap-1 text-[11px]">
+                                <i class="fa-solid fa-circle-check"></i> Verified Purchase
+                            </span>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-3 text-center py-12 text-zinc-400 text-xs font-semibold">
+                        No reviews yet for this drop. Be the first athlete to review!
+                    </div>
+                @endforelse
             </div>
-
-            <!-- Review Items List -->
-            @if($product->reviews->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    @foreach($product->reviews as $review)
-                        <div class="p-6 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-3">
-                            <div class="flex items-center justify-between">
-                                <x-rating :value="$review->rating" size="xs" />
-                                <span class="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">{{ $review->created_at->format('M d, Y') }}</span>
-                            </div>
-                            <h4 class="font-black text-black text-sm uppercase">{{ $review->title ?? 'GREAT PRODUCT!' }}</h4>
-                            <p class="text-xs text-zinc-600 leading-relaxed italic">
-                                "{{ $review->comment }}"
-                            </p>
-                            <div class="text-[11px] font-bold text-black uppercase pt-2 border-t border-zinc-200">
-                                {{ $review->user_name }} <span class="text-zinc-400 font-normal">| Verified Purchase</span>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
         </div>
 
     </div>
-
-    <!-- Related Products Swiper Section -->
-    @if(isset($relatedProducts) && $relatedProducts->count() > 0)
-        <div class="mt-16 pt-10 border-t border-zinc-200">
-            <h2 class="text-2xl font-black text-black uppercase tracking-tight mb-8">YOU MIGHT ALSO LIKE</h2>
-            <div class="swiper related-swiper">
-                <div class="swiper-wrapper">
-                    @foreach($relatedProducts as $rel)
-                        <div class="swiper-slide h-auto">
-                            <x-card :image="$rel->image" :imageAlt="$rel->name" :imageHref="route('product.show', $rel->slug)" :productId="$rel->id">
-                                <div>
-                                    <div class="text-[11px] font-bold text-zinc-500 uppercase tracking-wider">
-                                        {{ $rel->category->name ?? 'GEAR' }}
-                                    </div>
-                                    <h3 class="font-bold text-black text-xs sm:text-sm uppercase tracking-tight mt-0.5 line-clamp-1 group-hover:underline">
-                                        <a href="{{ route('product.show', $rel->slug) }}">{{ $rel->name }}</a>
-                                    </h3>
-                                </div>
-                                <x-slot:footer>
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm font-black text-black">${{ number_format($rel->effective_price, 2) }}</span>
-                                        <x-rating :value="$rel->rating" size="xs" />
-                                    </div>
-                                </x-slot:footer>
-                            </x-card>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    @endif
 </div>
 @endsection

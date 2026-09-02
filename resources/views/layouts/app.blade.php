@@ -6,22 +6,22 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- SEO Meta Tags -->
-    <title>@yield('title', 'SM Shop 3D - 2026 Next-Gen E-Commerce Experience')</title>
-    <meta name="description" content="Immerse in next-generation 3D product previews, instant checkout, and curated tech & luxury activewear at SM Shop 3D.">
-    <meta name="keywords" content="e-commerce, 3D product viewer, tech gadgets, smartwatches, luxury fashion, audio headphones, online store 2026">
-    <meta name="author" content="SM Shop">
+    <title>@yield('title', 'SM Shark - Conditioning & Performance Gymwear')</title>
+    <meta name="description" content="Shop gym clothes, seamless workout leggings, heavyweight hoodies, and conditioning apparel engineered for peak performance at SM Shark.">
+    <meta name="keywords" content="gymshark, gym clothes, workout clothes, seamless leggings, fitness apparel, activewear, gym hoodies, mens gymwear, womens activewear">
+    <meta name="author" content="SM Shark">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'SM Shop 3D - Next-Gen E-Commerce Experience')">
-    <meta property="og:description" content="Explore 3D interactive electronics, audio gear, and fashion with instant delivery.">
+    <meta property="og:title" content="@yield('title', 'SM Shark - Conditioning & Performance Gymwear')">
+    <meta property="og:description" content="Be a visionary. Shop seamless gymwear, squat-proof leggings, and heavyweight pump covers with express delivery.">
     <meta property="og:image" content="{{ asset('images/gymshark_hero_banner.jpg') }}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('title', 'SM Shop 3D - Next-Gen E-Commerce Experience')">
-    <meta name="twitter:description" content="Explore 3D interactive electronics, audio gear, and fashion with instant delivery.">
+    <meta name="twitter:title" content="@yield('title', 'SM Shark - Conditioning & Performance Gymwear')">
+    <meta name="twitter:description" content="Be a visionary. Shop seamless gymwear, squat-proof leggings, and heavyweight pump covers.">
     <meta name="twitter:image" content="{{ asset('images/gymshark_hero_banner.jpg') }}">
 
     <!-- PWA Web App Manifest & Theme Color -->
@@ -36,7 +36,7 @@
     {!! json_encode([
       '@context' => 'https://schema.org',
       '@type' => 'WebSite',
-      'name' => 'SM Shop 3D',
+      'name' => 'SM Shark',
       'url' => url('/'),
       'potentialAction' => [
         '@type' => 'SearchAction',
@@ -73,65 +73,66 @@
 
     <!-- Top Announcement Ticker Bar -->
     <div id="nano-banner" class="bg-black text-white py-2 px-4 text-center text-xs font-bold tracking-wider relative z-50 flex items-center justify-center gap-4">
-        <span>Free standard shipping over $75 | 30-day easy returns | Code: <span class="text-amber-300 font-black">SM20</span></span>
+        <span>Free standard shipping over $75 | 30-day easy returns | Use Code: <span class="text-amber-300 font-black">SM20</span> for 20% off</span>
     </div>
 
-    <!-- 100% Authentic Gymshark Header (Spacious, Single-Line, Clean) -->
+    <!-- 100% Authentic Gymshark Header -->
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 transition duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
                 
-                <!-- 1. Left: Sleek Geometric Brand Logo -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shop 3D Home">
+                <!-- 1. Left: Sleek Brand Logo -->
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 shrink-0 group py-1" aria-label="SM Shark Home">
                     <div class="w-9 h-9 bg-black rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition duration-300 shrink-0">
                         <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                         </svg>
                     </div>
-                    <span class="text-xl font-black tracking-tight text-black font-sans uppercase leading-none">SM SHOP</span>
+                    <span class="text-xl font-black tracking-tight text-black font-sans uppercase leading-none">SM SHARK</span>
                 </a>
 
-                <!-- 2. Center: Gymshark Nav Links (Concise & Never Crowded) -->
+                <!-- 2. Center: Gymshark Apparel Nav Links -->
                 @php
                     $catLabels = [
-                        'electronics-gadgets' => 'TECH & GADGETS',
-                        'fashion-apparel' => 'APPAREL',
-                        'smart-watches-wearables' => 'WEARABLES',
-                        'audio-headphones' => 'AUDIO',
-                        'home-living' => 'HOME',
+                        'women' => 'WOMEN',
+                        'men' => 'MEN',
+                        'seamless' => 'SEAMLESS',
+                        'hoodies-sweats' => 'HOODIES & SWEATS',
+                        'accessories' => 'ACCESSORIES',
                     ];
                 @endphp
                 <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-black uppercase tracking-wider text-black">
                     <a href="{{ route('shop.index') }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap {{ request()->routeIs('shop.index') && !request('category') ? 'border-b-2 border-black' : '' }}">
-                        ALL
+                        ALL APPAREL
                     </a>
                     @if(isset($navCategories) && $navCategories->count() > 0)
                         @foreach($navCategories as $navCat)
                             <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap {{ request('category') === $navCat->slug ? 'border-b-2 border-black' : '' }}">
-                                {{ $catLabels[$navCat->slug] ?? Str::upper(explode('&', $navCat->name)[0]) }}
+                                {{ $catLabels[$navCat->slug] ?? Str::upper($navCat->name) }}
                             </a>
                         @endforeach
                     @else
-                        <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">TECH & GADGETS</a>
-                        <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">APPAREL</a>
-                        <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">WEARABLES</a>
-                        <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">AUDIO</a>
+                        <a href="{{ route('shop.index', ['category' => 'women']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">WOMEN</a>
+                        <a href="{{ route('shop.index', ['category' => 'men']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">MEN</a>
+                        <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">SEAMLESS</a>
+                        <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">HOODIES & SWEATS</a>
+                        <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="hover:text-zinc-500 py-1.5 transition whitespace-nowrap">ACCESSORIES</a>
                     @endif
                     <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="text-red-600 hover:text-red-700 py-1.5 transition whitespace-nowrap flex items-center gap-1 font-black">
-                        SALE <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
+                        OUTLET <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping"></span>
                     </a>
                 </nav>
 
                 <!-- 3. Right: Gymshark Minimal Action Icons -->
                 <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                     
-                    <!-- Interactive Search Button (Opens Slide-Down Search Bar) -->
+                    <!-- Search Icon Button -->
                     <button 
                         type="button" 
                         @click="searchOpen = true; $nextTick(() => $refs.searchInput.focus())"
                         class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition cursor-pointer"
-                        title="Search Products"
-                        aria-label="Search Products"
+                        title="Search Activewear"
+                        aria-label="Search Activewear"
                     >
                         <i class="fa-solid fa-magnifying-glass text-base" aria-hidden="true"></i>
                     </button>
@@ -162,8 +163,8 @@
                     </button>
 
                     <!-- Black Pill CTA -->
-                    <a href="{{ route('shop.index') }}" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-black text-white bg-black hover:bg-zinc-800 rounded-full transition shadow-sm cursor-pointer whitespace-nowrap uppercase tracking-wider">
-                        EXPLORE 3D
+                    <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-black text-white bg-black hover:bg-zinc-800 rounded-full transition shadow-sm cursor-pointer whitespace-nowrap uppercase tracking-wider">
+                        SHOP SEAMLESS
                     </a>
 
                     <!-- Mobile Menu Toggle Button -->
@@ -180,7 +181,7 @@
             </div>
         </div>
 
-        <!-- Full-Width Slide-Down Search Overlay (Gymshark Style) -->
+        <!-- Full-Width Slide-Down Search Overlay -->
         <div 
             x-show="searchOpen" 
             x-transition:enter="transition ease-out duration-200"
@@ -201,7 +202,7 @@
                     name="q" 
                     x-ref="searchInput"
                     value="{{ request('q') }}"
-                    placeholder="SEARCH TECH, APPAREL, WEARABLES..." 
+                    placeholder="SEARCH WOMEN'S, MEN'S, LEGGINGS, HOODIES, SHORTS..." 
                     class="flex-1 py-3 text-sm sm:text-base font-bold text-black placeholder-zinc-400 uppercase border-none focus:outline-none focus:ring-0 bg-transparent"
                 >
                 <button type="button" @click="searchOpen = false" class="p-2 text-zinc-400 hover:text-black cursor-pointer" aria-label="Close search">
@@ -213,13 +214,13 @@
         <!-- Mobile Navigation Dropdown -->
         <div x-show="mobileMenuOpen" class="lg:hidden bg-white border-t border-zinc-200 px-4 py-6 space-y-4 shadow-xl" style="display: none;">
             <form action="{{ route('shop.index') }}" method="GET" class="w-full relative mb-4" role="search">
-                <label for="mobile-search-input" class="sr-only">Search products</label>
+                <label for="mobile-search-input" class="sr-only">Search activewear</label>
                 <input 
                     id="mobile-search-input"
                     type="text" 
                     name="q" 
                     value="{{ request('q') }}"
-                    placeholder="SEARCH PRODUCTS..." 
+                    placeholder="SEARCH ACTIVEWEAR..." 
                     class="w-full pl-10 pr-4 py-2.5 bg-zinc-100 rounded-full text-xs font-bold text-black uppercase"
                 >
                 <button 
@@ -234,18 +235,19 @@
             </form>
 
             <nav class="flex flex-col space-y-3 text-xs font-black uppercase tracking-widest text-black">
-                <a href="{{ route('shop.index') }}" class="py-2 hover:text-zinc-500">All Products</a>
+                <a href="{{ route('shop.index') }}" class="py-2 hover:text-zinc-500">All Apparel</a>
                 @if(isset($navCategories) && $navCategories->count() > 0)
                     @foreach($navCategories as $navCat)
                         <a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="py-2 hover:text-zinc-500">{{ $navCat->name }}</a>
                     @endforeach
                 @else
-                    <a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="py-2 hover:text-zinc-500">Tech & Gadgets</a>
-                    <a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="py-2 hover:text-zinc-500">Apparel</a>
-                    <a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="py-2 hover:text-zinc-500">Wearables</a>
-                    <a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="py-2 hover:text-zinc-500">Audio</a>
+                    <a href="{{ route('shop.index', ['category' => 'women']) }}" class="py-2 hover:text-zinc-500">Women's Activewear</a>
+                    <a href="{{ route('shop.index', ['category' => 'men']) }}" class="py-2 hover:text-zinc-500">Men's Gymwear</a>
+                    <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="py-2 hover:text-zinc-500">Seamless Collection</a>
+                    <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="py-2 hover:text-zinc-500">Hoodies & Sweats</a>
+                    <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="py-2 hover:text-zinc-500">Accessories & Gear</a>
                 @endif
-                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-black">Sale 🔥</a>
+                <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-black">Outlet 🔥</a>
             </nav>
         </div>
     </header>
@@ -372,7 +374,7 @@
         @yield('content')
     </main>
 
-    <!-- 4-Column Structured Footer -->
+    <!-- 4-Column Structured Footer (Gymshark Style) -->
     <footer class="bg-white border-t border-zinc-200 text-black py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
@@ -381,10 +383,10 @@
                 <div class="space-y-3">
                     <h3 class="text-xs font-bold text-black uppercase tracking-wider">Help & Support</h3>
                     <ul class="space-y-2 text-xs text-zinc-500 font-medium">
-                        <li><a href="#" class="hover:text-black">FAQ</a></li>
+                        <li><a href="#" class="hover:text-black">FAQ & Contact</a></li>
                         <li><a href="#" class="hover:text-black">Delivery Information</a></li>
                         <li><a href="#" class="hover:text-black">Returns Policy</a></li>
-                        <li><a href="#" class="hover:text-black">Make A Return</a></li>
+                        <li><a href="#" class="hover:text-black">Size Guide & Fit Help</a></li>
                         <li><a href="#" class="hover:text-black">Orders & Tracking</a></li>
                     </ul>
                 </div>
@@ -409,21 +411,22 @@
                                 <li><a href="{{ route('shop.index', ['category' => $navCat->slug]) }}" class="hover:text-black">{{ $navCat->name }}</a></li>
                             @endforeach
                         @else
-                            <li><a href="{{ route('shop.index', ['category' => 'electronics-gadgets']) }}" class="hover:text-black">Tech & Gadgets</a></li>
-                            <li><a href="{{ route('shop.index', ['category' => 'smart-watches-wearables']) }}" class="hover:text-black">Smart Wearables</a></li>
-                            <li><a href="{{ route('shop.index', ['category' => 'audio-headphones']) }}" class="hover:text-black">Audio & Studio</a></li>
-                            <li><a href="{{ route('shop.index', ['category' => 'fashion-apparel']) }}" class="hover:text-black">Techwear & Apparel</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'women']) }}" class="hover:text-black">Women's Activewear</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'men']) }}" class="hover:text-black">Men's Gymwear</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="hover:text-black">Seamless Collection</a></li>
+                            <li><a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="hover:text-black">Hoodies & Sweats</a></li>
                         @endif
                     </ul>
                 </div>
 
-                <!-- Col 4: More About SM Shop -->
+                <!-- Col 4: About SM Shark -->
                 <div class="space-y-3">
-                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">About SM Shop</h3>
+                    <h3 class="text-xs font-bold text-black uppercase tracking-wider">About SM Shark</h3>
                     <ul class="space-y-2 text-xs text-zinc-500 font-medium">
                         <li><a href="#" class="hover:text-black">About Us</a></li>
-                        <li><a href="#" class="hover:text-black">Sustainability</a></li>
-                        <li><a href="#" class="hover:text-black">3D Modeling Hub</a></li>
+                        <li><a href="#" class="hover:text-black">Sustainability & Fabric</a></li>
+                        <li><a href="#" class="hover:text-black">Conditioning Community</a></li>
+                        <li><a href="#" class="hover:text-black">Student Discount (10% Off)</a></li>
                         <li><a href="#" class="hover:text-black">Privacy Notice</a></li>
                     </ul>
                 </div>
@@ -431,7 +434,7 @@
             </div>
 
             <div class="mt-12 pt-8 border-t border-zinc-200 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-400 font-medium gap-4">
-                <p>&copy; {{ date('Y') }} SM SHOP. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} SM SHARK APPAREL. All rights reserved.</p>
                 <div class="flex items-center gap-6">
                     <a href="#" class="hover:text-black">Privacy Notice</a>
                     <a href="#" class="hover:text-black">Terms & Conditions</a>
