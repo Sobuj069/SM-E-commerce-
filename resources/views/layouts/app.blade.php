@@ -83,7 +83,7 @@
                 
                 <!-- 1. Left: Official SM Shop Fashion & Apparel Logo -->
                 <a href="{{ route('home') }}" class="flex items-center shrink-0 group py-1" aria-label="SM Shop Fashion & Apparel Home">
-                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop - Fashion & Apparel" class="h-8 sm:h-10 w-auto object-contain group-hover:opacity-90 transition duration-300">
+                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop - Fashion & Apparel" class="h-9 sm:h-12 w-auto object-contain group-hover:scale-105 transition duration-300">
                 </a>
 
                 <!-- 2. Center: Gymshark Apparel Nav Links -->
