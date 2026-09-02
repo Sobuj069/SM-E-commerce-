@@ -137,6 +137,11 @@
                         <i class="fa-regular fa-heart text-base" aria-hidden="true"></i>
                     </a>
 
+                    <!-- Admin Dashboard Direct Icon Button -->
+                    <a href="{{ route('admin.dashboard') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-black hover:bg-zinc-100 transition" title="Admin Dashboard" aria-label="Open Admin Dashboard">
+                        <i class="fa-solid fa-gauge-high text-base" aria-hidden="true"></i>
+                    </a>
+
                     <!-- Cart Bag Trigger -->
                     @php
                         $cart = session()->get('cart', []);
@@ -241,8 +246,10 @@
                     <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="py-2 hover:text-zinc-500">Seamless Collection</a>
                     <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="py-2 hover:text-zinc-500">Hoodies & Sweats</a>
                     <a href="{{ route('shop.index', ['category' => 'accessories']) }}" class="py-2 hover:text-zinc-500">Accessories & Gear</a>
-                @endif
                 <a href="{{ route('shop.index', ['sort' => 'popular']) }}" class="py-2 text-red-600 font-black">Outlet 🔥</a>
+                <a href="{{ route('admin.dashboard') }}" class="py-2 text-black font-black flex items-center gap-2 border-t border-zinc-200 pt-3">
+                    <i class="fa-solid fa-gauge-high text-xs"></i> Admin Control Panel
+                </a>
             </nav>
         </div>
     </header>
@@ -396,8 +403,9 @@
                 <div class="col-span-1 md:col-span-2 space-y-4">
                     <h3 class="text-xs font-black text-black tracking-tight uppercase">My Account</h3>
                     <ul class="space-y-2.5 text-xs text-zinc-600 font-semibold">
-                        <li><a href="{{ route('cart.index') }}" class="hover:text-black hover:underline">Login</a></li>
-                        <li><a href="{{ route('cart.index') }}" class="hover:text-black hover:underline">Register</a></li>
+                        <li><a href="{{ route('admin.dashboard') }}" class="hover:text-black hover:underline font-bold text-black flex items-center gap-1.5"><i class="fa-solid fa-gauge-high text-[11px]"></i> Admin Panel</a></li>
+                        <li><a href="{{ route('cart.index') }}" class="hover:text-black hover:underline">View Bag</a></li>
+                        <li><a href="{{ route('checkout.index') }}" class="hover:text-black hover:underline">Checkout</a></li>
                     </ul>
                 </div>
 
