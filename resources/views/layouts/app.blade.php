@@ -200,6 +200,29 @@
         body, h1, h2, h3, h4, h5, h6, p, a, input, select, textarea, button, label, span:not(.fa-solid):not(.fa-regular):not(.fa-brands):not(.svg-inline--fa) {
             font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
         }
+        
+        /* Prominent Brand Logo Styling for Both Mobile and Desktop */
+        .sm-brand-logo {
+            height: 48px !important;
+            max-height: 54px !important;
+            max-width: 240px !important;
+            width: auto !important;
+            object-fit: contain !important;
+        }
+        @media (min-width: 640px) {
+            .sm-brand-logo {
+                height: 64px !important;
+                max-height: 70px !important;
+                max-width: 320px !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            .sm-brand-logo {
+                height: 80px !important;
+                max-height: 88px !important;
+                max-width: 400px !important;
+            }
+        }
     </style>
 </head>
 <body 
@@ -217,7 +240,7 @@
          ========================================================================= -->
     <header class="sticky top-0 z-40 bg-white border-b border-zinc-200" @mouseleave="megaMenu = null">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20 lg:h-24 relative">
+            <div class="flex items-center justify-between h-20 sm:h-24 lg:h-28 relative">
                 
                 <!-- 1. Left (Desktop): Women, Men, Accessories Nav Links (Exact Gymshark Navigation) -->
                 <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-bold tracking-wide text-black h-full">
@@ -277,9 +300,9 @@
                     </button>
                 </div>
 
-                <!-- 2. Center: Centered Authentic SM Shop Logo (Responsive Scaling) -->
-                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group py-1" aria-label="SM Shop">
-                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="h-8 sm:h-12 lg:h-18 max-w-[150px] sm:max-w-[220px] lg:max-w-[320px] w-auto object-contain group-hover:scale-105 transition duration-300">
+                <!-- 2. Center: Centered Authentic SM Shop Logo (Large & Crisp for PC and Mobile) -->
+                <a href="{{ route('home') }}" class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center group py-1 z-20" aria-label="SM Shop">
+                    <img src="{{ asset('images/logo.png') }}" alt="SM Shop" class="sm-brand-logo group-hover:scale-105 transition duration-300">
                 </a>
 
                 <!-- 3. Right: Desktop Search & Action Icons -->
