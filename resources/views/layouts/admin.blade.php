@@ -7,6 +7,11 @@
 
     <title>@yield('title', 'Metronic - Dark Sidebar') | SM Shop Enterprise</title>
 
+    <!-- Google Fonts: Valley Sans / Plus Jakarta Sans / Inter Collection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Varela+Round&display=swap" rel="stylesheet"/>
+
     <!-- FontAwesome 6 (CSS + SVG Vector Engine for 100% guaranteed rendering) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
@@ -21,9 +26,10 @@
     <style>
         [x-cloak] { display: none !important; }
         
-        /* Times New Roman for text elements (Without breaking Icon fonts!) */
-        body, h1, h2, h3, h4, h5, h6, p, a, input, select, textarea, button, table, th, td, kbd, label {
-            font-family: 'Times New Roman', Times, Georgia, serif !important;
+        /* Valley Sans / Modern Clean Geometric Typography across entire Admin Panel */
+        body, h1, h2, h3, h4, h5, h6, p, a, input, select, textarea, button, table, th, td, kbd, label, span:not(.fa-solid):not(.fa-regular):not(.fa-brands):not(.svg-inline--fa) {
+            font-family: 'Valley Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            letter-spacing: -0.01em;
         }
 
         /* Protect and ensure Icon rendering */
@@ -57,15 +63,15 @@
             background-color: #f1f5f9 !important;
             color: #0f172a !important;
             border: 1px solid #cbd5e1 !important;
-            padding: 10px 14px !important;
-            font-size: 14px !important;
+            padding: 11px 14px !important;
+            font-size: 13px !important;
             font-weight: 700 !important;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
         }
         td, .kt-card table td {
             border: 1px solid #e2e8f0 !important;
-            padding: 10px 14px !important;
-            font-size: 14px !important;
+            padding: 11px 14px !important;
+            font-size: 13px !important;
         }
         tbody tr:nth-child(even), .kt-card table tbody tr:nth-child(even) {
             background-color: #f8fafc !important;
