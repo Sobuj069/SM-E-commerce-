@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
-Route::post('/product/{product}/review', [ProductController::class, 'storeReview'])->name('product.review');
+Route::post('/product/{product}/review', [ProductController::class, 'storeReview'])->name('review.store');
+Route::post('/product/{product}/reviews', [ProductController::class, 'storeReview'])->name('product.review');
 Route::post('/newsletter/subscribe', function(\Illuminate\Http\Request $request) {
     $request->validate(['email' => 'required|email']);
     return back()->with('success', 'Thanks for subscribing! Use code SM20 at checkout for 20% off.');
@@ -80,6 +81,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/products/ai-import', [AdminController::class, 'aiImportView'])->name('products.ai-import');
     Route::post('/products/ai-import/process', [AdminController::class, 'aiImportProcess'])->name('products.ai-import.process');
     Route::post('/products/ai-import/single', [AdminController::class, 'aiImportSingle'])->name('products.ai-import.single');
+    Route::post('/products/ai-import/discover', [AdminController::class, 'aiImportDiscover'])->name('products.ai-import.discover');
+    Route::post('/products/ai-import/save-key', [AdminController::class, 'aiImportSaveKey'])->name('products.ai-import.save-key');
     Route::post('/products/purge-demo', [AdminController::class, 'purgeDemoProducts'])->name('products.purge-demo');
     Route::get('/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.edit');
     Route::put('/products/{product}', [AdminController::class, 'updateProduct'])->name('products.update');

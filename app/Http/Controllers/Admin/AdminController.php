@@ -724,9 +724,33 @@ class AdminController extends Controller
         $totalProducts = Product::count();
         $categories = Category::withCount('products')->get();
         $recentProducts = Product::with('category')->latest()->take(10)->get();
-        $geminiApiKey = config('services.gemini.api_key') ?: (env('GEMINI_API_KEY') ?: env('GOOGLE_API_KEY', ''));
+        
+        $service = new AiProductImporterService();
+        $geminiApiKey = $service->resolveApiKey();
 
         return view('admin.products.ai_import', compact('totalProducts', 'categories', 'recentProducts', 'geminiApiKey'));
+    }
+
+    public function aiImportSaveKey(Request $request)
+    {
+        $request->validate(['api_key' => 'required|string']);
+        $service = new AiProductImporterService();
+        $service->saveApiKeyPermanently($request->input('api_key'));
+
+        return response()->json(['success' => true, 'message' => 'API Key saved permanently! You will not need to enter it again.']);
+    }
+
+    public function aiImportDiscover(Request $request)
+    {
+        $request->validate(['url' => 'required|url']);
+        $service = new AiProductImporterService();
+        $links = $service->extractProductUrlsFromPage($request->input('url'), $request->input('html'));
+
+        return response()->json([
+            'success' => true,
+            'count' => count($links),
+            'links' => $links,
+        ]);
     }
 
     public function aiImportProcess(Request $request)
@@ -737,7 +761,7 @@ class AdminController extends Controller
             'purge_demo' => 'nullable|boolean',
         ]);
 
-        $apiKey = $request->input('api_key') ?: config('services.gemini.api_key');
+        $apiKey = $request->input('api_key');
         $purgeDemo = $request->boolean('purge_demo');
         $rawUrls = $request->input('urls');
 
@@ -775,11 +799,12 @@ class AdminController extends Controller
         $request->validate([
             'url' => 'required|url',
             'api_key' => 'nullable|string',
+            'html' => 'nullable|string',
         ]);
 
-        $apiKey = $request->input('api_key') ?: config('services.gemini.api_key');
+        $apiKey = $request->input('api_key');
         $service = new AiProductImporterService($apiKey);
-        $result = $service->importFromUrl($request->input('url'));
+        $result = $service->importFromUrl($request->input('url'), $request->input('html'));
 
         return response()->json($result);
     }

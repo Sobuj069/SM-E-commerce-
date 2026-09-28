@@ -3,29 +3,29 @@
 @section('title', 'AI Bulk Product Importer - SM Shop Control Center')
 
 @section('content')
-<div class="space-y-6" x-data="aiImporterApp()">
+<div class="space-y-6" x-data="aiImporterApp()" x-init="initApp()">
     
-    <!-- Top Header & Breadcrumb Strip -->
+    <!-- Top Header & Action Strip -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-[#1e1e2d] border border-[#2b2b40] p-6 rounded-2xl shadow-lg">
         <div class="space-y-1">
             <div class="flex items-center gap-2">
                 <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-base shadow-md">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
                 </span>
                 <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">AI Bulk Product Importer &amp; Rewriter</h1>
             </div>
             <p class="text-xs text-gray-400">
-                Paste any product web link. Google Gemini AI automatically extracts all images, rewrites titles &amp; descriptions with <strong class="text-white">SM Shop</strong> branding, and saves to database.
+                Paste any product or <strong class="text-indigo-400">category listing URL</strong>. Google Gemini AI automatically extracts all high-res gallery images, rewrites titles &amp; descriptions with <strong class="text-white">SM Shop</strong> branding, and saves to database.
             </p>
         </div>
 
-        <!-- Purge Demo Products Button -->
+        <!-- Action Buttons -->
         <div class="flex items-center gap-3">
-            <form action="{{ route('admin.products.purge-demo') }}" method="POST" onsubmit="return confirm('WARNING: This will remove all demo products from the database so you can start fresh with your imported products. Continue?');">
+            <form action="{{ route('admin.products.purge-demo') }}" method="POST" onsubmit="return confirm('WARNING: This will remove all existing products from the database so you can start fresh with your imported products. Continue?');">
                 @csrf
                 <button type="submit" class="px-4 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-bold transition flex items-center gap-2 cursor-pointer">
                     <i class="fa-solid fa-trash-can"></i>
-                    <span>Purge Demo Products</span>
+                    <span>Purge Old Products</span>
                 </button>
             </form>
             <a href="{{ route('admin.products.index') }}" class="px-4 py-2.5 rounded-xl bg-[#2b2b40] hover:bg-[#32324d] text-white text-xs font-bold transition flex items-center gap-2">
@@ -65,59 +65,86 @@
                         <i class="fa-solid fa-link text-indigo-400"></i> Import Sources &amp; Product Links
                     </h2>
                     <span class="text-[11px] text-purple-300 bg-purple-500/20 px-2.5 py-1 rounded-full font-bold border border-purple-500/30">
-                        ⚡ Powered by Google Gemini 1.5/2.0
+                        ⚡ Powered by Google Gemini AI
                     </span>
                 </div>
 
                 <form action="{{ route('admin.products.ai-import.process') }}" method="POST" @submit="handleSubmit($event)" class="space-y-5">
                     @csrf
 
-                    <!-- Google Gemini API Key Input -->
-                    <div>
-                        <label class="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5 flex items-center justify-between">
-                            <span>Google API Key (Gemini) *</span>
-                            <span class="text-[10px] text-emerald-400 font-normal"><i class="fa-solid fa-shield-check"></i> Connected</span>
-                        </label>
-                        <div class="relative">
+                    <!-- Google Gemini API Key Input (Persistent & Remembered) -->
+                    <div class="p-4 rounded-xl bg-[#13141a] border border-[#2b2b40] space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-brands fa-google text-amber-400"></i>
+                                <span>Google Gemini API Key</span>
+                            </label>
+                            <span x-show="apiKey" class="text-[11px] text-emerald-400 font-bold flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                <i class="fa-solid fa-circle-check"></i> Saved &amp; Active (বার বার দেওয়া লাগবে না)
+                            </span>
+                        </div>
+
+                        <div class="flex gap-2">
                             <input 
                                 type="text" 
                                 name="api_key" 
                                 x-model="apiKey"
-                                class="w-full px-4 py-3 bg-[#13141a] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 focus:outline-none focus:border-purple-500"
-                                required
+                                @input="onKeyChange()"
+                                placeholder="Paste your Google Gemini API Key here (e.g. AIzaSy...)"
+                                class="flex-1 px-4 py-2.5 bg-[#0e0f14] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 focus:outline-none focus:border-purple-500"
                             >
-                            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">
-                                <i class="fa-brands fa-google text-amber-400"></i>
-                            </span>
+                            <button 
+                                type="button" 
+                                @click="saveApiKeyPermanently()" 
+                                class="px-4 py-2.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shrink-0"
+                            >
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span x-text="keySavedText">Save Key</span>
+                            </button>
                         </div>
-                        <p class="text-[11px] text-gray-400 mt-1">This key is used for AI scraping, spec parsing, and rewriting unique SM Shop branded descriptions.</p>
+                        <p class="text-[11px] text-gray-400">API Key টি একবার Save করলে আর কখনো টাইপ করা লাগবে না। এটি দিয়ে টাইটেল ও ডেসক্রিপশন SM Shop ব্র্যান্ডিংয়ে রিরাইট করা হয়।</p>
                     </div>
 
                     <!-- URL Input Textarea -->
                     <div>
-                        <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center justify-between mb-1.5 flex-wrap gap-2">
                             <label class="text-xs font-bold text-gray-300 uppercase tracking-wider">
-                                Product URLs (One URL per line) *
+                                Product URLs / Category Listing URL *
                             </label>
-                            <button 
-                                type="button" 
-                                @click="insertSampleUrls()" 
-                                class="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold hover:underline cursor-pointer"
-                            >
-                                + Insert Sample Tech URLs
-                            </button>
+                            <div class="flex items-center gap-3">
+                                <button 
+                                    type="button" 
+                                    @click="discoverFromCategory()" 
+                                    :disabled="isDiscovering || getUrlCount() === 0"
+                                    class="text-[11px] text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded font-bold hover:bg-amber-500/30 transition cursor-pointer flex items-center gap-1"
+                                >
+                                    <i class="fa-solid fa-magnifying-glass" x-show="!isDiscovering"></i>
+                                    <i class="fa-solid fa-spinner fa-spin" x-show="isDiscovering" style="display:none;"></i>
+                                    <span>Extract All Products From Category</span>
+                                </button>
+
+                                <button 
+                                    type="button" 
+                                    @click="insertSampleUrls()" 
+                                    class="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold hover:underline cursor-pointer"
+                                >
+                                    + Sample Tech Links
+                                </button>
+                            </div>
                         </div>
+
                         <textarea 
                             name="urls" 
                             x-model="urlText"
-                            rows="7" 
-                            placeholder="https://example.com/product/laptop-model-1&#10;https://example.com/product/gaming-pc-2&#10;https://example.com/product/smartwatch-3"
+                            rows="8" 
+                            placeholder="এখানে এক বা একাধিক প্রোডাক্ট লিংক পেস্ট করুন অথবা ক্যাটাগরি পেজের লিংক দিন:&#10;https://www.techlandbd.com/shop-laptop-computer/brand-laptops&#10;https://www.startech.com.bd/laptop-notebook/laptop&#10;https://www.startech.com.bd/asus-tuf-gaming-a15-fa506nc-ryzen-5-7535hs-rtx-3050-graphics-gaming-laptop"
                             class="w-full px-4 py-3 bg-[#13141a] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 focus:outline-none focus:border-purple-500 leading-relaxed placeholder-gray-600"
                             required
                         ></textarea>
+
                         <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1">
-                            <span>Enter 1 or multiple URLs at once. Listing / Category pages are also parsed.</span>
-                            <span class="font-mono text-purple-300" x-text="getUrlCount() + ' link(s) detected'"></span>
+                            <span>ক্যাটাগরি লিংক দিলে সিস্টেম নিজে থেকেই সব প্রোডাক্ট খুঁজে নিয়ে একবারে ইমপোর্ট করবে।</span>
+                            <span class="font-mono text-purple-300 font-bold" x-text="getUrlCount() + ' link(s) ready'"></span>
                         </div>
                     </div>
 
@@ -126,16 +153,16 @@
                         <label class="p-3.5 rounded-xl bg-[#13141a] border border-[#2b2b40] flex items-center gap-3 cursor-pointer hover:border-purple-500/50 transition">
                             <input type="checkbox" name="purge_demo" value="1" x-model="purgeDemo" class="rounded bg-[#1e1e2d] border-[#2b2b40] text-red-500 focus:ring-0">
                             <div>
-                                <span class="text-xs font-bold text-white block">Purge Demo Products</span>
-                                <span class="text-[10px] text-gray-400">Clear old products before importing</span>
+                                <span class="text-xs font-bold text-white block">Purge Old Products First</span>
+                                <span class="text-[10px] text-gray-400">নতুন ইমপোর্টের আগে ডেমো প্রোডাক্ট মুছে ফেলুন</span>
                             </div>
                         </label>
 
                         <label class="p-3.5 rounded-xl bg-[#13141a] border border-[#2b2b40] flex items-center gap-3 cursor-pointer hover:border-purple-500/50 transition">
                             <input type="checkbox" checked disabled class="rounded bg-[#1e1e2d] border-[#2b2b40] text-purple-500 focus:ring-0">
                             <div>
-                                <span class="text-xs font-bold text-white block">SM Shop Brand Rewrite</span>
-                                <span class="text-[10px] text-emerald-400">Automatic warranty &amp; SEO content</span>
+                                <span class="text-xs font-bold text-white block">SM Shop Brand Rewrite &amp; Gallery</span>
+                                <span class="text-[10px] text-emerald-400">Official warranty + Multiple HD images</span>
                             </div>
                         </label>
                     </div>
@@ -150,7 +177,7 @@
                         >
                             <i class="fa-solid fa-bolt" x-show="!isImporting"></i>
                             <i class="fa-solid fa-spinner fa-spin" x-show="isImporting" style="display: none;"></i>
-                            <span x-text="isImporting ? 'AI Processing & Scraping...' : 'Start Real-time AI Bulk Import'"></span>
+                            <span x-text="isImporting ? 'AI Scraping & Processing...' : 'Start Real-time AI Bulk Import (Recommended)'"></span>
                         </button>
 
                         <button 
@@ -159,7 +186,7 @@
                             class="px-6 py-4 rounded-xl bg-[#2b2b40] hover:bg-[#383854] text-white text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer"
                         >
                             <i class="fa-solid fa-server"></i>
-                            <span>Standard Background Import</span>
+                            <span>Standard Server Import</span>
                         </button>
                     </div>
                 </form>
@@ -179,9 +206,9 @@
                     </div>
 
                     <!-- Live Log Console -->
-                    <div class="max-h-48 overflow-y-auto space-y-1.5 font-mono text-[11px] p-3 rounded-lg bg-[#0d0e12] border border-[#1e1e2d]" id="import-log-console">
+                    <div class="max-h-56 overflow-y-auto space-y-1.5 font-mono text-[11px] p-3 rounded-lg bg-[#0d0e12] border border-[#1e1e2d]" id="import-log-console">
                         <template x-for="(log, idx) in logs" :key="idx">
-                            <div class="flex items-start gap-2" :class="log.type === 'error' ? 'text-red-400' : (log.type === 'success' ? 'text-emerald-400' : 'text-gray-300')">
+                            <div class="flex items-start gap-2" :class="log.type === 'error' ? 'text-red-400' : (log.type === 'success' ? 'text-emerald-400' : (log.type === 'warn' ? 'text-amber-400' : 'text-gray-300'))">
                                 <span class="text-gray-600 shrink-0" x-text="log.time"></span>
                                 <span x-html="log.message"></span>
                             </div>
@@ -204,19 +231,19 @@
                 <div class="space-y-3.5 text-xs text-gray-300 leading-relaxed">
                     <div class="flex items-start gap-3">
                         <div class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs flex items-center justify-center shrink-0 border border-purple-500/30">1</div>
-                        <p><strong class="text-white">Smart Scraper:</strong> Fetches product specifications, pricing, model numbers, and multiple high-res gallery images.</p>
+                        <p><strong class="text-white">Category / Single Links:</strong> ক্যাটালগ লিংক দিলে স্বয়ংক্রিয়ভাবে ক্যাটাগরির সমস্ত প্রোডাক্ট একসাথে এক্সট্র্যাক্ট করে নেয়।</p>
                     </div>
                     <div class="flex items-start gap-3">
                         <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs flex items-center justify-center shrink-0 border border-indigo-500/30">2</div>
-                        <p><strong class="text-white">Gemini AI Rewrite:</strong> Removes other competitor brandings and generates high-converting copy with <strong class="text-white">SM Shop</strong> warranty terms.</p>
+                        <p><strong class="text-white">Multiple Gallery HD Images:</strong> মূল থাম্বনেইলের পাশাপাশি ৪-৬টি হাই-রেজ্যুলেশন গ্যালারি ফটো সেভ করে।</p>
                     </div>
                     <div class="flex items-start gap-3">
                         <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs flex items-center justify-center shrink-0 border border-emerald-500/30">3</div>
-                        <p><strong class="text-white">Auto Categorize:</strong> Automatically assigns to Desktop, Laptop, Monitor, Component, Gadget, etc.</p>
+                        <p><strong class="text-white">Gemini AI Rewrite:</strong> অন্য দোকানের নাম মুছে <strong class="text-white">SM Shop</strong> এর ওয়ারেন্টি পলিসি ও হাই-কনভার্টিং কপিরাইটিং তৈরি করে।</p>
                     </div>
                     <div class="flex items-start gap-3">
                         <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-500/30">4</div>
-                        <p><strong class="text-white">Social Proof:</strong> Adds verified customer reviews (in Bengali &amp; English) for high customer conversion.</p>
+                        <p><strong class="text-white">Social Proof:</strong> প্রতিটি পণ্যের জন্য বাংলা ও ইংরেজি ভেরিফাইড কাস্টমার রিভিউ ও ৫-স্টার রেটিং যোগ করে।</p>
                     </div>
                 </div>
             </div>
@@ -270,7 +297,7 @@
                                 <img src="{{ $prod->image }}" alt="{{ $prod->name }}" class="w-10 h-10 rounded-lg object-contain bg-white p-1 border border-gray-700 shrink-0">
                                 <div class="min-w-0">
                                     <div class="font-bold text-white truncate max-w-sm">{{ $prod->name }}</div>
-                                    <div class="text-[10px] text-gray-400 font-mono">SKU: {{ $prod->sku }}</div>
+                                    <div class="text-[10px] text-gray-400 font-mono">SKU: {{ $prod->sku }} | Images: {{ 1 + count($prod->gallery_images ?? []) }}</div>
                                 </div>
                             </td>
                             <td class="py-3 px-4 text-gray-300">
@@ -313,14 +340,61 @@
     function aiImporterApp() {
         return {
             apiKey: '{{ $geminiApiKey }}',
+            keySavedText: 'Save Key',
             urlText: '',
             purgeDemo: false,
             isImporting: false,
+            isDiscovering: false,
             showProgress: false,
             progressCurrent: 0,
             progressTotal: 0,
             progressPercent: 0,
             logs: [],
+
+            initApp() {
+                const stored = localStorage.getItem('sm_gemini_api_key');
+                if (stored && !this.apiKey) {
+                    this.apiKey = stored;
+                }
+                if (this.apiKey) {
+                    localStorage.setItem('sm_gemini_api_key', this.apiKey);
+                }
+            },
+
+            onKeyChange() {
+                if (this.apiKey) {
+                    localStorage.setItem('sm_gemini_api_key', this.apiKey);
+                }
+            },
+
+            async saveApiKeyPermanently() {
+                if (!this.apiKey) {
+                    alert('Please enter your Google API key first.');
+                    return;
+                }
+                localStorage.setItem('sm_gemini_api_key', this.apiKey);
+                this.keySavedText = 'Saving...';
+
+                try {
+                    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                    const res = await fetch('{{ route("admin.products.ai-import.save-key") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': token || ''
+                        },
+                        body: JSON.stringify({ api_key: this.apiKey })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        this.keySavedText = '✓ Saved!';
+                        setTimeout(() => this.keySavedText = 'Save Key', 3000);
+                    }
+                } catch (e) {
+                    this.keySavedText = 'Save Key';
+                }
+            },
 
             getUrlCount() {
                 const links = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
@@ -329,11 +403,48 @@
 
             insertSampleUrls() {
                 this.urlText = [
+                    'https://www.startech.com.bd/laptop-notebook/laptop',
                     'https://www.startech.com.bd/lenovo-ideapad-slim-3-15abr8-ryzen-7-7730u-laptop',
                     'https://www.startech.com.bd/asus-tuf-gaming-a15-fa506nc-ryzen-5-7535hs-rtx-3050-graphics-gaming-laptop',
-                    'https://www.startech.com.bd/amd-ryzen-5-5600g-processor-desktop-pc',
-                    'https://www.startech.com.bd/samsung-galaxy-watch-6-smart-watch'
+                    'https://www.startech.com.bd/amd-ryzen-5-5600g-processor-desktop-pc'
                 ].join('\n');
+            },
+
+            async discoverFromCategory() {
+                const lines = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
+                if (lines.length === 0) {
+                    alert('Please enter a Category / Listing URL first.');
+                    return;
+                }
+
+                const targetUrl = lines[0];
+                this.isDiscovering = true;
+                this.addLog(`🔍 Scanning category URL for products: <span class="text-white">${targetUrl}</span>`);
+
+                try {
+                    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                    const res = await fetch('{{ route("admin.products.ai-import.discover") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': token || ''
+                        },
+                        body: JSON.stringify({ url: targetUrl })
+                    });
+
+                    const data = await res.json();
+                    if (data.success && data.links.length > 0) {
+                        this.urlText = data.links.join('\n');
+                        this.addLog(`✓ Found <strong>${data.links.length}</strong> products in this category! Populated in the URL box ready for AI import.`, 'success');
+                    } else {
+                        this.addLog(`⚠️ No child links found automatically for this URL.`, 'warn');
+                    }
+                } catch (e) {
+                    this.addLog(`✗ Category scan failed: ${e.message}`, 'error');
+                } finally {
+                    this.isDiscovering = false;
+                }
             },
 
             addLog(message, type = 'info') {
@@ -347,43 +458,65 @@
             },
 
             async startInteractiveImport() {
-                const rawLinks = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
+                let rawLinks = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
                 if (rawLinks.length === 0) {
-                    alert('Please enter at least one valid URL.');
+                    alert('Please enter at least one valid product or category URL.');
                     return;
                 }
 
-                if (!this.apiKey) {
-                    alert('Google API Key is required.');
-                    return;
+                // If user entered only 1 URL and it's a category, let's discover sub-links
+                if (rawLinks.length === 1 && (rawLinks[0].includes('laptop') || rawLinks[0].includes('shop-') || rawLinks[0].includes('category') || rawLinks[0].includes('brand-'))) {
+                    this.isImporting = true;
+                    this.showProgress = true;
+                    this.logs = [];
+                    this.addLog(`🔍 Category page detected (<span class="text-white">${rawLinks[0]}</span>). Extracting all products from this category...`);
+                    
+                    try {
+                        const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                        const res = await fetch('{{ route("admin.products.ai-import.discover") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': token || ''
+                            },
+                            body: JSON.stringify({ url: rawLinks[0] })
+                        });
+                        const data = await res.json();
+                        if (data.success && data.links.length > 0) {
+                            rawLinks = data.links;
+                            this.addLog(`✓ Discovered <strong>${rawLinks.length}</strong> products from category! Starting AI import queue...`, 'success');
+                        }
+                    } catch (e) {
+                        this.addLog(`Proceeding with direct link...`);
+                    }
                 }
 
                 this.isImporting = true;
                 this.showProgress = true;
-                this.logs = [];
+                this.logs = this.logs || [];
                 this.progressCurrent = 0;
                 this.progressTotal = rawLinks.length;
                 this.progressPercent = 0;
 
-                this.addLog(`🚀 Initializing AI Import for ${rawLinks.length} product(s)...`);
+                this.addLog(`🚀 Initializing AI Bulk Import for <strong>${rawLinks.length}</strong> product(s)...`);
 
                 if (this.purgeDemo) {
-                    this.addLog(`🧹 Purging old demo products as requested...`);
+                    this.addLog(`🧹 Purging old products as requested...`);
                     try {
                         const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
                         await fetch('{{ route("admin.products.purge-demo") }}', {
                             method: 'POST',
                             headers: { 'X-CSRF-TOKEN': token || '' }
                         });
-                        this.addLog(`✓ Demo products purged successfully.`, 'success');
+                        this.addLog(`✓ Database cleared for clean fresh imports.`, 'success');
                     } catch (e) {
-                        this.addLog(`⚠️ Could not purge demo products: ${e.message}`, 'error');
+                        this.addLog(`⚠️ Could not purge products: ${e.message}`, 'error');
                     }
                 }
 
                 let successCount = 0;
                 let failedCount = 0;
-
                 const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
                 for (let i = 0; i < rawLinks.length; i++) {
@@ -391,7 +524,7 @@
                     this.progressCurrent = i + 1;
                     this.progressPercent = Math.round(((i + 1) / rawLinks.length) * 100);
 
-                    this.addLog(`[${i+1}/${rawLinks.length}] 🌐 Scraping &amp; analyzing: <span class="text-white">${url}</span>`);
+                    this.addLog(`[${i+1}/${rawLinks.length}] 🌐 Scraping &amp; AI rewriting: <span class="text-white">${url}</span>`);
 
                     try {
                         const res = await fetch('{{ route("admin.products.ai-import.single") }}', {
@@ -411,7 +544,7 @@
 
                         if (data.success) {
                             successCount++;
-                            this.addLog(`✓ <strong>[IMPORTED]</strong> ${data.name} (<span class="text-starOrange font-bold">${data.price}৳</span>) - ${data.image_count} image(s) <a href="${data.product_url}" target="_blank" class="underline text-indigo-300 ml-1">View &rarr;</a>`, 'success');
+                            this.addLog(`✓ <strong>[IMPORTED]</strong> ${data.name} (<span class="text-starOrange font-bold">${data.price}৳</span>) - ${data.image_count} images <a href="${data.product_url}" target="_blank" class="underline text-indigo-300 ml-1">View Store &rarr;</a>`, 'success');
                         } else {
                             failedCount++;
                             this.addLog(`✗ <strong>[FAILED]</strong> ${data.error || 'Import error'}`, 'error');
@@ -427,7 +560,7 @@
 
                 setTimeout(() => {
                     window.location.reload();
-                }, 2000);
+                }, 2500);
             },
 
             handleSubmit(e) {
