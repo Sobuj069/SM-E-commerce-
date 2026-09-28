@@ -328,14 +328,14 @@
                 </div>
             </div>
 
-            <!-- Star Tech Branch Locator Box -->
+            <!-- SM Shop Outlets & Delivery Info Box -->
             <div class="bg-white rounded-lg border border-slate-200 p-5 shadow-xs text-slate-700 space-y-3">
                 <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                    <i class="fa-solid fa-location-dot text-starOrange"></i> Star Tech Branches
+                    <i class="fa-solid fa-location-dot text-starOrange"></i> SM Shop Outlets &amp; Delivery
                 </h3>
-                <p class="text-xs text-slate-600">You can collect this product from any of our 20+ branches in Dhaka, Chattogram, Khulna, Rajshahi, Rangpur, Gazipur & Mymensingh.</p>
+                <p class="text-xs text-slate-600">Fast delivery available across all 64 districts in Bangladesh or collect directly from our pickup hubs.</p>
                 <div class="text-[11px] text-starBlue font-semibold flex items-center gap-1">
-                    <i class="fa-solid fa-store"></i> 20+ Physical Outlets Across BD
+                    <i class="fa-solid fa-truck-fast"></i> 64 Districts Express Nationwide Shipping
                 </div>
             </div>
         </div>

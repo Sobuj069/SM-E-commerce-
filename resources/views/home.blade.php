@@ -10,7 +10,7 @@
          ========================================================================= -->
     <div class="bg-white rounded-full py-2.5 px-6 shadow-sm border border-slate-100 flex items-center justify-center text-xs md:text-sm text-slate-700 text-center font-normal">
         <span class="inline-block truncate">
-            Branches are open including Elephant Road branch. Additionally, our online activities are open and operational. Please check our contact page for schedule.
+            স্বাগতম SM Shop এ! ঢাকা সহ সারাদেশে দ্রুত হোম ডেলিভারি ও অরিজিনাল টেক প্রোডাক্টের অফিসিয়াল ওয়ারেন্টি। হেল্পলাইন: 16793
         </span>
     </div>
 

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class EcommerceSeeder extends Seeder
 {
     /**
-     * Run the database seeds for Star Tech Computer, Laptop & Gadget Store.
+     * Run the database seeds for SM Shop Computer, Laptop & Gadget Store.
      */
     public function run(): void
     {
