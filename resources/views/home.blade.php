@@ -1,827 +1,428 @@
 @extends('layouts.app')
 
-@section('title', 'SM Shop - Fashion & Apparel')
+@section('title', 'Star Tech - Leading Computer, Laptop & Gadget Shop in Bangladesh')
 
 @section('content')
-@php
-    $heroBanner = $banners->first();
-    $campaignBanner = $banners->skip(1)->first();
-@endphp
+<div class="max-w-[1320px] mx-auto px-4 py-4 space-y-6">
 
-<!-- =========================================================================
-     1. HERO BANNER (Authentic Gymshark Conditioning Apparel)
-     ========================================================================= -->
-<section 
-    x-data="{ isPlaying: true, isMuted: true }" 
-    class="relative min-h-[620px] lg:min-h-[760px] flex items-center bg-zinc-950 overflow-hidden text-white"
->
-    <!-- Background Image / Video Poster -->
-    <img 
-        src="{{ $heroBanner->image ?? asset('images/gymshark_hero_banner.jpg') }}" 
-        alt="SM Shop Conditioning Apparel" 
-        class="absolute inset-0 w-full h-full object-cover object-center scale-105 transition-transform duration-1000 ease-out"
-    >
+    <!-- =========================================================================
+         1. NOTICE BAR
+         ========================================================================= -->
+    <div class="bg-white rounded-full py-2.5 px-6 shadow-sm border border-slate-100 flex items-center justify-center text-xs md:text-sm text-slate-700 text-center font-normal">
+        <span class="inline-block truncate">
+            Branches are open including Elephant Road branch. Additionally, our online activities are open and operational. Please check our contact page for schedule.
+        </span>
+    </div>
 
-    <!-- High-Contrast Cinematic Scrim -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30 lg:bg-gradient-to-r lg:from-black/95 lg:via-black/60 lg:to-transparent"></div>
-
-    <!-- Hero Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24 w-full">
-        <div class="max-w-2xl space-y-6 text-left">
-            
-            <div class="inline-flex items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white text-black text-xs font-black rounded-full uppercase tracking-wider shadow-md">
-                    <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-                    {{ $heroBanner->badge ?? 'NEW 2026 DROP' }}
-                </span>
-                <span class="hidden sm:inline-flex items-center px-3 py-1.5 bg-black/70 border border-white/20 text-zinc-300 text-xs font-bold rounded-full uppercase tracking-wider backdrop-blur-md">
-                    Engineered for Performance
-                </span>
-            </div>
-            
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.02] text-white uppercase font-sans">
-                {{ $heroBanner->title ?? 'CONDITIONING IS EVERYTHING' }}
-            </h1>
-            
-            <p class="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed max-w-xl">
-                {{ $heroBanner->subtitle ?? 'Engineered seamless gymwear, heavyweight fleece pump covers, and squat-proof activewear designed for peak human performance.' }}
-            </p>
-
-            <!-- Dual Gymshark Action Buttons: Women & Men -->
-            <div class="flex flex-wrap items-center gap-4 pt-2">
-                <a href="{{ route('shop.index', ['category' => 'women']) }}" class="px-8 py-4 bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-wider rounded-full transition shadow-xl hover:scale-105 cursor-pointer">
-                    SHOP WOMEN
-                </a>
-                <a href="{{ route('shop.index', ['category' => 'men']) }}" class="px-8 py-4 bg-black/70 hover:bg-black text-white border border-white/50 text-xs font-black uppercase tracking-wider rounded-full transition backdrop-blur-md hover:scale-105 cursor-pointer">
-                    SHOP MEN
-                </a>
-                <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="px-7 py-4 bg-transparent hover:text-white text-zinc-300 text-xs font-black uppercase tracking-wider transition underline underline-offset-4 cursor-pointer">
-                    EXPLORE SEAMLESS &rarr;
-                </a>
-            </div>
-
-            <!-- Conditioning Guarantees Summary -->
-            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-white/20 max-w-lg text-left">
-                <div>
-                    <div class="text-xl sm:text-2xl font-black text-white font-sans">100%</div>
-                    <div class="text-[11px] text-zinc-400 font-bold uppercase tracking-wider mt-0.5">Squat-Proof Knit</div>
+    <!-- =========================================================================
+         2. HERO PROMO BANNERS (3 + 1 GRID)
+         ========================================================================= -->
+    <section class="grid grid-cols-1 lg:grid-cols-4 gap-4" data-purpose="hero-promotions">
+        <!-- Main Promotional Slider / Banner Area -->
+        <a href="{{ route('shop.index', ['category' => 'laptop']) }}" class="lg:col-span-3 rounded-lg overflow-hidden shadow-sm relative bg-gradient-to-r from-purple-950 via-slate-900 to-red-950 text-white min-h-[300px] flex items-center justify-between p-6 sm:p-8 border border-slate-800 group block">
+            <div class="z-10 max-w-md space-y-3">
+                <span class="inline-block bg-red-600 text-white text-xs uppercase px-2.5 py-1 rounded font-bold tracking-wide">Special Campaign</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">
+                    লেনোভো -এর <span class="text-red-500 font-extrabold">AMD প্রসেসর যুক্ত</span><br/>
+                    নির্দিষ্ট ল্যাপটপ কিনলেই পেয়ে যাচ্ছেন
+                </h2>
+                <div class="bg-white/10 backdrop-blur-md rounded-md p-3 border border-white/20 inline-block">
+                    <p class="text-base sm:text-lg font-bold text-amber-300">স্মার্টওয়াচ অথবা এয়ারবাডস ফ্রি!</p>
                 </div>
-                <div>
-                    <div class="text-xl sm:text-2xl font-black text-white font-sans">FREE</div>
-                    <div class="text-[11px] text-zinc-400 font-bold uppercase tracking-wider mt-0.5">Delivery Over $75</div>
-                </div>
-                <div>
-                    <div class="text-xl sm:text-2xl font-black text-white font-sans">30-DAY</div>
-                    <div class="text-[11px] text-zinc-400 font-bold uppercase tracking-wider mt-0.5">Easy Returns</div>
-                </div>
+                <p class="text-xs text-gray-300">*শর্ত প্রযোজ্য</p>
             </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- =========================================================================
-     2. VALUE PERKS STRIP (Gymshark Guarantees)
-     ========================================================================= -->
-<section class="py-8 bg-white border-b border-zinc-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             
-            <div class="flex flex-col items-center justify-center p-3">
-                <i class="fa-solid fa-truck-fast text-xl text-black mb-2" aria-hidden="true"></i>
-                <p class="font-bold text-black text-sm">Free Standard Delivery</p>
-                <p class="text-xs text-zinc-500 mt-0.5">On all orders over $75</p>
+            <!-- Promo Graphic Highlights -->
+            <div class="hidden sm:flex flex-col items-center justify-center pr-4 lg:pr-6 gap-3 z-10">
+                <div class="w-28 sm:w-32 h-28 sm:h-32 rounded-full border-4 border-red-500/30 p-2 bg-black/40 flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-laptop-code text-4xl sm:text-5xl text-red-500"></i>
+                </div>
+                <span class="text-xs font-semibold bg-red-600 px-3 py-1 rounded-full shadow">ধামাকা অফার</span>
             </div>
-
-            <div class="flex flex-col items-center justify-center p-3">
-                <i class="fa-solid fa-rotate-left text-xl text-black mb-2" aria-hidden="true"></i>
-                <p class="font-bold text-black text-sm">30-Day Easy Returns</p>
-                <p class="text-xs text-zinc-500 mt-0.5">Fast & hassle-free</p>
-            </div>
-
-            <div class="flex flex-col items-center justify-center p-3">
-                <i class="fa-solid fa-shield-halved text-xl text-black mb-2" aria-hidden="true"></i>
-                <p class="font-bold text-black text-sm">Squat-Proof Guarantee</p>
-                <p class="text-xs text-zinc-500 mt-0.5">Premium seamless knitwear</p>
-            </div>
-
-            <div class="flex flex-col items-center justify-center p-3">
-                <i class="fa-solid fa-graduation-cap text-xl text-black mb-2" aria-hidden="true"></i>
-                <p class="font-bold text-black text-sm">Student Discount 10%</p>
-                <p class="text-xs text-zinc-500 mt-0.5">Instant online verification</p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- =========================================================================
-     2.5. CONTINUOUS AUTO-SLIDING PURE BRAND LOGOS (ONLY ORIGINAL LOGOS)
-     ========================================================================= -->
-<section class="py-10 bg-white border-b border-zinc-200 overflow-hidden relative">
-    <!-- Left & Right Gradient Fade Masks -->
-    <div class="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-white to-transparent z-10"></div>
-    <div class="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-white to-transparent z-10"></div>
-
-    <!-- Infinite Auto-Slider Track with Pure Original Brand Logos -->
-    <div class="brand-marquee-track flex items-center gap-16 sm:gap-24 py-2">
-        
-        <!-- Set 1 -->
-        <!-- Gymshark -->
-        <div class="flex items-center gap-2.5 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <svg class="w-7 h-7 fill-current text-black" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <span class="text-xl sm:text-2xl font-black tracking-wider uppercase text-black">GYMSHARK</span>
-        </div>
-
-        <!-- Nike -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <i class="fa-solid fa-check text-2xl text-[#FF5500]"></i>
-            <span class="text-2xl sm:text-3xl font-black italic tracking-tight text-black">NIKE</span>
-        </div>
-
-        <!-- Under Armour -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <span class="text-xl sm:text-2xl font-black tracking-widest text-[#C41230]">UNDER ARMOUR</span>
-        </div>
-
-        <!-- Apple -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <i class="fa-brands fa-apple text-3xl sm:text-4xl text-black"></i>
-            <span class="text-xl sm:text-2xl font-bold tracking-tight text-black">Apple</span>
-        </div>
-
-        <!-- Sony -->
-        <div class="flex items-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <span class="text-2xl sm:text-3xl font-black tracking-widest uppercase text-black font-serif">SONY</span>
-        </div>
-
-        <!-- Beats by Dre -->
-        <div class="flex items-center gap-2.5 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <div class="w-8 h-8 rounded-full bg-[#E01F3D] text-white font-bold flex items-center justify-center text-sm shadow-xs">b</div>
-            <span class="text-xl sm:text-2xl font-black tracking-tight text-[#E01F3D]">beats</span>
-        </div>
-
-        <!-- Garmin -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <i class="fa-solid fa-diamond text-lg text-[#007CC3]"></i>
-            <span class="text-xl sm:text-2xl font-black tracking-widest uppercase text-[#007CC3]">GARMIN</span>
-        </div>
-
-        <!-- Set 2 (Seamless Infinite Marquee Loop) -->
-        <!-- Gymshark -->
-        <div class="flex items-center gap-2.5 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <svg class="w-7 h-7 fill-current text-black" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <span class="text-xl sm:text-2xl font-black tracking-wider uppercase text-black">GYMSHARK</span>
-        </div>
-
-        <!-- Nike -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <i class="fa-solid fa-check text-2xl text-[#FF5500]"></i>
-            <span class="text-2xl sm:text-3xl font-black italic tracking-tight text-black">NIKE</span>
-        </div>
-
-        <!-- Under Armour -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <span class="text-xl sm:text-2xl font-black tracking-widest text-[#C41230]">UNDER ARMOUR</span>
-        </div>
-
-        <!-- Apple -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <i class="fa-brands fa-apple text-3xl sm:text-4xl text-black"></i>
-            <span class="text-xl sm:text-2xl font-bold tracking-tight text-black">Apple</span>
-        </div>
-
-        <!-- Sony -->
-        <div class="flex items-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <span class="text-2xl sm:text-3xl font-black tracking-widest uppercase text-black font-serif">SONY</span>
-        </div>
-
-        <!-- Beats by Dre -->
-        <div class="flex items-center gap-2.5 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <div class="w-8 h-8 rounded-full bg-[#E01F3D] text-white font-bold flex items-center justify-center text-sm shadow-xs">b</div>
-            <span class="text-xl sm:text-2xl font-black tracking-tight text-[#E01F3D]">beats</span>
-        </div>
-
-        <!-- Garmin -->
-        <div class="flex items-center gap-2 shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-            <i class="fa-solid fa-diamond text-lg text-[#007CC3]"></i>
-            <span class="text-xl sm:text-2xl font-black tracking-widest uppercase text-[#007CC3]">GARMIN</span>
-        </div>
-
-    </div>
-</section>
-
-<!-- =========================================================================
-     3. SHOP BY COLLECTION (Gymshark Apparel Drops)
-     ========================================================================= -->
-<section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-end justify-between mb-8">
-            <div>
-                <span class="text-xs font-bold text-zinc-500 tracking-wider uppercase">Discover Drops</span>
-                <h2 class="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">Shop by Collection</h2>
-            </div>
-            <div class="flex items-center gap-3">
-                <button type="button" class="collection-prev w-10 h-10 rounded-full border border-zinc-300 flex items-center justify-center text-black hover:bg-black hover:text-white transition cursor-pointer" title="Previous Slide">
-                    <i class="fa-solid fa-arrow-left text-xs"></i>
-                </button>
-                <button type="button" class="collection-next w-10 h-10 rounded-full border border-zinc-300 flex items-center justify-center text-black hover:bg-black hover:text-white transition cursor-pointer" title="Next Slide">
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Dynamic Swiper Collection Slider -->
-        <div class="swiper collection-swiper overflow-hidden w-full">
-            <div class="swiper-wrapper">
-                @foreach($categories as $category)
-                    <div class="swiper-slide h-auto">
-                        <a href="{{ route('shop.index', ['category' => $category->slug]) }}" class="group relative rounded-2xl overflow-hidden bg-zinc-900 aspect-[3/4] flex flex-col justify-end p-6 shadow-sm block">
-                            <img 
-                                src="{{ $category->image }}" 
-                                alt="{{ $category->name }}" 
-                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                            >
-                            <!-- High Contrast Scrim -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-transparent"></div>
-                            
-                            <!-- Consistent Baseline Box -->
-                            <div class="relative z-10 space-y-1 min-h-[4.5rem] flex flex-col justify-end">
-                                <span class="text-xs font-semibold text-zinc-300">{{ Str::limit($category->description, 28) }}</span>
-                                <h3 class="text-lg font-black text-white leading-tight uppercase">{{ $category->name }}</h3>
-                                <span class="inline-flex items-center gap-1 text-xs font-black text-white pt-1 group-hover:translate-x-1 transition-transform uppercase tracking-wider">
-                                    Shop Now <i class="fa-solid fa-arrow-right text-xs"></i>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- =========================================================================
-     3.5. INTERACTIVE "SHOP THE LOOK" HOTSPOT LOOKBOOK (GYMSHARK FEATURE)
-     ========================================================================= -->
-<section x-data="{ activeHotspot: null }" class="py-16 bg-zinc-950 text-white overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div>
-                <span class="text-xs font-bold text-zinc-400 tracking-wider uppercase">Engineered Lookbook</span>
-                <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight mt-1 uppercase">Shop The Look</h2>
-            </div>
-            <p class="text-xs sm:text-sm text-zinc-400 max-w-md">
-                Click on the interactive tags below to shop the exact conditioning outfits worn by our athletes.
-            </p>
-        </div>
-
-        <!-- Hotspot Stage Container -->
-        <div class="relative rounded-3xl overflow-hidden bg-zinc-900 border border-zinc-800 shadow-2xl min-h-[500px] lg:min-h-[600px] flex items-center">
             
-            <!-- Lookbook Image -->
-            <img 
-                src="{{ asset('images/gymshark_hero_banner.jpg') }}" 
-                alt="Gymshark Athlete Lookbook" 
-                class="absolute inset-0 w-full h-full object-cover object-center filter brightness-90"
-            >
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+            <!-- Background subtle glow -->
+            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        </a>
 
-            <!-- HOTSPOT 1: Vital Seamless Leggings (Women's Left) -->
-            <div class="absolute top-[65%] left-[62%] z-20">
-                <button 
-                    type="button"
-                    @click="activeHotspot = (activeHotspot === 1 ? null : 1)"
-                    class="relative w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shadow-2xl hover:scale-125 transition-transform duration-300 cursor-pointer"
-                    aria-label="View Vital Seamless Leggings"
-                >
-                    <span class="absolute inset-0 rounded-full bg-white animate-ping opacity-75"></span>
-                    <i class="fa-solid fa-plus text-xs font-bold"></i>
-                </button>
-
-                <!-- Popover Card 1 -->
-                <div 
-                    x-show="activeHotspot === 1" 
-                    @click.away="activeHotspot = null"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    class="absolute bottom-10 -left-28 sm:-left-32 w-64 bg-white text-black rounded-2xl p-4 shadow-2xl border border-zinc-200 z-30 space-y-3"
-                    style="display: none;"
-                >
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('images/prod_vital_leggings.jpg') }}" alt="Leggings" class="w-14 h-14 object-cover rounded-xl bg-zinc-100 shrink-0">
-                        <div class="min-w-0">
-                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Women's Activewear</span>
-                            <h4 class="font-black text-xs text-black truncate">Vital Seamless 2.0</h4>
-                            <div class="text-xs font-black text-red-600 mt-0.5">$44.00 <span class="text-zinc-400 line-through text-[10px]">$54.00</span></div>
-                        </div>
-                    </div>
-                    <a href="{{ route('shop.index', ['category' => 'women']) }}" class="w-full py-2 bg-black hover:bg-zinc-800 text-white text-[11px] font-black uppercase tracking-wider rounded-full transition block text-center">
-                        Quick Add &rarr;
+        <!-- Right Column Dual Teasers -->
+        <div class="flex flex-col gap-4">
+            <!-- Feedback Teaser -->
+            <div class="bg-gradient-to-br from-[#0c2e4e] to-[#081a2d] text-white p-5 rounded-lg flex flex-col justify-between h-full border border-sky-900/50 shadow-sm relative overflow-hidden group">
+                <div>
+                    <p class="text-xs text-cyan-400 font-medium">গ্রাহক মতামত ও পরামর্শ</p>
+                    <h3 class="text-xl font-bold mt-1 text-white">অভিযোগ বা মতামত</h3>
+                </div>
+                <div class="mt-4">
+                    <a class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs font-bold px-4 py-2 rounded-full transition shadow" href="{{ route('shop.index') }}">
+                        <span>জানান এখানে</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
                 </div>
+                <i class="fa-solid fa-comments absolute -right-3 -bottom-3 text-7xl text-white/5 group-hover:scale-105 transition-transform"></i>
             </div>
 
-            <!-- HOTSPOT 2: Apex Workout Tee (Men's Center) -->
-            <div class="absolute top-[38%] left-[38%] z-20">
-                <button 
-                    type="button"
-                    @click="activeHotspot = (activeHotspot === 2 ? null : 2)"
-                    class="relative w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shadow-2xl hover:scale-125 transition-transform duration-300 cursor-pointer"
-                    aria-label="View Apex Workout T-Shirt"
-                >
-                    <span class="absolute inset-0 rounded-full bg-white animate-ping opacity-75"></span>
-                    <i class="fa-solid fa-plus text-xs font-bold"></i>
-                </button>
-
-                <!-- Popover Card 2 -->
-                <div 
-                    x-show="activeHotspot === 2" 
-                    @click.away="activeHotspot = null"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    class="absolute bottom-10 -left-28 sm:-left-32 w-64 bg-white text-black rounded-2xl p-4 shadow-2xl border border-zinc-200 z-30 space-y-3"
-                    style="display: none;"
-                >
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('images/prod_apex_tee.jpg') }}" alt="T-Shirt" class="w-14 h-14 object-cover rounded-xl bg-zinc-100 shrink-0">
-                        <div class="min-w-0">
-                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Men's Gymwear</span>
-                            <h4 class="font-black text-xs text-black truncate">Apex Seamless Tee</h4>
-                            <div class="text-xs font-black text-red-600 mt-0.5">$38.00 <span class="text-zinc-400 line-through text-[10px]">$48.00</span></div>
-                        </div>
-                    </div>
-                    <a href="{{ route('shop.index', ['category' => 'men']) }}" class="w-full py-2 bg-black hover:bg-zinc-800 text-white text-[11px] font-black uppercase tracking-wider rounded-full transition block text-center">
-                        Quick Add &rarr;
-                    </a>
+            <!-- Career Teaser -->
+            <div class="bg-gradient-to-br from-[#bf2e1b] to-[#7f1d1d] text-white p-5 rounded-lg flex flex-col justify-between h-full border border-red-800/50 shadow-sm relative overflow-hidden group">
+                <div class="z-10">
+                    <span class="text-[10px] bg-white/20 text-white font-bold px-2 py-0.5 rounded uppercase">Apply Now</span>
+                    <h3 class="text-2xl font-black mt-2 leading-tight">Shape<br/>Your Career<br/><span class="text-amber-300">With Us!</span></h3>
                 </div>
+                <i class="fa-solid fa-briefcase absolute -right-3 -bottom-3 text-7xl text-white/10 group-hover:scale-105 transition-transform"></i>
             </div>
-
-            <!-- HOTSPOT 3: Adapt Compression Bra (Women's Upper) -->
-            <div class="absolute top-[40%] left-[65%] z-20">
-                <button 
-                    type="button"
-                    @click="activeHotspot = (activeHotspot === 3 ? null : 3)"
-                    class="relative w-8 h-8 rounded-full bg-white text-black flex items-center justify-center shadow-2xl hover:scale-125 transition-transform duration-300 cursor-pointer"
-                    aria-label="View Sports Bra"
-                >
-                    <span class="absolute inset-0 rounded-full bg-white animate-ping opacity-75"></span>
-                    <i class="fa-solid fa-plus text-xs font-bold"></i>
-                </button>
-
-                <!-- Popover Card 3 -->
-                <div 
-                    x-show="activeHotspot === 3" 
-                    @click.away="activeHotspot = null"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    class="absolute bottom-10 -left-28 sm:-left-32 w-64 bg-white text-black rounded-2xl p-4 shadow-2xl border border-zinc-200 z-30 space-y-3"
-                    style="display: none;"
-                >
-                    <div class="flex items-center gap-3">
-                        <img src="{{ asset('images/prod_sports_bra.jpg') }}" alt="Sports Bra" class="w-14 h-14 object-cover rounded-xl bg-zinc-100 shrink-0">
-                        <div class="min-w-0">
-                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Women's Support</span>
-                            <h4 class="font-black text-xs text-black truncate">Adapt Seamless Bra</h4>
-                            <div class="text-xs font-black text-red-600 mt-0.5">$36.00 <span class="text-zinc-400 line-through text-[10px]">$46.00</span></div>
-                        </div>
-                    </div>
-                    <a href="{{ route('shop.index', ['category' => 'women']) }}" class="w-full py-2 bg-black hover:bg-zinc-800 text-white text-[11px] font-black uppercase tracking-wider rounded-full transition block text-center">
-                        Quick Add &rarr;
-                    </a>
-                </div>
-            </div>
-
-            <!-- Bottom Floating Banner Info -->
-            <div class="absolute bottom-6 left-6 right-6 z-10 hidden sm:flex items-center justify-between p-4 bg-black/60 backdrop-blur-md rounded-2xl border border-white/10">
-                <div class="flex items-center gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-xs font-bold text-white uppercase tracking-wider">Tap any '+' icon to inspect fabric details & instant bag add</span>
-                </div>
-                <a href="{{ route('shop.index') }}" class="px-5 py-2 bg-white text-black text-xs font-black uppercase tracking-wider rounded-full hover:bg-zinc-200 transition">
-                    Shop Full Look
-                </a>
-            </div>
-
         </div>
+    </section>
 
-    </div>
-</section>
-
-<!-- =========================================================================
-     4. TRENDING NOW TABS (Gymshark Apparel Drops)
-     ========================================================================= -->
-<section x-data="{ activeTab: 'featured' }" class="py-16 bg-zinc-50 border-t border-zinc-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Header & Category Tab Filters -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+    <!-- =========================================================================
+         3. QUICK FEATURE TOOLS (4 CARDS)
+         ========================================================================= -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-3.5" data-purpose="quick-tools">
+        <!-- Laptop Finder -->
+        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index', ['category' => 'laptop']) }}">
+            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
+                <i class="fa-solid fa-laptop"></i>
+            </div>
             <div>
-                <span class="text-xs font-bold text-zinc-500 tracking-wider uppercase">Community Favourites</span>
-                <h2 class="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">Trending Now</h2>
+                <h4 class="font-bold text-xs md:text-sm text-slate-800">Laptop Finder</h4>
+                <p class="text-[11px] text-gray-500">Find Your Laptop Easily</p>
             </div>
+        </a>
 
-            <!-- Tab Pills -->
-            <div role="tablist" aria-label="Product categories" class="inline-flex p-1 rounded-full bg-zinc-200">
-                <button 
-                    type="button"
-                    role="tab"
-                    :aria-selected="activeTab === 'featured'"
-                    x-on:click="activeTab = 'featured'"
-                    :class="activeTab === 'featured' ? 'bg-black text-white shadow-sm' : 'text-zinc-800 hover:text-black'"
-                    class="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition cursor-pointer focus-visible:ring-2 focus-visible:ring-black"
-                >
-                    Featured
-                </button>
-                <button 
-                    type="button"
-                    role="tab"
-                    :aria-selected="activeTab === 'bestsellers'"
-                    x-on:click="activeTab = 'bestsellers'"
-                    :class="activeTab === 'bestsellers' ? 'bg-black text-white shadow-sm' : 'text-zinc-800 hover:text-black'"
-                    class="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition cursor-pointer focus-visible:ring-2 focus-visible:ring-black"
-                >
-                    Best Sellers
-                </button>
-                <button 
-                    type="button"
-                    role="tab"
-                    :aria-selected="activeTab === 'latest'"
-                    x-on:click="activeTab = 'latest'"
-                    :class="activeTab === 'latest' ? 'bg-black text-white shadow-sm' : 'text-zinc-800 hover:text-black'"
-                    class="px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition cursor-pointer focus-visible:ring-2 focus-visible:ring-black"
-                >
-                    New Drops
-                </button>
+        <!-- Raise a Complain -->
+        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index') }}">
+            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
+                <i class="fa-regular fa-comment-dots"></i>
             </div>
+            <div>
+                <h4 class="font-bold text-xs md:text-sm text-slate-800">Raise a Complain</h4>
+                <p class="text-[11px] text-gray-500">Share your experience</p>
+            </div>
+        </a>
+
+        <!-- AC Ton Calculator -->
+        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index', ['category' => 'appliance']) }}">
+            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
+                <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-xs md:text-sm text-slate-800">AC Ton Calculator</h4>
+                <p class="text-[11px] text-gray-500">Find Perfect AC</p>
+            </div>
+        </a>
+
+        <!-- Servicing Center -->
+        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index') }}">
+            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-xs md:text-sm text-slate-800">Servicing Center</h4>
+                <p class="text-[11px] text-gray-500">Repair Your Device</p>
+            </div>
+        </a>
+    </section>
+
+    <!-- =========================================================================
+         4. FEATURED CATEGORY SECTION (16 ICON TILES)
+         ========================================================================= -->
+    <section class="space-y-4" data-purpose="featured-categories">
+        <div class="text-center space-y-1">
+            <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Featured Category</h2>
+            <p class="text-xs md:text-sm text-gray-500">Get Your Desired Product from Featured Category!</p>
         </div>
 
-        <!-- Tab 1: Featured Deals -->
-        <div x-show="activeTab === 'featured'" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            <!-- 1. AC -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'appliance', 'q' => 'ac']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-wind"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">AC</span>
+            </a>
+
+            <!-- 2. Portable Power Station -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'power']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-car-battery"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange leading-tight">Power Station</span>
+            </a>
+
+            <!-- 3. Air Fryer -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'appliance', 'q' => 'air fryer']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-fire-burner"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Air Fryer</span>
+            </a>
+
+            <!-- 4. Drone -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'camera', 'q' => 'drone']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-helicopter"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Drone</span>
+            </a>
+
+            <!-- 5. Gimbal -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'camera', 'q' => 'gimbal']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-video"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Gimbal</span>
+            </a>
+
+            <!-- 6. Table PC -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'tablet']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-tablet-screen-button"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Tablet PC</span>
+            </a>
+
+            <!-- 7. TV -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'tv']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-tv"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">TV</span>
+            </a>
+
+            <!-- 8. Fridge -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'appliance', 'q' => 'fridge']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-box-tissue"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Fridge</span>
+            </a>
+
+            <!-- 9. Mobile Phone -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'phone']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Mobile Phone</span>
+            </a>
+
+            <!-- 10. Mobile Accessories -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'accessories']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-plug"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange leading-tight">Mobile Accessories</span>
+            </a>
+
+            <!-- 11. Health Monitor -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'gadget', 'q' => 'health']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Health Monitor</span>
+            </a>
+
+            <!-- 12. WiFi Camera -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'security']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-camera-rotate"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">WiFi Camera</span>
+            </a>
+
+            <!-- 13. Trimmer -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'gadget', 'q' => 'trimmer']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Trimmer</span>
+            </a>
+
+            <!-- 14. Smart Watch -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'gadget', 'q' => 'watch']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-stopwatch"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Smart Watch</span>
+            </a>
+
+            <!-- 15. Earbuds -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'gadget', 'q' => 'earbuds']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-headphones-simple"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Earbuds</span>
+            </a>
+
+            <!-- 16. Torch Light -->
+            <a class="bg-white p-3 rounded-lg shadow-sm hover:shadow border border-slate-100 flex flex-col items-center justify-center text-center group transition" href="{{ route('shop.index', ['category' => 'gadget', 'q' => 'torch']) }}">
+                <div class="w-10 h-10 flex items-center justify-center text-slate-600 group-hover:text-starOrange mb-1.5 text-2xl">
+                    <i class="fa-solid fa-flashlight"></i>
+                </div>
+                <span class="text-[11px] font-semibold text-slate-700 group-hover:text-starOrange line-clamp-1">Torch Light</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         5. PHYSICAL STORES BANNER
+         ========================================================================= -->
+    <section class="bg-gradient-to-r from-[#0088cc] via-[#0297df] to-[#04689b] rounded-lg p-5 md:p-6 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl shrink-0">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div>
+                <h3 class="text-xl md:text-2xl font-bold leading-tight">20+ Physical Stores</h3>
+                <p class="text-xs md:text-sm text-sky-100">Visit Our Store &amp; Get Your Desired IT Product!</p>
+            </div>
+        </div>
+        <a class="bg-[#f59e0b] hover:bg-[#d97706] text-slate-900 font-bold px-6 py-2.5 rounded-full text-xs md:text-sm transition flex items-center gap-2 shrink-0 shadow" href="{{ route('shop.index') }}">
+            <span>Find Our Store</span>
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+        </a>
+    </section>
+
+    <!-- =========================================================================
+         6. FEATURED PRODUCTS (20 OFFICIAL STAR TECH PRODUCTS GRID)
+         ========================================================================= -->
+    <section class="space-y-4" data-purpose="featured-products">
+        <div class="text-center space-y-1">
+            <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Featured Products</h2>
+            <p class="text-xs md:text-sm text-gray-500">Check &amp; Get Your Desired Product!</p>
+        </div>
+
+        <!-- 20 Product Grid (5 columns on desktop) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             @foreach($featuredProducts as $product)
-                <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
-                    <x-slot:badges>
-                        @if($product->has_discount)
-                            <x-badge variant="discount">-{{ $product->discount_percent }}% OFF</x-badge>
-                        @endif
-                        @if($product->is_featured)
-                            <x-badge variant="featured">New Drop</x-badge>
-                        @endif
-                    </x-slot:badges>
-
-                    <div>
-                        <div class="text-xs font-bold text-zinc-500 uppercase tracking-wider">
-                            {{ $product->category->name ?? 'Apparel' }}
-                        </div>
-                        <h3 class="font-black text-black text-sm tracking-tight mt-0.5 line-clamp-1 group-hover:underline">
-                            <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
-                        </h3>
-                        <p class="text-xs text-zinc-500 line-clamp-1 mt-0.5 font-medium">
-                            {{ $product->short_description }}
-                        </p>
-                    </div>
-
-                    <x-slot:footer>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                @if($product->has_discount)
-                                    <span class="text-xs text-zinc-400 line-through mr-1 font-semibold">${{ number_format($product->price, 2) }}</span>
-                                    <span class="text-sm sm:text-base font-black text-red-600">${{ number_format($product->sale_price, 2) }}</span>
-                                @else
-                                    <span class="text-sm sm:text-base font-black text-black">${{ number_format($product->price, 2) }}</span>
-                                @endif
-                            </div>
-                            <x-rating :value="$product->rating" size="xs" />
-                        </div>
-                    </x-slot:footer>
-                </x-card>
-            @endforeach
-        </div>
-
-        <!-- Tab 2: Best Sellers -->
-        <div x-show="activeTab === 'bestsellers'" x-cloak class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @foreach($bestSellers as $product)
-                <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
-                    <x-slot:badges>
-                        <x-badge variant="featured">Bestseller</x-badge>
-                    </x-slot:badges>
-
-                    <div>
-                        <div class="text-xs font-bold text-zinc-500 uppercase tracking-wider">
-                            {{ $product->category->name ?? 'Apparel' }}
-                        </div>
-                        <h3 class="font-black text-black text-sm tracking-tight mt-0.5 line-clamp-1 group-hover:underline">
-                            <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
-                        </h3>
-                        <p class="text-xs text-zinc-500 line-clamp-1 mt-0.5 font-medium">
-                            {{ $product->short_description }}
-                        </p>
-                    </div>
-
-                    <x-slot:footer>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm sm:text-base font-black text-black">${{ number_format($product->effective_price, 2) }}</span>
-                            <x-rating :value="$product->rating" size="xs" />
-                        </div>
-                    </x-slot:footer>
-                </x-card>
-            @endforeach
-        </div>
-
-        <!-- Tab 3: New Arrivals -->
-        <div x-show="activeTab === 'latest'" x-cloak class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @foreach($latestProducts as $product)
-                <x-card :image="$product->image" :imageAlt="$product->name" :imageHref="route('product.show', $product->slug)" :productId="$product->id">
-                    <x-slot:badges>
-                        <x-badge variant="featured">New Release</x-badge>
-                    </x-slot:badges>
-
-                    <div>
-                        <div class="text-xs font-bold text-zinc-500 uppercase tracking-wider">
-                            {{ $product->category->name ?? 'Apparel' }}
-                        </div>
-                        <h3 class="font-black text-black text-sm tracking-tight mt-0.5 line-clamp-1 group-hover:underline">
-                            <a href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
-                        </h3>
-                        <p class="text-xs text-zinc-500 line-clamp-1 mt-0.5 font-medium">
-                            {{ $product->short_description }}
-                        </p>
-                    </div>
-
-                    <x-slot:footer>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm sm:text-base font-black text-black">${{ number_format($product->effective_price, 2) }}</span>
-                            <x-rating :value="$product->rating" size="xs" />
-                        </div>
-                    </x-slot:footer>
-                </x-card>
-            @endforeach
-        </div>
-
-        <div class="mt-14 text-center">
-            <a href="{{ route('shop.index') }}" class="px-8 py-3.5 bg-black hover:bg-zinc-800 text-white text-xs font-black uppercase tracking-wider rounded-full transition inline-block">
-                View All Apparel
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- =========================================================================
-     4.5. SHOP BY ACTIVITY / FIT (GYMSHARK 4-GRID COMPONENT)
-     ========================================================================= -->
-<section class="py-16 bg-white border-t border-zinc-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-xs font-bold text-zinc-500 tracking-wider uppercase">Built for Every Goal</span>
-            <h2 class="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">Shop by Activity</h2>
-            <p class="text-xs sm:text-sm text-zinc-600 mt-2">Precision engineered apparel tailored to your specific training discipline.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            <!-- Activity 1: Heavy Lifting -->
-            <a href="{{ route('shop.index', ['category' => 'men']) }}" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-zinc-900 flex flex-col justify-end p-6 shadow-sm">
-                <img src="{{ asset('images/cat_men_gymwear.jpg') }}" alt="Heavy Lifting" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-85">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-amber-400 uppercase tracking-widest">STRENGTH &amp; HYPERTROPHY</span>
-                    <h3 class="text-xl font-black text-white uppercase">Heavy Lifting</h3>
-                    <span class="text-xs font-bold text-zinc-300 group-hover:text-white flex items-center gap-1 pt-1">
-                        Explore Gear <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
-                </div>
-            </a>
-
-            <!-- Activity 2: Seamless Conditioning -->
-            <a href="{{ route('shop.index', ['category' => 'seamless']) }}" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-zinc-900 flex flex-col justify-end p-6 shadow-sm">
-                <img src="{{ asset('images/cat_seamless_tech.jpg') }}" alt="Seamless Conditioning" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-85">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-rose-400 uppercase tracking-widest">ZERO CHAFING</span>
-                    <h3 class="text-xl font-black text-white uppercase">Seamless Tech</h3>
-                    <span class="text-xs font-bold text-zinc-300 group-hover:text-white flex items-center gap-1 pt-1">
-                        Explore Knitwear <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
-                </div>
-            </a>
-
-            <!-- Activity 3: Rest Day & Recovery -->
-            <a href="{{ route('shop.index', ['category' => 'hoodies-sweats']) }}" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-zinc-900 flex flex-col justify-end p-6 shadow-sm">
-                <img src="{{ asset('images/cat_hoodies_sweats.jpg') }}" alt="Rest Day" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-85">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">420 GSM FLEECE</span>
-                    <h3 class="text-xl font-black text-white uppercase">Rest Day Sweats</h3>
-                    <span class="text-xs font-bold text-zinc-300 group-hover:text-white flex items-center gap-1 pt-1">
-                        Explore Pump Covers <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
-                </div>
-            </a>
-
-            <!-- Activity 4: Women's Sculpt & Pilates -->
-            <a href="{{ route('shop.index', ['category' => 'women']) }}" class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-zinc-900 flex flex-col justify-end p-6 shadow-sm">
-                <img src="{{ asset('images/cat_women_apparel.jpg') }}" alt="Sculpt &amp; Pilates" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-85">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                <div class="relative z-10 space-y-1">
-                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">BODY CONTOUR</span>
-                    <h3 class="text-xl font-black text-white uppercase">Sculpt &amp; Mobility</h3>
-                    <span class="text-xs font-bold text-zinc-300 group-hover:text-white flex items-center gap-1 pt-1">
-                        Explore Sets <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
-                </div>
-            </a>
-
-        </div>
-
-    </div>
-</section>
-
-<!-- =========================================================================
-     5. CAMPAIGN SPOTLIGHT BANNER (Seamless Knit Technology)
-     ========================================================================= -->
-<section class="relative min-h-[480px] lg:min-h-[540px] flex items-center bg-zinc-950 text-white overflow-hidden my-12">
-    <img 
-        src="{{ $campaignBanner->image ?? asset('images/gymshark_campaign_banner.jpg') }}" 
-        alt="Gymshark Seamless Fabric Innovation" 
-        class="absolute inset-0 w-full h-full object-cover object-center opacity-80"
-    >
-    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent lg:bg-gradient-to-r lg:from-black/95 lg:via-black/60 lg:to-transparent"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16 w-full">
-        <div class="max-w-xl space-y-5 text-left">
-            <span class="inline-flex items-center px-3 py-1 bg-white text-black text-xs font-bold rounded-full uppercase tracking-wider">
-                {{ $campaignBanner->badge ?? 'FABRIC TECHNOLOGY' }}
-            </span>
-            <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white uppercase">
-                {{ $campaignBanner->title ?? 'SEAMLESS 2.0 INNOVATION' }}
-            </h2>
-            <p class="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed">
-                {{ $campaignBanner->subtitle ?? 'Precision jacquard knitwear with sweat-wicking DRY technology, zero-chafing ergonomic construction, and body-sculpting contour shading.' }}
-            </p>
-            <div class="pt-2">
-                <a href="{{ $campaignBanner->link ?? route('shop.index', ['category' => 'seamless']) }}" class="inline-flex items-center gap-2 px-8 py-3.5 bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-wider rounded-full transition shadow-lg cursor-pointer">
-                    {{ $campaignBanner->button_text ?? 'EXPLORE SEAMLESS' }} <i class="fa-solid fa-arrow-right text-xs"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- =========================================================================
-     5.5. #SMSHOP ATHLETE SOCIAL REELS FEED (GYMSHARK COMMUNITY 9:16)
-     ========================================================================= -->
-<section class="py-16 bg-white border-b border-zinc-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div>
-                <span class="text-xs font-bold text-zinc-500 tracking-wider uppercase">Community In Motion</span>
-                <h2 class="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">#SMShop Athletes</h2>
-            </div>
-            <div class="flex items-center gap-2 text-xs font-bold text-black uppercase tracking-wider">
-                <i class="fa-brands fa-instagram text-base text-rose-500"></i> Tag @SMShop to be featured
-            </div>
-        </div>
-
-        <!-- 4-Column Vertical 9:16 Athlete Feed -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            
-            <!-- Reel Card 1 -->
-            <div class="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-zinc-900 shadow-sm cursor-pointer">
-                <img src="{{ asset('images/prod_vital_leggings.jpg') }}" alt="Athlete 1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                
-                <div class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/50 backdrop-blur-xs flex items-center justify-center text-white text-xs">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                </div>
-
-                <div class="absolute bottom-4 left-4 right-4 space-y-2">
-                    <div class="text-xs font-bold text-white leading-tight">@sarah.conditioning</div>
-                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-black rounded-full text-[10px] font-black uppercase">
-                        <i class="fa-solid fa-bag-shopping text-[9px]"></i> Vital Seamless
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reel Card 2 -->
-            <div class="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-zinc-900 shadow-sm cursor-pointer">
-                <img src="{{ asset('images/prod_apex_tee.jpg') }}" alt="Athlete 2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                
-                <div class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/50 backdrop-blur-xs flex items-center justify-center text-white text-xs">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                </div>
-
-                <div class="absolute bottom-4 left-4 right-4 space-y-2">
-                    <div class="text-xs font-bold text-white leading-tight">@marcus.heavyweight</div>
-                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-black rounded-full text-[10px] font-black uppercase">
-                        <i class="fa-solid fa-bag-shopping text-[9px]"></i> Apex Slim Tee
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reel Card 3 -->
-            <div class="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-zinc-900 shadow-sm cursor-pointer">
-                <img src="{{ asset('images/prod_oversized_hoodie.jpg') }}" alt="Athlete 3" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                
-                <div class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/50 backdrop-blur-xs flex items-center justify-center text-white text-xs">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                </div>
-
-                <div class="absolute bottom-4 left-4 right-4 space-y-2">
-                    <div class="text-xs font-bold text-white leading-tight">@alex.strength</div>
-                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-black rounded-full text-[10px] font-black uppercase">
-                        <i class="fa-solid fa-bag-shopping text-[9px]"></i> Power 420 Hoodie
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reel Card 4 -->
-            <div class="group relative rounded-2xl overflow-hidden aspect-[9/16] bg-zinc-900 shadow-sm cursor-pointer">
-                <img src="{{ asset('images/prod_sports_bra.jpg') }}" alt="Athlete 4" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
-                
-                <div class="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/50 backdrop-blur-xs flex items-center justify-center text-white text-xs">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                </div>
-
-                <div class="absolute bottom-4 left-4 right-4 space-y-2">
-                    <div class="text-xs font-bold text-white leading-tight">@emma.mobility</div>
-                    <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur-xs text-black rounded-full text-[10px] font-black uppercase">
-                        <i class="fa-solid fa-bag-shopping text-[9px]"></i> Adapt Bra
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-<!-- =========================================================================
-     6. VERIFIED ATHLETE REVIEWS
-     ========================================================================= -->
-<section class="py-16 bg-white border-b border-zinc-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-xs font-bold text-zinc-500 tracking-wider uppercase">Community Approved</span>
-            <h2 class="text-2xl sm:text-3xl font-black text-black tracking-tight mt-1 uppercase">Conditioning Athlete Reviews</h2>
-            <p class="text-xs sm:text-sm text-zinc-600 mt-2">Hear directly from athletes and fitness enthusiasts testing our apparel in daily training.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @forelse($testimonials as $testimonial)
-                <div class="bg-zinc-50 p-6 rounded-2xl border border-zinc-200 flex flex-col justify-between space-y-4">
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-1 text-amber-400">
-                            @for($i = 0; $i < $testimonial->rating; $i++)
-                                <i class="fa-solid fa-star text-xs"></i>
-                            @endfor
-                        </div>
-                        <h3 class="font-bold text-sm text-black">"{{ $testimonial->title }}"</h3>
-                        <p class="text-xs text-zinc-600 leading-relaxed font-medium">{{ $testimonial->comment }}</p>
-                    </div>
-                    <div class="pt-4 border-t border-zinc-200 flex items-center justify-between">
-                        <span class="text-xs font-bold text-black">{{ $testimonial->user_name }}</span>
-                        <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-circle-check text-xs"></i> Verified Athlete
+                <div class="bg-white rounded-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow relative p-3 group">
+                    
+                    <!-- Dynamic Badge / Tag -->
+                    @if($product->has_discount)
+                        @php
+                            $savingAmount = $product->price - $product->sale_price;
+                        @endphp
+                        <span class="absolute top-2 left-2 bg-[#6e42c1] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs z-10">
+                            Save: {{ number_format($savingAmount) }}৳ (-{{ $product->discount_percent }}%)
                         </span>
+                    @elseif($product->price > 80000)
+                        <span class="absolute top-2 left-2 bg-[#082b49] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs z-10">
+                            Earn Point: 450
+                        </span>
+                    @endif
+
+                    <!-- Product Image Container -->
+                    <a href="{{ route('product.show', $product->slug) }}" class="py-4 flex justify-center items-center h-44 block">
+                        <img 
+                            alt="{{ $product->name }}" 
+                            class="max-h-36 max-w-full object-contain group-hover:scale-105 transition-transform duration-300" 
+                            src="{{ $product->image }}"
+                        />
+                    </a>
+
+                    <!-- Product Title & Price -->
+                    <div class="border-t border-slate-100 pt-3 space-y-2">
+                        <h3 class="text-xs font-semibold text-slate-800 group-hover:text-starOrange line-clamp-2 leading-relaxed">
+                            <a href="{{ route('product.show', $product->slug) }}">
+                                {{ $product->name }}
+                            </a>
+                        </h3>
+
+                        <div class="flex items-center gap-2">
+                            @if($product->has_discount)
+                                <span class="text-starOrange font-bold text-sm">{{ number_format($product->sale_price) }}৳</span>
+                                <span class="text-gray-400 line-through text-xs">{{ number_format($product->price) }}৳</span>
+                            @else
+                                <span class="text-starOrange font-bold text-sm">{{ number_format($product->price) }}৳</span>
+                            @endif
+                        </div>
+
+                        <!-- Quick Add to Cart Action -->
+                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="pt-1">
+                            @csrf
+                            <button type="submit" class="w-full py-1.5 bg-[#f2f4f8] hover:bg-starOrange hover:text-white text-slate-700 text-[11px] font-bold rounded transition flex items-center justify-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-cart-plus text-[10px]"></i>
+                                <span>Buy Now</span>
+                            </button>
+                        </form>
                     </div>
-                </div>
-            @empty
-                <div class="col-span-3 text-center py-8 text-zinc-400 text-xs">
-                    No reviews yet. Be the first to review!
-                </div>
-            @endforelse
-        </div>
-    </div>
-</section>
 
-<!-- =========================================================================
-     7. VIP ATHLETE CLUB & 20% DISCOUNT
-     ========================================================================= -->
-<section class="py-16 bg-zinc-950 text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
-        <span class="text-xs font-black uppercase tracking-widest text-zinc-400">JOIN THE VISIONARY CLUB</span>
-        <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
-            GET 20% OFF YOUR FIRST DROP
-        </h2>
-        <p class="text-xs sm:text-sm text-zinc-300 max-w-lg mx-auto font-normal leading-relaxed">
-            Use code <span class="font-black text-white bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">SM20</span> at checkout for 20% off all seamless leggings, workout tees, and heavyweight hoodies.
-        </p>
-        
-        <div class="pt-4">
-            <a href="{{ route('shop.index') }}" class="px-8 py-3.5 bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-wider rounded-full transition shadow-lg inline-block">
-                SHOP THE COLLECTION
-            </a>
+                </div>
+            @endforeach
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- =========================================================================
+         7. BRAND NARRATIVE AND SEO ARTICLE
+         ========================================================================= -->
+    <article class="bg-white rounded-lg p-6 md:p-8 space-y-6 text-slate-600 text-xs md:text-[13px] leading-relaxed border border-slate-200/80 shadow-sm" data-purpose="seo-content">
+        <div class="space-y-2">
+            <h2 class="text-lg md:text-xl font-bold text-slate-900">Leading Computer, Laptop &amp; Gaming PC Retail &amp; Online Shop in Bangladesh</h2>
+            <p>
+                Technology has become a part of our daily lives, and we depend on tech products daily for a vast portion of our lives. There is hardly a home in Bangladesh without a tech product. This is where we come in. <a class="text-starOrange hover:underline font-semibold" href="#">Star Tech Ltd.</a> started as a Tech Product Shop in March 2007. We focus on giving the best customer service in Bangladesh, following our motto of <strong>"Customer Comes First."</strong> This is why Star Tech is the most <strong>trusted computer shop in Bangladesh</strong> today, capturing the loyalty of a large customer base. After a long 16-year journey, in 2022, Star Tech Ltd. was certified with the renowned "ISO 9001:2015 certification" as a recognition for the best Quality Control Management System. As an <strong>ISO-certified organization</strong>, Star Tech Ltd. is now up to the international standards that specify a Quality Management System (QMS). This Certification denotes that the organization strictly maintains all sorts of regulatory requirements to provide customers with products and services of a global standard.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Best Laptop Shop In Bangladesh</h3>
+            <p>
+                Star Tech is the most popular <a class="text-starOrange hover:underline font-semibold" href="#">Laptop Brand Shop in BD</a>. Star Tech <a class="text-starOrange hover:underline" href="#">Laptop</a> Shop has the perfect device, whether you are a freelancer, officegoer, or student. Gamers love our collection of <a class="text-starOrange hover:underline" href="#">Gaming Laptops</a> because we always bring the latest laptops in Bangladesh. As the best laptop shop in BD, a customer's budget is our first concern. We bring the latest Intel Laptop and AMD Laptop under budget for every customer - from starters to expert users. Star Tech is considered the most trusted laptop shop in BD, allowing you to buy the best laptops from top laptop brands in the world. Along with the best laptop brands, our experts provide you with the best buying decisions based on your needs and budget - making Star Tech the trusted and most popular laptop shop in Bangladesh. Star Tech lets you buy an official Apple <a class="text-starOrange hover:underline" href="#">MacBook</a> Air or MacBook Pro from <a class="text-starOrange hover:underline" href="#">Apple Store in Bangladesh</a>. Star Tech sells the latest models of the most popular laptop brands, such as - <a class="text-starOrange hover:underline" href="#">Razer</a>, <a class="text-starOrange hover:underline" href="#">HP</a>, Dell, <a class="text-starOrange hover:underline" href="#">Apple MacBook</a>, <a class="text-starOrange hover:underline" href="#">Asus</a>, <a class="text-starOrange hover:underline" href="#">Acer</a>, <a class="text-starOrange hover:underline" href="#">Lenovo</a>, <a class="text-starOrange hover:underline" href="#">Microsoft Surface</a>, MSI, Gigabyte, <a class="text-starOrange hover:underline" href="#">Infinix</a>, <a class="text-starOrange hover:underline" href="#">Walton</a>, Xiaomi Mi, Huawei, Chuwi, etc.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Best Desktop PC Shop In Bangladesh</h3>
+            <p>
+                <a class="text-starOrange hover:underline font-semibold" href="#">Star Tech</a> has the most comprehensive array of <a class="text-starOrange hover:underline" href="#">Desktop PCs</a>. We offer top-of-the-line Custom PC, <a class="text-starOrange hover:underline" href="#">Brand PC</a>, All-in-One PC, and <a class="text-starOrange hover:underline" href="#">Portable Mini PC</a> at Star Tech outlets, the trusted and most popular Desktop PC shop in Bangladesh, which are spread nationwide. Get your new iMac Desktop or <a class="text-starOrange hover:underline" href="#">Apple Mac Mini</a> with an international warranty and servicing plan. You can always depend on the Star Tech PC shop experts to build the best desktop PC or computer with parts of your choice. Star Tech is Bangladesh's most reliable repair shop for PC, laptops, &amp; other consumer electronics. Take your gaming or professional content creation to the next level with a large collection of high-end Gaming PC and Editing PC from Star Tech. You can build a complete personal computer with the best desktop PC parts picked by you with our <a class="text-starOrange hover:underline font-semibold" href="#">PC Builder</a> feature. The features let you <a class="text-starOrange hover:underline" href="#">pick PC parts</a> to buy the best desktop PC anytime. Or, you can visit any Star Tech custom PC shop near you to build the best Desktop PC according to your taste, live, and in front of you.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Best Gaming PC Shop In Bangladesh</h3>
+            <p>
+                We at Star Tech love gaming. Therefore, we aim to provide a holistic gaming experience with our best gaming PC shop in Bangladesh, "Star Tech Rig House." The Rig House is a specialized shop for PC builds with high-end PC components. Star Tech Rig House is highly decorated with the best gaming PC parts for customers to build online Gaming or editing PC. Our gaming PC shop in Bangladesh offers the broadest range of Gaming PC, Gaming Laptops, and <a class="text-starOrange hover:underline" href="#">Game Consoles</a> from XBOX &amp; PlayStation. Star Tech's largest Gaming PC shop consists of Gaming Motherboards, Liquid Coolers, Custom Water Cooling for PC, Gaming Casings, high-performance RAM Kits, Graphics Cards, etc. Our exceptional gaming accessories cover Gaming Chairs, Gaming Sofas, RGB Mousepads, Gaming Headphones, Headphone Stands, RGB Gaming PC Light-Strips and many more. We have strategic partnerships with many world-renowned computer gaming brands like Razer, PNY, ASRock, Asus, Zotac, GALAX, Noctua, Antec, Lian Li, CRYORIG, EKWB, Gamdias, KWG, XFX, etc. Our gaming concern extends to leading gaming brands, including A4Tech Bloody, SteelSeries, Logitech, Corsair, Redragon, Cooler Master, Fantech, DeepCool, Cougar, Gigabyte &amp; Elgato products at our exclusive Gaming PC Shop.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Best Office Equipment Shop In Bangladesh</h3>
+            <p>
+                Star Tech Ltd. is Bangladesh's most trusted <a class="text-starOrange hover:underline" href="#">Office Equipment</a> Shop. For more than 18 years, we have been providing the best Office Solution. Take a quick drive to the nearest Star Tech retail center and furnish your home office, Start-up business desk, or corporate space with the best <a class="text-starOrange hover:underline" href="#">Office Equipment</a> and office supplies. <a class="text-starOrange hover:underline" href="#">Find Laptops</a>, Desktops, Antiviruses, CCTV &amp; IP Cameras, Printers, Routers, Photocopiers, Attendance Machines, Scanners, Conference Systems, Server Equipment, etc for smooth office operation.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Largest Gadget Shop In Bangladesh</h3>
+            <p>
+                We bring in the most sought-after <a class="text-starOrange hover:underline" href="#">gadgets</a> at Star Tech. Only genuine and leading brands of <a class="text-starOrange hover:underline" href="#">Smart Watch</a>, <a class="text-starOrange hover:underline" href="#">Earbuds</a>, <a class="text-starOrange hover:underline" href="#">TV</a>, <a class="text-starOrange hover:underline" href="#">Power Bank</a>, and Mobile Phone Accessories are available at our Gadget Shop. We are also concerned for creative professionals for whom we bring exciting gadgets like Drones, Studio Equipment, <a class="text-starOrange hover:underline" href="#">DSLR Camera</a>, <a class="text-starOrange hover:underline" href="#">Gimbals</a> &amp; Stream Decks from internationally reputed brands like DJI, Blackmagic, Corsair, Zhiyun, Gudsen, and Loupedeck. Star Tech has established the largest gadget shop in BD with the help of an app &amp; E-commerce website. Ease up your chores with Daily Lifestyle gadgets from our gadget shop. Xiaomi, Anker, Micropack, Vention, Fire-Boltt, UGREEN, OnePlus, Apple, Baseus, Orico, Havit, Samsung, and HOCO are a few of the brands we cover.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Top Mobile Shop In Bangladesh</h3>
+            <p>
+                Star Tech <a class="text-starOrange hover:underline" href="#">mobile phone</a> shop offers the latest smartphones and <a class="text-starOrange hover:underline" href="#">feature phones</a> from top mobile brands. <a class="text-starOrange hover:underline" href="#">Samsung</a>, Motorola, Google Pixel, <a class="text-starOrange hover:underline" href="#">Vivo</a>, Huawei, Xiaomi, <a class="text-starOrange hover:underline" href="#">OPPO</a>, Mi, Realme, and <a class="text-starOrange hover:underline" href="#">OnePlus</a> are among the Android smartphone brands at our mobile shop. Star Tech is a one-stop solution for buying <a class="text-starOrange hover:underline" href="#">iPhones</a> in Bangladesh. Star Tech is also your go-to destination for buying the latest Android tablets and <a class="text-starOrange hover:underline" href="#">iPads</a> in Bangladesh. Offering extensive warranty, EMI &amp; home delivery service spanning the country, we are the top <a class="text-starOrange hover:underline" href="#">mobile</a> shop in Bangladesh, presenting the best online shop for mobile phones. Our mobile phone shop has an extensive collection of <a class="text-starOrange hover:underline" href="#">mobile phone accessories</a>, including chargers, USB Type-C Cables, Power Banks, Wireless Chargers, and many more to go with your smartphone.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Best Home Appliance Shop In Bangladesh</h3>
+            <p>
+                Star Tech is a popular home appliance shop in Bangladesh with a variety of top-quality home appliances including <a class="text-starOrange hover:underline" href="#">air conditioners</a>, <a class="text-starOrange hover:underline" href="#">washing machines</a>, <a class="text-starOrange hover:underline" href="#">ovens</a>, refrigerators, <a class="text-starOrange hover:underline" href="#">geysers</a>, vacuum cleaners, <a class="text-starOrange hover:underline" href="#">sewing machines</a>, <a class="text-starOrange hover:underline" href="#">electric room heaters</a>, and more. Star Tech offers home appliances from renowned brands like Samsung, LG, Hitachi, Whirlpool, Singer, Haier, <a class="text-starOrange hover:underline" href="#">Walton</a>, and so on. To assist customers in selecting the appropriate air conditioner, Star Tech has an <a class="text-starOrange hover:underline" href="#">AC Ton Calculator</a>, helping determine the ideal AC capacity based on room size and other factors. Star Tech focuses on the evolving needs of modern households and ensures best quality Home Appliance at best price in Bangladesh.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Trusted Online Shopping From Bangladesh at The Best E-Commerce Website</h3>
+            <p>
+                Star Tech believes the most in customer satisfaction. To meet the surging demand for online shopping from Bangladesh, we launched our <a class="text-starOrange hover:underline" href="#">E-Commerce</a> website. Our highly trusted online shop has been regarded as one of the best E-Commerce websites with most visits. Star Tech is revolutionizing online shopping in Bangladesh, featuring a brilliant search engine that helps our valued customers find their desired products easily. We have developed the most comprehensive PC Builder App, also integrated into our online retail store. With the PC Builder, you can build your custom PC, save the build, get an estimated price, and compare components to make your ideal desktop PC.
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-base font-bold text-slate-900">Best Price, Product, After-Sales Customer Service, &amp; Fastest Delivery</h3>
+            <p>
+                Star Tech Ltd. has taken care of its customers since the beginning. Whether a customer is purchasing or inquiring, our customers get the highest priority. We deliver the best product for the best price with extended after-sales support &amp; the highest standard of customer service. We offer your desired product within the fastest delivery timeframe. With our nationwide presence, we cover all 64 districts of Bangladesh. Our distribution hubs are located in Dhaka, Chattogram, Khulna, Rangpur, Gazipur, Rajshahi, and Mymensingh. We also have over 15 dedicated service centers and are proud to offer computer home service for the first time in Bangladesh.
+            </p>
+        </div>
+    </article>
+
+</div>
 @endsection
