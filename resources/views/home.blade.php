@@ -295,14 +295,14 @@
                 <div class="bg-white rounded-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow relative p-3 group">
                     
                     <!-- Dynamic Badge / Tag -->
-                    @if($product->has_discount)
+                    @if($product->has_discount && ($product->price - $product->effective_price) > 0)
                         @php
-                            $savingAmount = $product->price - $product->sale_price;
+                            $savingAmount = $product->price - $product->effective_price;
                         @endphp
                         <span class="absolute top-2 left-2 bg-[#6e42c1] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs z-10">
-                            Save: {{ number_format($savingAmount) }}৳ (-{{ $product->discount_percent }}%)
+                            Save: {{ number_format($savingAmount) }}৳ (-{{ $product->discount_percentage }}%)
                         </span>
-                    @elseif($product->price > 80000)
+                    @elseif($product->effective_price > 80000)
                         <span class="absolute top-2 left-2 bg-[#082b49] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs z-10">
                             Earn Point: 450
                         </span>
@@ -326,11 +326,9 @@
                         </h3>
 
                         <div class="flex items-center gap-2">
+                            <span class="text-starOrange font-bold text-sm">{{ number_format($product->effective_price) }}৳</span>
                             @if($product->has_discount)
-                                <span class="text-starOrange font-bold text-sm">{{ number_format($product->sale_price) }}৳</span>
                                 <span class="text-gray-400 line-through text-xs">{{ number_format($product->price) }}৳</span>
-                            @else
-                                <span class="text-starOrange font-bold text-sm">{{ number_format($product->price) }}৳</span>
                             @endif
                         </div>
 

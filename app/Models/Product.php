@@ -122,4 +122,9 @@ class Product extends Model
         }
         return (int) round((($this->price - $this->sale_price) / $this->price) * 100);
     }
+
+    public function getDiscountPercentAttribute(): int
+    {
+        return $this->discount_percentage;
+    }
 }
