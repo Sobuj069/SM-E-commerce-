@@ -17,6 +17,7 @@ use App\Models\Review;
 use App\Models\User;
 use App\Services\CourierService;
 use App\Services\FraudService;
+use App\Services\AiProductImporterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -713,5 +714,81 @@ class AdminController extends Controller
     {
         $review->delete();
         return redirect()->route('admin.reviews.index')->with('success', 'Review deleted permanently.');
+    }
+
+    // ==========================================
+    // 12. AI BULK PRODUCT IMPORTER & REWRITER
+    // ==========================================
+    public function aiImportView()
+    {
+        $totalProducts = Product::count();
+        $categories = Category::withCount('products')->get();
+        $recentProducts = Product::with('category')->latest()->take(10)->get();
+        $geminiApiKey = config('services.gemini.api_key') ?: (env('GEMINI_API_KEY') ?: env('GOOGLE_API_KEY', ''));
+
+        return view('admin.products.ai_import', compact('totalProducts', 'categories', 'recentProducts', 'geminiApiKey'));
+    }
+
+    public function aiImportProcess(Request $request)
+    {
+        $request->validate([
+            'urls' => 'required|string',
+            'api_key' => 'nullable|string',
+            'purge_demo' => 'nullable|boolean',
+        ]);
+
+        $apiKey = $request->input('api_key') ?: config('services.gemini.api_key');
+        $purgeDemo = $request->boolean('purge_demo');
+        $rawUrls = $request->input('urls');
+
+        // Split URLs by newline or comma or space
+        $urls = preg_split('/[\r\n,]+/', $rawUrls, -1, PREG_SPLIT_NO_EMPTY);
+        $urls = array_map('trim', $urls);
+        $urls = array_filter($urls, fn($u) => filter_var($u, FILTER_VALIDATE_URL));
+
+        if (empty($urls)) {
+            if ($request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'No valid URLs found.'], 422);
+            }
+            return back()->with('error', 'Please provide at least one valid web URL.');
+        }
+
+        $service = new AiProductImporterService($apiKey);
+        $result = $service->bulkImport($urls, $purgeDemo);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'total' => $result['total'],
+                'imported' => $result['imported'],
+                'failed' => $result['failed'],
+                'products' => $result['products'],
+                'errors' => $result['errors'],
+            ]);
+        }
+
+        return redirect()->route('admin.products.ai-import')->with('success', "AI Import Complete! Successfully imported {$result['imported']} products with gallery images and rewritten SM Shop descriptions.");
+    }
+
+    public function aiImportSingle(Request $request)
+    {
+        $request->validate([
+            'url' => 'required|url',
+            'api_key' => 'nullable|string',
+        ]);
+
+        $apiKey = $request->input('api_key') ?: config('services.gemini.api_key');
+        $service = new AiProductImporterService($apiKey);
+        $result = $service->importFromUrl($request->input('url'));
+
+        return response()->json($result);
+    }
+
+    public function purgeDemoProducts()
+    {
+        $service = new AiProductImporterService();
+        $count = $service->purgeProducts();
+
+        return redirect()->route('admin.products.ai-import')->with('success', "Cleaned {$count} old products. Database is now ready for your new AI product imports!");
     }
 }

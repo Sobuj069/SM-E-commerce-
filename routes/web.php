@@ -77,6 +77,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/products', [AdminController::class, 'products'])->name('products.index');
     Route::get('/products/create', [AdminController::class, 'createProduct'])->name('products.create');
     Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
+    Route::get('/products/ai-import', [AdminController::class, 'aiImportView'])->name('products.ai-import');
+    Route::post('/products/ai-import/process', [AdminController::class, 'aiImportProcess'])->name('products.ai-import.process');
+    Route::post('/products/ai-import/single', [AdminController::class, 'aiImportSingle'])->name('products.ai-import.single');
+    Route::post('/products/purge-demo', [AdminController::class, 'purgeDemoProducts'])->name('products.purge-demo');
     Route::get('/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.edit');
     Route::put('/products/{product}', [AdminController::class, 'updateProduct'])->name('products.update');
     Route::delete('/products/{product}', [AdminController::class, 'deleteProduct'])->name('products.delete');

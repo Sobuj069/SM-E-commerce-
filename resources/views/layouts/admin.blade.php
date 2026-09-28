@@ -179,15 +179,31 @@
                         </span>
                     </div>
 
-                    <div class="kt-menu-item {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
+                    <div class="kt-menu-item {{ request()->routeIs('admin.products.index') || request()->routeIs('admin.products.create') || request()->routeIs('admin.products.edit') ? 'active' : '' }}">
                         <a 
-                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.products.*') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.products.index') ? 'bg-[#1b84ff] text-white shadow-md shadow-blue-500/20' : 'text-gray-300 hover:text-white hover:bg-[#1a1b24]' }} transition" 
                             href="{{ route('admin.products.index') }}"
                         >
                             <span class="w-5 text-center">
-                                <i class="fa-solid fa-box text-sm {{ request()->routeIs('admin.products.*') ? 'text-white' : 'text-amber-400' }}"></i>
+                                <i class="fa-solid fa-box text-sm {{ request()->routeIs('admin.products.index') ? 'text-white' : 'text-amber-400' }}"></i>
                             </span>
                             <span class="kt-menu-title font-semibold">Products Catalog</span>
+                        </a>
+                    </div>
+
+                    <!-- AI Bulk Product Importer -->
+                    <div class="kt-menu-item {{ request()->routeIs('admin.products.ai-import') ? 'active' : '' }}">
+                        <a 
+                            class="kt-menu-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold {{ request()->routeIs('admin.products.ai-import') ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/20' : 'text-purple-300 hover:text-white hover:bg-[#1a1b24]' }} transition group" 
+                            href="{{ route('admin.products.ai-import') }}"
+                        >
+                            <span class="w-5 text-center">
+                                <i class="fa-solid fa-wand-magic-sparkles text-sm text-amber-300 group-hover:scale-110 transition-transform"></i>
+                            </span>
+                            <span class="kt-menu-title font-bold text-white">AI Bulk Importer</span>
+                            <span class="ms-auto kt-badge kt-badge-sm bg-purple-500/30 text-purple-200 border border-purple-400/40 text-[10px] font-black">
+                                GEMINI AI
+                            </span>
                         </a>
                     </div>
 

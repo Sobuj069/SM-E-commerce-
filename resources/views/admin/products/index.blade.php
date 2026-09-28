@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Activewear Catalog Management')
+@section('title', 'Product Catalog & Inventory Management - SM Shop')
 @section('breadcrumb', 'Catalog')
 
 @section('content')
@@ -9,14 +9,18 @@
     <!-- Top Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Apparel Catalog & Inventory</h1>
-            <p class="text-xs text-gray-500 mt-0.5">Manage Gymshark-style activewear drops, prices, variants, and stock inventory</p>
+            <h1 class="text-xl lg:text-2xl font-bold text-gray-900 tracking-tight">Products Catalog &amp; Inventory</h1>
+            <p class="text-xs text-gray-500 mt-0.5">Manage computer, laptop, gadget and tech products, multiple gallery images, variants and stock</p>
         </div>
         
         <div class="flex items-center gap-3">
+            <a href="{{ route('admin.products.ai-import') }}" class="px-3.5 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-bold shadow-md shadow-purple-500/20 flex items-center gap-2 transition">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+                <span>AI Bulk Importer</span>
+            </a>
             <a href="{{ route('admin.products.create') }}" class="kt-btn kt-btn-primary kt-btn-sm text-xs font-semibold shadow-xs flex items-center gap-2">
                 <i class="fa-solid fa-plus text-xs"></i>
-                <span>Add New Product</span>
+                <span>Add Product</span>
             </a>
         </div>
     </div>
