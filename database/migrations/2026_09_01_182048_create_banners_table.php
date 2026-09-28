@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('badge')->nullable();
             $table->string('button_text')->default('Shop Now');
             $table->string('link')->nullable();
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->string('bg_gradient')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();

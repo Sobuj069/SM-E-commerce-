@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('sku')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->integer('stock')->default(10);
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

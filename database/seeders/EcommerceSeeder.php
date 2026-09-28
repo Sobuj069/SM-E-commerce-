@@ -76,6 +76,20 @@ class EcommerceSeeder extends Seeder
             ]
         );
 
+        // Ensure image columns are TEXT to prevent 1406 Data too long errors
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE banners MODIFY COLUMN image TEXT NULL');
+        } catch (\Throwable $e) {}
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE products MODIFY COLUMN image TEXT NULL');
+        } catch (\Throwable $e) {}
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE categories MODIFY COLUMN image TEXT NULL');
+        } catch (\Throwable $e) {}
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE product_variants MODIFY COLUMN image TEXT NULL');
+        } catch (\Throwable $e) {}
+
         // Clean tables to purge old data
         \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
         Review::truncate();

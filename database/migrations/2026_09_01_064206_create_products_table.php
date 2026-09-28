@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('sale_price', 10, 2)->nullable();
             $table->integer('stock')->default(0);
             $table->string('sku')->nullable()->unique();
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->decimal('rating', 3, 2)->default(5.00);
