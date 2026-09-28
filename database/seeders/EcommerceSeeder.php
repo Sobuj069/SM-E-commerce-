@@ -486,24 +486,22 @@ class EcommerceSeeder extends Seeder
             // Create Genuine Customer Reviews
             Review::create([
                 'product_id' => $product->id,
-                'user_id' => $customer->id,
-                'customer_name' => 'Sarah Jenkins',
+                'user_name' => 'Sarah Jenkins',
+                'user_email' => 'sarah@example.com',
                 'rating' => 5,
                 'title' => 'Exceptional Quality & Super Fast Delivery!',
                 'comment' => 'Arrived in 2 days. The quality, feel, and performance exceed all expectations. Will definitely order again from SM Shop!',
-                'is_verified_purchase' => true,
                 'is_approved' => true,
                 'created_at' => now()->subDays(rand(2, 20)),
             ]);
 
             Review::create([
                 'product_id' => $product->id,
-                'user_id' => $customer->id,
-                'customer_name' => 'David Miller',
+                'user_name' => 'David Miller',
+                'user_email' => 'david@example.com',
                 'rating' => 5,
                 'title' => 'Top-tier performance & authentic build!',
                 'comment' => 'One of the best purchases I have made this year. High quality materials, looks even better in person.',
-                'is_verified_purchase' => true,
                 'is_approved' => true,
                 'created_at' => now()->subDays(rand(1, 15)),
             ]);
