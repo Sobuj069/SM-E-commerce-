@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($selectedCategory ? $selectedCategory->name . ' - ' : '') . 'Star Tech Catalog - Computer, Laptop & Gadget Shop')
+@section('title', ($selectedCategory ? $selectedCategory->name . ' - ' : '') . 'SM Shop Catalog - Computer, Laptop & Gadget Store')
 
 @section('content')
 <!-- Star Tech Catalog Breadcrumb Strip -->
@@ -139,11 +139,11 @@
                 </form>
             </div>
 
-            <!-- Star Tech Promo Callout -->
+            <!-- SM Shop Promo Callout -->
             <div class="p-4 rounded-lg bg-gradient-to-br from-starNavy to-starNavyDark text-white space-y-2 border border-slate-800">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-starOrange animate-pulse"></span>
-                    <span class="text-[11px] font-bold text-starOrange uppercase tracking-wider">Star Tech Promo</span>
+                    <span class="text-[11px] font-bold text-starOrange uppercase tracking-wider">SM Shop Promo</span>
                 </div>
                 <h4 class="text-sm font-bold">Use Coupon: STAR1000</h4>
                 <p class="text-xs text-slate-300 leading-relaxed">Get 1,000৳ instant discount on computer & laptop orders over 15,000৳.</p>

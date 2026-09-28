@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Checkout - Star Tech')
+@section('title', 'Checkout - SM Shop')
 
 @section('content')
 <!-- Checkout Breadcrumbs -->
@@ -20,7 +20,7 @@
     
     <div class="mb-8">
         <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Checkout</h1>
-        <p class="text-xs text-slate-500 mt-0.5">Complete your order with Star Tech Bangladesh</p>
+        <p class="text-xs text-slate-500 mt-0.5">Complete your order with SM Shop Bangladesh</p>
     </div>
 
     <form action="{{ route('checkout.store') }}" method="POST" id="checkout-form">
@@ -160,7 +160,7 @@
 
                     <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                         <div class="text-xs text-slate-500">
-                            By placing this order, you agree to Star Tech terms and return policy.
+                            By placing this order, you agree to SM Shop terms and return policy.
                         </div>
                         <button type="submit" class="bg-starOrange hover:bg-starOrangeHover text-white text-xs font-bold uppercase tracking-wider py-3 px-8 rounded transition shadow-md cursor-pointer flex items-center gap-2">
                             <i class="fa-solid fa-lock"></i> Confirm Order

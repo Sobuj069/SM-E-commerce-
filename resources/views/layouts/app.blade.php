@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Star Tech - Leading Computer, Laptop & Gadget Shop in Bangladesh')</title>
-    <meta name="description" content="Star Tech - Leading Computer, Laptop, Desktop PC, Component, Gaming PC, Monitor, Camera, TV & Gadget Shop in Bangladesh.">
-    <meta name="keywords" content="Star Tech, Computer Shop BD, Laptop Price in BD, Gaming PC, Desktop PC, Gadget Shop Bangladesh">
+    <title>@yield('title', 'SM Shop - Leading Computer, Laptop & Gadget Shop in Bangladesh')</title>
+    <meta name="description" content="SM Shop - Leading Computer, Laptop, Desktop PC, Component, Gaming PC, Monitor, Camera, TV & Gadget Shop in Bangladesh.">
+    <meta name="keywords" content="SM Shop, Computer Shop BD, Laptop Price in BD, Gaming PC, Desktop PC, Gadget Shop Bangladesh">
 
     <!-- Tailwind CSS with Star Tech Custom Theme -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -66,7 +66,7 @@
                 // Live Chatbot State
                 chatOpen: false,
                 chatMessages: [
-                    { sender: 'bot', text: '👋 আসসালামু আলাইকুম! Star Tech অনলাইন শপে স্বাগতম। আপনি অর্ডার ট্র্যাক করতে, ল্যাপটপ বা পিসি কম্পোনেন্ট দেখতে বা প্রোমো কোড জানতে পারেন।' }
+                    { sender: 'bot', text: '👋 আসসালামু আলাইকুম! SM Shop অনলাইন শপে স্বাগতম। আপনি অর্ডার ট্র্যাক করতে, ল্যাপটপ বা পিসি কম্পোনেন্ট দেখতে বা প্রোমো কোড জানতে পারেন।' }
                 ],
                 chatInput: '',
                 isTyping: false,
@@ -215,12 +215,12 @@
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
 
-            <!-- Star Tech Official Logo -->
-            <a class="shrink-0 flex items-center" href="{{ route('home') }}">
+            <!-- User Brand Logo (SM Shop) -->
+            <a class="shrink-0 flex items-center" href="{{ route('home') }}" aria-label="SM Shop">
                 <img 
-                    alt="Star Tech Logo" 
-                    class="h-9 sm:h-11 md:h-12 w-auto object-contain" 
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY_v7fCmV2a4JUN-bYKu9Fct_TOgh-cTNdcR3jMOUMKCQbRPkmtv1GzEcqZ0N25w8E0AUF1k7fQlOJ8MRSEMYq-LI9YN__3lNvZDkpRThsBW5Iymvlb26duyA4GimSgxzmCloRmeoO6aqm6dmz7mdVGFhPiX2Rv7f1yV8nUvNHMZa2Fv044sX6zFB0p2kL1lXLE5QBCsDISuJMr0ed9yPQj3Xf72J5CBeHLtPmiNUPFwvHU43eA4Qdag"
+                    alt="SM Shop Logo" 
+                    class="h-10 sm:h-12 md:h-14 w-auto max-w-[240px] object-contain hover:scale-105 transition-transform" 
+                    src="{{ asset('images/logo.png') }}"
                 />
             </a>
 
@@ -385,11 +385,11 @@
             >
                 <div class="p-4 bg-starNavy flex items-center justify-between">
                     <img 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY_v7fCmV2a4JUN-bYKu9Fct_TOgh-cTNdcR3jMOUMKCQbRPkmtv1GzEcqZ0N25w8E0AUF1k7fQlOJ8MRSEMYq-LI9YN__3lNvZDkpRThsBW5Iymvlb26duyA4GimSgxzmCloRmeoO6aqm6dmz7mdVGFhPiX2Rv7f1yV8nUvNHMZa2Fv044sX6zFB0p2kL1lXLE5QBCsDISuJMr0ed9yPQj3Xf72J5CBeHLtPmiNUPFwvHU43eA4Qdag" 
-                        alt="Star Tech" 
-                        class="h-8 w-auto object-contain"
+                        src="{{ asset('images/logo.png') }}" 
+                        alt="SM Shop" 
+                        class="h-10 w-auto max-w-[160px] object-contain"
                     >
-                    <button @click="mobileMenuOpen = false" class="text-white hover:text-starOrange text-xl">
+                    <button @click="mobileMenuOpen = false" class="text-white hover:text-starOrange text-xl cursor-pointer">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -487,20 +487,20 @@
             <div class="space-y-3">
                 <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Stay Connected</h4>
                 <div class="space-y-2 text-xs text-gray-300">
-                    <p class="font-bold text-white">Star Tech Ltd</p>
+                    <p class="font-bold text-white">SM Shop Ltd</p>
                     <p class="leading-relaxed text-gray-400">
-                        Head Office: 28 Kazi Nazrul Islam Ave, Navana Zohura Square, Dhaka 1000
+                        Head Office: Navana Zohura Square, 28 Kazi Nazrul Islam Ave, Dhaka, Bangladesh
                     </p>
                     <p class="pt-2">
                         <span class="text-gray-400">Email:</span><br/>
-                        <a class="text-starOrange hover:underline" href="mailto:webteam@startechbd.com">webteam@startechbd.com</a>
+                        <a class="text-starOrange hover:underline font-medium" href="mailto:support@smcloudit.top">support@smcloudit.top</a>
                     </p>
                 </div>
             </div>
 
             <!-- Column 4: App Download & Social -->
             <div class="space-y-4">
-                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Experience Star Tech App</h4>
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Experience SM Shop App</h4>
                 <div class="flex flex-col sm:flex-row lg:flex-col gap-2">
                     <a class="flex items-center gap-3 bg-slate-900 border border-slate-700 rounded-md px-3 py-2 hover:border-slate-500 transition" href="#">
                         <i class="fa-brands fa-google-play text-xl text-emerald-400"></i>
@@ -534,8 +534,8 @@
         <!-- Sub Footer Copyright & Branding -->
         <div class="border-t border-slate-800/80 pt-6">
             <div class="max-w-[1320px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500 gap-3">
-                <p>© 2026 Star Tech Ltd | All rights reserved</p>
-                <p>Powered By: <span class="text-gray-400 font-semibold">Star Tech</span></p>
+                <p>© {{ date('Y') }} SM Shop Ltd | All rights reserved</p>
+                <p>Powered By: <span class="text-gray-300 font-semibold">SM Cloud IT</span></p>
             </div>
         </div>
     </footer>

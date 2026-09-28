@@ -33,7 +33,7 @@ class EcommerceSeeder extends Seeder
         $admin = User::firstOrCreate(
             ['email' => 'admin@smcloudit.top'],
             [
-                'name' => 'Star Tech Admin',
+                'name' => 'SM Shop Admin',
                 'password' => Hash::make('password123'),
             ]
         );
@@ -475,7 +475,7 @@ class EcommerceSeeder extends Seeder
                 'user_email' => 'tanvir@example.com',
                 'rating' => 5,
                 'title' => '১০০% অরিজিনাল প্রোডাক্ট এবং দ্রুত ডেলিভারি!',
-                'comment' => 'স্টার টেক থেকে অর্ডার করেছিলাম, ঠিক সময়ে এবং অক্ষত অবস্থায় পেয়েছি। এদের সার্ভিস সবসময়ই সেরা।',
+                'comment' => 'SM Shop থেকে অর্ডার করেছিলাম, ঠিক সময়ে এবং অক্ষত অবস্থায় পেয়েছি। এদের সার্ভিস সবসময়ই সেরা।',
                 'is_approved' => true,
                 'created_at' => now()->subDays(rand(1, 15)),
             ]);

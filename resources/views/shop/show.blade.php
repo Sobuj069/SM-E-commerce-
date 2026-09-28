@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' - Star Tech')
+@section('title', $product->name . ' - SM Shop')
 
 @section('content')
 <!-- Star Tech Breadcrumb Strip -->
@@ -213,7 +213,7 @@
                             </tr>
                             <tr class="hover:bg-slate-50">
                                 <td class="py-2.5 px-3 font-bold text-slate-700 bg-slate-50/50">Warranty Support</td>
-                                <td class="py-2.5 px-3 text-slate-800">Official Star Tech Authorized Brand Warranty</td>
+                                <td class="py-2.5 px-3 text-slate-800">Official SM Shop Brand Authorized Warranty</td>
                             </tr>
                         </tbody>
                     </table>
@@ -227,7 +227,7 @@
                 </h3>
                 <div class="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3">
                     <p>{{ $product->description ?? $product->short_description }}</p>
-                    <p>Star Tech offers the best price for {{ $product->name }} in Bangladesh. Order online or visit your nearest Star Tech branch to get genuine gadgets and components with authorized warranty.</p>
+                    <p>SM Shop offers the best price for {{ $product->name }} in Bangladesh. Order online to get genuine gadgets and components with official warranty support.</p>
                 </div>
             </div>
 

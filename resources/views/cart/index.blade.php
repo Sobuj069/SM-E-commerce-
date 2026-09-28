@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shopping Cart - Star Tech')
+@section('title', 'Shopping Cart - SM Shop')
 
 @section('content')
 <!-- Cart Breadcrumb Strip -->

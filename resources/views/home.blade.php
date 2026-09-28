@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Star Tech - Leading Computer, Laptop & Gadget Shop in Bangladesh')
+@section('title', 'SM Shop - Leading Computer, Laptop & Gadget Shop in Bangladesh')
 
 @section('content')
 <div class="max-w-[1320px] mx-auto px-4 py-4 space-y-6">
@@ -356,70 +356,21 @@
         <div class="space-y-2">
             <h2 class="text-lg md:text-xl font-bold text-slate-900">Leading Computer, Laptop &amp; Gaming PC Retail &amp; Online Shop in Bangladesh</h2>
             <p>
-                Technology has become a part of our daily lives, and we depend on tech products daily for a vast portion of our lives. There is hardly a home in Bangladesh without a tech product. This is where we come in. <a class="text-starOrange hover:underline font-semibold" href="#">Star Tech Ltd.</a> started as a Tech Product Shop in March 2007. We focus on giving the best customer service in Bangladesh, following our motto of <strong>"Customer Comes First."</strong> This is why Star Tech is the most <strong>trusted computer shop in Bangladesh</strong> today, capturing the loyalty of a large customer base. After a long 16-year journey, in 2022, Star Tech Ltd. was certified with the renowned "ISO 9001:2015 certification" as a recognition for the best Quality Control Management System. As an <strong>ISO-certified organization</strong>, Star Tech Ltd. is now up to the international standards that specify a Quality Management System (QMS). This Certification denotes that the organization strictly maintains all sorts of regulatory requirements to provide customers with products and services of a global standard.
+                Technology has become an integral part of our daily lives, and we depend on tech products daily for work, study, and recreation. <a class="text-starOrange hover:underline font-semibold" href="#">SM Shop</a> is your premier destination for genuine tech gear in Bangladesh. We focus on giving the best customer service, adhering to our core principle: <strong>"Customer Comes First."</strong> This is why SM Shop is rapidly becoming one of the most <strong>trusted computer &amp; gadget shops in Bangladesh</strong>, providing official brand warranties, verified quality products, and express nationwide delivery.
             </p>
         </div>
 
         <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Best Laptop Shop In Bangladesh</h3>
+            <h3 class="text-base font-bold text-slate-900">Best Laptop &amp; Desktop PC Shop in Bangladesh</h3>
             <p>
-                Star Tech is the most popular <a class="text-starOrange hover:underline font-semibold" href="#">Laptop Brand Shop in BD</a>. Star Tech <a class="text-starOrange hover:underline" href="#">Laptop</a> Shop has the perfect device, whether you are a freelancer, officegoer, or student. Gamers love our collection of <a class="text-starOrange hover:underline" href="#">Gaming Laptops</a> because we always bring the latest laptops in Bangladesh. As the best laptop shop in BD, a customer's budget is our first concern. We bring the latest Intel Laptop and AMD Laptop under budget for every customer - from starters to expert users. Star Tech is considered the most trusted laptop shop in BD, allowing you to buy the best laptops from top laptop brands in the world. Along with the best laptop brands, our experts provide you with the best buying decisions based on your needs and budget - making Star Tech the trusted and most popular laptop shop in Bangladesh. Star Tech lets you buy an official Apple <a class="text-starOrange hover:underline" href="#">MacBook</a> Air or MacBook Pro from <a class="text-starOrange hover:underline" href="#">Apple Store in Bangladesh</a>. Star Tech sells the latest models of the most popular laptop brands, such as - <a class="text-starOrange hover:underline" href="#">Razer</a>, <a class="text-starOrange hover:underline" href="#">HP</a>, Dell, <a class="text-starOrange hover:underline" href="#">Apple MacBook</a>, <a class="text-starOrange hover:underline" href="#">Asus</a>, <a class="text-starOrange hover:underline" href="#">Acer</a>, <a class="text-starOrange hover:underline" href="#">Lenovo</a>, <a class="text-starOrange hover:underline" href="#">Microsoft Surface</a>, MSI, Gigabyte, <a class="text-starOrange hover:underline" href="#">Infinix</a>, <a class="text-starOrange hover:underline" href="#">Walton</a>, Xiaomi Mi, Huawei, Chuwi, etc.
+                SM Shop offers an extensive range of <a class="text-starOrange hover:underline font-semibold" href="{{ route('shop.index', ['category' => 'laptop']) }}">laptops</a> and <a class="text-starOrange hover:underline font-semibold" href="{{ route('shop.index', ['category' => 'desktop']) }}">desktop PCs</a>. Whether you are a student, programmer, creative professional, or gamer, we carry top brands including Asus, Lenovo, HP, Dell, MSI, Apple MacBook, Acer, and custom AMD Ryzen / Intel gaming rigs. Our experienced technical team helps you select the best components to fit your exact workload and budget.
             </p>
         </div>
 
         <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Best Desktop PC Shop In Bangladesh</h3>
+            <h3 class="text-base font-bold text-slate-900">100% Genuine Components &amp; Fast Nationwide Delivery</h3>
             <p>
-                <a class="text-starOrange hover:underline font-semibold" href="#">Star Tech</a> has the most comprehensive array of <a class="text-starOrange hover:underline" href="#">Desktop PCs</a>. We offer top-of-the-line Custom PC, <a class="text-starOrange hover:underline" href="#">Brand PC</a>, All-in-One PC, and <a class="text-starOrange hover:underline" href="#">Portable Mini PC</a> at Star Tech outlets, the trusted and most popular Desktop PC shop in Bangladesh, which are spread nationwide. Get your new iMac Desktop or <a class="text-starOrange hover:underline" href="#">Apple Mac Mini</a> with an international warranty and servicing plan. You can always depend on the Star Tech PC shop experts to build the best desktop PC or computer with parts of your choice. Star Tech is Bangladesh's most reliable repair shop for PC, laptops, &amp; other consumer electronics. Take your gaming or professional content creation to the next level with a large collection of high-end Gaming PC and Editing PC from Star Tech. You can build a complete personal computer with the best desktop PC parts picked by you with our <a class="text-starOrange hover:underline font-semibold" href="#">PC Builder</a> feature. The features let you <a class="text-starOrange hover:underline" href="#">pick PC parts</a> to buy the best desktop PC anytime. Or, you can visit any Star Tech custom PC shop near you to build the best Desktop PC according to your taste, live, and in front of you.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Best Gaming PC Shop In Bangladesh</h3>
-            <p>
-                We at Star Tech love gaming. Therefore, we aim to provide a holistic gaming experience with our best gaming PC shop in Bangladesh, "Star Tech Rig House." The Rig House is a specialized shop for PC builds with high-end PC components. Star Tech Rig House is highly decorated with the best gaming PC parts for customers to build online Gaming or editing PC. Our gaming PC shop in Bangladesh offers the broadest range of Gaming PC, Gaming Laptops, and <a class="text-starOrange hover:underline" href="#">Game Consoles</a> from XBOX &amp; PlayStation. Star Tech's largest Gaming PC shop consists of Gaming Motherboards, Liquid Coolers, Custom Water Cooling for PC, Gaming Casings, high-performance RAM Kits, Graphics Cards, etc. Our exceptional gaming accessories cover Gaming Chairs, Gaming Sofas, RGB Mousepads, Gaming Headphones, Headphone Stands, RGB Gaming PC Light-Strips and many more. We have strategic partnerships with many world-renowned computer gaming brands like Razer, PNY, ASRock, Asus, Zotac, GALAX, Noctua, Antec, Lian Li, CRYORIG, EKWB, Gamdias, KWG, XFX, etc. Our gaming concern extends to leading gaming brands, including A4Tech Bloody, SteelSeries, Logitech, Corsair, Redragon, Cooler Master, Fantech, DeepCool, Cougar, Gigabyte &amp; Elgato products at our exclusive Gaming PC Shop.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Best Office Equipment Shop In Bangladesh</h3>
-            <p>
-                Star Tech Ltd. is Bangladesh's most trusted <a class="text-starOrange hover:underline" href="#">Office Equipment</a> Shop. For more than 18 years, we have been providing the best Office Solution. Take a quick drive to the nearest Star Tech retail center and furnish your home office, Start-up business desk, or corporate space with the best <a class="text-starOrange hover:underline" href="#">Office Equipment</a> and office supplies. <a class="text-starOrange hover:underline" href="#">Find Laptops</a>, Desktops, Antiviruses, CCTV &amp; IP Cameras, Printers, Routers, Photocopiers, Attendance Machines, Scanners, Conference Systems, Server Equipment, etc for smooth office operation.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Largest Gadget Shop In Bangladesh</h3>
-            <p>
-                We bring in the most sought-after <a class="text-starOrange hover:underline" href="#">gadgets</a> at Star Tech. Only genuine and leading brands of <a class="text-starOrange hover:underline" href="#">Smart Watch</a>, <a class="text-starOrange hover:underline" href="#">Earbuds</a>, <a class="text-starOrange hover:underline" href="#">TV</a>, <a class="text-starOrange hover:underline" href="#">Power Bank</a>, and Mobile Phone Accessories are available at our Gadget Shop. We are also concerned for creative professionals for whom we bring exciting gadgets like Drones, Studio Equipment, <a class="text-starOrange hover:underline" href="#">DSLR Camera</a>, <a class="text-starOrange hover:underline" href="#">Gimbals</a> &amp; Stream Decks from internationally reputed brands like DJI, Blackmagic, Corsair, Zhiyun, Gudsen, and Loupedeck. Star Tech has established the largest gadget shop in BD with the help of an app &amp; E-commerce website. Ease up your chores with Daily Lifestyle gadgets from our gadget shop. Xiaomi, Anker, Micropack, Vention, Fire-Boltt, UGREEN, OnePlus, Apple, Baseus, Orico, Havit, Samsung, and HOCO are a few of the brands we cover.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Top Mobile Shop In Bangladesh</h3>
-            <p>
-                Star Tech <a class="text-starOrange hover:underline" href="#">mobile phone</a> shop offers the latest smartphones and <a class="text-starOrange hover:underline" href="#">feature phones</a> from top mobile brands. <a class="text-starOrange hover:underline" href="#">Samsung</a>, Motorola, Google Pixel, <a class="text-starOrange hover:underline" href="#">Vivo</a>, Huawei, Xiaomi, <a class="text-starOrange hover:underline" href="#">OPPO</a>, Mi, Realme, and <a class="text-starOrange hover:underline" href="#">OnePlus</a> are among the Android smartphone brands at our mobile shop. Star Tech is a one-stop solution for buying <a class="text-starOrange hover:underline" href="#">iPhones</a> in Bangladesh. Star Tech is also your go-to destination for buying the latest Android tablets and <a class="text-starOrange hover:underline" href="#">iPads</a> in Bangladesh. Offering extensive warranty, EMI &amp; home delivery service spanning the country, we are the top <a class="text-starOrange hover:underline" href="#">mobile</a> shop in Bangladesh, presenting the best online shop for mobile phones. Our mobile phone shop has an extensive collection of <a class="text-starOrange hover:underline" href="#">mobile phone accessories</a>, including chargers, USB Type-C Cables, Power Banks, Wireless Chargers, and many more to go with your smartphone.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Best Home Appliance Shop In Bangladesh</h3>
-            <p>
-                Star Tech is a popular home appliance shop in Bangladesh with a variety of top-quality home appliances including <a class="text-starOrange hover:underline" href="#">air conditioners</a>, <a class="text-starOrange hover:underline" href="#">washing machines</a>, <a class="text-starOrange hover:underline" href="#">ovens</a>, refrigerators, <a class="text-starOrange hover:underline" href="#">geysers</a>, vacuum cleaners, <a class="text-starOrange hover:underline" href="#">sewing machines</a>, <a class="text-starOrange hover:underline" href="#">electric room heaters</a>, and more. Star Tech offers home appliances from renowned brands like Samsung, LG, Hitachi, Whirlpool, Singer, Haier, <a class="text-starOrange hover:underline" href="#">Walton</a>, and so on. To assist customers in selecting the appropriate air conditioner, Star Tech has an <a class="text-starOrange hover:underline" href="#">AC Ton Calculator</a>, helping determine the ideal AC capacity based on room size and other factors. Star Tech focuses on the evolving needs of modern households and ensures best quality Home Appliance at best price in Bangladesh.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Trusted Online Shopping From Bangladesh at The Best E-Commerce Website</h3>
-            <p>
-                Star Tech believes the most in customer satisfaction. To meet the surging demand for online shopping from Bangladesh, we launched our <a class="text-starOrange hover:underline" href="#">E-Commerce</a> website. Our highly trusted online shop has been regarded as one of the best E-Commerce websites with most visits. Star Tech is revolutionizing online shopping in Bangladesh, featuring a brilliant search engine that helps our valued customers find their desired products easily. We have developed the most comprehensive PC Builder App, also integrated into our online retail store. With the PC Builder, you can build your custom PC, save the build, get an estimated price, and compare components to make your ideal desktop PC.
-            </p>
-        </div>
-
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900">Best Price, Product, After-Sales Customer Service, &amp; Fastest Delivery</h3>
-            <p>
-                Star Tech Ltd. has taken care of its customers since the beginning. Whether a customer is purchasing or inquiring, our customers get the highest priority. We deliver the best product for the best price with extended after-sales support &amp; the highest standard of customer service. We offer your desired product within the fastest delivery timeframe. With our nationwide presence, we cover all 64 districts of Bangladesh. Our distribution hubs are located in Dhaka, Chattogram, Khulna, Rangpur, Gazipur, Rajshahi, and Mymensingh. We also have over 15 dedicated service centers and are proud to offer computer home service for the first time in Bangladesh.
+                At SM Shop, we guarantee 100% genuine products with official distributor warranties. We deliver to all 64 districts across Bangladesh with secure cash-on-delivery and digital payment options. For inquiries, advice, or order tracking, our support helpline and live chat team are always ready to assist you.
             </p>
         </div>
     </article>
