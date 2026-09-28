@@ -66,7 +66,7 @@ class AiProductImporterService
             }
             File::put(storage_path('app/gemini_api_key.txt'), $key);
 
-            // Also attempt to update .env if writable
+            // Also update .env if writable
             $envPath = base_path('.env');
             if (File::exists($envPath) && File::isWritable($envPath)) {
                 $envContent = File::get($envPath);
@@ -78,12 +78,12 @@ class AiProductImporterService
                 File::put($envPath, $envContent);
             }
         } catch (\Throwable $e) {
-            Log::warning("Could not auto-save API key to disk: " . $e->getMessage());
+            Log::warning("Could not auto-save API key: " . $e->getMessage());
         }
     }
 
     /**
-     * Purge all demo/existing products cleanly
+     * Purge all products cleanly
      */
     public function purgeProducts(): int
     {
@@ -108,15 +108,15 @@ class AiProductImporterService
         if (empty($html)) {
             $scrape = $this->fetchHtml($url);
             if (!$scrape['success']) {
-                // If Cloudflare 403 blocks direct listing scraping, generate simulated category links
-                return $this->generateLinksForCategoryUrl($url);
+                // If Cloudflare blocks direct scraping (like TechLandBD), map to equivalent live category products
+                return $this->getLiveCategoryProductsFallback($url);
             }
             $html = $scrape['html'];
         }
 
         $discovered = [];
 
-        // 1. Star Tech pattern: <div class="p-item"> ... <a href="...">
+        // 1. Star Tech pattern: <div class="p-item"> ... <h4 class="p-item-name"><a href="...">
         if (preg_match_all('/<div[^>]*class=["\'][^"\']*p-item[^"\']*["\'][^>]*>.*?<h4[^>]*class=["\'][^"\']*p-item-name[^"\']*["\'][^>]*>.*?<a[^>]*href=["\']([^"\']+)["\']/is', $html, $m)) {
             foreach ($m[1] as $link) {
                 $resolved = $this->resolveUrl($link, $url);
@@ -124,7 +124,7 @@ class AiProductImporterService
             }
         }
 
-        // 2. OpenCart / TechLandBD / Daraz / Common eCommerce cards pattern
+        // 2. OpenCart / TechLandBD / Daraz / Ryans cards pattern
         if (preg_match_all('/<div[^>]*class=["\'][^"\']*(?:product-thumb|product-layout|product-card|product-item|grid-item|card-product)[^"\']*["\'][^>]*>.*?<a[^>]*href=["\']([^"\']+)["\']/is', $html, $m)) {
             foreach ($m[1] as $link) {
                 $resolved = $this->resolveUrl($link, $url);
@@ -149,7 +149,6 @@ class AiProductImporterService
                         strlen($path) > 3 &&
                         $resolved !== $url
                     ) {
-                        // Check if it's a product-like path
                         if (preg_match('/(\/product\/|\/p\/|\/item\/|-laptop|-pc|-monitor|-graphics|-processor|-phone|-watch|-camera|-headphone|\.html)/i', $resolved)) {
                             if (!in_array($resolved, $discovered)) {
                                 $discovered[] = $resolved;
@@ -161,55 +160,82 @@ class AiProductImporterService
         }
 
         if (empty($discovered)) {
-            return $this->generateLinksForCategoryUrl($url);
+            return $this->getLiveCategoryProductsFallback($url);
         }
 
-        return array_slice($discovered, 0, 24);
+        return array_slice($discovered, 0, 20);
     }
 
     /**
-     * Fallback link/item generator if listing URL is blocked by Cloudflare (e.g. TechLandBD 403)
+     * Map category URLs (including Cloudflare-blocked ones like Techland) to live verified products
      */
-    protected function generateLinksForCategoryUrl(string $url): array
+    protected function getLiveCategoryProductsFallback(string $url): array
     {
         $lower = strtolower($url);
-        if (str_contains($lower, 'laptop') || str_contains($lower, 'brand-laptop')) {
+
+        // If laptop category
+        if (str_contains($lower, 'laptop') || str_contains($lower, 'brand-laptop') || str_contains($lower, 'notebook')) {
+            // Fetch live active laptops from Star Tech
+            $starTechLaptops = $this->fetchCategoryLiveLinks('https://www.startech.com.bd/laptop-notebook/laptop');
+            if (!empty($starTechLaptops)) {
+                return $starTechLaptops;
+            }
+
             return [
-                'https://www.startech.com.bd/lenovo-ideapad-slim-3-15abr8-ryzen-7-7730u-laptop',
-                'https://www.startech.com.bd/asus-tuf-gaming-a15-fa506nc-ryzen-5-7535hs-rtx-3050-graphics-gaming-laptop',
-                'https://www.startech.com.bd/hp-victus-15-fb1013dx-ryzen-5-7535hs-rtx-2050-gaming-laptop',
-                'https://www.startech.com.bd/dell-inspiron-15-3530-core-i5-1335u-15-6-inch-fhd-laptop',
-                'https://www.startech.com.bd/acer-aspire-lite-al15-52-core-i5-1235u-15-6-inch-fhd-laptop',
-                'https://www.startech.com.bd/apple-macbook-air-m2-chip-13-6-inch-liquid-retina-display-8gb-ram-256gb-ssd-space-gray',
-                'https://www.startech.com.bd/msi-thin-15-b12ucx-core-i5-12450h-rtx-2050-4gb-graphics-15-6-fhd-144hz-gaming-laptop',
+                'https://www.startech.com.bd/microsoft-13-inch-surface-laptop',
+                'https://www.startech.com.bd/microsoft-surface-laptop-7th-edition-512gb-ssd-laptop',
+                'https://www.startech.com.bd/walton-prelude-n41-pro-celeron-n4120-laptop',
                 'https://www.startech.com.bd/walton-prelude-n50-pro-pentium-silver-n5030-laptop',
-            ];
-        } elseif (str_contains($lower, 'desktop') || str_contains($lower, 'pc')) {
-            return [
-                'https://www.startech.com.bd/amd-ryzen-5-5600g-processor-desktop-pc',
-                'https://www.startech.com.bd/intel-core-i5-12400-budget-desktop-pc',
-                'https://www.startech.com.bd/intel-core-i7-14700k-rtx-4070-super-gaming-desktop-pc',
-            ];
-        } elseif (str_contains($lower, 'monitor')) {
-            return [
-                'https://www.startech.com.bd/samsung-ls24c310ea-24-inch-fhd-ips-monitor',
-                'https://www.startech.com.bd/msi-pro-mp241x-23-8-inch-fhd-monitor',
-                'https://www.startech.com.bd/lg-24mr400-b-23-8-inch-100hz-ips-fhd-monitor',
-            ];
-        } elseif (str_contains($lower, 'gadget') || str_contains($lower, 'watch') || str_contains($lower, 'audio')) {
-            return [
-                'https://www.startech.com.bd/samsung-galaxy-watch-6-smart-watch',
-                'https://www.startech.com.bd/haylou-solar-plus-rt3-smart-watch',
-                'https://www.startech.com.bd/havit-h2002d-gaming-headphone',
+                'https://www.startech.com.bd/chuwi-herobook-pro-intel-celeron-laptop',
+                'https://www.startech.com.bd/chuwi-herobook-plus-intel-n4020-laptop',
+                'https://www.startech.com.bd/chuwi-gemibook-xpro-laptop',
+                'https://www.startech.com.bd/chuwi-corebook-core-i3-fhd-laptop',
+                'https://www.startech.com.bd/walton-passion-bx710u-core-i7-10th-gen-laptop',
+                'https://www.startech.com.bd/acer-aspire-3-a325-42-v2-laptop',
+                'https://www.startech.com.bd/smart-flairedge-core-i5-13th-gen-laptop',
+                'https://www.startech.com.bd/hp-15-fc0623au-ryzen-3-7320u-laptop',
+                'https://www.startech.com.bd/asus-vivobook-go-15-e1504ta-laptop',
+                'https://www.startech.com.bd/acer-aspire-15-as15-42-ryzen-3-7330u-laptop',
             ];
         }
 
+        // If desktop category
+        if (str_contains($lower, 'desktop') || str_contains($lower, 'pc')) {
+            $starTechDesktops = $this->fetchCategoryLiveLinks('https://www.startech.com.bd/desktops');
+            if (!empty($starTechDesktops)) return $starTechDesktops;
+
+            return [
+                'https://www.startech.com.bd/amd-ryzen-5-5600g-processor-desktop-pc',
+                'https://www.startech.com.bd/intel-core-i5-12400-budget-desktop-pc',
+            ];
+        }
+
+        // If monitor category
+        if (str_contains($lower, 'monitor')) {
+            $starTechMonitors = $this->fetchCategoryLiveLinks('https://www.startech.com.bd/monitor');
+            if (!empty($starTechMonitors)) return $starTechMonitors;
+        }
+
         return [
-            'https://www.startech.com.bd/lenovo-ideapad-slim-3-15abr8-ryzen-7-7730u-laptop',
-            'https://www.startech.com.bd/asus-tuf-gaming-a15-fa506nc-ryzen-5-7535hs-rtx-3050-graphics-gaming-laptop',
+            'https://www.startech.com.bd/walton-prelude-n41-pro-celeron-n4120-laptop',
+            'https://www.startech.com.bd/chuwi-herobook-pro-intel-celeron-laptop',
             'https://www.startech.com.bd/amd-ryzen-5-5600g-processor-desktop-pc',
-            'https://www.startech.com.bd/samsung-ls24c310ea-24-inch-fhd-ips-monitor',
         ];
+    }
+
+    /**
+     * Helper to fetch live category links from StarTech
+     */
+    protected function fetchCategoryLiveLinks(string $categoryUrl): array
+    {
+        $res = $this->fetchHtml($categoryUrl);
+        if ($res['success']) {
+            preg_match_all('/<div[^>]*class=["\'][^"\']*p-item[^"\']*["\'][^>]*>.*?<h4[^>]*class=["\'][^"\']*p-item-name[^"\']*["\'][^>]*>.*?<a[^>]*href=["\']([^"\']+)["\']/is', $res['html'], $m);
+            if (!empty($m[1])) {
+                return array_slice(array_values(array_unique($m[1])), 0, 20);
+            }
+        }
+        return [];
     }
 
     /**
@@ -263,8 +289,12 @@ class AiProductImporterService
         if (empty($html)) {
             $fetched = $this->fetchHtml($url);
             if (!$fetched['success']) {
-                // Return intelligent category mock if URL has known tech keywords
-                return $this->createMockProductFromUrl($url, $fetched['error']);
+                // Return error if blocked or unreachable
+                return [
+                    'success' => false,
+                    'url' => $url,
+                    'error' => "Could not scrape {$url} (" . $fetched['error'] . "). Please provide individual product links or open category links.",
+                ];
             }
             $html = $fetched['html'];
         }
@@ -290,13 +320,22 @@ class AiProductImporterService
             'is_listing' => false,
         ];
 
-        // 1. JSON-LD Schema Extraction
+        // 1. Extract Real Product Title (Prefer H1 over generic title)
+        if (preg_match('/<h1[^>]*class=["\'][^"\']*(?:product-name|title|product-title|name)[^"\']*["\'][^>]*>(.*?)<\/h1>/is', $html, $h1Match)) {
+            $parsed['raw_title'] = trim(html_entity_decode(strip_tags($h1Match[1])));
+        } elseif (preg_match('/<h1[^>]*>(.*?)<\/h1>/is', $html, $h1Match)) {
+            $parsed['raw_title'] = trim(html_entity_decode(strip_tags($h1Match[1])));
+        }
+
+        // 2. JSON-LD Schema Extraction
         if (preg_match_all('/<script type=["\']application\/ld\+json["\']>(.*?)<\/script>/is', $html, $matches)) {
             foreach ($matches[1] as $jsonStr) {
                 $data = json_decode(trim($jsonStr), true);
                 if ($data) {
                     if (isset($data['@type']) && (strtolower($data['@type']) === 'product' || (is_array($data['@type']) && in_array('Product', $data['@type'])))) {
-                        $parsed['raw_title'] = $data['name'] ?? $parsed['raw_title'];
+                        if (empty($parsed['raw_title'])) {
+                            $parsed['raw_title'] = $data['name'] ?? '';
+                        }
                         $parsed['raw_description'] = $data['description'] ?? $parsed['raw_description'];
                         if (!empty($data['image'])) {
                             if (is_array($data['image'])) {
@@ -318,19 +357,60 @@ class AiProductImporterService
             }
         }
 
-        // 2. OpenGraph & Meta Tags
-        if (empty($parsed['raw_title']) && preg_match('/<meta property=["\']og:title["\'] content=["\'](.*?)["\']/i', $html, $m)) {
-            $parsed['raw_title'] = html_entity_decode($m[1]);
-        }
-        if (empty($parsed['raw_title']) && preg_match('/<title>(.*?)<\/title>/i', $html, $m)) {
-            $parsed['raw_title'] = trim(html_entity_decode($m[1]));
-        }
-
-        if (empty($parsed['raw_description']) && preg_match('/<meta property=["\']og:description["\'] content=["\'](.*?)["\']/i', $html, $m)) {
-            $parsed['raw_description'] = html_entity_decode($m[1]);
+        // 3. Fallback Title from OpenGraph or Title Tag (Clean SEO slogans)
+        if (empty($parsed['raw_title'])) {
+            if (preg_match('/<meta property=["\']og:title["\'] content=["\'](.*?)["\']/i', $html, $m)) {
+                $parsed['raw_title'] = html_entity_decode($m[1]);
+            } elseif (preg_match('/<title>(.*?)<\/title>/i', $html, $m)) {
+                $parsed['raw_title'] = trim(html_entity_decode($m[1]));
+            }
         }
 
-        // OpenGraph Image
+        // Clean competitor store suffixes and SEO taglines from title
+        $parsed['raw_title'] = preg_replace('/\s*[-|–]\s*(Star Tech|Techland|TechLandBD|Ryans|Daraz|Pickaboo|Computer Mania).*$/i', '', $parsed['raw_title']);
+        $parsed['raw_title'] = preg_replace('/\s*(Price in Bangladesh|Price in BD|Best Price).*$/i', '', $parsed['raw_title']);
+        $parsed['raw_title'] = trim($parsed['raw_title']);
+
+        // 4. Accurate Price Extraction
+        // Check for StarTech / BD style: <ins>28,500৳</ins> and <del>33,900৳</del>
+        if (preg_match('/<ins[^>]*>([\d,]+)৳?<\/ins>/i', $html, $insMatch)) {
+            $parsed['raw_sale_price'] = (float) str_replace(',', '', $insMatch[1]);
+        }
+        if (preg_match('/<del[^>]*>([\d,]+)৳?<\/del>/i', $html, $delMatch)) {
+            $parsed['raw_price'] = (float) str_replace(',', '', $delMatch[1]);
+        }
+
+        // Check <td class="product-price">
+        if (empty($parsed['raw_price']) && preg_match('/<td[^>]*class=["\'][^"\']*product-price[^"\']*["\'][^>]*>(.*?)<\/td>/is', $html, $pMatch)) {
+            preg_match_all('/([\d,]+)৳/i', $pMatch[1], $pricesFound);
+            if (!empty($pricesFound[1])) {
+                $nums = array_map(fn($p) => (float)str_replace(',', '', $p), $pricesFound[1]);
+                sort($nums);
+                if (count($nums) >= 2) {
+                    $parsed['raw_sale_price'] = $nums[0];
+                    $parsed['raw_price'] = $nums[1];
+                } else {
+                    $parsed['raw_price'] = $nums[0];
+                    $parsed['raw_sale_price'] = round($nums[0] * 0.94);
+                }
+            }
+        }
+
+        // Generic price regex if still null
+        if (empty($parsed['raw_price']) && empty($parsed['raw_sale_price'])) {
+            if (preg_match('/(?:৳|Tk\.?|BDT|\$)\s*([\d,]+(?:\.\d{2})?)/i', $html, $pMatch)) {
+                $p = (float) str_replace(',', '', $pMatch[1]);
+                $parsed['raw_price'] = $p;
+                $parsed['raw_sale_price'] = round($p * 0.94);
+            }
+        }
+
+        // If only sale price was found, set price as 5-8% higher
+        if (!empty($parsed['raw_sale_price']) && empty($parsed['raw_price'])) {
+            $parsed['raw_price'] = round($parsed['raw_sale_price'] * 1.06);
+        }
+
+        // 5. OpenGraph & Gallery Images
         if (preg_match_all('/<meta property=["\']og:image["\'] content=["\'](.*?)["\']/i', $html, $m)) {
             foreach ($m[1] as $img) {
                 if ($this->isValidImageUrl($img)) {
@@ -339,10 +419,9 @@ class AiProductImporterService
             }
         }
 
-        // 3. Extract High Quality Gallery Images
-        // Match product zoom galleries, slide images, main picture
-        if (preg_match_all('/<(img|a)[^>]*(?:src|data-src|data-zoom-image|href)=["\']([^"\']+\.(?:jpg|jpeg|png|webp))["\'][^>]*>/i', $html, $imgMatches)) {
-            foreach ($imgMatches[2] as $imgSrc) {
+        // Extract main image & gallery thumbnails
+        if (preg_match_all('/<(?:img|a)[^>]*(?:src|data-src|data-zoom-image|href)=["\']([^"\']+\.(?:jpg|jpeg|png|webp))["\'][^>]*>/i', $html, $imgMatches)) {
+            foreach ($imgMatches[1] as $imgSrc) {
                 $fullImgUrl = $this->resolveUrl($imgSrc, $sourceUrl);
                 if ($this->isValidImageUrl($fullImgUrl) && !in_array($fullImgUrl, $parsed['images'])) {
                     $parsed['images'][] = $fullImgUrl;
@@ -350,90 +429,26 @@ class AiProductImporterService
             }
         }
 
-        // 4. Extract Price if not found
-        if (empty($parsed['raw_price'])) {
-            // Check StarTech / BD style price: <td class="product-price"> or ৳25,000
-            if (preg_match('/<div[^>]*class=["\'][^"\']*p-price[^"\']*["\'][^>]*>(.*?)<\/div>/is', $html, $pMatch)) {
-                $cleanP = preg_replace('/[^\d.]/', '', $pMatch[1]);
-                if (!empty($cleanP)) $parsed['raw_price'] = (float) $cleanP;
-            } elseif (preg_match('/(?:৳|Tk\.?|BDT|\$)\s*([\d,]+(?:\.\d{2})?)/i', $html, $pMatch)) {
-                $parsed['raw_price'] = (float) str_replace(',', '', $pMatch[1]);
-            }
-        }
-
-        // 5. Extract Text & Specifications Table
-        if (preg_match('/<table[^>]*class=["\'][^"\']*(?:specification|specs|data-table|product-info)[^"\']*["\'][^>]*>(.*?)<\/table>/is', $html, $tableMatch)) {
+        // 6. Extract Specifications Table
+        if (preg_match('/<table[^>]*class=["\'][^"\']*(?:data-table|specification|specs|product-info)[^"\']*["\'][^>]*>(.*?)<\/table>/is', $html, $tableMatch)) {
             $parsed['raw_specs_html'] = strip_tags($tableMatch[0], '<table><tr><td><th><tbody>');
         }
 
-        // 6. Check if this is a Category / Listing page with child products
+        // 7. Check if this is a Category / Listing page
         $parsed['sub_links'] = $this->extractProductUrlsFromPage($sourceUrl, $html);
         if (count($parsed['sub_links']) >= 2) {
             $parsed['is_listing'] = true;
         }
 
-        // Clean Text context for AI prompt
+        // Clean text snippet for AI prompt
         $cleanText = strip_tags($html);
         $cleanText = preg_replace('/\s+/', ' ', $cleanText);
         $parsed['page_text_snippet'] = Str::limit($cleanText, 4000);
 
-        // Deduplicate and filter images
+        // Deduplicate images
         $parsed['images'] = array_values(array_unique(array_filter($parsed['images'])));
 
         return $parsed;
-    }
-
-    /**
-     * Create intelligent mock fallback if external server returns 403 Forbidden
-     */
-    protected function createMockProductFromUrl(string $url, string $errorMsg = ''): array
-    {
-        $path = parse_url($url, PHP_URL_PATH) ?? '';
-        $slug = basename($path);
-        $cleanName = ucwords(str_replace(['-', '_', '.html'], ' ', $slug));
-
-        $lower = strtolower($url);
-        $cat = 'laptop';
-        $price = 65000;
-        $images = ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800'];
-
-        if (str_contains($lower, 'gaming') || str_contains($lower, 'tuf') || str_contains($lower, 'rog')) {
-            $cleanName = !empty($cleanName) ? $cleanName : 'ASUS TUF Gaming A15 Ryzen 5 RTX 3050';
-            $price = 98000;
-            $images = [
-                'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=800',
-                'https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=800',
-                'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800'
-            ];
-        } elseif (str_contains($lower, 'macbook') || str_contains($lower, 'apple')) {
-            $cleanName = 'Apple MacBook Air M2 13.6-inch Retina';
-            $price = 125000;
-            $images = [
-                'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800',
-                'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800'
-            ];
-        } elseif (str_contains($lower, 'desktop') || str_contains($lower, 'pc')) {
-            $cat = 'desktop';
-            $cleanName = !empty($cleanName) ? $cleanName : 'AMD Ryzen 5 5600G High Performance Desktop PC';
-            $price = 38500;
-            $images = [
-                'https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=800',
-                'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800'
-            ];
-        }
-
-        return [
-            'success' => true,
-            'source_url' => $url,
-            'raw_title' => $cleanName,
-            'raw_price' => $price,
-            'raw_description' => "High quality genuine tech product from SM Shop with official warranty.",
-            'raw_specs_html' => '',
-            'page_text_snippet' => "100% genuine {$cleanName} with official warranty and nationwide delivery.",
-            'images' => $images,
-            'sub_links' => [],
-            'is_listing' => false,
-        ];
     }
 
     /**
@@ -441,9 +456,10 @@ class AiProductImporterService
      */
     public function rewriteWithAi(array $scrapedData): array
     {
-        $title = $scrapedData['raw_title'] ?? 'Tech Product';
+        $title = $scrapedData['raw_title'] ?? 'Laptop Product';
         $snippet = $scrapedData['page_text_snippet'] ?? '';
         $rawPrice = $scrapedData['raw_price'] ?? null;
+        $rawSalePrice = $scrapedData['raw_sale_price'] ?? null;
         $images = $scrapedData['images'] ?? [];
 
         $prompt = <<<PROMPT
@@ -453,25 +469,24 @@ Task:
 Analyze this scraped product and create a complete, high-converting product listing in STRICT JSON FORMAT tailored for SM Shop.
 
 Scraped Product Title: {$title}
-Scraped Estimated Price: {$rawPrice}
+Scraped Regular Price: {$rawPrice}
+Scraped Discount/Cash Price: {$rawSalePrice}
 Scraped Specifications & Text:
 {$snippet}
 
 Rules:
-1. "name": A clean, accurate, attractive product title (remove competitor store names like Star Tech, Ryans, Techland, Daraz, Pickaboo).
+1. "name": A clean, accurate product title (keep the brand and model, e.g., "Walton Prelude N41 Pro Celeron N4120 14\" FHD Laptop" or "Tecno Megabook T1 Intel Core i5 11th Gen 15.6 Inch FHD Laptop"). Remove competitor store names (Star Tech, Techland, Ryans).
 2. "category_slug": Pick ONE best match from: [desktop, laptop, component, monitor, power, phone, tablet, office-equipment, camera, security, networking, software, server-storage, accessories, gadget, gaming, tv, appliance, fashion].
-3. "price": Realistic price in Bangladeshi Taka (৳). Use {$rawPrice} or approximate Bangladeshi market price (integer/float).
-4. "sale_price": Special discount cash price in ৳ (e.g. 5-10% lower than price), or null.
-5. "short_description": 3 to 5 bullet points with core technical specs.
-6. "description": A comprehensive, beautifully written 3-4 paragraph product overview emphasizing why to buy from "SM Shop" (official warranty, 100% genuine sealed box, 64-district fast delivery, cash on delivery, and dedicated customer support).
-7. "sku": A distinct SKU code prefix like "SM-" + 6 random alphanumeric characters.
-8. "rating": A float between 4.7 and 5.0.
-9. "reviews": An array of 2 realistic customer reviews:
-   - Review 1: In Bengali praising product quality and SM Shop fast delivery.
-   - Review 2: In English praising the official warranty and customer service of SM Shop.
+3. "price": Exact or realistic price in Bangladeshi Taka (৳). Use {$rawPrice} if available (integer/float).
+4. "sale_price": Cash/discount price in ৳. Use {$rawSalePrice} if available, or 5-8% lower than price.
+5. "short_description": 3 to 5 bullet points with core technical specs (Processor, RAM, SSD/Storage, Display, Warranty).
+6. "description": A comprehensive 3-paragraph product overview emphasizing why to buy from "SM Shop" (official warranty, 100% genuine sealed box, 64-district fast delivery, cash on delivery, and dedicated customer support).
+7. "sku": A distinct SKU code like "SM-PROD-" + 4 digits.
+8. "rating": A float between 4.8 and 5.0.
+9. "reviews": An array of 2 realistic customer reviews (1 in Bengali, 1 in English).
 
 OUTPUT REQUIREMENT:
-Return ONLY a valid JSON object without any markdown wrapping (no ```json code blocks), matching this schema:
+Return ONLY a valid JSON object without markdown wrapping:
 {
   "name": "...",
   "category_slug": "...",
@@ -495,7 +510,7 @@ PROMPT;
         $aiResult = $this->callGemini($prompt);
 
         if (!$aiResult['success']) {
-            Log::warning("Gemini AI failed, using intelligent rule-based rewriter: " . ($aiResult['error'] ?? 'Unknown error'));
+            Log::warning("Gemini AI fallback: " . ($aiResult['error'] ?? ''));
             return $this->fallbackRuleBasedRewriter($scrapedData);
         }
 
@@ -503,13 +518,16 @@ PROMPT;
         $decoded = json_decode($json, true);
 
         if (!$decoded || !isset($decoded['name'])) {
-            Log::warning("Gemini output JSON parsing failed, using rule-based rewriter.");
             return $this->fallbackRuleBasedRewriter($scrapedData);
         }
 
         // Attach images
         $decoded['main_image'] = !empty($images[0]) ? $images[0] : 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800';
         $decoded['gallery_images'] = array_slice($images, 1, 6);
+
+        // Ensure price is numeric
+        $decoded['price'] = (float) ($decoded['price'] ?: ($rawPrice ?: 35000));
+        $decoded['sale_price'] = !empty($decoded['sale_price']) ? (float)$decoded['sale_price'] : ($rawSalePrice ?: round($decoded['price'] * 0.94));
 
         return [
             'success' => true,
@@ -546,7 +564,7 @@ PROMPT;
                         ]
                     ],
                     'generationConfig' => [
-                        'temperature' => 0.4,
+                        'temperature' => 0.3,
                         'maxOutputTokens' => 2048,
                     ]
                 ]);
@@ -557,11 +575,9 @@ PROMPT;
                     if (!empty($text)) {
                         return ['success' => true, 'content' => $text];
                     }
-                } else {
-                    Log::warning("Gemini endpoint {$url} response: " . $response->body());
                 }
             } catch (\Throwable $e) {
-                Log::warning("Gemini endpoint exception: " . $e->getMessage());
+                Log::warning("Gemini exception: " . $e->getMessage());
             }
         }
 
@@ -569,28 +585,27 @@ PROMPT;
     }
 
     /**
-     * Fallback Rule-Based Rewriter if Gemini API is unreachable
+     * Rule-Based Rewriter if Gemini API is unreachable
      */
     protected function fallbackRuleBasedRewriter(array $scrapedData): array
     {
-        $rawTitle = $scrapedData['raw_title'] ?: 'Tech & Gadget Product';
-        $cleanTitle = preg_replace('/\s*[-|]\s*(Star Tech|Ryans|Daraz|Pickaboo|Techland|Computer Mania).*$/i', '', $rawTitle);
+        $rawTitle = $scrapedData['raw_title'] ?: 'Genuine Tech Product';
+        $cleanTitle = preg_replace('/\s*[-|–]\s*(Star Tech|Techland|TechLandBD|Ryans|Daraz|Pickaboo|Computer Mania).*$/i', '', $rawTitle);
+        $cleanTitle = preg_replace('/\s*(Price in Bangladesh|Price in BD|Best Price).*$/i', '', $cleanTitle);
         $cleanTitle = trim($cleanTitle);
 
-        $catSlug = 'gadget';
+        $catSlug = 'laptop';
         $lower = strtolower($cleanTitle . ' ' . ($scrapedData['page_text_snippet'] ?? ''));
         if (str_contains($lower, 'laptop') || str_contains($lower, 'macbook') || str_contains($lower, 'notebook')) $catSlug = 'laptop';
         elseif (str_contains($lower, 'desktop') || str_contains($lower, 'ryzen 5') || str_contains($lower, 'core i5') || str_contains($lower, 'pc')) $catSlug = 'desktop';
         elseif (str_contains($lower, 'monitor') || str_contains($lower, 'display')) $catSlug = 'monitor';
-        elseif (str_contains($lower, 'processor') || str_contains($lower, 'motherboard') || str_contains($lower, 'ram') || str_contains($lower, 'ssd') || str_contains($lower, 'gpu') || str_contains($lower, 'graphics')) $catSlug = 'component';
-        elseif (str_contains($lower, 'phone') || str_contains($lower, 'smartphone') || str_contains($lower, 'iphone') || str_contains($lower, 'samsung')) $catSlug = 'phone';
-        elseif (str_contains($lower, 'camera') || str_contains($lower, 'dslr') || str_contains($lower, 'gimbal')) $catSlug = 'camera';
-        elseif (str_contains($lower, 'router') || str_contains($lower, 'wifi') || str_contains($lower, 'switch')) $catSlug = 'networking';
-        elseif (str_contains($lower, 'printer') || str_contains($lower, 'projector') || str_contains($lower, 'copier')) $catSlug = 'office-equipment';
-        elseif (str_contains($lower, 'tv') || str_contains($lower, 'television')) $catSlug = 'tv';
+        elseif (str_contains($lower, 'processor') || str_contains($lower, 'motherboard') || str_contains($lower, 'ram') || str_contains($lower, 'ssd') || str_contains($lower, 'gpu')) $catSlug = 'component';
+        elseif (str_contains($lower, 'phone') || str_contains($lower, 'smartphone') || str_contains($lower, 'iphone')) $catSlug = 'phone';
+        elseif (str_contains($lower, 'camera') || str_contains($lower, 'dslr')) $catSlug = 'camera';
+        elseif (str_contains($lower, 'watch') || str_contains($lower, 'gadget')) $catSlug = 'gadget';
 
-        $price = $scrapedData['raw_price'] ? (float)$scrapedData['raw_price'] : 25000;
-        $salePrice = round($price * 0.93);
+        $price = $scrapedData['raw_price'] ? (float)$scrapedData['raw_price'] : 35000;
+        $salePrice = $scrapedData['raw_sale_price'] ? (float)$scrapedData['raw_sale_price'] : round($price * 0.94);
 
         $images = $scrapedData['images'] ?? [];
         $mainImage = !empty($images[0]) ? $images[0] : 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800';
@@ -603,7 +618,7 @@ PROMPT;
                 'category_slug' => $catSlug,
                 'price' => $price,
                 'sale_price' => $salePrice,
-                'short_description' => "100% Genuine {$cleanTitle} with official manufacturer warranty, high performance, and reliable build quality from SM Shop.",
+                'short_description' => "100% Genuine {$cleanTitle} with official warranty, high performance, and reliable build quality from SM Shop.",
                 'description' => "Get the best price for {$cleanTitle} in Bangladesh only at SM Shop. We guarantee 100% authentic products with official warranty, super fast nationwide delivery to all 64 districts, cash on delivery, and dedicated customer support.",
                 'sku' => 'SM-' . strtoupper(substr($catSlug, 0, 3)) . '-' . rand(1000, 9999),
                 'rating' => 4.9,
@@ -719,6 +734,7 @@ PROMPT;
             'slug' => $product->slug,
             'price' => $product->price,
             'sale_price' => $product->sale_price,
+            'effective_price' => $product->effective_price,
             'category' => $product->category->name ?? 'N/A',
             'image_count' => 1 + count($product->gallery_images ?? []),
             'image' => $product->image,
@@ -743,9 +759,8 @@ PROMPT;
             $u = trim($u);
             if (empty($u) || !filter_var($u, FILTER_VALIDATE_URL)) continue;
 
-            // Check if this URL is a category listing
             $lower = strtolower($u);
-            if (str_contains($lower, '/category/') || str_contains($lower, '/shop-') || str_contains($lower, 'brand-laptops') || str_contains($lower, '/laptop-notebook')) {
+            if (str_contains($lower, '/category/') || str_contains($lower, '/shop-') || str_contains($lower, 'brand-laptops') || str_contains($lower, '/laptop-notebook') || str_contains($lower, '/desktops') || str_contains($lower, '/monitor')) {
                 $subLinks = $this->extractProductUrlsFromPage($u);
                 if (!empty($subLinks)) {
                     foreach ($subLinks as $sub) {
@@ -783,7 +798,7 @@ PROMPT;
     }
 
     /**
-     * Clean JSON string from markdown tags (```json ... ```)
+     * Clean JSON string from markdown tags
      */
     protected function cleanJsonString(string $raw): string
     {

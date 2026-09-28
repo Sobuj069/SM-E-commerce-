@@ -107,11 +107,11 @@
 
                     <!-- URL Input Textarea -->
                     <div>
-                        <div class="flex items-center justify-between mb-1.5 flex-wrap gap-2">
+                        <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
                             <label class="text-xs font-bold text-gray-300 uppercase tracking-wider">
                                 Product URLs / Category Listing URL *
                             </label>
-                            <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-2">
                                 <button 
                                     type="button" 
                                     @click="discoverFromCategory()" 
@@ -122,28 +122,37 @@
                                     <i class="fa-solid fa-spinner fa-spin" x-show="isDiscovering" style="display:none;"></i>
                                     <span>Extract All Products From Category</span>
                                 </button>
-
-                                <button 
-                                    type="button" 
-                                    @click="insertSampleUrls()" 
-                                    class="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold hover:underline cursor-pointer"
-                                >
-                                    + Sample Tech Links
-                                </button>
                             </div>
+                        </div>
+
+                        <!-- Quick Presets -->
+                        <div class="flex items-center gap-1.5 flex-wrap mb-2">
+                            <span class="text-[10px] text-gray-500 uppercase font-bold">Quick Presets:</span>
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/laptop-notebook/laptop')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
+                                💻 20 Laptops
+                            </button>
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/desktops')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
+                                🖥️ Desktop PCs
+                            </button>
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/monitor')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
+                                🖥️ Monitors
+                            </button>
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/gadget')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
+                                ⌚ Gadgets
+                            </button>
                         </div>
 
                         <textarea 
                             name="urls" 
                             x-model="urlText"
-                            rows="8" 
-                            placeholder="এখানে এক বা একাধিক প্রোডাক্ট লিংক পেস্ট করুন অথবা ক্যাটাগরি পেজের লিংক দিন:&#10;https://www.techlandbd.com/shop-laptop-computer/brand-laptops&#10;https://www.startech.com.bd/laptop-notebook/laptop&#10;https://www.startech.com.bd/asus-tuf-gaming-a15-fa506nc-ryzen-5-7535hs-rtx-3050-graphics-gaming-laptop"
+                            rows="7" 
+                            placeholder="এখানে এক বা একাধিক প্রোডাক্ট লিংক পেস্ট করুন অথবা ক্যাটাগরি পেজের লিংক দিন:&#10;https://www.startech.com.bd/laptop-notebook/laptop&#10;https://www.techlandbd.com/shop-laptop-computer/brand-laptops"
                             class="w-full px-4 py-3 bg-[#13141a] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 focus:outline-none focus:border-purple-500 leading-relaxed placeholder-gray-600"
                             required
                         ></textarea>
 
                         <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1">
-                            <span>ক্যাটাগরি লিংক দিলে সিস্টেম নিজে থেকেই সব প্রোডাক্ট খুঁজে নিয়ে একবারে ইমপোর্ট করবে।</span>
+                            <span>ক্যাটাগরি লিংক দিলে সিস্টেম নিজে থেকেই ২০টি রিয়েল প্রোডাক্ট ও সঠিক দাম (৳) এক্সট্র্যাক্ট করে নিবে।</span>
                             <span class="font-mono text-purple-300 font-bold" x-text="getUrlCount() + ' link(s) ready'"></span>
                         </div>
                     </div>
@@ -401,12 +410,17 @@
                 return links.length;
             },
 
+            setCategoryUrl(url) {
+                this.urlText = url;
+                this.discoverFromCategory();
+            },
+
             insertSampleUrls() {
                 this.urlText = [
                     'https://www.startech.com.bd/laptop-notebook/laptop',
-                    'https://www.startech.com.bd/lenovo-ideapad-slim-3-15abr8-ryzen-7-7730u-laptop',
-                    'https://www.startech.com.bd/asus-tuf-gaming-a15-fa506nc-ryzen-5-7535hs-rtx-3050-graphics-gaming-laptop',
-                    'https://www.startech.com.bd/amd-ryzen-5-5600g-processor-desktop-pc'
+                    'https://www.startech.com.bd/microsoft-13-inch-surface-laptop',
+                    'https://www.startech.com.bd/walton-prelude-n41-pro-celeron-n4120-laptop',
+                    'https://www.startech.com.bd/chuwi-herobook-pro-intel-celeron-laptop'
                 ].join('\n');
             },
 
