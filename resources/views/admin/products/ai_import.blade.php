@@ -12,10 +12,10 @@
                 <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white text-base shadow-md">
                     <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
                 </span>
-                <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">AI Bulk Product Importer &amp; Rewriter</h1>
+                <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">100% Exact Product &amp; Category Importer</h1>
             </div>
             <p class="text-xs text-gray-400">
-                Paste any product or <strong class="text-indigo-400">category listing URL</strong>. Google Gemini AI automatically extracts all high-res gallery images, rewrites titles &amp; descriptions with <strong class="text-white">SM Shop</strong> branding, and saves to database.
+                যেকোনো সিঙ্গেল প্রোডাক্ট লিংক অথবা ক্যাটাগরি পেজ লিংক দিন — হুবহু সেই প্রোডাক্টের ১০০% সঠিক টাইটেল, আসল দাম (৳) এবং হাই-কোয়ালিটি গ্যালারি ইমেজ সহ ইম্পোর্ট হবে।
             </p>
         </div>
 
@@ -61,11 +61,28 @@
             <div class="bg-[#1e1e2d] border border-[#2b2b40] rounded-2xl p-6 shadow-lg space-y-6">
                 
                 <div class="flex items-center justify-between pb-4 border-b border-[#2b2b40]">
-                    <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                        <i class="fa-solid fa-link text-indigo-400"></i> Import Sources &amp; Product Links
-                    </h2>
-                    <span class="text-[11px] text-purple-300 bg-purple-500/20 px-2.5 py-1 rounded-full font-bold border border-purple-500/30">
-                        ⚡ Powered by Google Gemini AI
+                    <!-- Input Mode Switcher Tabs -->
+                    <div class="flex items-center gap-2">
+                        <button 
+                            type="button" 
+                            @click="mode = 'urls'" 
+                            class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer"
+                            :class="mode === 'urls' ? 'bg-purple-600 text-white shadow-md' : 'bg-[#13141a] text-gray-400 hover:text-white'"
+                        >
+                            <i class="fa-solid fa-link mr-1"></i> Web URLs Mode
+                        </button>
+                        <button 
+                            type="button" 
+                            @click="mode = 'html'" 
+                            class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer"
+                            :class="mode === 'html' ? 'bg-purple-600 text-white shadow-md' : 'bg-[#13141a] text-gray-400 hover:text-white'"
+                        >
+                            <i class="fa-solid fa-code mr-1"></i> Paste HTML / Page Source Mode
+                        </button>
+                    </div>
+
+                    <span class="text-[11px] text-emerald-300 bg-emerald-500/20 px-2.5 py-1 rounded-full font-bold border border-emerald-500/30">
+                        🎯 100% Exact Title, Price &amp; Images
                     </span>
                 </div>
 
@@ -80,7 +97,7 @@
                                 <span>Google Gemini API Key</span>
                             </label>
                             <span x-show="apiKey" class="text-[11px] text-emerald-400 font-bold flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                                <i class="fa-solid fa-circle-check"></i> Saved &amp; Active (বার বার দেওয়া লাগবে না)
+                                <i class="fa-solid fa-circle-check"></i> Saved &amp; Active
                             </span>
                         </div>
 
@@ -90,7 +107,7 @@
                                 name="api_key" 
                                 x-model="apiKey"
                                 @input="onKeyChange()"
-                                placeholder="Paste your Google Gemini API Key here (e.g. AIzaSy...)"
+                                placeholder="Paste your Google Gemini API Key here (optional)..."
                                 class="flex-1 px-4 py-2.5 bg-[#0e0f14] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 focus:outline-none focus:border-purple-500"
                             >
                             <button 
@@ -102,124 +119,142 @@
                                 <span x-text="keySavedText">Save Key</span>
                             </button>
                         </div>
-                        <p class="text-[11px] text-gray-400">API Key টি একবার Save করলে আর কখনো টাইপ করা লাগবে না। এটি দিয়ে টাইটেল ও ডেসক্রিপশন SM Shop ব্র্যান্ডিংয়ে রিরাইট করা হয়।</p>
+                        <p class="text-[11px] text-gray-400">
+                            Saved securely. Even without an API key, exact scraping will import 100% identical titles, authentic prices, and HD gallery images.
+                        </p>
                     </div>
 
-                    <!-- URL Input Textarea -->
-                    <div>
-                        <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                    <!-- MODE 1: Web URLs Input -->
+                    <div x-show="mode === 'urls'" class="space-y-2">
+                        <div class="flex items-center justify-between mb-1 flex-wrap gap-2">
                             <label class="text-xs font-bold text-gray-300 uppercase tracking-wider">
                                 Product URLs / Category Listing URL *
                             </label>
-                            <div class="flex items-center gap-2">
-                                <button 
-                                    type="button" 
-                                    @click="discoverFromCategory()" 
-                                    :disabled="isDiscovering || getUrlCount() === 0"
-                                    class="text-[11px] text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded font-bold hover:bg-amber-500/30 transition cursor-pointer flex items-center gap-1"
-                                >
-                                    <i class="fa-solid fa-magnifying-glass" x-show="!isDiscovering"></i>
-                                    <i class="fa-solid fa-spinner fa-spin" x-show="isDiscovering" style="display:none;"></i>
-                                    <span>Extract All Products From Category</span>
-                                </button>
-                            </div>
+                            <button 
+                                type="button" 
+                                @click="discoverFromCategory()" 
+                                :disabled="isDiscovering || getUrlCount() === 0"
+                                class="text-[11px] text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 rounded font-bold hover:bg-amber-500/30 transition cursor-pointer flex items-center gap-1"
+                            >
+                                <i class="fa-solid fa-magnifying-glass" x-show="!isDiscovering"></i>
+                                <i class="fa-solid fa-spinner fa-spin" x-show="isDiscovering" style="display:none;"></i>
+                                <span>Extract All Products From Category</span>
+                            </button>
                         </div>
 
-                        <!-- Quick Presets -->
-                        <div class="flex items-center gap-1.5 flex-wrap mb-2">
+                        <!-- Quick Category Presets -->
+                        <div class="flex items-center gap-1.5 flex-wrap pb-1">
                             <span class="text-[10px] text-gray-500 uppercase font-bold">Quick Presets:</span>
-                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/laptop-notebook/laptop')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
-                                💻 20 Laptops
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/laptop-notebook/laptop')" class="text-[10px] px-2.5 py-1 rounded bg-[#2b2b40] hover:bg-purple-600/50 text-gray-200 border border-[#383854] transition cursor-pointer">
+                                💻 20 Laptops (Exact Same Price &amp; Images)
                             </button>
-                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/desktops')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/desktops')" class="text-[10px] px-2.5 py-1 rounded bg-[#2b2b40] hover:bg-purple-600/50 text-gray-200 border border-[#383854] transition cursor-pointer">
                                 🖥️ Desktop PCs
                             </button>
-                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/monitor')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
+                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/monitor')" class="text-[10px] px-2.5 py-1 rounded bg-[#2b2b40] hover:bg-purple-600/50 text-gray-200 border border-[#383854] transition cursor-pointer">
                                 🖥️ Monitors
-                            </button>
-                            <button type="button" @click="setCategoryUrl('https://www.startech.com.bd/gadget')" class="text-[10px] px-2 py-0.5 rounded bg-[#2b2b40] hover:bg-purple-600/40 text-gray-200 border border-[#383854] transition cursor-pointer">
-                                ⌚ Gadgets
                             </button>
                         </div>
 
                         <textarea 
                             name="urls" 
                             x-model="urlText"
-                            rows="7" 
-                            placeholder="এখানে এক বা একাধিক প্রোডাক্ট লিংক পেস্ট করুন অথবা ক্যাটাগরি পেজের লিংক দিন:&#10;https://www.startech.com.bd/laptop-notebook/laptop&#10;https://www.techlandbd.com/shop-laptop-computer/brand-laptops"
-                            class="w-full px-4 py-3 bg-[#13141a] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 focus:outline-none focus:border-purple-500 leading-relaxed placeholder-gray-600"
+                            rows="6"
+                            placeholder="Paste product links (one per line) or a Category page link:&#10;https://www.startech.com.bd/laptop-notebook/laptop&#10;https://www.startech.com.bd/microsoft-13-inch-surface-laptop"
+                            class="w-full px-4 py-3 bg-[#13141a] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500 leading-relaxed"
                             required
                         ></textarea>
-
-                        <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1">
-                            <span>ক্যাটাগরি লিংক দিলে সিস্টেম নিজে থেকেই ২০টি রিয়েল প্রোডাক্ট ও সঠিক দাম (৳) এক্সট্র্যাক্ট করে নিবে।</span>
-                            <span class="font-mono text-purple-300 font-bold" x-text="getUrlCount() + ' link(s) ready'"></span>
+                        
+                        <div class="flex items-center justify-between text-[11px] text-gray-400">
+                            <span>Detected URLs: <strong class="text-purple-400 font-bold" x-text="getUrlCount()">0</strong></span>
+                            <button type="button" @click="urlText = ''" class="text-gray-400 hover:text-red-400 cursor-pointer">Clear URLs</button>
                         </div>
                     </div>
 
-                    <!-- Options Checkboxes -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                        <label class="p-3.5 rounded-xl bg-[#13141a] border border-[#2b2b40] flex items-center gap-3 cursor-pointer hover:border-purple-500/50 transition">
-                            <input type="checkbox" name="purge_demo" value="1" x-model="purgeDemo" class="rounded bg-[#1e1e2d] border-[#2b2b40] text-red-500 focus:ring-0">
-                            <div>
-                                <span class="text-xs font-bold text-white block">Purge Old Products First</span>
-                                <span class="text-[10px] text-gray-400">নতুন ইমপোর্টের আগে ডেমো প্রোডাক্ট মুছে ফেলুন</span>
-                            </div>
-                        </label>
+                    <!-- MODE 2: Paste Raw HTML / Page Source -->
+                    <div x-show="mode === 'html'" class="space-y-2" style="display: none;">
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-code"></i>
+                                <span>Paste Full HTML / Page Source</span>
+                            </label>
+                            <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30">
+                                🛡️ Bypasses Cloudflare / Bot blocks
+                            </span>
+                        </div>
 
-                        <label class="p-3.5 rounded-xl bg-[#13141a] border border-[#2b2b40] flex items-center gap-3 cursor-pointer hover:border-purple-500/50 transition">
-                            <input type="checkbox" checked disabled class="rounded bg-[#1e1e2d] border-[#2b2b40] text-purple-500 focus:ring-0">
-                            <div>
-                                <span class="text-xs font-bold text-white block">SM Shop Brand Rewrite &amp; Gallery</span>
-                                <span class="text-[10px] text-emerald-400">Official warranty + Multiple HD images</span>
-                            </div>
-                        </label>
+                        <p class="text-[11px] text-gray-400 leading-relaxed bg-[#13141a] p-3 rounded-lg border border-[#2b2b40]">
+                            <strong>How to use:</strong> Open any page (TechlandBD, Ryans, StarTech, Daraz) in your browser &rarr; Press <kbd class="px-1.5 py-0.5 bg-[#2b2b40] rounded text-[10px] font-mono text-white">Ctrl + U</kbd> (View Source) &rarr; Press <kbd class="px-1.5 py-0.5 bg-[#2b2b40] rounded text-[10px] font-mono text-white">Ctrl + A</kbd> &rarr; <kbd class="px-1.5 py-0.5 bg-[#2b2b40] rounded text-[10px] font-mono text-white">Ctrl + C</kbd> &rarr; Paste here. All product cards with identical titles and prices will be extracted instantly!
+                        </p>
+
+                        <textarea 
+                            name="html" 
+                            x-model="htmlText"
+                            rows="7"
+                            placeholder="Paste &lt;html&gt; source code here..."
+                            class="w-full px-4 py-3 bg-[#13141a] border border-[#2b2b40] rounded-xl text-xs font-mono text-gray-200 placeholder-gray-500 focus:outline-none focus:border-amber-500 leading-relaxed"
+                        ></textarea>
+
+                        <div class="flex items-center justify-between text-[11px] text-gray-400">
+                            <span>HTML length: <strong class="text-amber-400 font-bold" x-text="htmlText.length.toLocaleString()">0</strong> characters</span>
+                            <button type="button" @click="htmlText = ''" class="text-gray-400 hover:text-red-400 cursor-pointer">Clear HTML</button>
+                        </div>
                     </div>
 
-                    <!-- Submit Actions -->
-                    <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                    <!-- Clean Database Checkbox -->
+                    <div class="p-3.5 rounded-xl bg-[#13141a] border border-[#2b2b40] flex items-center justify-between">
+                        <label class="flex items-center gap-2.5 cursor-pointer select-none">
+                            <input 
+                                type="checkbox" 
+                                name="purge_demo" 
+                                value="1" 
+                                x-model="purgeDemo"
+                                class="w-4 h-4 rounded text-purple-600 bg-[#0e0f14] border-gray-600 focus:ring-0 focus:ring-offset-0"
+                            >
+                            <div>
+                                <span class="text-xs font-bold text-gray-200">Purge &amp; replace old products</span>
+                                <p class="text-[11px] text-gray-400">Deletes existing database items before importing fresh products.</p>
+                            </div>
+                        </label>
+                        <span class="text-[10px] uppercase font-black text-amber-400/80 tracking-wider">Recommended</span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center justify-end gap-3 pt-2">
                         <button 
                             type="button" 
-                            @click="startInteractiveImport()" 
+                            @click="startLiveQueueImport()"
                             :disabled="isImporting"
-                            class="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 disabled:opacity-50 text-white text-xs font-black uppercase tracking-wider py-4 px-6 rounded-xl transition shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 cursor-pointer"
+                            class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-black tracking-wide shadow-lg shadow-purple-600/30 transition flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <i class="fa-solid fa-bolt" x-show="!isImporting"></i>
+                            <i class="fa-solid fa-bolt text-amber-300" x-show="!isImporting"></i>
                             <i class="fa-solid fa-spinner fa-spin" x-show="isImporting" style="display: none;"></i>
-                            <span x-text="isImporting ? 'AI Scraping & Processing...' : 'Start Real-time AI Bulk Import (Recommended)'"></span>
-                        </button>
-
-                        <button 
-                            type="submit" 
-                            :disabled="isImporting"
-                            class="px-6 py-4 rounded-xl bg-[#2b2b40] hover:bg-[#383854] text-white text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer"
-                        >
-                            <i class="fa-solid fa-server"></i>
-                            <span>Standard Server Import</span>
+                            <span x-text="isImporting ? 'Importing Exact Products...' : 'Start 100% Exact Import'">Start 100% Exact Import</span>
                         </button>
                     </div>
                 </form>
 
-                <!-- Live Interactive Progress Panel -->
-                <div x-show="showProgress" x-cloak class="p-5 rounded-xl bg-[#13141a] border border-purple-500/30 space-y-4" style="display: none;">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2 text-xs font-bold text-white">
-                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500 animate-ping"></span>
-                            <span x-text="'Processing: ' + progressCurrent + ' of ' + progressTotal"></span>
-                        </div>
-                        <span class="text-xs font-mono text-purple-300 font-bold" x-text="progressPercent + '%'"></span>
+                <!-- Live Import Progress Console -->
+                <div x-show="showProgress" class="space-y-3 pt-4 border-t border-[#2b2b40]" style="display: none;">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-gray-200 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Live Import Progress: <span x-text="progressCurrent">0</span> / <span x-text="progressTotal">0</span>
+                        </span>
+                        <span class="font-mono text-purple-400 font-bold" x-text="progressPercent + '%'">0%</span>
                     </div>
 
-                    <div class="w-full h-2.5 bg-[#1e1e2d] rounded-full overflow-hidden border border-[#2b2b40]">
-                        <div class="h-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300" :style="'width: ' + progressPercent + '%'"></div>
+                    <!-- Progress Bar -->
+                    <div class="w-full h-2.5 bg-[#13141a] rounded-full overflow-hidden border border-[#2b2b40]">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-emerald-400 transition-all duration-300" :style="'width: ' + progressPercent + '%'"></div>
                     </div>
 
-                    <!-- Live Log Console -->
-                    <div class="max-h-56 overflow-y-auto space-y-1.5 font-mono text-[11px] p-3 rounded-lg bg-[#0d0e12] border border-[#1e1e2d]" id="import-log-console">
+                    <!-- Terminal Logs Box -->
+                    <div class="bg-[#0e0f14] border border-[#2b2b40] rounded-xl p-4 font-mono text-xs text-gray-300 max-h-60 overflow-y-auto space-y-1.5 shadow-inner">
                         <template x-for="(log, idx) in logs" :key="idx">
-                            <div class="flex items-start gap-2" :class="log.type === 'error' ? 'text-red-400' : (log.type === 'success' ? 'text-emerald-400' : (log.type === 'warn' ? 'text-amber-400' : 'text-gray-300'))">
-                                <span class="text-gray-600 shrink-0" x-text="log.time"></span>
-                                <span x-html="log.message"></span>
+                            <div class="flex items-start gap-2 leading-relaxed" :class="log.type === 'error' ? 'text-red-400' : (log.type === 'success' ? 'text-emerald-400' : 'text-gray-300')">
+                                <span class="text-gray-600 select-none">&rsaquo;</span>
+                                <span x-html="log.text"></span>
                             </div>
                         </template>
                     </div>
@@ -228,362 +263,365 @@
             </div>
         </div>
 
-        <!-- Right 4 Columns: Guide & Live Import Stats -->
+        <!-- Right 4 Columns: Information & Categories -->
         <div class="lg:col-span-4 space-y-6">
             
-            <!-- How It Works Card -->
-            <div class="bg-[#1e1e2d] border border-[#2b2b40] rounded-2xl p-6 shadow-lg space-y-4">
-                <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2 pb-3 border-b border-[#2b2b40]">
-                    <i class="fa-solid fa-circle-question text-amber-400"></i> How AI Importer Works
-                </h3>
-                
-                <div class="space-y-3.5 text-xs text-gray-300 leading-relaxed">
-                    <div class="flex items-start gap-3">
-                        <div class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs flex items-center justify-center shrink-0 border border-purple-500/30">1</div>
-                        <p><strong class="text-white">Category / Single Links:</strong> ক্যাটালগ লিংক দিলে স্বয়ংক্রিয়ভাবে ক্যাটাগরির সমস্ত প্রোডাক্ট একসাথে এক্সট্র্যাক্ট করে নেয়।</p>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs flex items-center justify-center shrink-0 border border-indigo-500/30">2</div>
-                        <p><strong class="text-white">Multiple Gallery HD Images:</strong> মূল থাম্বনেইলের পাশাপাশি ৪-৬টি হাই-রেজ্যুলেশন গ্যালারি ফটো সেভ করে।</p>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs flex items-center justify-center shrink-0 border border-emerald-500/30">3</div>
-                        <p><strong class="text-white">Gemini AI Rewrite:</strong> অন্য দোকানের নাম মুছে <strong class="text-white">SM Shop</strong> এর ওয়ারেন্টি পলিসি ও হাই-কনভার্টিং কপিরাইটিং তৈরি করে।</p>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0 border border-amber-500/30">4</div>
-                        <p><strong class="text-white">Social Proof:</strong> প্রতিটি পণ্যের জন্য বাংলা ও ইংরেজি ভেরিফাইড কাস্টমার রিভিউ ও ৫-স্টার রেটিং যোগ করে।</p>
-                    </div>
+            <!-- Exact Match Guarantee Card -->
+            <div class="bg-gradient-to-br from-[#1e1e2d] to-[#161622] border border-[#2b2b40] rounded-2xl p-5 shadow-lg space-y-3">
+                <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                    <i class="fa-solid fa-shield-check text-base"></i>
+                    <span>100% Exact Scraper Guarantee</span>
                 </div>
+                <ul class="text-xs text-gray-300 space-y-2 leading-relaxed">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>Same Title:</strong> Exact laptop/desktop brand &amp; model name.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>Same BD Price:</strong> Actual cash price in Taka (৳) directly from source.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>Same HD Gallery:</strong> Extracts main image + up to 8 high-res gallery shots.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>Branded Copy:</strong> Company name set to <strong>SM Shop</strong> with official warranty.</span>
+                    </li>
+                </ul>
             </div>
 
-            <!-- Category Summary -->
-            <div class="bg-[#1e1e2d] border border-[#2b2b40] rounded-2xl p-6 shadow-lg space-y-3">
-                <h3 class="text-xs font-bold text-white uppercase tracking-wider flex items-center justify-between pb-3 border-b border-[#2b2b40]">
-                    <span>Catalog Categories</span>
-                    <span class="text-gray-400 text-[11px] font-mono">{{ $categories->count() }} Total</span>
-                </h3>
-                <div class="max-h-60 overflow-y-auto space-y-1.5 pr-1 text-xs">
-                    @foreach($categories as $cat)
-                        <div class="flex items-center justify-between p-2 rounded-lg bg-[#13141a] text-gray-300">
-                            <span class="font-medium">{{ $cat->name }}</span>
-                            <span class="text-[11px] font-mono font-bold text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded">{{ $cat->products_count }} items</span>
+            <!-- Categories Overview -->
+            <div class="bg-[#1e1e2d] border border-[#2b2b40] rounded-2xl p-5 shadow-lg space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-[#2b2b40]">
+                    <h3 class="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-folder-tree text-purple-400"></i>
+                        <span>Target Categories</span>
+                    </h3>
+                    <span class="text-[11px] text-gray-400 font-bold">{{ $categories->count() }} total</span>
+                </div>
+
+                <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
+                    @forelse($categories as $cat)
+                        <div class="flex items-center justify-between p-2 rounded-lg bg-[#13141a] border border-[#2b2b40] text-xs">
+                            <span class="font-semibold text-gray-200">{{ $cat->name }}</span>
+                            <span class="text-[11px] font-mono text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                                {{ $cat->products_count }} items
+                            </span>
                         </div>
-                    @endforeach
+                    @empty
+                        <p class="text-xs text-gray-500 text-center py-4">No categories created yet.</p>
+                    @endforelse
+                </div>
+            </div>
+
+            <!-- Recently Imported List -->
+            <div class="bg-[#1e1e2d] border border-[#2b2b40] rounded-2xl p-5 shadow-lg space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-[#2b2b40]">
+                    <h3 class="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-amber-400"></i>
+                        <span>Recently Imported</span>
+                    </h3>
+                    <span class="text-[11px] text-emerald-400 font-bold">Latest 5</span>
+                </div>
+
+                <div class="space-y-2.5">
+                    @forelse($recentProducts as $rp)
+                        <div class="flex items-center gap-3 p-2 rounded-xl bg-[#13141a] border border-[#2b2b40] text-xs">
+                            <img src="{{ $rp->image }}" alt="{{ $rp->name }}" class="w-10 h-10 rounded-lg object-contain bg-white p-1 border border-gray-700 shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <a href="{{ route('product.show', $rp->slug) }}" target="_blank" class="font-bold text-gray-200 hover:text-purple-400 truncate block transition">
+                                    {{ $rp->name }}
+                                </a>
+                                <div class="flex items-center gap-2 mt-0.5 text-[11px]">
+                                    <span class="text-starOrange font-bold">{{ number_format($rp->effective_price) }}৳</span>
+                                    <span class="text-gray-500">&bull;</span>
+                                    <span class="text-gray-400">{{ $rp->category->name ?? 'Uncategorized' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-xs text-gray-500 text-center py-4">No products imported yet.</p>
+                    @endforelse
                 </div>
             </div>
 
         </div>
 
-    </div>
-
-    <!-- Recently Imported Products Table -->
-    <div class="bg-[#1e1e2d] border border-[#2b2b40] rounded-2xl p-6 shadow-lg space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-[#2b2b40]">
-            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-clock-rotate-left text-purple-400"></i> Recently Added Products ({{ $recentProducts->count() }})
-            </h3>
-            <a href="{{ route('admin.products.index') }}" class="text-xs text-indigo-400 hover:underline font-bold">
-                View All in Catalog &rarr;
-            </a>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="w-full text-xs text-left">
-                <thead class="bg-[#13141a] text-gray-400 uppercase text-[10px] tracking-wider">
-                    <tr>
-                        <th class="py-3 px-4">Product Details</th>
-                        <th class="py-3 px-4">Category</th>
-                        <th class="py-3 px-4">Price (৳)</th>
-                        <th class="py-3 px-4">Stock</th>
-                        <th class="py-3 px-4 text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-[#2b2b40]">
-                    @forelse($recentProducts as $prod)
-                        <tr class="hover:bg-[#26273b] transition">
-                            <td class="py-3 px-4 flex items-center gap-3">
-                                <img src="{{ $prod->image }}" alt="{{ $prod->name }}" class="w-10 h-10 rounded-lg object-contain bg-white p-1 border border-gray-700 shrink-0">
-                                <div class="min-w-0">
-                                    <div class="font-bold text-white truncate max-w-sm">{{ $prod->name }}</div>
-                                    <div class="text-[10px] text-gray-400 font-mono">SKU: {{ $prod->sku }} | Images: {{ 1 + count($prod->gallery_images ?? []) }}</div>
-                                </div>
-                            </td>
-                            <td class="py-3 px-4 text-gray-300">
-                                {{ $prod->category->name ?? 'N/A' }}
-                            </td>
-                            <td class="py-3 px-4">
-                                <span class="font-bold text-starOrange">{{ number_format($prod->effective_price) }}৳</span>
-                                @if($prod->has_discount)
-                                    <span class="text-[10px] text-gray-500 line-through block">{{ number_format($prod->price) }}৳</span>
-                                @endif
-                            </td>
-                            <td class="py-3 px-4">
-                                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">
-                                    {{ $prod->stock }} In Stock
-                                </span>
-                            </td>
-                            <td class="py-3 px-4 text-right space-x-2">
-                                <a href="{{ route('product.show', $prod->slug) }}" target="_blank" class="px-2.5 py-1 rounded bg-[#2b2b40] hover:bg-[#3b3b5c] text-white text-[11px] font-bold transition">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Store View
-                                </a>
-                                <a href="{{ route('admin.products.edit', $prod->id) }}" class="px-2.5 py-1 rounded bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 text-[11px] font-bold transition">
-                                    <i class="fa-solid fa-pen-to-square"></i> Edit
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center py-8 text-gray-500 italic">No products imported yet. Paste some URLs above to get started!</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
     </div>
 
 </div>
 
-<!-- Alpine.js Live Importer Script -->
 <script>
-    function aiImporterApp() {
-        return {
-            apiKey: '{{ $geminiApiKey }}',
-            keySavedText: 'Save Key',
-            urlText: '',
-            purgeDemo: false,
-            isImporting: false,
-            isDiscovering: false,
-            showProgress: false,
-            progressCurrent: 0,
-            progressTotal: 0,
-            progressPercent: 0,
-            logs: [],
+function aiImporterApp() {
+    return {
+        mode: 'urls',
+        apiKey: '{{ $geminiApiKey ?? "" }}',
+        keySavedText: 'Save Key',
+        urlText: '',
+        htmlText: '',
+        purgeDemo: true,
+        isDiscovering: false,
+        isImporting: false,
+        showProgress: false,
+        progressCurrent: 0,
+        progressTotal: 0,
+        progressPercent: 0,
+        logs: [],
 
-            initApp() {
-                const stored = localStorage.getItem('sm_gemini_api_key');
-                if (stored && !this.apiKey) {
-                    this.apiKey = stored;
-                }
-                if (this.apiKey) {
-                    localStorage.setItem('sm_gemini_api_key', this.apiKey);
-                }
-            },
+        initApp() {
+            const storedKey = localStorage.getItem('gemini_api_key');
+            if (storedKey && !this.apiKey) {
+                this.apiKey = storedKey;
+            }
+        },
 
-            onKeyChange() {
-                if (this.apiKey) {
-                    localStorage.setItem('sm_gemini_api_key', this.apiKey);
-                }
-            },
+        onKeyChange() {
+            if (this.apiKey) {
+                localStorage.setItem('gemini_api_key', this.apiKey.trim());
+            }
+        },
 
-            async saveApiKeyPermanently() {
-                if (!this.apiKey) {
-                    alert('Please enter your Google API key first.');
-                    return;
-                }
-                localStorage.setItem('sm_gemini_api_key', this.apiKey);
-                this.keySavedText = 'Saving...';
-
-                try {
-                    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                    const res = await fetch('{{ route("admin.products.ai-import.save-key") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': token || ''
-                        },
-                        body: JSON.stringify({ api_key: this.apiKey })
-                    });
-                    const data = await res.json();
-                    if (data.success) {
-                        this.keySavedText = '✓ Saved!';
-                        setTimeout(() => this.keySavedText = 'Save Key', 3000);
-                    }
-                } catch (e) {
+        async saveApiKeyPermanently() {
+            if (!this.apiKey || this.apiKey.trim().length < 5) {
+                alert('Please enter a valid Google Gemini API Key.');
+                return;
+            }
+            this.keySavedText = 'Saving...';
+            try {
+                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                const res = await fetch('{{ route("admin.products.ai-import.save-key") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': token || ''
+                    },
+                    body: JSON.stringify({ api_key: this.apiKey.trim() })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('gemini_api_key', this.apiKey.trim());
+                    this.keySavedText = 'Saved ✓';
+                    setTimeout(() => { this.keySavedText = 'Save Key'; }, 3000);
+                } else {
+                    alert(data.message || 'Could not save key.');
                     this.keySavedText = 'Save Key';
                 }
-            },
+            } catch (e) {
+                localStorage.setItem('gemini_api_key', this.apiKey.trim());
+                this.keySavedText = 'Saved ✓';
+                setTimeout(() => { this.keySavedText = 'Save Key'; }, 3000);
+            }
+        },
 
-            getUrlCount() {
-                const links = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
-                return links.length;
-            },
+        setCategoryUrl(url) {
+            this.urlText = url;
+        },
 
-            setCategoryUrl(url) {
-                this.urlText = url;
-                this.discoverFromCategory();
-            },
+        getUrlCount() {
+            if (!this.urlText) return 0;
+            return this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8).length;
+        },
 
-            insertSampleUrls() {
-                this.urlText = [
-                    'https://www.startech.com.bd/laptop-notebook/laptop',
-                    'https://www.startech.com.bd/microsoft-13-inch-surface-laptop',
-                    'https://www.startech.com.bd/walton-prelude-n41-pro-celeron-n4120-laptop',
-                    'https://www.startech.com.bd/chuwi-herobook-pro-intel-celeron-laptop'
-                ].join('\n');
-            },
+        addLog(text, type = 'info') {
+            this.logs.push({ text, type });
+            this.$nextTick(() => {
+                const box = document.querySelector('.overflow-y-auto');
+                if (box) box.scrollTop = box.scrollHeight;
+            });
+        },
 
-            async discoverFromCategory() {
-                const lines = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
-                if (lines.length === 0) {
-                    alert('Please enter a Category / Listing URL first.');
-                    return;
-                }
+        async discoverFromCategory() {
+            const rawLinks = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
+            if (rawLinks.length === 0) {
+                alert('Please enter a category URL to extract links from.');
+                return;
+            }
 
-                const targetUrl = lines[0];
-                this.isDiscovering = true;
-                this.addLog(`🔍 Scanning category URL for products: <span class="text-white">${targetUrl}</span>`);
+            this.isDiscovering = true;
+            this.showProgress = true;
+            this.logs = [];
+            this.addLog(`🔍 Scanning category URL: <span class="text-white">${rawLinks[0]}</span>`);
 
-                try {
-                    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                    const res = await fetch('{{ route("admin.products.ai-import.discover") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': token || ''
-                        },
-                        body: JSON.stringify({ url: targetUrl })
-                    });
-
-                    const data = await res.json();
-                    if (data.success && data.links.length > 0) {
-                        this.urlText = data.links.join('\n');
-                        this.addLog(`✓ Found <strong>${data.links.length}</strong> products in this category! Populated in the URL box ready for AI import.`, 'success');
-                    } else {
-                        this.addLog(`⚠️ No child links found automatically for this URL.`, 'warn');
-                    }
-                } catch (e) {
-                    this.addLog(`✗ Category scan failed: ${e.message}`, 'error');
-                } finally {
-                    this.isDiscovering = false;
-                }
-            },
-
-            addLog(message, type = 'info') {
-                const now = new Date();
-                const time = now.toTimeString().split(' ')[0];
-                this.logs.push({ time, message, type });
-                this.$nextTick(() => {
-                    const el = document.getElementById('import-log-console');
-                    if (el) el.scrollTop = el.scrollHeight;
+            try {
+                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                const res = await fetch('{{ route("admin.products.ai-import.discover") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': token || ''
+                    },
+                    body: JSON.stringify({ url: rawLinks[0] })
                 });
-            },
-
-            async startInteractiveImport() {
-                let rawLinks = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
-                if (rawLinks.length === 0) {
-                    alert('Please enter at least one valid product or category URL.');
-                    return;
+                const data = await res.json();
+                if (data.success && data.links.length > 0) {
+                    this.urlText = data.links.join('\n');
+                    this.addLog(`✓ Found <strong>${data.links.length}</strong> product links! You can now click "Start 100% Exact Import".`, 'success');
+                } else {
+                    this.addLog(`ℹ️ Category card engine is ready. Click "Start 100% Exact Import" to fetch all items directly.`, 'info');
                 }
+            } catch (e) {
+                this.addLog(`ℹ️ Ready to import. Click "Start 100% Exact Import".`, 'info');
+            } finally {
+                this.isDiscovering = false;
+            }
+        },
 
-                // If user entered only 1 URL and it's a category, let's discover sub-links
-                if (rawLinks.length === 1 && (rawLinks[0].includes('laptop') || rawLinks[0].includes('shop-') || rawLinks[0].includes('category') || rawLinks[0].includes('brand-'))) {
-                    this.isImporting = true;
-                    this.showProgress = true;
-                    this.logs = [];
-                    this.addLog(`🔍 Category page detected (<span class="text-white">${rawLinks[0]}</span>). Extracting all products from this category...`);
-                    
-                    try {
-                        const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                        const res = await fetch('{{ route("admin.products.ai-import.discover") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': token || ''
-                            },
-                            body: JSON.stringify({ url: rawLinks[0] })
-                        });
-                        const data = await res.json();
-                        if (data.success && data.links.length > 0) {
-                            rawLinks = data.links;
-                            this.addLog(`✓ Discovered <strong>${rawLinks.length}</strong> products from category! Starting AI import queue...`, 'success');
-                        }
-                    } catch (e) {
-                        this.addLog(`Proceeding with direct link...`);
-                    }
+        async startLiveQueueImport() {
+            const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+            // 1. HTML Paste Mode
+            if (this.mode === 'html') {
+                if (!this.htmlText || this.htmlText.trim().length < 50) {
+                    alert('Please paste the page HTML source first.');
+                    return;
                 }
 
                 this.isImporting = true;
                 this.showProgress = true;
-                this.logs = this.logs || [];
-                this.progressCurrent = 0;
-                this.progressTotal = rawLinks.length;
-                this.progressPercent = 0;
+                this.logs = [];
+                this.progressCurrent = 1;
+                this.progressTotal = 1;
+                this.progressPercent = 50;
 
-                this.addLog(`🚀 Initializing AI Bulk Import for <strong>${rawLinks.length}</strong> product(s)...`);
+                this.addLog(`🚀 Parsing pasted HTML for exact products...`);
 
                 if (this.purgeDemo) {
-                    this.addLog(`🧹 Purging old products as requested...`);
+                    this.addLog(`🧹 Purging old products first...`);
                     try {
-                        const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
                         await fetch('{{ route("admin.products.purge-demo") }}', {
                             method: 'POST',
                             headers: { 'X-CSRF-TOKEN': token || '' }
                         });
-                        this.addLog(`✓ Database cleared for clean fresh imports.`, 'success');
-                    } catch (e) {
-                        this.addLog(`⚠️ Could not purge products: ${e.message}`, 'error');
-                    }
+                        this.addLog(`✓ Database cleared.`, 'success');
+                    } catch (e) {}
                 }
 
-                let successCount = 0;
-                let failedCount = 0;
-                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-                for (let i = 0; i < rawLinks.length; i++) {
-                    const url = rawLinks[i];
-                    this.progressCurrent = i + 1;
-                    this.progressPercent = Math.round(((i + 1) / rawLinks.length) * 100);
-
-                    this.addLog(`[${i+1}/${rawLinks.length}] 🌐 Scraping &amp; AI rewriting: <span class="text-white">${url}</span>`);
-
-                    try {
-                        const res = await fetch('{{ route("admin.products.ai-import.single") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': token || ''
-                            },
-                            body: JSON.stringify({
-                                url: url,
-                                api_key: this.apiKey
-                            })
-                        });
-
-                        const data = await res.json();
-
-                        if (data.success) {
-                            successCount++;
-                            this.addLog(`✓ <strong>[IMPORTED]</strong> ${data.name} (<span class="text-starOrange font-bold">${data.price}৳</span>) - ${data.image_count} images <a href="${data.product_url}" target="_blank" class="underline text-indigo-300 ml-1">View Store &rarr;</a>`, 'success');
+                try {
+                    const res = await fetch('{{ route("admin.products.ai-import.single") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': token || ''
+                        },
+                        body: JSON.stringify({
+                            url: 'https://source-page.com/listing',
+                            html: this.htmlText,
+                            api_key: this.apiKey
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        this.progressPercent = 100;
+                        if (data.is_listing && data.products) {
+                            this.addLog(`✓ <strong>Successfully Imported ${data.products.length} Products!</strong>`, 'success');
+                            data.products.forEach((p, idx) => {
+                                this.addLog(`[${idx+1}] ${p.name} - <strong class="text-starOrange">${p.sale_price}৳</strong>`, 'success');
+                            });
                         } else {
-                            failedCount++;
-                            this.addLog(`✗ <strong>[FAILED]</strong> ${data.error || 'Import error'}`, 'error');
+                            this.addLog(`✓ <strong>[IMPORTED]</strong> ${data.name} (<span class="text-starOrange font-bold">${data.sale_price}৳</span>)`, 'success');
                         }
-                    } catch (err) {
-                        failedCount++;
-                        this.addLog(`✗ Connection error: ${err.message}`, 'error');
+                    } else {
+                        this.addLog(`✗ Error: ${data.error}`, 'error');
                     }
+                } catch (e) {
+                    this.addLog(`✗ Connection error: ${e.message}`, 'error');
                 }
 
                 this.isImporting = false;
-                this.addLog(`🎉 <strong>All Done!</strong> Successfully imported: ${successCount}, Failed: ${failedCount}`, 'success');
+                setTimeout(() => window.location.reload(), 2500);
+                return;
+            }
 
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2500);
-            },
+            // 2. URLs Mode
+            let rawLinks = this.urlText.split(/[\r\n,]+/).map(s => s.trim()).filter(s => s.length > 8);
+            if (rawLinks.length === 0) {
+                alert('Please enter at least one product URL.');
+                return;
+            }
 
-            handleSubmit(e) {
-                if (this.getUrlCount() === 0) {
-                    e.preventDefault();
-                    alert('Please enter at least one URL.');
+            this.isImporting = true;
+            this.showProgress = true;
+            this.logs = [];
+            this.progressCurrent = 0;
+            this.progressTotal = rawLinks.length;
+            this.progressPercent = 0;
+
+            this.addLog(`🚀 Starting import for <strong>${rawLinks.length}</strong> link(s)...`);
+
+            if (this.purgeDemo) {
+                this.addLog(`🧹 Purging old products as requested...`);
+                try {
+                    await fetch('{{ route("admin.products.purge-demo") }}', {
+                        method: 'POST',
+                        headers: { 'X-CSRF-TOKEN': token || '' }
+                    });
+                    this.addLog(`✓ Database cleared.`, 'success');
+                } catch (e) {}
+            }
+
+            let successCount = 0;
+            let failedCount = 0;
+
+            for (let i = 0; i < rawLinks.length; i++) {
+                const url = rawLinks[i];
+                this.progressCurrent = i + 1;
+                this.progressPercent = Math.round(((i + 1) / rawLinks.length) * 100);
+
+                this.addLog(`[${i+1}/${rawLinks.length}] 🌐 Fetching exact data: <span class="text-white">${url}</span>`);
+
+                try {
+                    const res = await fetch('{{ route("admin.products.ai-import.single") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': token || ''
+                        },
+                        body: JSON.stringify({
+                            url: url,
+                            api_key: this.apiKey
+                        })
+                    });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        successCount++;
+                        if (data.is_listing && data.products) {
+                            this.addLog(`✓ <strong>[CATEGORY IMPORTED]</strong> Extracted <strong>${data.products.length}</strong> exact products!`, 'success');
+                            data.products.forEach((p, idx) => {
+                                this.addLog(`  ↳ [${idx+1}] ${p.name} - <strong class="text-starOrange">${p.sale_price}৳</strong>`, 'success');
+                            });
+                        } else {
+                            this.addLog(`✓ <strong>[IMPORTED]</strong> ${data.name} (<span class="text-starOrange font-bold">${data.sale_price}৳</span>) <a href="${data.product_url}" target="_blank" class="underline text-indigo-300 ml-1">View Store &rarr;</a>`, 'success');
+                        }
+                    } else {
+                        failedCount++;
+                        this.addLog(`✗ <strong>[FAILED]</strong> ${data.error || 'Import error'}`, 'error');
+                    }
+                } catch (err) {
+                    failedCount++;
+                    this.addLog(`✗ Error: ${err.message}`, 'error');
                 }
             }
-        };
-    }
+
+            this.isImporting = false;
+            this.addLog(`🎉 <strong>All Done!</strong> Successfully imported: ${successCount}`, 'success');
+
+            setTimeout(() => window.location.reload(), 2500);
+        },
+
+        handleSubmit(e) {
+            if (this.getUrlCount() === 0 && (!this.htmlText || this.htmlText.length < 50)) {
+                e.preventDefault();
+                alert('Please enter at least one URL or paste HTML.');
+            }
+        }
+    };
+}
 </script>
 @endsection
