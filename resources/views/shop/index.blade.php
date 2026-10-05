@@ -155,13 +155,13 @@
         <div class="lg:col-span-3 space-y-5">
             
             <!-- Top Catalog Showcase Banner -->
-            <div class="rounded-2xl overflow-hidden shadow-md border border-slate-800/80 relative aspect-[16/7] sm:aspect-[16/6] md:aspect-[16/5] bg-slate-950 group">
+            <div class="rounded-2xl overflow-hidden shadow-md border border-slate-200/80 relative aspect-[16/7] sm:aspect-[16/6] md:aspect-[16/5] bg-white group">
                 <img 
                     src="{{ asset('images/banners/clean_banner_battlestation.jpg') }}" 
                     alt="SM Shop Showroom" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex items-end p-4 sm:p-5">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent flex items-end p-4 sm:p-5">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-2">
                         <div>
                             <span class="inline-flex items-center gap-1.5 bg-starOrange text-white text-[10px] sm:text-xs font-black uppercase px-2.5 py-0.5 rounded-full shadow">

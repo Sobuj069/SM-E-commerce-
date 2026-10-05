@@ -46,7 +46,7 @@
         @mouseleave="startTimer()"
     >
         <!-- Main Promotional Slider Area (Col Span 3) -->
-        <div class="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-xl aspect-[1024/571] bg-slate-950 border border-slate-800/80 group">
+        <div class="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-md aspect-[16/9] bg-white border border-slate-200/80 group">
             
             <!-- SLIDE 1: PURE PRODUCT SHOWCASE - GAMING LAPTOP -->
             <a 
@@ -171,7 +171,7 @@
             <button 
                 type="button"
                 @click="prevSlide()" 
-                class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/20 shadow-xl z-20 cursor-pointer focus:outline-none"
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/40 shadow-md z-20 cursor-pointer focus:outline-none"
                 aria-label="Previous Slide"
             >
                 <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -179,20 +179,20 @@
             <button 
                 type="button"
                 @click="nextSlide()" 
-                class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/20 shadow-xl z-20 cursor-pointer focus:outline-none"
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/40 shadow-md z-20 cursor-pointer focus:outline-none"
                 aria-label="Next Slide"
             >
                 <i class="fa-solid fa-chevron-right text-sm"></i>
             </button>
 
             <!-- Slider Navigation Dots Indicator -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-black/50 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-lg">
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/30 shadow-md">
                 <template x-for="i in slidesCount" :key="i">
                     <button 
                         type="button"
                         @click="activeSlide = i - 1" 
                         class="h-2 rounded-full transition-all duration-300 cursor-pointer"
-                        :class="activeSlide === (i - 1) ? 'w-7 bg-starOrange shadow-sm' : 'w-2 bg-white/50 hover:bg-white'"
+                        :class="activeSlide === (i - 1) ? 'w-7 bg-starOrange shadow-sm' : 'w-2 bg-white/60 hover:bg-white'"
                         :aria-label="'Go to slide ' + i"
                     ></button>
                 </template>
@@ -206,7 +206,7 @@
             <!-- Side Banner 1: Custom PC Rig Showcase -->
             <a 
                 href="{{ route('shop.index', ['category' => 'desktop']) }}" 
-                class="rounded-2xl overflow-hidden shadow-lg border border-slate-800/60 relative group hover:border-cyan-400 transition-all duration-300 block flex-1"
+                class="rounded-2xl overflow-hidden shadow-md border border-slate-200/80 relative group hover:border-starOrange transition-all duration-300 block flex-1 bg-white"
             >
                 <img 
                     src="{{ asset('images/banners/clean_banner_pc.jpg') }}" 
@@ -218,7 +218,7 @@
             <!-- Side Banner 2: Smart Gadgets & Audio Showcase -->
             <a 
                 href="{{ route('shop.index', ['category' => 'accessories']) }}" 
-                class="rounded-2xl overflow-hidden shadow-lg border border-slate-800/60 relative group hover:border-purple-400 transition-all duration-300 block flex-1"
+                class="rounded-2xl overflow-hidden shadow-md border border-slate-200/80 relative group hover:border-starOrange transition-all duration-300 block flex-1 bg-white"
             >
                 <img 
                     src="{{ asset('images/banners/clean_banner_gadgets.jpg') }}" 
@@ -426,7 +426,7 @@
         <!-- Mid Banner 1: Pure Product Showcase - Pro Gaming Peripherals & Gear -->
         <a 
             href="{{ route('shop.index', ['category' => 'accessories']) }}" 
-            class="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 relative block group aspect-[16/7] md:aspect-[16/6] bg-slate-950 transition-all duration-300"
+            class="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 relative block group aspect-[16/7] md:aspect-[16/6] bg-white transition-all duration-300"
         >
             <img 
                 src="{{ asset('images/banners/clean_mid_gaming_peripherals.jpg') }}" 
@@ -438,7 +438,7 @@
         <!-- Mid Banner 2: Pure Product Showcase - High-Speed PC Hardware & Components Upgrade -->
         <a 
             href="{{ route('shop.index', ['category' => 'desktop']) }}" 
-            class="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 relative block group aspect-[16/7] md:aspect-[16/6] bg-slate-950 transition-all duration-300"
+            class="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 relative block group aspect-[16/7] md:aspect-[16/6] bg-white transition-all duration-300"
         >
             <img 
                 src="{{ asset('images/banners/clean_mid_hardware_upgrade.jpg') }}" 
