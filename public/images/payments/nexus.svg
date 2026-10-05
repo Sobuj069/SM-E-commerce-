@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <rect width="160" height="50" rx="6" fill="#004D40"/>
+  <text x="14" y=\"21\" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10" font-weight="800" fill="#A7FFEB" letter-spacing="0.5">DUTCH-BANGLA</text>
+  <text x="14" y="40" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="18" font-weight="900" fill="#FFD54F" letter-spacing="1.5">NEXUS</text>
+  <circle cx="136" cy="25" r="11" fill="#FFB300" opacity="0.85"/>
+  <circle cx="122" cy="25" r="11" fill="#00B0FF" opacity="0.85"/>
+</svg>

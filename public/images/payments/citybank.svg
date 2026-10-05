@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <rect width="160" height="50" rx="6" fill="#C62828"/>
+  <g transform="translate(10, 8)">
+    <circle cx="17" cy="17" r="13" fill="#FFFFFF"/>
+    <path d="M17 6 L23 17 L17 28 L11 17 Z" fill="#C62828"/>
+  </g>
+  <text x="46" y="23" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="800" fill="#FFFFFF">CITY BANK</text>
+  <text x="46" y="39" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="900" fill="#FFE082">City Touch</text>
+</svg>

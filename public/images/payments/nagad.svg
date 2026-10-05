@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <rect width="160" height="50" rx="6" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <g transform="translate(10, 7)">
+    <path d="M18 2 C8 2 2 10 2 20 C2 27 6 33 12 35 C10 32 9 28 9 24 C9 15 15 8 23 8 C29 8 33 11 35 15 C33 7 26 2 18 2 Z" fill="#E53935"/>
+    <path d="M24 8 C16 8 10 15 10 24 C10 30 14 35 19 36 C27 36 34 29 34 20 C34 14 30 9 24 8 Z" fill="#FB8C00"/>
+    <circle cx="21" cy="22" r="5" fill="#FDD835"/>
+  </g>
+  <text x="52" y="33" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="900" fill="#D32F2F" letter-spacing="-0.5">nagad</text>
+</svg>

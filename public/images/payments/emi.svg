@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <rect width="160" height="50" rx="6" fill="#E65100"/>
+  <g transform="translate(12, 6)">
+    <text x="16" y="24" font-family="Arial, sans-serif" font-size="19" font-weight="900" fill="#FFFFFF" text-anchor="middle">0%</text>
+    <text x="16" y="35" font-family="Arial, sans-serif" font-size="9" font-weight="800" fill="#FFE082" text-anchor="middle">EMI</text>
+  </g>
+  <text x="48" y="23" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="900" fill="#FFFFFF">EMI FACILITY</text>
+  <text x="48" y="38" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10" font-weight="700" fill="#FFE082">Up to 36 Months</text>
+</svg>

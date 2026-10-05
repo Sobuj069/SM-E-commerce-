@@ -129,31 +129,39 @@
                                     <div class="text-[11px] text-slate-500">Pay cash upon receiving products at your doorstep</div>
                                 </div>
                             </div>
-                            <i class="fa-solid fa-hand-holding-dollar text-xl text-emerald-600"></i>
+                            <div class="flex items-center gap-1.5">
+                                <img src="{{ asset('images/payments/cod.svg') }}" alt="COD" class="h-6 w-auto object-contain rounded">
+                            </div>
                         </label>
 
                         <label class="p-3.5 rounded border-2 flex items-center justify-between cursor-pointer transition" :class="paymentMethod === 'bkash' ? 'border-starBlue bg-blue-50/30' : 'border-slate-200 hover:border-slate-300'">
                             <div class="flex items-center gap-3">
                                 <input type="radio" name="payment_method" value="bkash" x-model="paymentMethod" class="text-starBlue focus:ring-starBlue">
                                 <div>
-                                    <div class="font-bold text-xs text-slate-900">bKash / Nagad / Rocket (MFS)</div>
-                                    <div class="text-[11px] text-slate-500">Pay online via Mobile Financial Services</div>
+                                    <div class="font-bold text-xs text-slate-900">bKash / Nagad / Rocket / Upay (MFS)</div>
+                                    <div class="text-[11px] text-slate-500">Pay instant &amp; secured via Mobile Financial Services</div>
                                 </div>
                             </div>
-                            <span class="font-bold text-xs text-pink-600 bg-pink-50 px-2 py-1 rounded">bKash / Nagad</span>
+                            <div class="flex items-center gap-1.5">
+                                <img src="{{ asset('images/payments/bkash_card.svg') }}" alt="bKash" class="h-6 w-auto object-contain rounded">
+                                <img src="{{ asset('images/payments/nagad.svg') }}" alt="Nagad" class="h-6 w-auto object-contain rounded">
+                                <img src="{{ asset('images/payments/rocket.svg') }}" alt="Rocket" class="h-6 w-auto object-contain rounded">
+                            </div>
                         </label>
 
                         <label class="p-3.5 rounded border-2 flex items-center justify-between cursor-pointer transition" :class="paymentMethod === 'card' ? 'border-starBlue bg-blue-50/30' : 'border-slate-200 hover:border-slate-300'">
                             <div class="flex items-center gap-3">
                                 <input type="radio" name="payment_method" value="card" x-model="paymentMethod" class="text-starBlue focus:ring-starBlue">
                                 <div>
-                                    <div class="font-bold text-xs text-slate-900">Credit / Debit Card (Visa, Mastercard, Amex)</div>
+                                    <div class="font-bold text-xs text-slate-900">Credit / Debit Card &amp; Net Banking (Visa, Mastercard, Amex, Nexus)</div>
                                     <div class="text-[11px] text-slate-500">256-Bit SSL Secured Payment Gateway</div>
                                 </div>
                             </div>
-                            <div class="flex gap-1.5 text-base text-slate-600">
-                                <i class="fa-brands fa-cc-visa"></i>
-                                <i class="fa-brands fa-cc-mastercard"></i>
+                            <div class="flex items-center gap-1.5">
+                                <img src="{{ asset('images/payments/visa_card.svg') }}" alt="Visa" class="h-6 w-auto object-contain rounded">
+                                <img src="{{ asset('images/payments/mastercard_card.svg') }}" alt="Mastercard" class="h-6 w-auto object-contain rounded">
+                                <img src="{{ asset('images/payments/amex_card.svg') }}" alt="Amex" class="h-6 w-auto object-contain rounded">
+                                <img src="{{ asset('images/payments/nexus.svg') }}" alt="Nexus" class="h-6 w-auto object-contain rounded">
                             </div>
                         </label>
                     </div>

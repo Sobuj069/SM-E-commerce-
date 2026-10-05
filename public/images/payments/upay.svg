@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <rect width="160" height="50" rx="6" fill="#0D47A1"/>
+  <circle cx="26" cy="25" r="15" fill="#FFD600"/>
+  <path d="M20 19 L26 29 L32 19" stroke="#0D47A1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="50" y="33" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="22" font-weight="900" fill="#FFD600" letter-spacing="0.5">upay</text>
+</svg>
