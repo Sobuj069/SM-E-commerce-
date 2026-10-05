@@ -15,7 +15,7 @@
     </div>
 
     <!-- =========================================================================
-         2. HERO PROMO BANNERS (INTERACTIVE SLIDER + DUAL TEASERS)
+         2. HERO PROMO BANNERS (TECHLAND BD SIGNATURE SLIDER + DUAL SIDE CARDS)
          ========================================================================= -->
     <section 
         class="grid grid-cols-1 lg:grid-cols-4 gap-4" 
@@ -30,7 +30,7 @@
             startTimer() {
                 this.timer = setInterval(() => {
                     this.nextSlide();
-                }, 5000);
+                }, 5500);
             },
             stopTimer() {
                 clearInterval(this.timer);
@@ -46,9 +46,9 @@
         @mouseleave="startTimer()"
     >
         <!-- Main Promotional Slider Area (Col Span 3) -->
-        <div class="lg:col-span-3 relative rounded-xl overflow-hidden shadow-md min-h-[320px] sm:min-h-[350px] md:min-h-[380px] bg-slate-950 flex flex-col justify-between border border-slate-800 group">
+        <div class="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-xl min-h-[340px] sm:min-h-[380px] md:min-h-[420px] bg-slate-950 flex flex-col justify-between border border-slate-800/80 group">
             
-            <!-- SLIDE 1: Lenovo AMD Ryzen Laptop Campaign with Real Products -->
+            <!-- SLIDE 1: ASUS ROG & TUF GAMING LAPTOP FIESTA -->
             <div 
                 x-show="activeSlide === 0"
                 x-transition:enter="transition ease-out duration-500"
@@ -57,66 +57,71 @@
                 x-transition:leave="transition ease-in duration-300 absolute inset-0"
                 x-transition:leave-start="opacity-100 translate-x-0"
                 x-transition:leave-end="opacity-0 -translate-x-8"
-                class="w-full h-full min-h-[320px] sm:min-h-[350px] md:min-h-[380px] bg-gradient-to-r from-[#1c072b] via-[#0d1629] to-[#2c080d] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
+                class="w-full h-full min-h-[340px] sm:min-h-[380px] md:min-h-[420px] bg-gradient-to-r from-[#170529] via-[#0d1428] to-[#2b0811] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
             >
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center h-full z-10">
                     <!-- Text Content (7 cols) -->
                     <div class="md:col-span-7 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="inline-block bg-red-600 text-white text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-extrabold tracking-wider shadow">SPECIAL CAMPAIGN</span>
-                            <span class="text-xs text-amber-400 font-bold flex items-center gap-1">
-                                <i class="fa-solid fa-fire animate-pulse"></i> মেগা ডিল
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-red-600 to-rose-600 text-white text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-black tracking-wider shadow-md">
+                                <i class="fa-solid fa-fire text-amber-300 animate-pulse"></i> TECHLAND SPECIAL OFFER
+                            </span>
+                            <span class="bg-white/10 text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-white/10">
+                                ASUS ROG &amp; TUF
                             </span>
                         </div>
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">
-                            লেনোভো -এর <span class="text-red-500 font-extrabold">AMD Ryzen™ ল্যাপটপ</span><br/>
-                            কিনলেই পাচ্ছেন নিশ্চিত উপহার
+                            ASUS ল্যাপটপে <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-amber-300 font-extrabold">১৫,০০০৳ ক্যাশ ডিসকাউন্ট!</span>
                         </h2>
-                        <div class="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 inline-block">
-                            <p class="text-sm sm:text-base font-bold text-amber-300 flex items-center gap-2">
-                                <i class="fa-solid fa-gift text-red-400 text-lg"></i>
-                                স্মার্টওয়াচ অথবা প্রিমিয়াম এয়ারবাডস ফ্রি!
+                        <p class="text-xs sm:text-sm text-gray-200">
+                            AMD Ryzen™ 7 ও Intel Core i7 প্রসেসর সহ আল্ট্রা-ফাস্ট RTX 40-Series গ্রাফিক্স।
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 inline-block shadow-lg">
+                            <p class="text-xs sm:text-sm font-bold text-amber-300 flex items-center gap-2">
+                                <i class="fa-solid fa-gift text-red-400 text-base sm:text-lg"></i>
+                                <span>কিনলেই ফ্রি পাচ্ছেন: প্রিমিয়াম ব্যাকপ্যাক, মাউস ও মাউসপ্যাড!</span>
                             </p>
                         </div>
-                        <div class="pt-2 flex items-center gap-3">
-                            <a href="{{ route('shop.index', ['category' => 'laptop', 'q' => 'lenovo']) }}" class="bg-starOrange hover:bg-starOrangeHover text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105">
-                                <span>অফারটি লুফে নিন</span>
+                        <div class="pt-2 flex flex-wrap items-center gap-3">
+                            <a href="{{ route('shop.index', ['category' => 'laptop', 'q' => 'asus']) }}" class="bg-gradient-to-r from-starOrange to-red-600 hover:from-red-600 hover:to-starOrange text-white text-xs sm:text-sm font-black px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-red-900/40 transition-transform hover:scale-105">
+                                <span>অফার লুফে নিন</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <span class="text-[11px] text-gray-300">*শর্ত প্রযোজ্য</span>
+                            <span class="text-[11px] text-gray-300 font-medium">✓ ০% EMI • ২ বছরের অফিসিয়াল ওয়ারেন্টি</span>
                         </div>
                     </div>
 
                     <!-- Product Graphic Showcase (5 cols) -->
                     <div class="md:col-span-5 flex items-center justify-center relative mt-4 md:mt-0">
-                        <div class="relative w-full max-w-[340px] flex items-center justify-center">
+                        <div class="relative w-full max-w-[340px] flex items-center justify-center group">
                             <!-- Laptop Image -->
                             <img 
-                                src="{{ asset('images/banners/laptop_gaming.jpg') }}" 
-                                alt="Lenovo Gaming Laptop" 
-                                class="w-full h-44 sm:h-52 md:h-56 object-cover rounded-xl shadow-2xl border-2 border-red-500/40 transform -rotate-1 hover:rotate-0 transition-transform duration-300"
+                                src="{{ asset('images/banners/asus_laptop.jpg') }}" 
+                                alt="ASUS ROG Gaming Laptop" 
+                                class="w-full h-48 sm:h-56 md:h-60 object-cover rounded-2xl shadow-2xl border-2 border-red-500/40 transform -rotate-1 group-hover:rotate-0 transition-transform duration-500"
                             />
                             <!-- Floating Free Gifts Badge -->
-                            <div class="absolute -bottom-3 -left-3 bg-slate-900/95 border border-amber-400/80 rounded-lg p-2 shadow-xl flex items-center gap-2.5 backdrop-blur-md animate-bounce">
-                                <img src="{{ asset('images/banners/smartwatch.jpg') }}" alt="Free Smartwatch" class="w-9 h-9 object-cover rounded-md border border-amber-400">
+                            <div class="absolute -bottom-3 -left-3 bg-slate-900/95 border border-amber-400/80 rounded-xl p-2 shadow-2xl flex items-center gap-2.5 backdrop-blur-md animate-bounce">
+                                <img src="{{ asset('images/banners/earbuds.jpg') }}" alt="Free Gift" class="w-9 h-9 object-cover rounded-lg border border-amber-400">
                                 <div class="text-left leading-tight">
                                     <span class="text-[9px] text-amber-300 font-bold uppercase block">FREE GIFT</span>
-                                    <span class="text-[11px] text-white font-black">Smartwatch &amp; Buds</span>
+                                    <span class="text-[11px] text-white font-black">Gaming Buds &amp; Bag</span>
                                 </div>
                             </div>
                             <!-- Discount Badge -->
-                            <div class="absolute -top-3 -right-3 bg-red-600 text-white rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-lg font-black text-[10px] leading-tight rotate-12 border-2 border-white">
-                                <span>ধামাকা</span>
-                                <span>অফার</span>
+                            <div class="absolute -top-3 -right-3 bg-gradient-to-tr from-red-600 to-amber-500 text-white rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-2xl font-black text-[10px] leading-tight rotate-12 border-2 border-white">
+                                <span>MEGA</span>
+                                <span>OFFER</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Ambient Glow -->
-                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-red-600/25 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -top-20 w-60 h-60 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
             </div>
 
-            <!-- SLIDE 2: Custom Gaming PC Builder Mega Deal -->
+            <!-- SLIDE 2: TECHLAND CUSTOM GAMING PC BUILD OFFER -->
             <div 
                 x-show="activeSlide === 1"
                 x-cloak
@@ -126,60 +131,65 @@
                 x-transition:leave="transition ease-in duration-300 absolute inset-0"
                 x-transition:leave-start="opacity-100 translate-x-0"
                 x-transition:leave-end="opacity-0 -translate-x-8"
-                class="w-full h-full min-h-[320px] sm:min-h-[350px] md:min-h-[380px] bg-gradient-to-r from-[#031527] via-[#082b49] to-[#041d33] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
+                class="w-full h-full min-h-[340px] sm:min-h-[380px] md:min-h-[420px] bg-gradient-to-r from-[#02182b] via-[#072d4a] to-[#041a30] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
             >
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center h-full z-10">
                     <!-- Text Content (7 cols) -->
                     <div class="md:col-span-7 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="inline-block bg-starBlue text-white text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-extrabold tracking-wider shadow">CUSTOM PC BUILDER</span>
-                            <span class="text-xs text-cyan-300 font-bold flex items-center gap-1">
-                                <i class="fa-solid fa-microchip"></i> RTX 40-Series
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-black tracking-wider shadow-md">
+                                <i class="fa-solid fa-microchip"></i> PC BUILD MEGA DEAL
+                            </span>
+                            <span class="bg-white/10 text-cyan-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-white/10">
+                                Intel Gen-14 &amp; Ryzen 7000
                             </span>
                         </div>
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">
-                            বিল্ড করুন আপনার স্বপ্নের <span class="text-cyan-400 font-extrabold">গেমিং ও এডিটিং পিসি</span><br/>
-                            সেরা দামে ও ০% EMI সুবিধায়
+                            বিল্ড করুন আপনার স্বপ্নের <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-300 font-extrabold">গেমিং ও এডিটিং পিসি</span>
                         </h2>
-                        <div class="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 inline-block">
-                            <p class="text-sm sm:text-base font-bold text-cyan-300 flex items-center gap-2">
-                                <i class="fa-solid fa-keyboard text-cyan-400 text-lg"></i>
-                                ফ্রি RGB মেকানিক্যাল কিবোর্ড ও মাউস বান্ডেল!
+                        <p class="text-xs sm:text-sm text-gray-200">
+                            GeForce RTX 4070 Ti, Gen4 NVMe SSD ও লিকুইড কুলিং সহ হাই-পারফরম্যান্স রিগ।
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 inline-block shadow-lg">
+                            <p class="text-xs sm:text-sm font-bold text-cyan-300 flex items-center gap-2">
+                                <i class="fa-solid fa-keyboard text-cyan-400 text-base sm:text-lg"></i>
+                                <span>ফ্রি প্রফেশনাল অ্যাসেম্বলি + RGB মেকানিক্যাল কিবোর্ড বান্ডেল!</span>
                             </p>
                         </div>
-                        <div class="pt-2 flex items-center gap-3">
-                            <a href="{{ route('shop.index', ['category' => 'desktop']) }}" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs sm:text-sm font-black px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105">
-                                <span>PC Builder শুরু করুন</span>
+                        <div class="pt-2 flex flex-wrap items-center gap-3">
+                            <a href="{{ route('shop.index', ['category' => 'desktop']) }}" class="bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-300 hover:to-cyan-400 text-slate-950 text-xs sm:text-sm font-black px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-cyan-900/40 transition-transform hover:scale-105">
+                                <span>পিসি কনফিগার করুন</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <span class="text-[11px] text-gray-300">৩ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি</span>
+                            <span class="text-[11px] text-gray-300 font-medium">✓ ৩ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি</span>
                         </div>
                     </div>
 
                     <!-- Product Graphic Showcase (5 cols) -->
                     <div class="md:col-span-5 flex items-center justify-center relative mt-4 md:mt-0">
-                        <div class="relative w-full max-w-[340px] flex items-center justify-center">
+                        <div class="relative w-full max-w-[340px] flex items-center justify-center group">
                             <img 
                                 src="{{ asset('images/banners/gaming_pc.jpg') }}" 
                                 alt="RGB Gaming Desktop PC" 
-                                class="w-full h-44 sm:h-52 md:h-56 object-cover rounded-xl shadow-2xl border-2 border-cyan-400/40 transform rotate-1 hover:rotate-0 transition-transform duration-300"
+                                class="w-full h-48 sm:h-56 md:h-60 object-cover rounded-2xl shadow-2xl border-2 border-cyan-400/40 transform rotate-1 group-hover:rotate-0 transition-transform duration-500"
                             />
-                            <div class="absolute -top-3 -right-3 bg-starBlue text-white rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-lg font-black text-[10px] leading-tight rotate-12 border-2 border-white">
+                            <div class="absolute -top-3 -right-3 bg-gradient-to-br from-starBlue to-blue-700 text-white rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-2xl font-black text-[10px] leading-tight rotate-12 border-2 border-white">
                                 <span>INTEL</span>
-                                <span>GEN-14</span>
+                                <span>14TH</span>
                             </div>
-                            <div class="absolute -bottom-3 -left-3 bg-slate-900/95 border border-cyan-400/80 rounded-lg p-2 shadow-xl flex items-center gap-2 backdrop-blur-md">
-                                <i class="fa-solid fa-shield-halved text-cyan-400 text-lg"></i>
+                            <div class="absolute -bottom-3 -left-3 bg-slate-900/95 border border-cyan-400/80 rounded-xl p-2 shadow-2xl flex items-center gap-2 backdrop-blur-md">
+                                <i class="fa-solid fa-shield-halved text-cyan-400 text-base"></i>
                                 <span class="text-[11px] text-white font-bold">100% Genuine Components</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Ambient Glow -->
-                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-cyan-500/25 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -top-20 w-60 h-60 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
             </div>
 
-            <!-- SLIDE 3: Apple MacBook M3 Official Deal -->
+            <!-- SLIDE 3: APPLE MACBOOK PRO & AIR M3 SHOWCASE -->
             <div 
                 x-show="activeSlide === 2"
                 x-cloak
@@ -189,56 +199,60 @@
                 x-transition:leave="transition ease-in duration-300 absolute inset-0"
                 x-transition:leave-start="opacity-100 translate-x-0"
                 x-transition:leave-end="opacity-0 -translate-x-8"
-                class="w-full h-full min-h-[320px] sm:min-h-[350px] md:min-h-[380px] bg-gradient-to-r from-[#0a1816] via-[#102422] to-[#081315] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
+                class="w-full h-full min-h-[340px] sm:min-h-[380px] md:min-h-[420px] bg-gradient-to-r from-[#061816] via-[#0d2723] to-[#081514] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
             >
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center h-full z-10">
                     <!-- Text Content (7 cols) -->
                     <div class="md:col-span-7 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="inline-block bg-emerald-600 text-white text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-extrabold tracking-wider shadow">OFFICIAL APPLE FEST</span>
-                            <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
-                                <i class="fa-brands fa-apple"></i> Apple M3 Series
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-black tracking-wider shadow-md">
+                                <i class="fa-brands fa-apple text-white"></i> AUTHORIZED APPLE RESELLER
+                            </span>
+                            <span class="bg-white/10 text-emerald-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-white/10">
+                                M3 / M3 Max Chip
                             </span>
                         </div>
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">
-                            Apple <span class="text-emerald-400 font-extrabold">MacBook Pro &amp; Air M3</span><br/>
-                            অফিশিয়াল ওয়ারেন্টি ও এক্সক্লুসিভ ক্যাশব্যাক
+                            Apple <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-white font-extrabold">MacBook Pro &amp; Air M3</span>
                         </h2>
-                        <div class="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 inline-block">
-                            <p class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                                <i class="fa-solid fa-credit-card text-emerald-400 text-lg"></i>
-                                ৩৬ মাস পর্যন্ত ০% EMI ও ক্যাশ ডিসকাউন্ট!
+                        <p class="text-xs sm:text-sm text-gray-200">
+                            Liquid Retina XDR ডিসপ্লে ও অল-ডে ১৮ ঘণ্টার ব্যাটারি ব্যাকআপ।
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 inline-block shadow-lg">
+                            <p class="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-credit-card text-emerald-400 text-base sm:text-lg"></i>
+                                <span>৩৬ মাস পর্যন্ত ০% EMI সুবিধা ও স্পেশাল ক্যাশ ভাউচার!</span>
                             </p>
                         </div>
-                        <div class="pt-2 flex items-center gap-3">
-                            <a href="{{ route('shop.index', ['category' => 'laptop', 'q' => 'apple']) }}" class="bg-emerald-500 hover:bg-emerald-400 text-slate-900 text-xs sm:text-sm font-black px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105">
-                                <span>ম্যাকবুক কালেকশন দেখুন</span>
+                        <div class="pt-2 flex flex-wrap items-center gap-3">
+                            <a href="{{ route('shop.index', ['category' => 'laptop', 'q' => 'apple']) }}" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-xs sm:text-sm font-black px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-emerald-900/40 transition-transform hover:scale-105">
+                                <span>ম্যাকবুক কালেকশন</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <span class="text-[11px] text-gray-300">১ বছরের ইন্টারন্যাশনাল ওয়ারেন্টি</span>
+                            <span class="text-[11px] text-gray-300 font-medium">✓ ১ বছরের ইন্টারন্যাশনাল ওয়ারেন্টি</span>
                         </div>
                     </div>
 
                     <!-- Product Graphic Showcase (5 cols) -->
                     <div class="md:col-span-5 flex items-center justify-center relative mt-4 md:mt-0">
-                        <div class="relative w-full max-w-[340px] flex items-center justify-center">
+                        <div class="relative w-full max-w-[340px] flex items-center justify-center group">
                             <img 
                                 src="{{ asset('images/banners/macbook.jpg') }}" 
                                 alt="Apple MacBook Pro M3" 
-                                class="w-full h-44 sm:h-52 md:h-56 object-cover rounded-xl shadow-2xl border-2 border-emerald-500/40 transform -rotate-1 hover:rotate-0 transition-transform duration-300"
+                                class="w-full h-48 sm:h-56 md:h-60 object-cover rounded-2xl shadow-2xl border-2 border-emerald-500/40 transform -rotate-1 group-hover:rotate-0 transition-transform duration-500"
                             />
-                            <div class="absolute -top-3 -right-3 bg-white text-slate-900 rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-lg font-black text-[10px] leading-tight rotate-12 border-2 border-emerald-400">
+                            <div class="absolute -top-3 -right-3 bg-white text-slate-900 rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-2xl font-black text-[10px] leading-tight rotate-12 border-2 border-emerald-400">
                                 <span>M3</span>
-                                <span>CHIP</span>
+                                <span>MAX</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Ambient Glow -->
-                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/25 rounded-full blur-3xl pointer-events-none"></div>
             </div>
 
-            <!-- SLIDE 4: Curved Gaming Monitor Mega Deal -->
+            <!-- SLIDE 4: 240Hz FAST CURVED GAMING MONITOR ARENA -->
             <div 
                 x-show="activeSlide === 3"
                 x-cloak
@@ -248,45 +262,49 @@
                 x-transition:leave="transition ease-in duration-300 absolute inset-0"
                 x-transition:leave-start="opacity-100 translate-x-0"
                 x-transition:leave-end="opacity-0 -translate-x-8"
-                class="w-full h-full min-h-[320px] sm:min-h-[350px] md:min-h-[380px] bg-gradient-to-r from-[#290a13] via-[#1a0815] to-[#28080d] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
+                class="w-full h-full min-h-[340px] sm:min-h-[380px] md:min-h-[420px] bg-gradient-to-r from-[#2c0914] via-[#1a0815] to-[#250a04] p-6 sm:p-8 md:p-10 flex flex-col justify-between relative overflow-hidden"
             >
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center h-full z-10">
                     <!-- Text Content (7 cols) -->
                     <div class="md:col-span-7 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="inline-block bg-starOrange text-white text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-extrabold tracking-wider shadow">HOT DEAL 2026</span>
-                            <span class="text-xs text-amber-400 font-bold flex items-center gap-1">
-                                <i class="fa-solid fa-display"></i> 240Hz Gaming
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 text-[10px] sm:text-xs uppercase px-3 py-1 rounded-full font-black tracking-wider shadow-md">
+                                <i class="fa-solid fa-display"></i> ESPORTS ARENA
+                            </span>
+                            <span class="bg-white/10 text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-white/10">
+                                240Hz 1ms IPS / OLED
                             </span>
                         </div>
                         <h2 class="text-2xl sm:text-3xl md:text-4xl font-black leading-tight tracking-tight text-white">
-                            240Hz <span class="text-starOrange font-extrabold">Curved Gaming Monitor</span><br/>
-                            নির্বাচিত মডেলে আকর্ষণীয় ক্যাশ ডিসকাউন্ট
+                            240Hz <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-rose-400 font-extrabold">Curved Gaming Monitors</span>
                         </h2>
-                        <div class="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 inline-block">
-                            <p class="text-sm sm:text-base font-bold text-amber-300 flex items-center gap-2">
-                                <i class="fa-solid fa-tags text-starOrange text-lg"></i>
-                                আপ টু ১৫,০০০৳ ডিসকাউন্ট ও ফ্রি ডেলিভারি!
+                        <p class="text-xs sm:text-sm text-gray-200">
+                            Samsung, ASUS ROG, MSI ও Gigabyte এর সেরা গেমিং মনিটরে বিশেষ ছাড়।
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20 inline-block shadow-lg">
+                            <p class="text-xs sm:text-sm font-bold text-amber-300 flex items-center gap-2">
+                                <i class="fa-solid fa-tags text-orange-400 text-base sm:text-lg"></i>
+                                <span>আপ টু ১৫,০০০৳ ডিসকাউন্ট ও ফ্রি ডিসপ্লে পোর্ট ক্যাবল!</span>
                             </p>
                         </div>
-                        <div class="pt-2 flex items-center gap-3">
-                            <a href="{{ route('shop.index', ['category' => 'monitor']) }}" class="bg-starOrange hover:bg-starOrangeHover text-white text-xs sm:text-sm font-bold px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105">
-                                <span>মনিটর কালেকশন দেখুন</span>
+                        <div class="pt-2 flex flex-wrap items-center gap-3">
+                            <a href="{{ route('shop.index', ['category' => 'monitor']) }}" class="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-500 text-white text-xs sm:text-sm font-black px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-orange-900/40 transition-transform hover:scale-105">
+                                <span>মনিটর অফার দেখুন</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
-                            <span class="text-[11px] text-gray-300">ASUS • MSI • Gigabyte • Samsung</span>
+                            <span class="text-[11px] text-gray-300 font-medium">✓ ৩ বছরের অফিসিয়াল রিপ্লেসমেন্ট ওয়ারেন্টি</span>
                         </div>
                     </div>
 
                     <!-- Product Graphic Showcase (5 cols) -->
                     <div class="md:col-span-5 flex items-center justify-center relative mt-4 md:mt-0">
-                        <div class="relative w-full max-w-[340px] flex items-center justify-center">
+                        <div class="relative w-full max-w-[340px] flex items-center justify-center group">
                             <img 
                                 src="{{ asset('images/banners/gaming_monitor.jpg') }}" 
                                 alt="Curved Gaming Monitor" 
-                                class="w-full h-44 sm:h-52 md:h-56 object-cover rounded-xl shadow-2xl border-2 border-starOrange/40 transform rotate-1 hover:rotate-0 transition-transform duration-300"
+                                class="w-full h-48 sm:h-56 md:h-60 object-cover rounded-2xl shadow-2xl border-2 border-orange-500/40 transform rotate-1 group-hover:rotate-0 transition-transform duration-500"
                             />
-                            <div class="absolute -top-3 -right-3 bg-starOrange text-white rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-lg font-black text-[10px] leading-tight rotate-12 border-2 border-white">
+                            <div class="absolute -top-3 -right-3 bg-gradient-to-tr from-amber-500 to-red-600 text-white rounded-full w-14 h-14 flex flex-col items-center justify-center shadow-2xl font-black text-[10px] leading-tight rotate-12 border-2 border-white">
                                 <span>240Hz</span>
                                 <span>1ms</span>
                             </div>
@@ -294,14 +312,14 @@
                     </div>
                 </div>
                 <!-- Ambient Glow -->
-                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-starOrange/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-orange-600/25 rounded-full blur-3xl pointer-events-none"></div>
             </div>
 
             <!-- Slider Controls: Previous & Next Arrows -->
             <button 
                 type="button"
                 @click="prevSlide()" 
-                class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-sm transition border border-white/10 shadow-lg z-20 cursor-pointer focus:outline-none"
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/20 shadow-xl z-20 cursor-pointer focus:outline-none"
                 aria-label="Previous Slide"
             >
                 <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -309,20 +327,20 @@
             <button 
                 type="button"
                 @click="nextSlide()" 
-                class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/40 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-sm transition border border-white/10 shadow-lg z-20 cursor-pointer focus:outline-none"
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 hover:bg-starOrange text-white flex items-center justify-center backdrop-blur-md transition-all border border-white/20 shadow-xl z-20 cursor-pointer focus:outline-none"
                 aria-label="Next Slide"
             >
                 <i class="fa-solid fa-chevron-right text-sm"></i>
             </button>
 
             <!-- Slider Navigation Dots Indicator -->
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 shadow-lg">
                 <template x-for="i in slidesCount" :key="i">
                     <button 
                         type="button"
                         @click="activeSlide = i - 1" 
                         class="h-2 rounded-full transition-all duration-300 cursor-pointer"
-                        :class="activeSlide === (i - 1) ? 'w-6 bg-starOrange' : 'w-2 bg-white/50 hover:bg-white'"
+                        :class="activeSlide === (i - 1) ? 'w-7 bg-starOrange shadow-sm' : 'w-2 bg-white/50 hover:bg-white'"
                         :aria-label="'Go to slide ' + i"
                     ></button>
                 </template>
@@ -330,111 +348,125 @@
 
         </div>
 
-        <!-- Right Column Dual Teasers (Col Span 1) -->
+        <!-- Right Column Dual Side Banners (Col Span 1 - TechLand BD Signature Style) -->
         <div class="flex flex-col gap-4">
             
-            <!-- Teaser 1: Custom PC Builder -->
+            <!-- Side Banner 1: Custom PC Builder -->
             <a 
                 href="{{ route('shop.index', ['category' => 'desktop']) }}" 
-                class="bg-gradient-to-br from-[#0c2e4e] via-[#08233d] to-[#041525] text-white p-5 rounded-xl flex flex-col justify-between flex-1 border border-sky-900/50 shadow-sm relative overflow-hidden group hover:border-starBlue transition-all"
+                class="bg-gradient-to-br from-[#0c2e4e] via-[#08233d] to-[#041525] text-white p-5 rounded-2xl flex flex-col justify-between flex-1 border border-sky-500/30 shadow-lg relative overflow-hidden group hover:border-cyan-400 transition-all duration-300"
             >
                 <div class="z-10">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] bg-cyan-500/20 text-cyan-300 font-bold px-2 py-0.5 rounded uppercase border border-cyan-500/30">Interactive Tool</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-[10px] bg-cyan-500/20 text-cyan-300 font-extrabold px-2.5 py-0.5 rounded-full uppercase border border-cyan-500/30 tracking-wider">
+                            Interactive Tool
+                        </span>
+                        <span class="flex items-center gap-1 text-[10px] text-cyan-300 font-bold">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> LIVE
+                        </span>
                     </div>
-                    <h3 class="text-xl font-black mt-2 text-white group-hover:text-cyan-300 transition-colors">
-                        PC Builder
+                    <h3 class="text-xl font-black mt-2.5 text-white group-hover:text-cyan-300 transition-colors">
+                        Custom PC Builder
                     </h3>
                     <p class="text-xs text-gray-300 mt-1 leading-relaxed">
-                        পছন্দের প্রসেসর, র‍্যাম ও জিপিইউ দিয়ে তৈরি করুন কাস্টম রিগ।
+                        পছন্দের প্রসেসর, র‍্যাম ও জিপিইউ সিলেক্ট করে নিমেষেই তৈরি করুন আপনার পিসি।
                     </p>
+                    <div class="flex flex-wrap gap-1.5 mt-2.5">
+                        <span class="text-[10px] bg-white/10 text-cyan-200 px-2 py-0.5 rounded-md">✓ ফ্রি অ্যাসেম্বলি</span>
+                        <span class="text-[10px] bg-white/10 text-cyan-200 px-2 py-0.5 rounded-md">✓ ৩ বছর ওয়ারেন্টি</span>
+                    </div>
                 </div>
                 <div class="mt-4 z-10">
-                    <span class="inline-flex items-center gap-2 bg-cyan-500 group-hover:bg-cyan-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-full transition shadow">
-                        <span>পিসি বিল্ড করুন</span>
+                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-cyan-500 group-hover:from-cyan-300 group-hover:to-cyan-400 text-slate-950 text-xs font-black px-4 py-2 rounded-full transition shadow-md">
+                        <span>পিসি বিল্ড শুরু করুন</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </span>
                 </div>
                 <i class="fa-solid fa-microchip absolute -right-3 -bottom-3 text-7xl text-cyan-400/10 group-hover:scale-110 transition-transform"></i>
             </a>
 
-            <!-- Teaser 2: Store Locator & Warranty Support -->
+            <!-- Side Banner 2: TechLand Mega Deals & Night Offers -->
             <a 
                 href="{{ route('shop.index') }}" 
-                class="bg-gradient-to-br from-[#bf2e1b] via-[#991b1b] to-[#7f1d1d] text-white p-5 rounded-xl flex flex-col justify-between flex-1 border border-red-800/50 shadow-sm relative overflow-hidden group hover:border-starOrange transition-all"
+                class="bg-gradient-to-br from-[#c82333] via-[#9e1525] to-[#6f0d1a] text-white p-5 rounded-2xl flex flex-col justify-between flex-1 border border-red-500/30 shadow-lg relative overflow-hidden group hover:border-amber-400 transition-all duration-300"
             >
                 <div class="z-10">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] bg-white/20 text-white font-bold px-2 py-0.5 rounded uppercase">20+ Outlets</span>
-                        <i class="fa-solid fa-store text-amber-300 text-xs"></i>
+                        <span class="text-[10px] bg-amber-400/20 text-amber-300 font-extrabold px-2.5 py-0.5 rounded-full uppercase border border-amber-400/30 tracking-wider">
+                            Special Deals
+                        </span>
+                        <i class="fa-solid fa-fire text-amber-400 text-xs animate-bounce"></i>
                     </div>
-                    <h3 class="text-xl font-black mt-2 leading-tight group-hover:text-amber-300 transition-colors">
-                        Store Locator &amp;<br/>Official Warranty
+                    <h3 class="text-xl font-black mt-2.5 leading-tight group-hover:text-amber-300 transition-colors">
+                        TechLand Mega Offers
                     </h3>
                     <p class="text-xs text-gray-200 mt-1 leading-relaxed">
-                        সারাদেশে ফাস্ট হোম ডেলিভারি ও ১০০% জেনুইন টেক পণ্য।
+                        ল্যাপটপ, মনিটর ও অ্যাক্সেসরিজে ধামাকা ডিসকাউন্ট ও নিশ্চিত গিফট!
                     </p>
+                    <div class="flex flex-wrap gap-1.5 mt-2.5">
+                        <span class="text-[10px] bg-white/10 text-amber-200 px-2 py-0.5 rounded-md">✓ ০% EMI</span>
+                        <span class="text-[10px] bg-white/10 text-amber-200 px-2 py-0.5 rounded-md">✓ ক্যাশ ভাউচার</span>
+                    </div>
                 </div>
                 <div class="mt-4 z-10">
-                    <span class="inline-flex items-center gap-2 bg-amber-400 group-hover:bg-amber-300 text-slate-950 text-xs font-bold px-4 py-2 rounded-full transition shadow">
-                        <span>আউটলেট দেখুন</span>
+                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 group-hover:from-amber-300 group-hover:to-amber-400 text-slate-950 text-xs font-black px-4 py-2 rounded-full transition shadow-md">
+                        <span>অফার দেখুন</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </span>
                 </div>
-                <i class="fa-solid fa-shield-check absolute -right-3 -bottom-3 text-7xl text-white/10 group-hover:scale-110 transition-transform"></i>
+                <i class="fa-solid fa-gift absolute -right-3 -bottom-3 text-7xl text-white/10 group-hover:scale-110 transition-transform"></i>
             </a>
 
         </div>
     </section>
 
     <!-- =========================================================================
-         3. QUICK FEATURE TOOLS (4 CARDS)
+         3. 4-PILLAR SERVICE / TRUST BAR (TECHLAND BD SIGNATURE STYLE)
          ========================================================================= -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-3.5" data-purpose="quick-tools">
-        <!-- Laptop Finder -->
-        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index', ['category' => 'laptop']) }}">
-            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
-                <i class="fa-solid fa-laptop"></i>
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" data-purpose="service-pillars">
+        <!-- 1. Express Delivery -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+            <div class="w-12 h-12 rounded-xl bg-red-50 text-starOrange flex items-center justify-center text-xl shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
+                <i class="fa-solid fa-truck-fast"></i>
             </div>
             <div>
-                <h4 class="font-bold text-xs md:text-sm text-slate-800">Laptop Finder</h4>
-                <p class="text-[11px] text-gray-500">Find Your Laptop Easily</p>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-starOrange transition-colors">Fast Home Delivery</h4>
+                <p class="text-[11px] text-gray-500">Dhaka in 2-4 Hours &amp; Nationwide</p>
             </div>
-        </a>
+        </div>
 
-        <!-- Raise a Complain -->
-        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index') }}">
-            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
-                <i class="fa-regular fa-comment-dots"></i>
+        <!-- 2. 100% Genuine -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 text-starBlue flex items-center justify-center text-xl shrink-0 group-hover:bg-starBlue group-hover:text-white transition-colors">
+                <i class="fa-solid fa-shield-check"></i>
             </div>
             <div>
-                <h4 class="font-bold text-xs md:text-sm text-slate-800">Raise a Complain</h4>
-                <p class="text-[11px] text-gray-500">Share your experience</p>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-starBlue transition-colors">100% Genuine Tech</h4>
+                <p class="text-[11px] text-gray-500">Official Brand Warranty</p>
             </div>
-        </a>
+        </div>
 
-        <!-- AC Ton Calculator -->
-        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index', ['category' => 'appliance']) }}">
-            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
-                <i class="fa-solid fa-snowflake"></i>
+        <!-- 3. 0% EMI Facility -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                <i class="fa-solid fa-credit-card"></i>
             </div>
             <div>
-                <h4 class="font-bold text-xs md:text-sm text-slate-800">AC Ton Calculator</h4>
-                <p class="text-[11px] text-gray-500">Find Perfect AC</p>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-emerald-600 transition-colors">0% EMI Facility</h4>
+                <p class="text-[11px] text-gray-500">Up to 36 Months with 20+ Banks</p>
             </div>
-        </a>
+        </div>
 
-        <!-- Servicing Center -->
-        <a class="bg-white p-3.5 rounded-lg shadow-sm hover:shadow transition-shadow flex items-center gap-3.5 border border-slate-100 group" href="{{ route('shop.index') }}">
-            <div class="w-11 h-11 rounded-full bg-red-100 text-starOrange flex items-center justify-center text-lg shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
+        <!-- 4. Expert Care & Service -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                <i class="fa-solid fa-headset"></i>
             </div>
             <div>
-                <h4 class="font-bold text-xs md:text-sm text-slate-800">Servicing Center</h4>
-                <p class="text-[11px] text-gray-500">Repair Your Device</p>
+                <h4 class="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-amber-600 transition-colors">24/7 Expert Support</h4>
+                <p class="text-[11px] text-gray-500">Helpline: 16793 &amp; Live Chat</p>
             </div>
-        </a>
+        </div>
     </section>
 
     <!-- =========================================================================
@@ -578,7 +610,82 @@
     </section>
 
     <!-- =========================================================================
-         5. PHYSICAL STORES BANNER
+         5. MID-PAGE PROMOTIONAL CAMPAIGN BANNERS (TECHLAND BD SIGNATURE DUAL GRID)
+         ========================================================================= -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4" data-purpose="mid-campaign-banners">
+        <!-- Mid Banner 1: Pro Gaming Gear Hub -->
+        <a 
+            href="{{ route('shop.index', ['category' => 'accessories']) }}" 
+            class="bg-gradient-to-r from-[#18092d] via-[#260e3d] to-[#120724] rounded-2xl p-6 sm:p-7 text-white border border-purple-900/40 shadow-xl relative overflow-hidden group hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between min-h-[220px]"
+        >
+            <div class="grid grid-cols-12 gap-3 items-center z-10">
+                <div class="col-span-7 sm:col-span-8 space-y-2">
+                    <span class="inline-flex items-center gap-1.5 bg-purple-600/30 text-purple-300 text-[10px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase border border-purple-500/40 tracking-wider">
+                        <i class="fa-solid fa-gamepad text-purple-300"></i> RGB GAMING HUB
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-purple-300 transition-colors leading-tight">
+                        Pro Gaming Gear &amp; Peripherals
+                    </h3>
+                    <p class="text-xs text-purple-100/80 line-clamp-2">
+                        মেকানিক্যাল কিবোর্ড, ওয়্যারলেস মাউস, ৭.১ হেডসেট ও গেমিং এক্সেসরিজ।
+                    </p>
+                    <div class="pt-2">
+                        <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:from-purple-400 group-hover:to-pink-400 text-white text-xs font-black px-4 py-2 rounded-full transition shadow-md">
+                            <span>Explore Gear</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-span-5 sm:col-span-4 flex justify-end">
+                    <img 
+                        src="{{ asset('images/banners/gaming_gear.jpg') }}" 
+                        alt="Gaming Gear" 
+                        class="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-xl shadow-2xl border-2 border-purple-500/40 group-hover:scale-105 group-hover:rotate-1 transition-transform duration-500"
+                    />
+                </div>
+            </div>
+            <!-- Glow Effect -->
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-600/20 rounded-full blur-2xl pointer-events-none"></div>
+        </a>
+
+        <!-- Mid Banner 2: Supercharge Components & SSD Upgrade -->
+        <a 
+            href="{{ route('shop.index', ['category' => 'desktop']) }}" 
+            class="bg-gradient-to-r from-[#031d30] via-[#072c4c] to-[#041624] rounded-2xl p-6 sm:p-7 text-white border border-cyan-900/40 shadow-xl relative overflow-hidden group hover:border-cyan-500/60 transition-all duration-300 flex flex-col justify-between min-h-[220px]"
+        >
+            <div class="grid grid-cols-12 gap-3 items-center z-10">
+                <div class="col-span-7 sm:col-span-8 space-y-2">
+                    <span class="inline-flex items-center gap-1.5 bg-cyan-600/30 text-cyan-300 text-[10px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase border border-cyan-500/40 tracking-wider">
+                        <i class="fa-solid fa-bolt text-cyan-300"></i> HIGH SPEED UPGRADE
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-cyan-300 transition-colors leading-tight">
+                        NVMe SSD &amp; DDR5 Memory
+                    </h3>
+                    <p class="text-xs text-cyan-100/80 line-clamp-2">
+                        Gen4 আল্ট্রা-ফাস্ট M.2 এসএসডি, হাই-স্পিড র‍্যাম ও কুলিং সলিউশন।
+                    </p>
+                    <div class="pt-2">
+                        <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:from-cyan-300 group-hover:to-blue-400 text-slate-950 text-xs font-black px-4 py-2 rounded-full transition shadow-md">
+                            <span>Upgrade Rig</span>
+                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-span-5 sm:col-span-4 flex justify-end">
+                    <img 
+                        src="{{ asset('images/banners/components.jpg') }}" 
+                        alt="PC Components" 
+                        class="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-xl shadow-2xl border-2 border-cyan-500/40 group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-500"
+                    />
+                </div>
+            </div>
+            <!-- Glow Effect -->
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-cyan-600/20 rounded-full blur-2xl pointer-events-none"></div>
+        </a>
+    </section>
+
+    <!-- =========================================================================
+         6. PHYSICAL STORES BANNER
          ========================================================================= -->
     <section class="bg-gradient-to-r from-[#0088cc] via-[#0297df] to-[#04689b] rounded-lg p-5 md:p-6 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-4">
