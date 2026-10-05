@@ -152,7 +152,32 @@
         </div>
 
         <!-- Product Grid Area -->
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-3 space-y-5">
+            
+            <!-- Top Catalog Showcase Banner -->
+            <div class="rounded-2xl overflow-hidden shadow-md border border-slate-800/80 relative aspect-[16/7] sm:aspect-[16/6] md:aspect-[16/5] bg-slate-950 group">
+                <img 
+                    src="{{ asset('images/banners/banner_shop_catalog.jpg') }}" 
+                    alt="SM Shop Showroom & Official Warranty" 
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex items-end p-4 sm:p-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-2">
+                        <div>
+                            <span class="inline-flex items-center gap-1.5 bg-starOrange text-white text-[10px] sm:text-xs font-black uppercase px-2.5 py-0.5 rounded-full shadow">
+                                <i class="fa-solid fa-bolt"></i> SPECIAL CATALOG PROMO
+                            </span>
+                            <h2 class="text-sm sm:text-base md:text-lg font-extrabold text-white mt-1">
+                                100% Genuine IT Products with Official Brand Warranty
+                            </h2>
+                        </div>
+                        <span class="text-xs text-amber-300 font-bold hidden sm:inline-flex items-center gap-1 shrink-0">
+                            <i class="fa-solid fa-truck-fast"></i> Fast Delivery Nationwide
+                        </span>
+                    </div>
+                </div>
+            </div>
+
             @if($products->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     @foreach($products as $product)

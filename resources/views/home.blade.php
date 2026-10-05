@@ -22,7 +22,7 @@
         data-purpose="hero-promotions"
         x-data="{
             activeSlide: 0,
-            slidesCount: 5,
+            slidesCount: 6,
             timer: null,
             init() {
                 this.startTimer();
@@ -67,10 +67,30 @@
                 />
             </a>
 
-            <!-- SLIDE 2: CUSTOM PC BUILD OFFER (INTEL & RYZEN RIGS) -->
+            <!-- SLIDE 2: SM MEGA DEALS (UP TO 50% OFF) -->
+            <a 
+                href="{{ route('shop.index') }}"
+                x-show="activeSlide === 1"
+                x-cloak
+                x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="opacity-0 translate-x-8 scale-98"
+                x-transition:enter-end="opacity-100 translate-x-0 scale-100"
+                x-transition:leave="transition ease-in duration-300 absolute inset-0"
+                x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                x-transition:leave-end="opacity-0 -translate-x-8 scale-98"
+                class="w-full h-full block relative overflow-hidden group cursor-pointer"
+            >
+                <img 
+                    src="{{ asset('images/banners/banner_sm_mega_deals.jpg') }}" 
+                    alt="SM Mega Deals - Special Discounts" 
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+            </a>
+
+            <!-- SLIDE 3: CUSTOM PC BUILD OFFER (INTEL & RYZEN RIGS) -->
             <a 
                 href="{{ route('shop.index', ['category' => 'desktop']) }}"
-                x-show="activeSlide === 1"
+                x-show="activeSlide === 2"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-x-8 scale-98"
@@ -87,10 +107,10 @@
                 />
             </a>
 
-            <!-- SLIDE 3: OFFICIAL LAPTOPS & WORKSTATIONS MEGA DISCOUNT -->
+            <!-- SLIDE 4: OFFICIAL LAPTOPS & WORKSTATIONS MEGA DISCOUNT -->
             <a 
                 href="{{ route('shop.index', ['category' => 'laptop']) }}"
-                x-show="activeSlide === 2"
+                x-show="activeSlide === 3"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-x-8 scale-98"
@@ -107,10 +127,10 @@
                 />
             </a>
 
-            <!-- SLIDE 4: MONITOR MANIA (CURVED, 4K & ESPORTS DISPLAYS) -->
+            <!-- SLIDE 5: MONITOR MANIA (CURVED, 4K & ESPORTS DISPLAYS) -->
             <a 
                 href="{{ route('shop.index', ['category' => 'monitor']) }}"
-                x-show="activeSlide === 3"
+                x-show="activeSlide === 4"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-x-8 scale-98"
@@ -127,10 +147,10 @@
                 />
             </a>
 
-            <!-- SLIDE 5: GAMING FEST (25% CASHBACK & RGB ACCESSORIES) -->
+            <!-- SLIDE 6: GAMING FEST (25% CASHBACK & RGB ACCESSORIES) -->
             <a 
                 href="{{ route('shop.index', ['category' => 'accessories']) }}"
-                x-show="activeSlide === 4"
+                x-show="activeSlide === 5"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-x-8 scale-98"
@@ -186,67 +206,25 @@
             <!-- Side Banner 1: Custom PC Builder -->
             <a 
                 href="{{ route('shop.index', ['category' => 'desktop']) }}" 
-                class="bg-gradient-to-br from-[#0c2e4e] via-[#08233d] to-[#041525] text-white p-5 rounded-2xl flex flex-col justify-between flex-1 border border-sky-500/30 shadow-lg relative overflow-hidden group hover:border-cyan-400 transition-all duration-300"
+                class="rounded-2xl overflow-hidden shadow-lg border border-slate-800/60 relative group hover:border-cyan-400 transition-all duration-300 block flex-1"
             >
-                <div class="z-10">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] bg-cyan-500/20 text-cyan-300 font-extrabold px-2.5 py-0.5 rounded-full uppercase border border-cyan-500/30 tracking-wider">
-                            Interactive Tool
-                        </span>
-                        <span class="flex items-center gap-1 text-[10px] text-cyan-300 font-bold">
-                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> LIVE
-                        </span>
-                    </div>
-                    <h3 class="text-xl font-black mt-2.5 text-white group-hover:text-cyan-300 transition-colors">
-                        Custom PC Builder
-                    </h3>
-                    <p class="text-xs text-gray-300 mt-1 leading-relaxed">
-                        পছন্দের প্রসেসর, র‍্যাম ও জিপিইউ সিলেক্ট করে নিমেষেই তৈরি করুন আপনার পিসি।
-                    </p>
-                    <div class="flex flex-wrap gap-1.5 mt-2.5">
-                        <span class="text-[10px] bg-white/10 text-cyan-200 px-2 py-0.5 rounded-md">✓ ফ্রি অ্যাসেম্বলি</span>
-                        <span class="text-[10px] bg-white/10 text-cyan-200 px-2 py-0.5 rounded-md">✓ ৩ বছর ওয়ারেন্টি</span>
-                    </div>
-                </div>
-                <div class="mt-4 z-10">
-                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-cyan-500 group-hover:from-cyan-300 group-hover:to-cyan-400 text-slate-950 text-xs font-black px-4 py-2 rounded-full transition shadow-md">
-                        <span>পিসি বিল্ড শুরু করুন</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
-                </div>
-                <i class="fa-solid fa-microchip absolute -right-3 -bottom-3 text-7xl text-cyan-400/10 group-hover:scale-110 transition-transform"></i>
+                <img 
+                    src="{{ asset('images/banners/banner_side_pc_build.jpg') }}" 
+                    alt="SM Shop Custom PC Builder" 
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
             </a>
 
-            <!-- Side Banner 2: TechLand Mega Deals & Night Offers -->
+            <!-- Side Banner 2: Smart Gadgets & Audio Hub -->
             <a 
-                href="{{ route('shop.index') }}" 
-                class="bg-gradient-to-br from-[#c82333] via-[#9e1525] to-[#6f0d1a] text-white p-5 rounded-2xl flex flex-col justify-between flex-1 border border-red-500/30 shadow-lg relative overflow-hidden group hover:border-amber-400 transition-all duration-300"
+                href="{{ route('shop.index', ['category' => 'accessories']) }}" 
+                class="rounded-2xl overflow-hidden shadow-lg border border-slate-800/60 relative group hover:border-purple-400 transition-all duration-300 block flex-1"
             >
-                <div class="z-10">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] bg-amber-400/20 text-amber-300 font-extrabold px-2.5 py-0.5 rounded-full uppercase border border-amber-400/30 tracking-wider">
-                            Special Deals
-                        </span>
-                        <i class="fa-solid fa-fire text-amber-400 text-xs animate-bounce"></i>
-                    </div>
-                    <h3 class="text-xl font-black mt-2.5 leading-tight group-hover:text-amber-300 transition-colors">
-                        TechLand Mega Offers
-                    </h3>
-                    <p class="text-xs text-gray-200 mt-1 leading-relaxed">
-                        ল্যাপটপ, মনিটর ও অ্যাক্সেসরিজে ধামাকা ডিসকাউন্ট ও নিশ্চিত গিফট!
-                    </p>
-                    <div class="flex flex-wrap gap-1.5 mt-2.5">
-                        <span class="text-[10px] bg-white/10 text-amber-200 px-2 py-0.5 rounded-md">✓ ০% EMI</span>
-                        <span class="text-[10px] bg-white/10 text-amber-200 px-2 py-0.5 rounded-md">✓ ক্যাশ ভাউচার</span>
-                    </div>
-                </div>
-                <div class="mt-4 z-10">
-                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 group-hover:from-amber-300 group-hover:to-amber-400 text-slate-950 text-xs font-black px-4 py-2 rounded-full transition shadow-md">
-                        <span>অফার দেখুন</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </span>
-                </div>
-                <i class="fa-solid fa-gift absolute -right-3 -bottom-3 text-7xl text-white/10 group-hover:scale-110 transition-transform"></i>
+                <img 
+                    src="{{ asset('images/banners/banner_smart_gadgets.jpg') }}" 
+                    alt="SM Shop Smart Gadgets Hub" 
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
             </a>
 
         </div>
