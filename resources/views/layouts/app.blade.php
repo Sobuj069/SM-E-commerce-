@@ -434,7 +434,7 @@
     <!-- =========================================================================
          STAR TECH OFFICIAL FOOTER
          ========================================================================= -->
-    <footer class="bg-starNavy text-white mt-12 pt-12 pb-6 border-t border-slate-800" data-purpose="site-footer">
+    <footer class="bg-starNavy text-white mt-12 pt-12 pb-8 border-t border-slate-800" data-purpose="site-footer">
         <div class="max-w-[1320px] mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
             
             <!-- Column 1: Brand Info, Support Hotline & Store Locator -->
@@ -554,33 +554,26 @@
                 </div>
 
                 <!-- Right Side: 6 Essential Payment Logos (MFS & Cards) -->
-                <div class="flex items-center flex-wrap justify-center gap-2">
+                <div class="flex items-center flex-wrap justify-center md:justify-end gap-2 shrink-0">
                     <span class="text-[11px] text-gray-400 font-medium mr-1 hidden sm:inline">We Accept:</span>
                     
                     <!-- bKash -->
-                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="bKash">
-                        <img src="{{ asset('images/payments/bkash_card.svg') }}" alt="bKash" class="h-4.5 w-auto object-contain">
-                    </div>
+                    <img src="{{ asset('images/payments/bkash_card.svg') }}" alt="bKash" class="h-6 sm:h-7 w-auto object-contain shrink-0 rounded shadow-xs hover:scale-105 transition-transform" style="height: 26px; width: auto;">
+                    
                     <!-- Nagad -->
-                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Nagad">
-                        <img src="{{ asset('images/payments/nagad.svg') }}" alt="Nagad" class="h-4.5 w-auto object-contain">
-                    </div>
+                    <img src="{{ asset('images/payments/nagad.svg') }}" alt="Nagad" class="h-6 sm:h-7 w-auto object-contain shrink-0 shadow-xs rounded hover:scale-105 transition-transform" style="height: 26px; width: auto;">
+                    
                     <!-- Rocket -->
-                    <div class="h-7 px-2 bg-[#8C3494] rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Rocket">
-                        <img src="{{ asset('images/payments/rocket.svg') }}" alt="Rocket" class="h-4.5 w-auto object-contain">
-                    </div>
+                    <img src="{{ asset('images/payments/rocket.svg') }}" alt="Rocket" class="h-6 sm:h-7 w-auto object-contain shrink-0 shadow-xs rounded hover:scale-105 transition-transform" style="height: 26px; width: auto;">
+                    
                     <!-- Visa -->
-                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Visa">
-                        <img src="{{ asset('images/payments/visa_card.svg') }}" alt="Visa" class="h-4.5 w-auto object-contain">
-                    </div>
+                    <img src="{{ asset('images/payments/visa_card.svg') }}" alt="Visa" class="h-6 sm:h-7 w-auto object-contain shrink-0 shadow-xs rounded hover:scale-105 transition-transform" style="height: 26px; width: auto;">
+                    
                     <!-- Mastercard -->
-                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Mastercard">
-                        <img src="{{ asset('images/payments/mastercard_card.svg') }}" alt="Mastercard" class="h-4.5 w-auto object-contain">
-                    </div>
+                    <img src="{{ asset('images/payments/mastercard_card.svg') }}" alt="Mastercard" class="h-6 sm:h-7 w-auto object-contain shrink-0 shadow-xs rounded hover:scale-105 transition-transform" style="height: 26px; width: auto;">
+                    
                     <!-- Amex -->
-                    <div class="h-7 px-2 bg-[#002663] rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="American Express">
-                        <img src="{{ asset('images/payments/amex_card.svg') }}" alt="Amex" class="h-4.5 w-auto object-contain">
-                    </div>
+                    <img src="{{ asset('images/payments/amex_card.svg') }}" alt="American Express" class="h-6 sm:h-7 w-auto object-contain shrink-0 shadow-xs rounded hover:scale-105 transition-transform" style="height: 26px; width: auto;">
                 </div>
 
             </div>
