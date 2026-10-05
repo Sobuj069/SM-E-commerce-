@@ -542,110 +542,47 @@
 
         </div>
 
-        <!-- =====================================================================
-             PAYMENT METHODS & BANKING PARTNERS SECTION
-             ===================================================================== -->
-        <div class="border-t border-slate-800/80 pt-8 pb-4 mb-6">
-            <div class="max-w-[1320px] mx-auto px-4">
+        <!-- Sub Footer: Copyright on Left, 6 Essential Payment Logos on Right -->
+        <div class="border-t border-slate-800/80 pt-6 mt-4">
+            <div class="max-w-[1320px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
                 
-                <!-- Section Header & Title -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
-                    <div>
-                        <h4 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                            <i class="fa-solid fa-credit-card text-starOrange"></i>
-                            Accepted Payment Methods &amp; Banking Partners
-                        </h4>
-                        <p class="text-xs text-gray-400 mt-0.5">Pay conveniently with Mobile Banking (MFS), Debit/Credit Cards &amp; Internet Banking with 0% EMI.</p>
-                    </div>
-                    <div class="flex items-center gap-3 text-xs text-gray-300">
-                        <span class="flex items-center gap-1.5 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
-                            <i class="fa-solid fa-lock text-emerald-400"></i> 256-Bit SSL Secured
-                        </span>
-                        <span class="flex items-center gap-1.5 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
-                            <i class="fa-solid fa-percent text-starOrange"></i> 0% EMI Facility
-                        </span>
-                    </div>
+                <!-- Left Side: Copyright & Powered By -->
+                <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-[12px] text-gray-400">
+                    <p>© {{ date('Y') }} SM Shop Ltd | All rights reserved</p>
+                    <span class="hidden sm:inline text-gray-600">|</span>
+                    <p>Powered By: <span class="text-gray-200 font-semibold">SM Cloud IT</span></p>
                 </div>
 
-                <!-- Individual Crisp Payment Badges (MFS & Banks) -->
-                <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <!-- Right Side: 6 Essential Payment Logos (MFS & Cards) -->
+                <div class="flex items-center flex-wrap justify-center gap-2">
+                    <span class="text-[11px] text-gray-400 font-medium mr-1 hidden sm:inline">We Accept:</span>
                     
-                    <!-- MFS Badges -->
-                    <div class="h-9 px-3 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="bKash (বিকাশ)">
-                        <img src="{{ asset('images/payments/bkash_card.svg') }}" alt="bKash" class="h-6 w-auto object-contain">
+                    <!-- bKash -->
+                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="bKash">
+                        <img src="{{ asset('images/payments/bkash_card.svg') }}" alt="bKash" class="h-4.5 w-auto object-contain">
                     </div>
-                    <div class="h-9 px-3 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Nagad (নগদ)">
-                        <img src="{{ asset('images/payments/nagad.svg') }}" alt="Nagad" class="h-6 w-auto object-contain">
+                    <!-- Nagad -->
+                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Nagad">
+                        <img src="{{ asset('images/payments/nagad.svg') }}" alt="Nagad" class="h-4.5 w-auto object-contain">
                     </div>
-                    <div class="h-9 px-3 bg-[#8C3494] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Rocket (রকেট)">
-                        <img src="{{ asset('images/payments/rocket.svg') }}" alt="Rocket" class="h-6 w-auto object-contain">
+                    <!-- Rocket -->
+                    <div class="h-7 px-2 bg-[#8C3494] rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Rocket">
+                        <img src="{{ asset('images/payments/rocket.svg') }}" alt="Rocket" class="h-4.5 w-auto object-contain">
                     </div>
-                    <div class="h-9 px-3 bg-[#0D47A1] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Upay (উপায়)">
-                        <img src="{{ asset('images/payments/upay.svg') }}" alt="Upay" class="h-6 w-auto object-contain">
+                    <!-- Visa -->
+                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Visa">
+                        <img src="{{ asset('images/payments/visa_card.svg') }}" alt="Visa" class="h-4.5 w-auto object-contain">
                     </div>
-                    <div class="h-9 px-3 bg-[#1B5E20] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="CellFin (সেলফিন)">
-                        <img src="{{ asset('images/payments/cellfin.svg') }}" alt="CellFin" class="h-6 w-auto object-contain">
+                    <!-- Mastercard -->
+                    <div class="h-7 px-2 bg-white rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="Mastercard">
+                        <img src="{{ asset('images/payments/mastercard_card.svg') }}" alt="Mastercard" class="h-4.5 w-auto object-contain">
                     </div>
-
-                    <!-- Card Schemes -->
-                    <div class="h-9 px-3 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Visa Card">
-                        <img src="{{ asset('images/payments/visa_card.svg') }}" alt="Visa" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-white rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Mastercard">
-                        <img src="{{ asset('images/payments/mastercard_card.svg') }}" alt="Mastercard" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#002663] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="American Express">
-                        <img src="{{ asset('images/payments/amex_card.svg') }}" alt="American Express" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#004D40] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="DBBL Nexus Card">
-                        <img src="{{ asset('images/payments/nexus.svg') }}" alt="DBBL Nexus" class="h-6 w-auto object-contain">
-                    </div>
-
-                    <!-- Partner Banks & Facilities -->
-                    <div class="h-9 px-3 bg-[#C62828] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="City Bank / City Touch">
-                        <img src="{{ asset('images/payments/citybank.svg') }}" alt="City Bank" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#003366] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="BRAC Bank / Astha">
-                        <img src="{{ asset('images/payments/bracbank.svg') }}" alt="BRAC Bank" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#00695C] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Islami Bank Bangladesh">
-                        <img src="{{ asset('images/payments/islamibank.svg') }}" alt="Islami Bank" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#1565C0] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Eastern Bank Ltd (EBL)">
-                        <img src="{{ asset('images/payments/ebl.svg') }}" alt="EBL" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#2E7D32] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Cash on Delivery Available">
-                        <img src="{{ asset('images/payments/cod.svg') }}" alt="Cash on Delivery" class="h-6 w-auto object-contain">
-                    </div>
-                    <div class="h-9 px-3 bg-[#E65100] rounded-md flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="0% EMI Facility">
-                        <img src="{{ asset('images/payments/emi.svg') }}" alt="0% EMI" class="h-6 w-auto object-contain">
-                    </div>
-
-                </div>
-
-                <!-- Verified SSLCommerz Gateway Strip -->
-                <div class="mt-6 pt-4 border-t border-slate-800/60 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center gap-2.5 text-xs text-gray-400">
-                        <i class="fa-solid fa-shield-check text-emerald-400 text-sm"></i>
-                        <span>Guaranteed Safe &amp; Secure Checkout via SSLCommerz Gateway</span>
-                    </div>
-                    <div class="bg-white rounded-md p-1 shadow-sm max-w-full overflow-hidden hover:opacity-95 transition">
-                        <img 
-                            src="{{ asset('images/payments/payment_methods_banner.png') }}" 
-                            alt="Accepted Payment Methods: bKash, Nagad, Rocket, Upay, Visa, Mastercard, Amex, DBBL Nexus, City Bank, Brac Bank" 
-                            class="h-7 sm:h-8 w-auto object-contain max-w-full"
-                        />
+                    <!-- Amex -->
+                    <div class="h-7 px-2 bg-[#002663] rounded flex items-center justify-center shadow-xs hover:scale-105 transition-transform" title="American Express">
+                        <img src="{{ asset('images/payments/amex_card.svg') }}" alt="Amex" class="h-4.5 w-auto object-contain">
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        <!-- Sub Footer Copyright & Branding -->
-        <div class="border-t border-slate-800/80 pt-6">
-            <div class="max-w-[1320px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gray-500 gap-3">
-                <p>© {{ date('Y') }} SM Shop Ltd | All rights reserved</p>
-                <p>Powered By: <span class="text-gray-300 font-semibold">SM Cloud IT</span></p>
             </div>
         </div>
     </footer>
