@@ -46,7 +46,7 @@
         @mouseleave="startTimer()"
     >
         <!-- Main Promotional Slider Area (Col Span 3) -->
-        <div class="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-xl min-h-[220px] sm:min-h-[300px] md:min-h-[380px] lg:min-h-[400px] bg-slate-950 flex flex-col justify-between border border-slate-800/80 group">
+        <div class="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-xl aspect-[1024/571] bg-slate-950 border border-slate-800/80 group">
             
             <!-- SLIDE 1: FLASH DEALS (LAPTOPS, AUDIO, WATCHES) -->
             <a 
@@ -63,7 +63,7 @@
                 <img 
                     src="{{ asset('images/banners/banner_flash_deals.jpg') }}" 
                     alt="SM Shop - Limited Time Flash Deals" 
-                    class="w-full h-full object-cover sm:object-fill transition-transform duration-700 group-hover:scale-[1.02]"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
@@ -83,7 +83,7 @@
                 <img 
                     src="{{ asset('images/banners/banner_pc_build.jpg') }}" 
                     alt="SM Shop - Custom PC Build Offer" 
-                    class="w-full h-full object-cover sm:object-fill transition-transform duration-700 group-hover:scale-[1.02]"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
@@ -103,7 +103,7 @@
                 <img 
                     src="{{ asset('images/banners/banner_laptops.jpg') }}" 
                     alt="SM Shop - Official Laptop & Workstation Mega Discount" 
-                    class="w-full h-full object-cover sm:object-fill transition-transform duration-700 group-hover:scale-[1.02]"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
@@ -123,7 +123,7 @@
                 <img 
                     src="{{ asset('images/banners/banner_monitors.jpg') }}" 
                     alt="SM Shop - Monitor Mania Special Offer" 
-                    class="w-full h-full object-cover sm:object-fill transition-transform duration-700 group-hover:scale-[1.02]"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
@@ -143,7 +143,7 @@
                 <img 
                     src="{{ asset('images/banners/banner_gaming_fest.jpg') }}" 
                     alt="SM Shop - Gaming Fest Flat 25% Cashback" 
-                    class="w-full h-full object-cover sm:object-fill transition-transform duration-700 group-hover:scale-[1.02]"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
