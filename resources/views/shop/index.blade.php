@@ -157,8 +157,8 @@
             <!-- Top Catalog Showcase Banner -->
             <div class="rounded-2xl overflow-hidden shadow-md border border-slate-800/80 relative aspect-[16/7] sm:aspect-[16/6] md:aspect-[16/5] bg-slate-950 group">
                 <img 
-                    src="{{ asset('images/banners/banner_shop_catalog.jpg') }}" 
-                    alt="SM Shop Showroom & Official Warranty" 
+                    src="{{ asset('images/banners/clean_banner_battlestation.jpg') }}" 
+                    alt="SM Shop Showroom" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent flex items-end p-4 sm:p-5">

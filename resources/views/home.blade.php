@@ -48,9 +48,9 @@
         <!-- Main Promotional Slider Area (Col Span 3) -->
         <div class="lg:col-span-3 relative rounded-2xl overflow-hidden shadow-xl aspect-[1024/571] bg-slate-950 border border-slate-800/80 group">
             
-            <!-- SLIDE 1: FLASH DEALS (LAPTOPS, AUDIO, WATCHES) -->
+            <!-- SLIDE 1: PURE PRODUCT SHOWCASE - GAMING LAPTOP -->
             <a 
-                href="{{ route('shop.index') }}"
+                href="{{ route('shop.index', ['category' => 'laptop']) }}"
                 x-show="activeSlide === 0"
                 x-transition:enter="transition ease-out duration-500"
                 x-transition:enter-start="opacity-0 translate-x-8 scale-98"
@@ -61,15 +61,15 @@
                 class="w-full h-full block relative overflow-hidden group cursor-pointer"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_flash_deals.jpg') }}" 
-                    alt="SM Shop - Limited Time Flash Deals" 
+                    src="{{ asset('images/banners/clean_banner_laptop.jpg') }}" 
+                    alt="SM Shop - Gaming Laptops" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
-            <!-- SLIDE 2: SM MEGA DEALS (UP TO 50% OFF) -->
+            <!-- SLIDE 2: PURE PRODUCT SHOWCASE - CUSTOM GAMING PC RIG -->
             <a 
-                href="{{ route('shop.index') }}"
+                href="{{ route('shop.index', ['category' => 'desktop']) }}"
                 x-show="activeSlide === 1"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
@@ -81,15 +81,15 @@
                 class="w-full h-full block relative overflow-hidden group cursor-pointer"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_sm_mega_deals.jpg') }}" 
-                    alt="SM Mega Deals - Special Discounts" 
+                    src="{{ asset('images/banners/clean_banner_pc.jpg') }}" 
+                    alt="SM Shop - Custom Gaming Desktop PC" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
-            <!-- SLIDE 3: CUSTOM PC BUILD OFFER (INTEL & RYZEN RIGS) -->
+            <!-- SLIDE 3: PURE PRODUCT SHOWCASE - APPLE MACBOOK PRO & WORKSPACE -->
             <a 
-                href="{{ route('shop.index', ['category' => 'desktop']) }}"
+                href="{{ route('shop.index', ['category' => 'laptop', 'q' => 'apple']) }}"
                 x-show="activeSlide === 2"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
@@ -101,15 +101,15 @@
                 class="w-full h-full block relative overflow-hidden group cursor-pointer"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_pc_build.jpg') }}" 
-                    alt="SM Shop - Custom PC Build Offer" 
+                    src="{{ asset('images/banners/clean_banner_macbook.jpg') }}" 
+                    alt="SM Shop - Apple MacBook Pro & Workspace" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
-            <!-- SLIDE 4: OFFICIAL LAPTOPS & WORKSTATIONS MEGA DISCOUNT -->
+            <!-- SLIDE 4: PURE PRODUCT SHOWCASE - CURVED ULTRAWIDE GAMING MONITOR -->
             <a 
-                href="{{ route('shop.index', ['category' => 'laptop']) }}"
+                href="{{ route('shop.index', ['category' => 'monitor']) }}"
                 x-show="activeSlide === 3"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
@@ -121,15 +121,15 @@
                 class="w-full h-full block relative overflow-hidden group cursor-pointer"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_laptops.jpg') }}" 
-                    alt="SM Shop - Official Laptop & Workstation Mega Discount" 
+                    src="{{ asset('images/banners/clean_banner_monitor.jpg') }}" 
+                    alt="SM Shop - Curved Ultrawide Gaming Monitor" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
-            <!-- SLIDE 5: MONITOR MANIA (CURVED, 4K & ESPORTS DISPLAYS) -->
+            <!-- SLIDE 5: PURE PRODUCT SHOWCASE - SMART GADGETS & AUDIO -->
             <a 
-                href="{{ route('shop.index', ['category' => 'monitor']) }}"
+                href="{{ route('shop.index', ['category' => 'accessories']) }}"
                 x-show="activeSlide === 4"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
@@ -141,15 +141,15 @@
                 class="w-full h-full block relative overflow-hidden group cursor-pointer"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_monitors.jpg') }}" 
-                    alt="SM Shop - Monitor Mania Special Offer" 
+                    src="{{ asset('images/banners/clean_banner_gadgets.jpg') }}" 
+                    alt="SM Shop - Smartwatch, Headphones & Audio" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
 
-            <!-- SLIDE 6: GAMING FEST (25% CASHBACK & RGB ACCESSORIES) -->
+            <!-- SLIDE 6: PURE PRODUCT SHOWCASE - PC HARDWARE & COMPONENTS -->
             <a 
-                href="{{ route('shop.index', ['category' => 'accessories']) }}"
+                href="{{ route('shop.index', ['category' => 'desktop']) }}"
                 x-show="activeSlide === 5"
                 x-cloak
                 x-transition:enter="transition ease-out duration-500"
@@ -161,8 +161,8 @@
                 class="w-full h-full block relative overflow-hidden group cursor-pointer"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_gaming_fest.jpg') }}" 
-                    alt="SM Shop - Gaming Fest Flat 25% Cashback" 
+                    src="{{ asset('images/banners/clean_banner_hardware.jpg') }}" 
+                    alt="SM Shop - PC Components & Hardware" 
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                 />
             </a>
@@ -200,29 +200,29 @@
 
         </div>
 
-        <!-- Right Column Dual Side Banners (Col Span 1 - TechLand BD Signature Style) -->
+        <!-- Right Column Dual Side Banners (Col Span 1 - Clean Product Showcase) -->
         <div class="flex flex-col gap-4">
             
-            <!-- Side Banner 1: Custom PC Builder -->
+            <!-- Side Banner 1: Custom PC Rig Showcase -->
             <a 
                 href="{{ route('shop.index', ['category' => 'desktop']) }}" 
                 class="rounded-2xl overflow-hidden shadow-lg border border-slate-800/60 relative group hover:border-cyan-400 transition-all duration-300 block flex-1"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_side_pc_build.jpg') }}" 
-                    alt="SM Shop Custom PC Builder" 
+                    src="{{ asset('images/banners/clean_banner_pc.jpg') }}" 
+                    alt="SM Shop Custom PC Rig Showcase" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
             </a>
 
-            <!-- Side Banner 2: Smart Gadgets & Audio Hub -->
+            <!-- Side Banner 2: Smart Gadgets & Audio Showcase -->
             <a 
                 href="{{ route('shop.index', ['category' => 'accessories']) }}" 
                 class="rounded-2xl overflow-hidden shadow-lg border border-slate-800/60 relative group hover:border-purple-400 transition-all duration-300 block flex-1"
             >
                 <img 
-                    src="{{ asset('images/banners/banner_smart_gadgets.jpg') }}" 
-                    alt="SM Shop Smart Gadgets Hub" 
+                    src="{{ asset('images/banners/clean_banner_gadgets.jpg') }}" 
+                    alt="SM Shop Smart Gadgets Showcase" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
             </a>
