@@ -420,77 +420,31 @@
     </section>
 
     <!-- =========================================================================
-         5. MID-PAGE PROMOTIONAL CAMPAIGN BANNERS (TECHLAND BD SIGNATURE DUAL GRID)
+         5. MID-PAGE PROMOTIONAL CAMPAIGN BANNERS (CLEAN FULL-SIZE PRODUCT BANNERS)
          ========================================================================= -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-4" data-purpose="mid-campaign-banners">
-        <!-- Mid Banner 1: Pro Gaming Gear Hub -->
+        <!-- Mid Banner 1: Pure Product Showcase - Pro Gaming Peripherals & Gear -->
         <a 
             href="{{ route('shop.index', ['category' => 'accessories']) }}" 
-            class="bg-gradient-to-r from-[#18092d] via-[#260e3d] to-[#120724] rounded-2xl p-6 sm:p-7 text-white border border-purple-900/40 shadow-xl relative overflow-hidden group hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between min-h-[220px]"
+            class="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 relative block group aspect-[16/7] md:aspect-[16/6] bg-slate-950 transition-all duration-300"
         >
-            <div class="grid grid-cols-12 gap-3 items-center z-10">
-                <div class="col-span-7 sm:col-span-8 space-y-2">
-                    <span class="inline-flex items-center gap-1.5 bg-purple-600/30 text-purple-300 text-[10px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase border border-purple-500/40 tracking-wider">
-                        <i class="fa-solid fa-gamepad text-purple-300"></i> RGB GAMING HUB
-                    </span>
-                    <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-purple-300 transition-colors leading-tight">
-                        Pro Gaming Gear &amp; Peripherals
-                    </h3>
-                    <p class="text-xs text-purple-100/80 line-clamp-2">
-                        মেকানিক্যাল কিবোর্ড, ওয়্যারলেস মাউস, ৭.১ হেডসেট ও গেমিং এক্সেসরিজ।
-                    </p>
-                    <div class="pt-2">
-                        <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:from-purple-400 group-hover:to-pink-400 text-white text-xs font-black px-4 py-2 rounded-full transition shadow-md">
-                            <span>Explore Gear</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-span-5 sm:col-span-4 flex justify-end">
-                    <img 
-                        src="{{ asset('images/banners/gaming_gear.jpg') }}" 
-                        alt="Gaming Gear" 
-                        class="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-xl shadow-2xl border-2 border-purple-500/40 group-hover:scale-105 group-hover:rotate-1 transition-transform duration-500"
-                    />
-                </div>
-            </div>
-            <!-- Glow Effect -->
-            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-purple-600/20 rounded-full blur-2xl pointer-events-none"></div>
+            <img 
+                src="{{ asset('images/banners/clean_mid_gaming_peripherals.jpg') }}" 
+                alt="SM Shop - Pro Gaming Gear & Peripherals" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
         </a>
 
-        <!-- Mid Banner 2: Supercharge Components & SSD Upgrade -->
+        <!-- Mid Banner 2: Pure Product Showcase - High-Speed PC Hardware & Components Upgrade -->
         <a 
             href="{{ route('shop.index', ['category' => 'desktop']) }}" 
-            class="bg-gradient-to-r from-[#031d30] via-[#072c4c] to-[#041624] rounded-2xl p-6 sm:p-7 text-white border border-cyan-900/40 shadow-xl relative overflow-hidden group hover:border-cyan-500/60 transition-all duration-300 flex flex-col justify-between min-h-[220px]"
+            class="rounded-2xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200/80 relative block group aspect-[16/7] md:aspect-[16/6] bg-slate-950 transition-all duration-300"
         >
-            <div class="grid grid-cols-12 gap-3 items-center z-10">
-                <div class="col-span-7 sm:col-span-8 space-y-2">
-                    <span class="inline-flex items-center gap-1.5 bg-cyan-600/30 text-cyan-300 text-[10px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase border border-cyan-500/40 tracking-wider">
-                        <i class="fa-solid fa-bolt text-cyan-300"></i> HIGH SPEED UPGRADE
-                    </span>
-                    <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-cyan-300 transition-colors leading-tight">
-                        NVMe SSD &amp; DDR5 Memory
-                    </h3>
-                    <p class="text-xs text-cyan-100/80 line-clamp-2">
-                        Gen4 আল্ট্রা-ফাস্ট M.2 এসএসডি, হাই-স্পিড র‍্যাম ও কুলিং সলিউশন।
-                    </p>
-                    <div class="pt-2">
-                        <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:from-cyan-300 group-hover:to-blue-400 text-slate-950 text-xs font-black px-4 py-2 rounded-full transition shadow-md">
-                            <span>Upgrade Rig</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-span-5 sm:col-span-4 flex justify-end">
-                    <img 
-                        src="{{ asset('images/banners/components.jpg') }}" 
-                        alt="PC Components" 
-                        class="w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-xl shadow-2xl border-2 border-cyan-500/40 group-hover:scale-105 group-hover:-rotate-1 transition-transform duration-500"
-                    />
-                </div>
-            </div>
-            <!-- Glow Effect -->
-            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-cyan-600/20 rounded-full blur-2xl pointer-events-none"></div>
+            <img 
+                src="{{ asset('images/banners/clean_mid_hardware_upgrade.jpg') }}" 
+                alt="SM Shop - PC Components & Hardware Upgrade" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
         </a>
     </section>
 
