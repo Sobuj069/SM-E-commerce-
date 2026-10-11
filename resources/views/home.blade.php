@@ -8,7 +8,11 @@
     <!-- =========================================================================
          1. NOTICE BAR
          ========================================================================= -->
-    <div class="bg-white rounded-full py-2.5 px-6 shadow-sm border border-slate-100 flex items-center justify-center text-xs md:text-sm text-slate-700 text-center font-normal">
+    <div class="bg-white rounded-full py-2.5 px-6 shadow-sm border border-slate-100 flex items-center justify-center text-xs md:text-sm text-slate-700 text-center font-normal gap-2.5" data-aos="fade-down" data-aos-duration="600">
+        <span class="relative flex h-2 w-2 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-starOrange opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-starOrange"></span>
+        </span>
         <span class="inline-block truncate">
             স্বাগতম SM Shop এ! ঢাকা সহ সারাদেশে দ্রুত হোম ডেলিভারি ও অরিজিনাল টেক প্রোডাক্টের অফিসিয়াল ওয়ারেন্টি। হেল্পলাইন: 16793
         </span>
@@ -238,7 +242,7 @@
          ========================================================================= -->
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" data-purpose="service-pillars">
         <!-- 1. Express Delivery -->
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+        <div data-aos="zoom-in" data-aos-delay="50" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-red-50 text-starOrange flex items-center justify-center text-xl shrink-0 group-hover:bg-starOrange group-hover:text-white transition-colors">
                 <i class="fa-solid fa-truck-fast"></i>
             </div>
@@ -249,7 +253,7 @@
         </div>
 
         <!-- 2. 100% Genuine -->
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+        <div data-aos="zoom-in" data-aos-delay="100" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-blue-50 text-starBlue flex items-center justify-center text-xl shrink-0 group-hover:bg-starBlue group-hover:text-white transition-colors">
                 <i class="fa-solid fa-shield-check"></i>
             </div>
@@ -260,7 +264,7 @@
         </div>
 
         <!-- 3. 0% EMI Facility -->
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+        <div data-aos="zoom-in" data-aos-delay="150" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-credit-card"></i>
             </div>
@@ -271,7 +275,7 @@
         </div>
 
         <!-- 4. Expert Care & Service -->
-        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-md transition-shadow group">
+        <div data-aos="zoom-in" data-aos-delay="200" class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3.5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
             <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors">
                 <i class="fa-solid fa-headset"></i>
             </div>
@@ -285,7 +289,7 @@
     <!-- =========================================================================
          4. FEATURED CATEGORY SECTION (16 ICON TILES)
          ========================================================================= -->
-    <section class="space-y-4" data-purpose="featured-categories">
+    <section class="space-y-4" data-purpose="featured-categories" data-aos="fade-up">
         <div class="text-center space-y-1">
             <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Featured Category</h2>
             <p class="text-xs md:text-sm text-gray-500">Get Your Desired Product from Featured Category!</p>
@@ -425,28 +429,28 @@
     <!-- =========================================================================
          5. MID-PAGE PROMOTIONAL CAMPAIGN BANNERS (CLEAN FULL-SIZE PRODUCT BANNERS)
          ========================================================================= -->
-    <section class="grid grid-cols-2 gap-3 md:gap-4" data-purpose="mid-campaign-banners">
+    <section class="grid grid-cols-2 gap-3 md:gap-4" data-purpose="mid-campaign-banners" data-aos="fade-up">
         <!-- Mid Banner 1: Pure Product Showcase - Pro Gaming Peripherals & Gear -->
         <a 
             href="{{ route('shop.index', ['category' => 'accessories']) }}" 
-            class="rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 relative block group aspect-[16/8] sm:aspect-[16/7] md:aspect-[16/6] bg-white transition-all duration-300"
+            class="rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 relative block group aspect-[16/8] sm:aspect-[16/7] md:aspect-[16/6] bg-white transition-all duration-300 hover:-translate-y-1"
         >
             <img 
                 src="{{ asset('images/banners/clean_mid_gaming_peripherals.jpg') }}" 
                 alt="SM Shop - Pro Gaming Gear & Peripherals" 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             />
         </a>
 
         <!-- Mid Banner 2: Pure Product Showcase - High-Speed PC Hardware & Components Upgrade -->
         <a 
             href="{{ route('shop.index', ['category' => 'desktop']) }}" 
-            class="rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 relative block group aspect-[16/8] sm:aspect-[16/7] md:aspect-[16/6] bg-white transition-all duration-300"
+            class="rounded-xl md:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 relative block group aspect-[16/8] sm:aspect-[16/7] md:aspect-[16/6] bg-white transition-all duration-300 hover:-translate-y-1"
         >
             <img 
                 src="{{ asset('images/banners/clean_mid_hardware_upgrade.jpg') }}" 
                 alt="SM Shop - PC Components & Hardware Upgrade" 
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             />
         </a>
     </section>
@@ -454,7 +458,7 @@
     <!-- =========================================================================
          6. PHYSICAL STORES BANNER
          ========================================================================= -->
-    <section class="bg-gradient-to-r from-[#0088cc] via-[#0297df] to-[#04689b] rounded-lg p-5 md:p-6 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+    <section class="bg-gradient-to-r from-[#0088cc] via-[#0297df] to-[#04689b] rounded-lg p-5 md:p-6 text-white shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4" data-aos="fade-up">
         <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-2xl shrink-0">
                 <i class="fa-solid fa-location-dot"></i>
@@ -506,7 +510,7 @@
         <!-- Best Deals Product Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             @foreach($bestDeals as $product)
-                @include('partials.product-card', ['product' => $product, 'badgeText' => 'BEST DEAL', 'badgeClass' => 'bg-rose-600 text-white'])
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'BEST DEAL', 'badgeClass' => 'bg-rose-600 text-white', 'delay' => ($loop->index % 5) * 80])
             @endforeach
         </div>
     </section>
@@ -516,11 +520,11 @@
          7. TRENDING PRODUCTS (HOT PICKS)
          ========================================================================= -->
     @if($trendingProducts->isNotEmpty())
-    <section class="space-y-4" data-purpose="trending-products">
+    <section class="space-y-4" data-purpose="trending-products" data-aos="fade-up">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
             <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-bold border border-amber-200">
-                    <i class="fa-solid fa-fire-flame-curved"></i>
+                    <i class="fa-solid fa-fire-flame-curved animate-pulse"></i>
                 </div>
                 <div>
                     <h2 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
@@ -539,7 +543,7 @@
         <!-- Trending Product Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             @foreach($trendingProducts as $product)
-                @include('partials.product-card', ['product' => $product, 'badgeText' => 'TRENDING', 'badgeClass' => 'bg-amber-500 text-white'])
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'TRENDING', 'badgeClass' => 'bg-amber-500 text-white', 'delay' => ($loop->index % 5) * 80])
             @endforeach
         </div>
     </section>
@@ -549,7 +553,7 @@
          8. NEW ARRIVALS (FRESH DROPS)
          ========================================================================= -->
     @if($newArrivals->isNotEmpty())
-    <section class="space-y-4" data-purpose="new-arrivals">
+    <section class="space-y-4" data-purpose="new-arrivals" data-aos="fade-up">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
             <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-bold border border-emerald-200">
@@ -572,7 +576,7 @@
         <!-- New Arrivals Product Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             @foreach($newArrivals as $product)
-                @include('partials.product-card', ['product' => $product, 'badgeText' => 'NEW ARRIVAL', 'badgeClass' => 'bg-emerald-600 text-white'])
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'NEW ARRIVAL', 'badgeClass' => 'bg-emerald-600 text-white', 'delay' => ($loop->index % 5) * 80])
             @endforeach
         </div>
     </section>
@@ -582,7 +586,7 @@
          9. FEATURED PRODUCTS (HANDPICKED STORE SELECTIONS)
          ========================================================================= -->
     @if($featuredProducts->isNotEmpty())
-    <section class="space-y-4" data-purpose="featured-products">
+    <section class="space-y-4" data-purpose="featured-products" data-aos="fade-up">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
             <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 rounded-lg bg-blue-50 text-starBlue flex items-center justify-center text-sm font-bold border border-blue-200">
@@ -605,7 +609,7 @@
         <!-- Featured Product Grid (5 columns on desktop) -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             @foreach($featuredProducts as $product)
-                @include('partials.product-card', ['product' => $product, 'badgeText' => 'FEATURED', 'badgeClass' => 'bg-[#1b84ff] text-white'])
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'FEATURED', 'badgeClass' => 'bg-[#1b84ff] text-white', 'delay' => ($loop->index % 5) * 80])
             @endforeach
         </div>
     </section>
@@ -615,7 +619,7 @@
          10. TOP RATED / CUSTOMER FAVORITES
          ========================================================================= -->
     @if($topRatedProducts->isNotEmpty())
-    <section class="space-y-4" data-purpose="top-rated-products">
+    <section class="space-y-4" data-purpose="top-rated-products" data-aos="fade-up">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
             <div class="flex items-center gap-2.5">
                 <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-sm font-bold border border-purple-200">
@@ -638,7 +642,7 @@
         <!-- Top Rated Product Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
             @foreach($topRatedProducts as $product)
-                @include('partials.product-card', ['product' => $product, 'badgeText' => 'TOP RATED', 'badgeClass' => 'bg-purple-600 text-white'])
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'TOP RATED', 'badgeClass' => 'bg-purple-600 text-white', 'delay' => ($loop->index % 5) * 80])
             @endforeach
         </div>
     </section>

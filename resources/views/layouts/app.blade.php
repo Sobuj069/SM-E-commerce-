@@ -14,8 +14,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- GSAP 3.12 Animation Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- AOS (Animate On Scroll) Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
     <!-- Swiper 11 Carousel & Gesture Slider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
@@ -738,6 +739,16 @@
          ========================================================================= -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 0. Initialize AOS (Animate On Scroll)
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 650,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 40,
+                });
+            }
+
             // 1. Apple-style 3D Card Interactive Tilt & Physics on hover (Does NOT affect opacity or layout)
             const tiltCards = document.querySelectorAll('.product-card-motion');
             tiltCards.forEach(card => {
