@@ -14,13 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Lenis 1.1 Smooth Inertia Scroll -->
-    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-
-    <!-- GSAP 3.12 & ScrollTrigger -->
+    <!-- GSAP 3.12 Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- Swiper 11 Carousel & Gesture Slider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
@@ -52,17 +47,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
-        /* Lenis Smooth Scroll Optimization */
-        html.lenis, html.lenis-smooth {
-            height: auto;
-        }
-        .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
-        }
-        .lenis.lenis-stopped {
-            overflow: hidden;
-        }
-
         /* Shimmer Glow for Badges */
         @keyframes shimmer-move {
             0% { transform: translateX(-150%); }
@@ -83,10 +67,11 @@
             animation: shimmer-move 2.5s infinite;
         }
 
-        /* Micro-Motion Hardware Acceleration */
+        /* 3D Card Hover Perspective */
         .product-card-motion {
             transform-style: preserve-3d;
-            backface-visibility: hidden;
+            will-change: transform;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
         }
 
         .custom-scroll::-webkit-scrollbar {
@@ -753,104 +738,7 @@
          ========================================================================= -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Initialize Lenis Smooth Inertia Scroll
-            let lenis = null;
-            if (typeof Lenis !== 'undefined') {
-                try {
-                    lenis = new Lenis({
-                        duration: 1.15,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                        orientation: 'vertical',
-                        gestureOrientation: 'vertical',
-                        smoothWheel: true,
-                        wheelMultiplier: 1.0,
-                        touchMultiplier: 1.5,
-                        infinite: false,
-                    });
-
-                    // Sync Lenis with GSAP ScrollTrigger
-                    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                        lenis.on('scroll', ScrollTrigger.update);
-                        gsap.ticker.add((time) => {
-                            lenis.raf(time * 1000);
-                        });
-                        gsap.ticker.lagSmoothing(0);
-                    } else {
-                        function raf(time) {
-                            lenis.raf(time);
-                            requestAnimationFrame(raf);
-                        }
-                        requestAnimationFrame(raf);
-                    }
-                    window.lenis = lenis;
-                } catch (e) {
-                    console.warn('Lenis scroll initialization skipped:', e);
-                }
-            }
-
-            // 2. GSAP Scroll Animations (Framer Motion Stagger & Spring Reveals)
-            if (typeof gsap !== 'undefined') {
-                try {
-                    if (typeof ScrollTrigger !== 'undefined') {
-                        gsap.registerPlugin(ScrollTrigger);
-
-                        // Reveal all Section Headers on Scroll
-                        gsap.utils.toArray('section[data-purpose]').forEach((sec) => {
-                            const header = sec.querySelector(':scope > div:first-child');
-                            if (header) {
-                                gsap.from(header, {
-                                    scrollTrigger: {
-                                        trigger: sec,
-                                        start: 'top 88%',
-                                        toggleActions: 'play none none none',
-                                    },
-                                    opacity: 0,
-                                    y: 28,
-                                    duration: 0.7,
-                                    ease: 'power3.out'
-                                });
-                            }
-
-                            // Stagger Product Cards reveal (Spring physics)
-                            const cards = sec.querySelectorAll('.product-card-motion');
-                            if (cards.length > 0) {
-                                gsap.from(cards, {
-                                    scrollTrigger: {
-                                        trigger: sec,
-                                        start: 'top 82%',
-                                        toggleActions: 'play none none none',
-                                    },
-                                    opacity: 0,
-                                    y: 35,
-                                    duration: 0.75,
-                                    stagger: 0.06,
-                                    ease: 'back.out(1.15)'
-                                });
-                            }
-                        });
-
-                        // Service Trust Pillars entrance animation
-                        const pillars = document.querySelectorAll('[data-purpose="service-pillars"] > div');
-                        if (pillars.length > 0) {
-                            gsap.from(pillars, {
-                                scrollTrigger: {
-                                    trigger: '[data-purpose="service-pillars"]',
-                                    start: 'top 88%',
-                                },
-                                opacity: 0,
-                                y: 20,
-                                stagger: 0.08,
-                                duration: 0.6,
-                                ease: 'power2.out'
-                            });
-                        }
-                    }
-                } catch (e) {
-                    console.warn('GSAP animation initialization skipped:', e);
-                }
-            }
-
-            // 3. Apple-style 3D Card Interactive Tilt & Physics on mousemove
+            // 1. Apple-style 3D Card Interactive Tilt & Physics on hover (Does NOT affect opacity or layout)
             const tiltCards = document.querySelectorAll('.product-card-motion');
             tiltCards.forEach(card => {
                 let rect = null;
@@ -870,21 +758,21 @@
                     const deltaY = (y - centerY) / centerY;
 
                     // Smooth 3D perspective angle
-                    const rotateX = (-deltaY * 6).toFixed(2);
-                    const rotateY = (deltaX * 6).toFixed(2);
+                    const rotateX = (-deltaY * 5).toFixed(2);
+                    const rotateY = (deltaX * 5).toFixed(2);
 
-                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.018)`;
+                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.015)`;
                 });
 
                 card.addEventListener('mouseleave', () => {
-                    card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease';
+                    card.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease';
                     card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)';
                     rect = null;
                 });
             });
 
-            // 4. Spring / Magnetic Click Micro-interactions for buttons
-            document.querySelectorAll('button[type="submit"], a[href^="/shop"]').forEach(btn => {
+            // 2. Spring / Magnetic Micro-interactions for buttons
+            document.querySelectorAll('button[type="submit"], a.btn-motion').forEach(btn => {
                 btn.addEventListener('mousedown', () => {
                     btn.style.transform = 'scale(0.96)';
                     btn.style.transition = 'transform 0.1s ease';
