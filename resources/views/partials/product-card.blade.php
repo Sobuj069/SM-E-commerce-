@@ -4,19 +4,19 @@
     'badgeClass' => null
 ])
 
-<div class="bg-white rounded-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-300 relative p-3 group hover:border-slate-300">
+<div class="product-card-motion bg-white rounded-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300 relative p-3 group hover:border-slate-300 will-change-transform">
     
     <!-- Dynamic Badges -->
     <div class="absolute top-2 left-2 flex flex-col gap-1 z-10">
         @if($badgeText)
-            <span class="{{ $badgeClass ?? 'bg-starOrange text-white' }} text-[10px] font-bold px-2 py-0.5 rounded-xs tracking-wide uppercase shadow-xs">
+            <span class="{{ $badgeClass ?? 'bg-starOrange text-white' }} shimmer-badge text-[10px] font-bold px-2 py-0.5 rounded-xs tracking-wide uppercase shadow-xs">
                 {{ $badgeText }}
             </span>
         @elseif($product->has_discount && ($product->price - $product->effective_price) > 0)
             @php
                 $savingAmount = $product->price - $product->effective_price;
             @endphp
-            <span class="bg-[#6e42c1] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs shadow-xs">
+            <span class="bg-[#6e42c1] shimmer-badge text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs shadow-xs">
                 Save: {{ number_format($savingAmount) }}৳ (-{{ $product->discount_percentage }}%)
             </span>
         @elseif($product->is_new_arrival)
