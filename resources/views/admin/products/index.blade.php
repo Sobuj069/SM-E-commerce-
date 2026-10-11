@@ -60,6 +60,20 @@
                                     <div>
                                         <div class="font-bold text-gray-900 text-xs">{{ $prod->name }}</div>
                                         <div class="text-[10px] text-gray-400 font-mono mt-0.5">SKU: {{ $prod->sku ?? 'N/A' }}</div>
+                                        <div class="flex flex-wrap gap-1 mt-1">
+                                            @if($prod->is_featured)
+                                                <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-50 text-[#1b84ff] border border-blue-200">Featured</span>
+                                            @endif
+                                            @if($prod->is_new_arrival)
+                                                <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">New Arrival</span>
+                                            @endif
+                                            @if($prod->is_trending)
+                                                <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">Trending</span>
+                                            @endif
+                                            @if($prod->is_best_deal)
+                                                <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-rose-50 text-rose-700 border border-rose-200">Best Deal</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </td>

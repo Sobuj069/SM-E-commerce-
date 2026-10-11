@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Product;
-use App\Models\ProductVariant;
-use App\Models\Category;
 use App\Models\Brand;
-use App\Models\Purchase;
+use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\CourierSetting;
 use App\Models\FraudBlacklist;
-use App\Models\Coupon;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\Review;
 use App\Models\User;
+use App\Services\AiProductImporterService;
 use App\Services\CourierService;
 use App\Services\FraudService;
-use App\Services\AiProductImporterService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -32,6 +30,7 @@ class AdminController extends Controller
         if (Auth::check()) {
             return redirect()->route('admin.dashboard');
         }
+
         return view('admin.auth.login');
     }
 
@@ -46,6 +45,7 @@ class AdminController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
+
             return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome to SM Shop Admin Dashboard!');
         }
 
@@ -59,6 +59,7 @@ class AdminController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect()->route('admin.login')->with('success', 'You have been logged out securely.');
     }
 
@@ -83,7 +84,7 @@ class AdminController extends Controller
         for ($i = 6; $i >= 0; $i--) {
             $date = now()->subDays($i)->format('Y-m-d');
             $chartDates[] = now()->subDays($i)->format('M d');
-            
+
             $dayRev = Order::whereDate('created_at', $date)->sum('total_amount');
             $dayOrders = Order::whereDate('created_at', $date)->count();
 
@@ -122,6 +123,7 @@ class AdminController extends Controller
         $mainCategories = Category::whereNull('parent_id')->orderBy('name')->get();
         $subCategories = Category::whereNotNull('parent_id')->with('parent')->orderBy('name')->get();
         $parentCategories = Category::with('parent')->orderBy('name')->get();
+
         return view('admin.categories.index', compact('categories', 'mainCategories', 'subCategories', 'parentCategories'));
     }
 
@@ -137,12 +139,12 @@ class AdminController extends Controller
 
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('uploads/categories', 'public');
-            $data['image'] = '/storage/' . $path;
+            $data['image'] = '/storage/'.$path;
         }
 
         $data['slug'] = Str::slug($data['name']);
         if (Category::where('slug', $data['slug'])->exists()) {
-            $data['slug'] .= '-' . Str::random(4);
+            $data['slug'] .= '-'.Str::random(4);
         }
 
         unset($data['image_file']);
@@ -154,6 +156,7 @@ class AdminController extends Controller
     public function deleteCategory(Category $category)
     {
         $category->delete();
+
         return redirect()->route('admin.categories.index')->with('success', 'Category removed successfully.');
     }
 
@@ -163,6 +166,7 @@ class AdminController extends Controller
     public function brands()
     {
         $brands = Brand::withCount('products')->latest()->get();
+
         return view('admin.brands.index', compact('brands'));
     }
 
@@ -177,7 +181,7 @@ class AdminController extends Controller
 
         if ($request->hasFile('logo_file')) {
             $path = $request->file('logo_file')->store('uploads/brands', 'public');
-            $data['logo'] = '/storage/' . $path;
+            $data['logo'] = '/storage/'.$path;
         }
 
         $data['slug'] = Str::slug($data['name']);
@@ -191,6 +195,7 @@ class AdminController extends Controller
     public function deleteBrand(Brand $brand)
     {
         $brand->delete();
+
         return redirect()->route('admin.brands.index')->with('success', 'Brand removed successfully.');
     }
 
@@ -200,6 +205,7 @@ class AdminController extends Controller
     public function products()
     {
         $products = Product::with(['category', 'brand'])->latest()->paginate(10);
+
         return view('admin.products.index', compact('products'));
     }
 
@@ -207,6 +213,7 @@ class AdminController extends Controller
     {
         $categories = Category::with('parent')->get();
         $brands = Brand::all();
+
         return view('admin.products.create', compact('categories', 'brands'));
     }
 
@@ -228,12 +235,15 @@ class AdminController extends Controller
             'short_description' => 'required|string|max:500',
             'description' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
+            'is_new_arrival' => 'nullable|boolean',
+            'is_trending' => 'nullable|boolean',
+            'is_best_deal' => 'nullable|boolean',
         ]);
 
         // 1. Handle Primary Image
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('uploads/products', 'public');
-            $data['image'] = '/storage/' . $path;
+            $data['image'] = '/storage/'.$path;
         } elseif (empty($data['image'])) {
             $data['image'] = 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800';
         }
@@ -244,22 +254,25 @@ class AdminController extends Controller
             foreach ($request->file('gallery_files') as $file) {
                 if ($file && $file->isValid()) {
                     $gPath = $file->store('uploads/products/gallery', 'public');
-                    $galleryImages[] = '/storage/' . $gPath;
+                    $galleryImages[] = '/storage/'.$gPath;
                 }
             }
         }
-        if (!empty($data['gallery_urls']) && is_array($data['gallery_urls'])) {
+        if (! empty($data['gallery_urls']) && is_array($data['gallery_urls'])) {
             foreach ($data['gallery_urls'] as $url) {
                 $trimmed = trim($url);
-                if (!empty($trimmed)) {
+                if (! empty($trimmed)) {
                     $galleryImages[] = $trimmed;
                 }
             }
         }
         $data['gallery_images'] = $galleryImages;
 
-        $data['slug'] = Str::slug($data['name']) . '-' . Str::random(5);
+        $data['slug'] = Str::slug($data['name']).'-'.Str::random(5);
         $data['is_featured'] = $request->has('is_featured');
+        $data['is_new_arrival'] = $request->has('is_new_arrival');
+        $data['is_trending'] = $request->has('is_trending');
+        $data['is_best_deal'] = $request->has('is_best_deal');
         $data['is_active'] = true;
 
         unset($data['image_file'], $data['gallery_files'], $data['gallery_urls']);
@@ -269,15 +282,15 @@ class AdminController extends Controller
         $variantsData = $request->input('variants', []);
         if (is_array($variantsData) && count($variantsData) > 0) {
             foreach ($variantsData as $var) {
-                if (!empty($var['size']) || !empty($var['color']) || !empty($var['name'])) {
-                    $name = !empty($var['name']) ? $var['name'] : trim(($var['color'] ?? '') . ' ' . ($var['size'] ?? ''));
+                if (! empty($var['size']) || ! empty($var['color']) || ! empty($var['name'])) {
+                    $name = ! empty($var['name']) ? $var['name'] : trim(($var['color'] ?? '').' '.($var['size'] ?? ''));
                     $product->variants()->create([
                         'name' => $name ?: 'Standard',
                         'size' => $var['size'] ?? null,
                         'color' => $var['color'] ?? null,
                         'sku' => $var['sku'] ?? null,
-                        'price' => !empty($var['price']) ? (float)$var['price'] : null,
-                        'stock' => isset($var['stock']) && $var['stock'] !== '' ? (int)$var['stock'] : 10,
+                        'price' => ! empty($var['price']) ? (float) $var['price'] : null,
+                        'stock' => isset($var['stock']) && $var['stock'] !== '' ? (int) $var['stock'] : 10,
                     ]);
                 }
             }
@@ -291,6 +304,7 @@ class AdminController extends Controller
         $product->load('variants');
         $categories = Category::with('parent')->get();
         $brands = Brand::all();
+
         return view('admin.products.edit', compact('product', 'categories', 'brands'));
     }
 
@@ -313,13 +327,16 @@ class AdminController extends Controller
             'short_description' => 'required|string|max:500',
             'description' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
+            'is_new_arrival' => 'nullable|boolean',
+            'is_trending' => 'nullable|boolean',
+            'is_best_deal' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
         ]);
 
         // 1. Primary Image Update
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('uploads/products', 'public');
-            $data['image'] = '/storage/' . $path;
+            $data['image'] = '/storage/'.$path;
         } elseif (empty($data['image'])) {
             $data['image'] = $product->image;
         }
@@ -331,15 +348,15 @@ class AdminController extends Controller
             foreach ($request->file('gallery_files') as $file) {
                 if ($file && $file->isValid()) {
                     $gPath = $file->store('uploads/products/gallery', 'public');
-                    $galleryImages[] = '/storage/' . $gPath;
+                    $galleryImages[] = '/storage/'.$gPath;
                 }
             }
         }
 
-        if (!empty($data['gallery_urls']) && is_array($data['gallery_urls'])) {
+        if (! empty($data['gallery_urls']) && is_array($data['gallery_urls'])) {
             foreach ($data['gallery_urls'] as $url) {
                 $trimmed = trim($url);
-                if (!empty($trimmed)) {
+                if (! empty($trimmed)) {
                     $galleryImages[] = $trimmed;
                 }
             }
@@ -347,6 +364,9 @@ class AdminController extends Controller
         $data['gallery_images'] = array_values(array_filter($galleryImages));
 
         $data['is_featured'] = $request->has('is_featured');
+        $data['is_new_arrival'] = $request->has('is_new_arrival');
+        $data['is_trending'] = $request->has('is_trending');
+        $data['is_best_deal'] = $request->has('is_best_deal');
         $data['is_active'] = $request->has('is_active');
 
         unset($data['image_file'], $data['gallery_files'], $data['gallery_urls'], $data['existing_gallery']);
@@ -358,15 +378,15 @@ class AdminController extends Controller
             $product->variants()->delete();
             if (is_array($variantsData)) {
                 foreach ($variantsData as $var) {
-                    if (!empty($var['size']) || !empty($var['color']) || !empty($var['name'])) {
-                        $name = !empty($var['name']) ? $var['name'] : trim(($var['color'] ?? '') . ' ' . ($var['size'] ?? ''));
+                    if (! empty($var['size']) || ! empty($var['color']) || ! empty($var['name'])) {
+                        $name = ! empty($var['name']) ? $var['name'] : trim(($var['color'] ?? '').' '.($var['size'] ?? ''));
                         $product->variants()->create([
                             'name' => $name ?: 'Standard',
                             'size' => $var['size'] ?? null,
                             'color' => $var['color'] ?? null,
                             'sku' => $var['sku'] ?? null,
-                            'price' => !empty($var['price']) ? (float)$var['price'] : null,
-                            'stock' => isset($var['stock']) && $var['stock'] !== '' ? (int)$var['stock'] : 10,
+                            'price' => ! empty($var['price']) ? (float) $var['price'] : null,
+                            'stock' => isset($var['stock']) && $var['stock'] !== '' ? (int) $var['stock'] : 10,
                         ]);
                     }
                 }
@@ -379,6 +399,7 @@ class AdminController extends Controller
     public function deleteProduct(Product $product)
     {
         $product->delete();
+
         return redirect()->route('admin.products.index')->with('success', 'Product removed successfully.');
     }
 
@@ -424,7 +445,7 @@ class AdminController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        $data['purchase_number'] = 'PO-' . strtoupper(Str::random(6));
+        $data['purchase_number'] = 'PO-'.strtoupper(Str::random(6));
         $data['total_cost'] = $data['quantity'] * $data['unit_cost'];
 
         $purchase = Purchase::create($data);
@@ -482,7 +503,7 @@ class AdminController extends Controller
         $order->load('items.product');
 
         // Automatic Stock Restoration if returned or cancelled
-        if (in_array($newStatus, ['returned', 'cancelled']) && !$order->stock_restored) {
+        if (in_array($newStatus, ['returned', 'cancelled']) && ! $order->stock_restored) {
             foreach ($order->items as $item) {
                 if ($item->product) {
                     $item->product->increment('stock', $item->quantity);
@@ -497,7 +518,7 @@ class AdminController extends Controller
             'courier_status' => $newStatus === 'returned' ? 'returned' : ($newStatus === 'delivered' ? 'delivered' : $order->courier_status),
         ]);
 
-        return back()->with('success', 'Order status updated successfully! ' . ($order->stock_restored ? '(Inventory stock automatically restored)' : ''));
+        return back()->with('success', 'Order status updated successfully! '.($order->stock_restored ? '(Inventory stock automatically restored)' : ''));
     }
 
     public function processCourierReturn(Request $request, Order $order)
@@ -515,7 +536,7 @@ class AdminController extends Controller
 
         if ($action === 'full_return') {
             // Full Return
-            if (!$order->stock_restored) {
+            if (! $order->stock_restored) {
                 foreach ($order->items as $item) {
                     if ($item->product) {
                         $item->product->increment('stock', $item->quantity);
@@ -529,21 +550,21 @@ class AdminController extends Controller
                 'courier_status' => 'returned',
                 'payment_status' => 'failed',
                 'return_reason' => $request->return_reason ?: 'Customer returned parcel / Delivery refused',
-                'return_charge' => (float)($request->return_charge ?? 0),
+                'return_charge' => (float) ($request->return_charge ?? 0),
                 'collected_amount' => 0,
             ]);
 
             return back()->with('success', "Order #{$order->order_number} marked as FULL RETURN. All items restored to stock (+inventory).");
         } else {
             // Partial Delivery
-            $collected = (float)($request->collected_amount ?? 0);
+            $collected = (float) ($request->collected_amount ?? 0);
             $returnedItems = $request->input('returned_items', []);
 
             // Restore stock for returned items
             $restoredCount = 0;
             if (is_array($returnedItems)) {
                 foreach ($returnedItems as $itemId => $qty) {
-                    $qty = (int)$qty;
+                    $qty = (int) $qty;
                     if ($qty > 0) {
                         $item = $order->items->where('id', $itemId)->first();
                         if ($item && $item->product) {
@@ -559,7 +580,7 @@ class AdminController extends Controller
                 'courier_status' => 'delivered',
                 'payment_status' => $collected >= $order->total_amount ? 'paid' : 'partial',
                 'collected_amount' => $collected,
-                'return_charge' => (float)($request->return_charge ?? 0),
+                'return_charge' => (float) ($request->return_charge ?? 0),
                 'return_reason' => $request->return_reason ?: 'Partial delivery accepted by customer',
                 'stock_restored' => true,
             ]);
@@ -605,7 +626,7 @@ class AdminController extends Controller
             ]
         );
 
-        return back()->with('success', ucfirst($provider) . ' Courier API settings updated!');
+        return back()->with('success', ucfirst($provider).' Courier API settings updated!');
     }
 
     // ==========================================
@@ -652,12 +673,14 @@ class AdminController extends Controller
         ]);
 
         FraudBlacklist::create($data);
+
         return back()->with('success', "Phone number {$data['phone']} has been added to Fraud Blacklist.");
     }
 
     public function blacklistRemove(FraudBlacklist $blacklist)
     {
         $blacklist->delete();
+
         return back()->with('success', 'Phone number removed from blacklist.');
     }
 
@@ -667,12 +690,14 @@ class AdminController extends Controller
     public function customers()
     {
         $customers = User::latest()->paginate(15);
+
         return view('admin.customers.index', compact('customers'));
     }
 
     public function coupons()
     {
         $coupons = Coupon::latest()->get();
+
         return view('admin.coupons.index', compact('coupons'));
     }
 
@@ -695,24 +720,28 @@ class AdminController extends Controller
     public function deleteCoupon(Coupon $coupon)
     {
         $coupon->delete();
+
         return redirect()->route('admin.coupons.index')->with('success', 'Coupon deleted.');
     }
 
     public function reviews()
     {
         $reviews = Review::with('product')->latest()->paginate(15);
+
         return view('admin.reviews.index', compact('reviews'));
     }
 
     public function toggleReview(Review $review)
     {
-        $review->update(['is_approved' => !$review->is_approved]);
+        $review->update(['is_approved' => ! $review->is_approved]);
+
         return back()->with('success', 'Review approval status updated.');
     }
 
     public function deleteReview(Review $review)
     {
         $review->delete();
+
         return redirect()->route('admin.reviews.index')->with('success', 'Review deleted permanently.');
     }
 
@@ -724,8 +753,8 @@ class AdminController extends Controller
         $totalProducts = Product::count();
         $categories = Category::withCount('products')->get();
         $recentProducts = Product::with('category')->latest()->take(10)->get();
-        
-        $service = new AiProductImporterService();
+
+        $service = new AiProductImporterService;
         $geminiApiKey = $service->resolveApiKey();
 
         return view('admin.products.ai_import', compact('totalProducts', 'categories', 'recentProducts', 'geminiApiKey'));
@@ -734,7 +763,7 @@ class AdminController extends Controller
     public function aiImportSaveKey(Request $request)
     {
         $request->validate(['api_key' => 'required|string']);
-        $service = new AiProductImporterService();
+        $service = new AiProductImporterService;
         $service->saveApiKeyPermanently($request->input('api_key'));
 
         return response()->json(['success' => true, 'message' => 'API Key saved permanently! You will not need to enter it again.']);
@@ -743,7 +772,7 @@ class AdminController extends Controller
     public function aiImportDiscover(Request $request)
     {
         $request->validate(['url' => 'required|url']);
-        $service = new AiProductImporterService();
+        $service = new AiProductImporterService;
         $links = $service->extractProductUrlsFromPage($request->input('url'), $request->input('html'));
 
         return response()->json([
@@ -768,12 +797,13 @@ class AdminController extends Controller
         // Split URLs by newline or comma or space
         $urls = preg_split('/[\r\n,]+/', $rawUrls, -1, PREG_SPLIT_NO_EMPTY);
         $urls = array_map('trim', $urls);
-        $urls = array_filter($urls, fn($u) => filter_var($u, FILTER_VALIDATE_URL));
+        $urls = array_filter($urls, fn ($u) => filter_var($u, FILTER_VALIDATE_URL));
 
         if (empty($urls)) {
             if ($request->wantsJson()) {
                 return response()->json(['success' => false, 'message' => 'No valid URLs found.'], 422);
             }
+
             return back()->with('error', 'Please provide at least one valid web URL.');
         }
 
@@ -811,7 +841,7 @@ class AdminController extends Controller
 
     public function purgeDemoProducts()
     {
-        $service = new AiProductImporterService();
+        $service = new AiProductImporterService;
         $count = $service->purgeProducts();
 
         return redirect()->route('admin.products.ai-import')->with('success', "Cleaned {$count} old products. Database is now ready for your new AI product imports!");

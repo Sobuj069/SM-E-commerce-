@@ -389,17 +389,50 @@
             <textarea name="description" rows="4" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-xs font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:border-primary focus:bg-white transition">{{ old('description', $product->description) }}</textarea>
         </div>
 
-        <!-- Checkboxes -->
-        <div class="flex flex-col sm:flex-row sm:items-center gap-6 pt-2">
-            <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-gray-700">
-                <input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $product->is_featured) ? 'checked' : '' }} class="rounded border-gray-300 text-[#1b84ff] focus:ring-0">
-                <span>Featured New Drop on Storefront</span>
-            </label>
+        <!-- Storefront Sections & Display Placement -->
+        <div class="space-y-2 pt-2 border-t border-gray-100">
+            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Storefront Sections &amp; Display Placement</label>
+            <p class="text-[11px] text-gray-500">Select which sections on the home page this product should appear in:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-1">
+                <label class="flex items-center gap-2.5 p-3 rounded-lg border border-gray-200 bg-white hover:border-[#1b84ff] cursor-pointer transition">
+                    <input type="checkbox" name="is_featured" id="is_featured" value="1" {{ old('is_featured', $product->is_featured) ? 'checked' : '' }} class="rounded border-gray-300 text-[#1b84ff] focus:ring-0">
+                    <div class="text-xs">
+                        <span class="font-bold text-gray-800 block">Featured</span>
+                        <span class="text-[10px] text-gray-400">Featured Products</span>
+                    </div>
+                </label>
 
-            <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-gray-700">
-                <input type="checkbox" name="is_active" value="1" {{ old('is_active', $product->is_active) ? 'checked' : '' }} class="rounded border-gray-300 text-emerald-600 focus:ring-0">
-                <span>Active & Visible in Catalog</span>
-            </label>
+                <label class="flex items-center gap-2.5 p-3 rounded-lg border border-gray-200 bg-white hover:border-emerald-500 cursor-pointer transition">
+                    <input type="checkbox" name="is_new_arrival" id="is_new_arrival" value="1" {{ old('is_new_arrival', $product->is_new_arrival) ? 'checked' : '' }} class="rounded border-gray-300 text-emerald-600 focus:ring-0">
+                    <div class="text-xs">
+                        <span class="font-bold text-gray-800 block">New Arrival</span>
+                        <span class="text-[10px] text-gray-400">New Arrivals Section</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center gap-2.5 p-3 rounded-lg border border-gray-200 bg-white hover:border-amber-500 cursor-pointer transition">
+                    <input type="checkbox" name="is_trending" id="is_trending" value="1" {{ old('is_trending', $product->is_trending) ? 'checked' : '' }} class="rounded border-gray-300 text-amber-500 focus:ring-0">
+                    <div class="text-xs">
+                        <span class="font-bold text-gray-800 block">Trending</span>
+                        <span class="text-[10px] text-gray-400">Trending Now</span>
+                    </div>
+                </label>
+
+                <label class="flex items-center gap-2.5 p-3 rounded-lg border border-gray-200 bg-white hover:border-rose-500 cursor-pointer transition">
+                    <input type="checkbox" name="is_best_deal" id="is_best_deal" value="1" {{ old('is_best_deal', $product->is_best_deal) ? 'checked' : '' }} class="rounded border-gray-300 text-rose-600 focus:ring-0">
+                    <div class="text-xs">
+                        <span class="font-bold text-gray-800 block">Best Deal</span>
+                        <span class="text-[10px] text-gray-400">Mega Offer / Best Deal</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="pt-2">
+                <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-gray-700">
+                    <input type="checkbox" name="is_active" value="1" {{ old('is_active', $product->is_active) ? 'checked' : '' }} class="rounded border-gray-300 text-emerald-600 focus:ring-0">
+                    <span>Active & Visible in Catalog</span>
+                </label>
+            </div>
         </div>
 
         <!-- Action Buttons -->

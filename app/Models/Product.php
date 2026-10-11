@@ -23,6 +23,9 @@ class Product extends Model
         'image',
         'gallery_images',
         'is_featured',
+        'is_new_arrival',
+        'is_trending',
+        'is_best_deal',
         'is_active',
         'rating',
         'reviews_count',
@@ -33,6 +36,9 @@ class Product extends Model
         'sale_price' => 'decimal:2',
         'rating' => 'decimal:2',
         'is_featured' => 'boolean',
+        'is_new_arrival' => 'boolean',
+        'is_trending' => 'boolean',
+        'is_best_deal' => 'boolean',
         'is_active' => 'boolean',
         'stock' => 'integer',
         'reviews_count' => 'integer',
@@ -53,6 +59,30 @@ class Product extends Model
     public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
+    }
+
+    /**
+     * Scope for new arrival products
+     */
+    public function scopeNewArrival(Builder $query): Builder
+    {
+        return $query->where('is_new_arrival', true);
+    }
+
+    /**
+     * Scope for trending products
+     */
+    public function scopeTrending(Builder $query): Builder
+    {
+        return $query->where('is_trending', true);
+    }
+
+    /**
+     * Scope for best deal products
+     */
+    public function scopeBestDeal(Builder $query): Builder
+    {
+        return $query->where('is_best_deal', true);
     }
 
     public function category(): BelongsTo
@@ -92,15 +122,16 @@ class Product extends Model
     {
         $gallery = is_array($this->gallery_images) ? $this->gallery_images : [];
         $images = [];
-        if (!empty($this->image)) {
+        if (! empty($this->image)) {
             $images[] = $this->image;
         }
         foreach ($gallery as $img) {
-            if (!empty($img) && !in_array($img, $images)) {
+            if (! empty($img) && ! in_array($img, $images)) {
                 $images[] = $img;
             }
         }
-        return !empty($images) ? $images : ['https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800'];
+
+        return ! empty($images) ? $images : ['https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800'];
     }
 
     public function getEffectivePriceAttribute()
@@ -117,9 +148,10 @@ class Product extends Model
 
     public function getDiscountPercentageAttribute(): int
     {
-        if (!$this->has_discount || $this->price <= 0) {
+        if (! $this->has_discount || $this->price <= 0) {
             return 0;
         }
+
         return (int) round((($this->price - $this->sale_price) / $this->price) * 100);
     }
 

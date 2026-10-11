@@ -471,71 +471,178 @@
     </section>
 
     <!-- =========================================================================
-         6. FEATURED PRODUCTS (20 OFFICIAL STAR TECH PRODUCTS GRID)
+         6. BEST DEALS & MEGA OFFERS SECTION
          ========================================================================= -->
-    <section class="space-y-4" data-purpose="featured-products">
-        <div class="text-center space-y-1">
-            <h2 class="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Featured Products</h2>
-            <p class="text-xs md:text-sm text-gray-500">Check &amp; Get Your Desired Product!</p>
+    @if($bestDeals->isNotEmpty())
+    <section class="space-y-4" data-purpose="best-deals">
+        <div class="bg-gradient-to-r from-rose-600 via-rose-500 to-amber-500 rounded-xl p-4 sm:p-5 text-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shrink-0 text-amber-200 shadow-inner">
+                    <i class="fa-solid fa-bolt-lightning animate-pulse"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-lg md:text-xl font-black tracking-tight text-white uppercase">Best Deals &amp; Mega Offers</h2>
+                        <span class="bg-amber-400 text-slate-900 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">HOT</span>
+                    </div>
+                    <p class="text-xs text-rose-100">সেরা মূল্যে সীমিত সময়ের বিশেষ অফার ও সুপার ডিসকাউন্ট!</p>
+                </div>
+            </div>
+
+            <!-- Countdown Timer Aspirational Badge & View All -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div class="flex items-center gap-1.5 text-xs font-bold bg-black/25 px-3 py-1.5 rounded-lg border border-white/20">
+                    <i class="fa-regular fa-clock text-amber-300"></i>
+                    <span>Flash Ends In:</span>
+                    <span class="bg-white text-rose-600 px-1.5 py-0.5 rounded text-[11px] font-mono font-black">24H</span>
+                </div>
+                <a href="{{ route('shop.index') }}" class="bg-white hover:bg-rose-50 text-rose-600 font-bold px-4 py-2 rounded-lg text-xs transition flex items-center gap-1.5 shrink-0 shadow-sm">
+                    <span>View All Deals</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
         </div>
 
-        <!-- 20 Product Grid (5 columns on desktop) -->
+        <!-- Best Deals Product Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            @foreach($featuredProducts as $product)
-                <div class="bg-white rounded-md border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-lg transition-shadow relative p-3 group">
-                    
-                    <!-- Dynamic Badge / Tag -->
-                    @if($product->has_discount && ($product->price - $product->effective_price) > 0)
-                        @php
-                            $savingAmount = $product->price - $product->effective_price;
-                        @endphp
-                        <span class="absolute top-2 left-2 bg-[#6e42c1] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs z-10">
-                            Save: {{ number_format($savingAmount) }}৳ (-{{ $product->discount_percentage }}%)
-                        </span>
-                    @elseif($product->effective_price > 80000)
-                        <span class="absolute top-2 left-2 bg-[#082b49] text-white text-[10px] font-semibold px-2 py-0.5 rounded-xs z-10">
-                            Earn Point: 450
-                        </span>
-                    @endif
-
-                    <!-- Product Image Container -->
-                    <a href="{{ route('product.show', $product->slug) }}" class="py-4 flex justify-center items-center h-44 block">
-                        <img 
-                            alt="{{ $product->name }}" 
-                            class="max-h-36 max-w-full object-contain group-hover:scale-105 transition-transform duration-300" 
-                            src="{{ $product->image }}"
-                        />
-                    </a>
-
-                    <!-- Product Title & Price -->
-                    <div class="border-t border-slate-100 pt-3 space-y-2">
-                        <h3 class="text-xs font-semibold text-slate-800 group-hover:text-starOrange line-clamp-2 leading-relaxed">
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                {{ $product->name }}
-                            </a>
-                        </h3>
-
-                        <div class="flex items-center gap-2">
-                            <span class="text-starOrange font-bold text-sm">{{ number_format($product->effective_price) }}৳</span>
-                            @if($product->has_discount)
-                                <span class="text-gray-400 line-through text-xs">{{ number_format($product->price) }}৳</span>
-                            @endif
-                        </div>
-
-                        <!-- Quick Add to Cart Action -->
-                        <form action="{{ route('cart.add', $product->id) }}" method="POST" class="pt-1">
-                            @csrf
-                            <button type="submit" class="w-full py-1.5 bg-[#f2f4f8] hover:bg-starOrange hover:text-white text-slate-700 text-[11px] font-bold rounded transition flex items-center justify-center gap-1.5 cursor-pointer">
-                                <i class="fa-solid fa-cart-plus text-[10px]"></i>
-                                <span>Buy Now</span>
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
+            @foreach($bestDeals as $product)
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'BEST DEAL', 'badgeClass' => 'bg-rose-600 text-white'])
             @endforeach
         </div>
     </section>
+    @endif
+
+    <!-- =========================================================================
+         7. TRENDING PRODUCTS (HOT PICKS)
+         ========================================================================= -->
+    @if($trendingProducts->isNotEmpty())
+    <section class="space-y-4" data-purpose="trending-products">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-bold border border-amber-200">
+                    <i class="fa-solid fa-fire-flame-curved"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                        <span>Trending Products</span>
+                        <span class="text-[11px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">Popular</span>
+                    </h2>
+                    <p class="text-xs text-gray-500">বর্তমানে সবচেয়ে জনপ্রিয় ও ট্রেন্ডিং আইটেমস!</p>
+                </div>
+            </div>
+            <a href="{{ route('shop.index') }}" class="text-xs font-bold text-starOrange hover:text-starOrangeHover transition flex items-center gap-1.5 self-start sm:self-auto group">
+                <span>See All Trending</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- Trending Product Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            @foreach($trendingProducts as $product)
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'TRENDING', 'badgeClass' => 'bg-amber-500 text-white'])
+            @endforeach
+        </div>
+    </section>
+    @endif
+
+    <!-- =========================================================================
+         8. NEW ARRIVALS (FRESH DROPS)
+         ========================================================================= -->
+    @if($newArrivals->isNotEmpty())
+    <section class="space-y-4" data-purpose="new-arrivals">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm font-bold border border-emerald-200">
+                    <i class="fa-solid fa-sparkles"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                        <span>New Arrivals</span>
+                        <span class="text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Just In</span>
+                    </h2>
+                    <p class="text-xs text-gray-500">নতুন যুক্ত হওয়া লেটেস্ট প্রোডাক্ট ও কালেকশন!</p>
+                </div>
+            </div>
+            <a href="{{ route('shop.index') }}" class="text-xs font-bold text-starOrange hover:text-starOrangeHover transition flex items-center gap-1.5 self-start sm:self-auto group">
+                <span>View All New Drops</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- New Arrivals Product Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            @foreach($newArrivals as $product)
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'NEW ARRIVAL', 'badgeClass' => 'bg-emerald-600 text-white'])
+            @endforeach
+        </div>
+    </section>
+    @endif
+
+    <!-- =========================================================================
+         9. FEATURED PRODUCTS (HANDPICKED STORE SELECTIONS)
+         ========================================================================= -->
+    @if($featuredProducts->isNotEmpty())
+    <section class="space-y-4" data-purpose="featured-products">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-blue-50 text-starBlue flex items-center justify-center text-sm font-bold border border-blue-200">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                        <span>Featured Products</span>
+                        <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">Top Picks</span>
+                    </h2>
+                    <p class="text-xs text-gray-500">Check &amp; Get Your Desired Product from SM Shop!</p>
+                </div>
+            </div>
+            <a href="{{ route('shop.index') }}" class="text-xs font-bold text-starOrange hover:text-starOrangeHover transition flex items-center gap-1.5 self-start sm:self-auto group">
+                <span>Browse Catalog</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- Featured Product Grid (5 columns on desktop) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            @foreach($featuredProducts as $product)
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'FEATURED', 'badgeClass' => 'bg-[#1b84ff] text-white'])
+            @endforeach
+        </div>
+    </section>
+    @endif
+
+    <!-- =========================================================================
+         10. TOP RATED / CUSTOMER FAVORITES
+         ========================================================================= -->
+    @if($topRatedProducts->isNotEmpty())
+    <section class="space-y-4" data-purpose="top-rated-products">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-sm font-bold border border-purple-200">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                        <span>Top Rated Products</span>
+                        <span class="text-[11px] font-semibold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">★ 4.8+</span>
+                    </h2>
+                    <p class="text-xs text-gray-500">গ্রাহকদের সর্বোচ্চ রেটিং ও রিভিউ প্রাপ্ত সেরা কালেকশন!</p>
+                </div>
+            </div>
+            <a href="{{ route('shop.index') }}" class="text-xs font-bold text-starOrange hover:text-starOrangeHover transition flex items-center gap-1.5 self-start sm:self-auto group">
+                <span>See All Reviews</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+
+        <!-- Top Rated Product Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            @foreach($topRatedProducts as $product)
+                @include('partials.product-card', ['product' => $product, 'badgeText' => 'TOP RATED', 'badgeClass' => 'bg-purple-600 text-white'])
+            @endforeach
+        </div>
+    </section>
+    @endif
 
     <!-- =========================================================================
          7. BRAND NARRATIVE AND SEO ARTICLE
