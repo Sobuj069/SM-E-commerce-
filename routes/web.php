@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
-use App\Http\Controllers\Admin\AdminController;
+use App\Models\Order;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // Home & Catalog
@@ -14,15 +17,28 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/product/{product}/review', [ProductController::class, 'storeReview'])->name('review.store');
 Route::post('/product/{product}/reviews', [ProductController::class, 'storeReview'])->name('product.review');
-Route::post('/newsletter/subscribe', function(\Illuminate\Http\Request $request) {
+Route::post('/newsletter/subscribe', function (Request $request) {
     $request->validate(['email' => 'required|email']);
+
     return back()->with('success', 'Thanks for subscribing! Use code SM20 at checkout for 20% off.');
 })->name('newsletter.subscribe');
 
+// cPanel / Live Server Migration Runner
+Route::get('/run-migrate', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $output = Artisan::output();
+
+        return response("<h3>Database Migration Executed Successfully!</h3><pre style='background:#f4f4f4;padding:15px;border-radius:5px;'>{$output}</pre><br><a href='/' style='display:inline-block;padding:10px 20px;background:#ef4a23;color:#fff;text-decoration:none;border-radius:5px;'>Return to Homepage</a>", 200);
+    } catch (Throwable $e) {
+        return response("<h3>Migration Failed:</h3><pre style='color:red;'>{$e->getMessage()}</pre>", 500);
+    }
+})->name('run.migrate');
+
 // Live Chatbot Order Tracking API
-Route::post('/api/track-order', function(\Illuminate\Http\Request $request) {
+Route::post('/api/track-order', function (Request $request) {
     $orderNumber = trim($request->input('order_number'));
-    $order = \App\Models\Order::where('order_number', $orderNumber)->first();
+    $order = Order::where('order_number', $orderNumber)->first();
     if ($order) {
         return response()->json([
             'found' => true,
@@ -30,10 +46,11 @@ Route::post('/api/track-order', function(\Illuminate\Http\Request $request) {
             'status' => ucfirst($order->order_status),
             'courier' => $order->courier_name ? ucfirst($order->courier_name) : 'Pending Dispatch',
             'consignment' => $order->consignment_id ?? 'Will be generated shortly',
-            'amount' => '$' . number_format($order->total_amount, 2),
+            'amount' => '$'.number_format($order->total_amount, 2),
             'date' => $order->created_at->format('M d, Y'),
         ]);
     }
+
     return response()->json(['found' => false]);
 })->name('api.track.order');
 
@@ -63,7 +80,7 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 // Admin Control Panel (Protected by Auth Middleware)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-    
+
     // Categories
     Route::get('/categories', [AdminController::class, 'categories'])->name('categories.index');
     Route::post('/categories', [AdminController::class, 'storeCategory'])->name('categories.store');

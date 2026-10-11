@@ -18,6 +18,7 @@ use App\Services\CourierService;
 use App\Services\FraudService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -270,9 +271,21 @@ class AdminController extends Controller
 
         $data['slug'] = Str::slug($data['name']).'-'.Str::random(5);
         $data['is_featured'] = $request->has('is_featured');
-        $data['is_new_arrival'] = $request->has('is_new_arrival');
-        $data['is_trending'] = $request->has('is_trending');
-        $data['is_best_deal'] = $request->has('is_best_deal');
+        if (Schema::hasColumn('products', 'is_new_arrival')) {
+            $data['is_new_arrival'] = $request->has('is_new_arrival');
+        } else {
+            unset($data['is_new_arrival']);
+        }
+        if (Schema::hasColumn('products', 'is_trending')) {
+            $data['is_trending'] = $request->has('is_trending');
+        } else {
+            unset($data['is_trending']);
+        }
+        if (Schema::hasColumn('products', 'is_best_deal')) {
+            $data['is_best_deal'] = $request->has('is_best_deal');
+        } else {
+            unset($data['is_best_deal']);
+        }
         $data['is_active'] = true;
 
         unset($data['image_file'], $data['gallery_files'], $data['gallery_urls']);
@@ -364,9 +377,21 @@ class AdminController extends Controller
         $data['gallery_images'] = array_values(array_filter($galleryImages));
 
         $data['is_featured'] = $request->has('is_featured');
-        $data['is_new_arrival'] = $request->has('is_new_arrival');
-        $data['is_trending'] = $request->has('is_trending');
-        $data['is_best_deal'] = $request->has('is_best_deal');
+        if (Schema::hasColumn('products', 'is_new_arrival')) {
+            $data['is_new_arrival'] = $request->has('is_new_arrival');
+        } else {
+            unset($data['is_new_arrival']);
+        }
+        if (Schema::hasColumn('products', 'is_trending')) {
+            $data['is_trending'] = $request->has('is_trending');
+        } else {
+            unset($data['is_trending']);
+        }
+        if (Schema::hasColumn('products', 'is_best_deal')) {
+            $data['is_best_deal'] = $request->has('is_best_deal');
+        } else {
+            unset($data['is_best_deal']);
+        }
         $data['is_active'] = $request->has('is_active');
 
         unset($data['image_file'], $data['gallery_files'], $data['gallery_urls'], $data['existing_gallery']);

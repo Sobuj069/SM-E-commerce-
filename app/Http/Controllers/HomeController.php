@@ -6,11 +6,26 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        // Auto-run pending migration if section columns are not yet present in database
+        if (! Schema::hasColumn('products', 'is_new_arrival')) {
+            try {
+                Artisan::call('migrate', ['--force' => true]);
+            } catch (\Throwable $e) {
+                // Silently ignore if permissions do not allow
+            }
+        }
+
+        $hasNewArrival = Schema::hasColumn('products', 'is_new_arrival');
+        $hasTrending = Schema::hasColumn('products', 'is_trending');
+        $hasBestDeal = Schema::hasColumn('products', 'is_best_deal');
+
         $categories = Category::where('is_active', true)->withCount('products')->get();
 
         // 1. Featured Products
@@ -24,23 +39,36 @@ class HomeController extends Controller
         }
 
         // 2. New Arrivals (Dedicated New Arrival Section)
-        $newArrivals = Product::active()
-            ->where('is_new_arrival', true)
-            ->with(['category', 'variants'])
-            ->latest()
-            ->take(15)
-            ->get();
-        if ($newArrivals->isEmpty()) {
+        if ($hasNewArrival) {
+            $newArrivals = Product::active()
+                ->where('is_new_arrival', true)
+                ->with(['category', 'variants'])
+                ->latest()
+                ->take(15)
+                ->get();
+            if ($newArrivals->isEmpty()) {
+                $newArrivals = Product::active()->latest()->with(['category', 'variants'])->take(10)->get();
+            }
+        } else {
             $newArrivals = Product::active()->latest()->with(['category', 'variants'])->take(10)->get();
         }
 
         // 3. Trending Products (Dedicated Trending Section)
-        $trendingProducts = Product::active()
-            ->where('is_trending', true)
-            ->with(['category', 'variants'])
-            ->take(15)
-            ->get();
-        if ($trendingProducts->isEmpty()) {
+        if ($hasTrending) {
+            $trendingProducts = Product::active()
+                ->where('is_trending', true)
+                ->with(['category', 'variants'])
+                ->take(15)
+                ->get();
+            if ($trendingProducts->isEmpty()) {
+                $trendingProducts = Product::active()
+                    ->orderByDesc('rating')
+                    ->orderByDesc('reviews_count')
+                    ->with(['category', 'variants'])
+                    ->take(10)
+                    ->get();
+            }
+        } else {
             $trendingProducts = Product::active()
                 ->orderByDesc('rating')
                 ->orderByDesc('reviews_count')
@@ -50,12 +78,20 @@ class HomeController extends Controller
         }
 
         // 4. Best Deals / Flash Sale (Dedicated Best Deals Section)
-        $bestDeals = Product::active()
-            ->where('is_best_deal', true)
-            ->with(['category', 'variants'])
-            ->take(15)
-            ->get();
-        if ($bestDeals->isEmpty()) {
+        if ($hasBestDeal) {
+            $bestDeals = Product::active()
+                ->where('is_best_deal', true)
+                ->with(['category', 'variants'])
+                ->take(15)
+                ->get();
+            if ($bestDeals->isEmpty()) {
+                $bestDeals = Product::active()
+                    ->whereNotNull('sale_price')
+                    ->with(['category', 'variants'])
+                    ->take(10)
+                    ->get();
+            }
+        } else {
             $bestDeals = Product::active()
                 ->whereNotNull('sale_price')
                 ->with(['category', 'variants'])
